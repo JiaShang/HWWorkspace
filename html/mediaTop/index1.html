@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style type="text/css">
+        .bg,.blocked {position:absolute;overflow: hidden;}
+        .top {width:1280px;height:140px;left:0px;top:0px;background:transparent url('images/top.jpg') no-repeat 0px 0px;}
+        .left {width:503px;height:512px;left:0px;top:139px;background:transparent url('images/left.jpg') no-repeat 0px 0px;}
+        .right {width:43px;height:512px;left:1237px;top:139px;background:transparent url('images/right.jpg') no-repeat 0px 0px;}
+        .bottom {width:1280px;height:170px;left:0px;top:550px;background:transparent url('images/bottom.jpg') no-repeat 0px 0px;}
+
+        .blocked1 {width:100px;height:630px;left:20px;top:72px;}
+        .blocked2 {width:344px;height:630px;left:131px;top:72px;}
+        .blocked3 {width:780px;height:122px;left:500px;top:570px;}
+
+        .blocked1 .item {width:100px;height:70px;float:left;overflow: hidden;position:relative;}
+        .blocked1 .item .container {width:100px;height:66px;left:0px;top:0px;position:absolute;}
+        .blocked1 .item  .container .content {width:80px;height:66px;left:10px;top:0px;color:white; font-size:22px;line-height:66px;text-align: center;position:absolute;}
+
+        .blocked2 .item {width:344px;height:70px;float:left;overflow: hidden;position:relative;}
+        .blocked2 .item .container {width:344px;height:66px;left:0px;top:0px;position:absolute;}
+        .blocked2 .item .container .content {width:314px;height:66px;left:15px;top:0px;color:white; font-size:22px;line-height:66px;text-align: left;position:absolute;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+
+        .blocked3 .item {width:379px;height:122px;float:left;overflow: hidden;position:relative;}
+        .blocked3 .item .container {width:361px;height:122px;left:0px;top:0px;position:absolute;}
+        .blocked3 .item .container .image {width:355px;height:116px;left:3px;top:3px;overflow: hidden;position:absolute;}
+        .blocked3 .item .container .image img {width:355px;height:116px;}
+
+        .title {width:746px;height:60px;position:absolute;left:500px;top:72px;color:white;font-size:24px;line-height: 66px;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+
+        .container {background-color:transparent;}
+        .active {background-color:#00a0e9;}
+        .hover {background-color:#304183}
+    </style>
+    <script typeof="javascript" type="text/javascript">
+        (function(win){
+            win.isP60 = typeof sysmisc != 'undefined';
+            win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+            win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+            win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+            win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+            win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://192.168.65.93:8082" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+
+            var mediaType = 'NULL';
+            if( win.isP30 ) mediaType = 'P30';
+            else if( win.HD30 ) mediaType = 'HD30';
+            else if( win.isGW ) mediaType = 'GW';
+            else if( win.isP60 ) mediaType = 'P60';
+            var fileJS = win.EPGUrl + "/neirong/player/common.js?mediaType=" + mediaType;
+
+            var __loadJS = function () {};
+            win.appendJS = function(path){
+                var script = document.createElement('script');
+                script.src = path;
+                script.type = 'text/javascript';
+                document.getElementsByTagName('head')[0].appendChild(script);
+            };
+            win.exit = function(){};
+            var tooltipShow = function(message) {
+                message = message || decodeURIComponent('%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92');
+                if( win.isP60 ) sysmisc.showToast(message);
+                else if( win.isGW ) iPanel.debug(message);
+                else alert(message);
+            };
+            var __evalJS = function(strJS){
+                try {
+                    if(/^\s*\<html\>/g.test(strJS) ) { tooltipShow(); return ; }
+                    eval( strJS );
+                } catch (e) { tooltipShow( e ); }
+            };
+            if( ! win.isP60 ) {
+                __loadJS = function(){
+                    if( win.isGW ) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function () {
+                            var state = xhr.readyState, status = xhr.status;
+                            if (state === 4 && ( status == 200 || status == 204 )) __evalJS( xhr.responseText );
+                        };
+                        xhr.open('POST', fileJS, true);
+                        xhr.send(null);
+                    } else { appendJS(fileJS); }
+                };
+            } else {
+                win.AndroidHtml5 = {
+                    idCounter: 0,
+                    OUTPUT_RESULTS: {},
+                    CALLBACK_SUCCESS: {},
+                    CALLBACK_FAIL: {},
+                    callNative: function (cmd, type,args, success, fail) {
+                        var key = "ID_" + (++this.idCounter);
+                        AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                        AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                        sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                        return this.OUTPUT_RESULTS[key];
+                    },
+                    callBackJs: function (result, type,key) {
+                        if(type == "json"){
+                            this.OUTPUT_RESULTS[key] = result;
+                            var status = result.status;
+                            if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                                AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                            } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                                setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                            }
+                        }
+                    },
+                };
+                __loadJS = function () {
+                    var cookie = '[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid', '') + '"}]';
+                    var o = { "url": fileJS, "method": "post", "mediatype": "text/xml", "body": null, "header": cookie };
+                    AndroidHtml5.callNative({ "service": "request","action": '' }, 'json',o, __evalJS ,function(e){});
+                };
+            }
+            var initialize = {
+                init : function(){
+                    debug('COMMONJS Loaded......');
+                    var currFoucs = link.query('currFoucs');
+                    var focused = [];
+                    if( currFoucs != '' ) focused = currFoucs.split(',');
+                    var dataUrl = win.EPGUrl + '/neirong/player/detail.jsp?id=10000100000000090000000000109435,10000100000000090000000000105714,10000100000000090000000000112420,10000100000000090000000000112421,10000100000000090000000000112422,10000100000000090000000000112423,10000100000000090000000000112424,10000100000000090000000000112425,10000100000000090000000000112426,10000100000000090000000000110560&act=0&cn=9&spec=1&enc=1&rmChs=' + encodeURIComponent("（）()");
+                    cursor.blocked = 0;
+                    cursor.moveTimer = undefined;
+                    cursor.played = '';
+                    ajax(dataUrl, function(rst) {
+                        if( rst.success == true ) {
+                            debug('DATA Loaded......');
+                            var list = rst.data.list || rst.data;
+                            for( var i = 0; i < list.length; i ++){
+                                var o = list[i];
+                                cursor.focusable[i] = {};
+                                cursor.focusable[i].focus = focused.length > i + 1 ? Number( focused[ i + 1] ) : 0;
+                                cursor.focusable[i].typeId = o["id"];
+                                cursor.focusable[i].items = o["data"];
+                            }
+                            // 国内  10000100000000090000000000112420
+                            // 国际  10000100000000090000000000112421
+                            // 社会  10000100000000090000000000112422
+                            // 财经  10000100000000090000000000112423
+                            // 军事  10000100000000090000000000112424
+                            // 文娱  10000100000000090000000000112425
+                            // 体育  10000100000000090000000000112426
+                            var links = [
+                                {name:'热点'},
+                                {name:'本地'},
+                                {name:'国内'},
+                                {name:'国际'},
+                                {name:'社会'},
+                                {name:'财经'},
+                                {name:'军事'},
+                                {name:'文娱'},
+                                {name:'体育'}
+                            ];
+                            if( cursor.focusable.length == 0 ) cursor.focusable[0] = {focus:0,items:[] };
+                            else cursor.focusable[0].items = [];
+
+                            cursor.focusable[0].items.pushAll(links);
+
+                            if( cursor.focusable[0].items.length > links.length ){
+                                cursor.focusable[0].items[0].name = '';
+                                cursor.focusable[0].items[1].name = '';
+                            }
+                            cursor.blocked = focused.length > 0 ? Number( focused[0] ) : 1;
+                            cursor.call('show', { initUI : true});
+                            cursor.call('lazyShow');
+                        } else {
+                            tooltipShow(decodeURIComponent('%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2%E6%95%B0%E6%8D%AE%E6%97%B6%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%8C%E8%AF%B7%E7%A8%8D%E5%80%99%E5%86%8D%E8%AF%95'));
+                        }
+                    });
+                },
+                prepareMedia : function(next){
+                    var blocked = cursor.focusable[0].focus + 1;
+                    var focus = cursor.focusable[blocked].focus;
+                    if( next ) {
+                        focus += 1;
+                        if( focus >= cursor.focusable[blocked].items.length ) focus = 0;
+                        cursor.focusable[blocked].focus = focus;
+                    }
+                    var item = cursor.focusable[blocked].items[focus];
+                    $('title').innerHTML = item.name;
+                    player.exit();
+                    player.play( {
+                        position:{left:503,top:140,width:736,height:412},
+                        vodId: item.id
+                    });
+                    cursor.call('show',{blocked: blocked });
+                },
+                nextVideo : function ( ){
+                    if( !cursor.moveTimer ) cursor.call('prepareMedia', true);
+                },
+                select : function(){
+                    var blocked = cursor.blocked;
+                    var focus = cursor.focusable[blocked].focus;
+                    if( blocked == 0 && focus <= 1 ) return;
+                    cursor.call('selectAct');
+                },
+                move: function(index){
+                    var blocked = cursor.blocked;
+                    var previous = blocked;
+                    var focus = cursor.focusable[blocked].focus;
+                    var items = cursor.focusable[blocked].items;
+
+                    if( index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length ||
+                        blocked == 0 && index == -1 || blocked == cursor.focusable.length - 1 && (index == 11 || index == -11 || index == 1 && ( focus + 1 >= 2 || focus + 1 >= items.length ))
+                    ) return;
+                    if( index == 11 || index == -11) {
+                        focus += index > 0 ? -1 : 1;
+                    } else if( index == -1 ) {
+                        if( blocked == cursor.focusable.length - 1 ) {
+                            if( focus == 1 ) focus = 0;
+                            else {
+                                blocked = cursor.focusable[0].focus + 1;
+                                focus = cursor.focusable[blocked].focus;
+                            }
+                        } else {
+                            blocked = 0; focus = cursor.focusable[blocked].focus;
+                        }
+                    } else {
+                        if( blocked == 0 ) {
+                            blocked = cursor.focusable[0].focus + 1;
+                            focus = cursor.focusable[blocked].focus;
+                        } else if( blocked == cursor.focusable.length - 1 && focus == 0 ) {
+                            focus = 1;
+                        } else {
+                            blocked = cursor.focusable.length - 1;focus = cursor.focusable[blocked].focus;
+                        }
+                    }
+                    cursor.focusable[blocked].focus = focus;
+                    cursor.blocked = blocked;
+                    cursor.call('clearMoveTimer');
+                    cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                    if( previous != blocked ) cursor.call('show', {blocked: previous});
+                    cursor.call('show');
+                },
+                clearMoveTimer : function(){
+                    if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                    cursor.moveTimer = undefined;
+                },
+                lazyShow : function(){
+                    var blocked = cursor.focusable[0].focus + 1;
+                    var focus = cursor.focusable[blocked].focus;
+                    var text = cursor.focusable[blocked].items[focus].name;
+                    var id = String(blocked + 1) + String( focus + 1 );
+                    if( cursor.played == '' || cursor.played != id ) {
+                        cursor.call('prepareMedia');
+                        cursor.calcStringPixels(text, 22, function(width){
+                            if( width <= 344 || cursor.blocked != blocked ) return;
+                            $('item' + id).innerHTML = '<marquee class="marqueeItem" scrollamount="10">' + text + '</marquee>';
+                        });
+                        cursor.played = id;
+                    }
+                },
+                showBlock : function( o ) {
+                    o = o || {};
+                    var blocked = o.blocked;
+                    var pageCount = o.pageCount;
+                    var focus = 0, items = null, html = '',cursorIndex = 0, length = 0;
+                    focus = cursor.focusable[blocked].focus;
+                    items = cursor.focusable[blocked].items;
+                    html = '';
+                    cursorIndex = Math.floor(focus / pageCount) * pageCount;
+                    length = items.length - cursorIndex >= pageCount ? pageCount : items.length - cursorIndex;
+                    for(var i = cursorIndex; i < cursorIndex + length; i += 1) {
+                        var item = items[i];
+                        var clazz = i == focus && blocked == cursor.blocked ? ' active' : blocked == cursor.focusable.length - 1 || i == focus ? ' hover' : '';
+                        html += '<div class="item"><div class="container' + clazz + '">';
+                        html += blocked != cursor.focusable.length - 1 ? ( '<div class="content" id="item' + String(blocked + 1) + String( i + 1 ) + '">' + item.name + "</div>" ) : ( '<div class="image"><img src="' + cursor.pictureUrl(item.posters,4,EPGUrl + '/neirong/images/defaultImg.png') + '"/></div>' );
+                        html += '</div></div>';
+                    }
+                    $( o.id ).innerHTML = html;
+                },
+                show : function( o ){
+                    o = o || {};
+                    var initUI = o.initUI || false;
+                    var blocked = typeof o.blocked != 'undefined' ? o.blocked : cursor.blocked;
+                    if( initUI || blocked == 0 ) cursor.call("showBlock", {id : 'blocked1',blocked: 0, pageCount: 9});
+                    cursor.call("showBlock", {id : 'blocked2',blocked: cursor.focusable[0].focus + 1, pageCount: 9});
+                    if( initUI || blocked == cursor.focusable.length - 1 ) cursor.call("showBlock", {id : 'blocked3',blocked: cursor.focusable.length - 1, pageCount: 2});
+                }
+            };
+            __loadJS();
+            var lazied = function(){
+                if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+                cursor.initialize(initialize);
+            };
+            lazied();
+        })(window);
+    </script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent none no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-50px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div class="bg top"></div><div class="bg left"></div><div class="bg right"></div><div class="bg bottom"></div>
+<div id="blocked1" class="blocked blocked1"></div>
+<div id="blocked2" class="blocked blocked2"></div>
+<div id="blocked3" class="blocked blocked3"></div>
+<div id="title" class="title"></div>
+</body>
+</html>
+
