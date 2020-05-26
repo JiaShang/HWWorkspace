@@ -1,0 +1,151 @@
+
+<html>
+<head>
+    <title>></title>
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .listName{
+            width: 300px;
+            height: 60px;
+            top: 210px;
+            color: #ffffff;
+            font-size:24px;
+            background-color: transparent;
+            overflow: hidden;
+            text-align: center;
+            line-height: 60px;
+        }
+        .list{
+            position: absolute;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../player/common.js"></script>
+    <script language="javascript" type="application/javascript" src="js/showList.js"></script>
+    <script language="javascript" type="text/javascript">
+    <!--
+    var listBox = null;
+    var listData = [];
+    var posters = [];
+    var bgImgs = [];
+    cursor.initialize({
+        data: [],
+        focused: [],
+        init: function (){
+            //posters = column.posters['4'];
+            //bgImgs = column.posters['7'];
+            //cursor.call('initList');
+            setTimeout(function(){ initList();},150);
+        },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        if(cursor.enlarged ==1) return;
+        switch (index) {
+            case 11:    //上
+                if( listBox.position > 2){
+                    listBox.changeList(-3);
+                }
+                break;
+            case -11:   //下
+                if( listBox.position < listBox.dataSize-3){
+                    listBox.changeList(3);
+                }else{
+                    listBox.changeList(listBox.dataSize-listBox.position-1)
+                }
+                break;
+            case -1:    //左
+                if( listBox.focusPos != 0 || listBox.focusPos != 3){
+                    listBox.changeList(-1);
+                }
+                break;
+            case 1:     //右
+                if( listBox.focusPos != 2 || listBox.focusPos != 5){
+                    listBox.changeList(1);
+                }
+                break;
+        }
+       // cursor.focusable[0].focus = listBox.position;
+        cursor.call('show');
+        },
+        show : function(){
+            if(cursor.enlarged ==1){
+                $("enlargedPic").style.backgroundImage = "url("+bgImgs[listBox.position]+")";
+                $("enlargedPic").style.visibility = "visible";
+                $("listImg"+listBox.focusPos).style.border = "1px solid transparent";
+            }else {
+                $("enlargedPic").style.visibility = "hidden";
+                $("listImg"+listBox.focusPos).style.border = "1px solid #ffffff";
+            }
+            //$("focus").style.left = String(blocked)+"px";
+            //$("focus").style.top = String(blocked)+"px";
+
+        },
+        select : function(){
+            if( cursor.enlarged ==1 ) {
+                cursor.enlarged = 0;
+            }else{
+                cursor.enlarged = 1;
+            }
+            cursor.call('show');
+        },
+        goBack : function(){
+            if( cursor.enlarged ==1 ) {
+                cursor.enlarged = 0;
+                cursor.call('show');
+            }else{
+                cursor.call('goBackAct');
+            }
+        }
+    });
+	function initList(){
+			listBox = new showList(6,bgImgs.length,0,127,window);
+			listBox.showType =0 ;
+			
+			listBox.haveData = function(List){
+				var picUrl = bgImgs[List.dataPos];
+				$("listImg"+List.idPos).src = picUrl;
+			}
+			listBox.notData = function(List){
+				//$("listName"+List.idPos).innerText= "";
+				$("listImg"+List.idPos).src = "images/global_tm.gif";
+			};
+			listBox.startShow();
+			alert("$('listImg0').src==="+$("listImg0").src);
+		}
+    -->
+    </script>
+</head>
+<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent url(images/J20191210bg.png) no-repeat;" onUnload="exit();">
+<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('images/J20191210focus0.png') no-repeat; visibility:hidden;" ></div>
+<div id="enlargedPic" style="position: absolute;left: 200px; top: 150px;width: 700px;height: 400px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index:1;"></div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 130px;">
+    <div id="list0" class="list" style="left: 50px; top: 0px;">
+        <img id="listImg0" class="listImg" src="images/J20191114Button.png" width="300px" height="200px"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 400px; top: 0px;">
+        <img id="listImg1" class="listImg" width="300px" height="200px"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 750px; top: 0px;">
+        <img id="listImg2" class="listImg" width="300px" height="200px"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 50px; top: 300px;">
+        <img id="listImg3" class="listImg" width="300px" height="200px"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 400px; top: 300px;">
+        <img id="listImg4" class="listImg" width="300px" height="200px"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 750px; top: 300px;">
+        <img id="listImg5" class="listImg" width="300px" height="200px"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "versions":1,
+  "comment":"播放器版本，在检测播放器版本时，如果没有传递版本参数，默认使用最后一个版本，当有变异播放器时，不能添加到最后",
+  "data":[{
+    "version":"edu-v1",
+    "playUrl":"../edu/v2/player.jsp",
+    "addTime":"2018-01-10",
+    "comment":"党教播放器，实现连续播放，按栏目播放,连续剧选择等功能"
+  },{
+    "version":"CMS-CQ-v1",
+    "playUrl":"CqCmsPlayer.jsp",
+    "addTime":"2018-01-20",
+    "comment":"全域重庆连续播放器，实现连续播放，支持按栏目播放接口,支持皮肤功能"
+  }]
+}

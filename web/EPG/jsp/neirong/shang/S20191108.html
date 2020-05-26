@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="page-view-size" content="1280*720">
+<title>双11购物狂欢节</title>
+<!--<link rel="stylesheet" type="text/css" href="css/list.css" /> 
+--><style>
+#lists{
+	left: 16px;
+	top: 415px;
+	width: 1115px;
+	height: 314px;
+	position: absolute;
+	overflow: hidden;
+	visibility: hidden;
+	}
+.listImg{
+	top: 0px;  
+	width: 178px;
+	height: 232px;
+	position: absolute;
+	overflow: hidden;
+	background-repeat:no-repeat;
+	border-style:hidden;  /* //none  solid   outset   hidden*/
+	border-width:8px;
+	border-color:#ffffff;
+}
+.listName{
+	top: 245px;
+	width: 180px;
+	height: 40px;
+	position: absolute;
+	
+    color: #ffffff;
+	font-size:28px;
+	background-color:;
+	overflow: hidden;
+	
+	text-align: center;
+    line-height: 40px;
+}
+.focus{
+	background-color:#FFFF00;
+}
+
+</style>
+<script type="application/javascript" src="js/json.js"></script>
+<script type="application/javascript" src="js/showList.js"></script>
+<script type="application/javascript" src="js/variable.js"></script>
+<script type="application/javascript" src="js/ajax.js"></script>
+<script type="application/javascript" src="js/key.js"></script>
+<script type="application/javascript" src="js/action.js"></script>
+<script type="application/javascript" src="js/tool.js"></script>
+<script type="application/javascript" src="js/play.js"></script>
+<script type="application/javascript" src="p60js/bridge.js"></script>
+<script type="application/javascript" src="p60js/getUrl.js"></script>
+<script>
+
+
+var columnData = null;
+var listData = [];
+var listBox = null;
+var maxTitleLen = 8;
+
+
+
+var row = 3;
+var line = 2;
+var listSize = row*line;
+var DataStartPos = 0;
+var focusPos = 0;
+
+var videoID="7032088";
+var columnId="10000100000000090000000000113186";
+var bgImg="images/S20191030Listbg0.jpg";
+
+//var defaultListImg="imgaes/default_pic.png";   //无图事默认图片
+//var focusColor="#ffde00";      //焦点框颜色
+//var getImgColor="#ffde00";
+//var loseImgColor="#ffffff";
+
+var borderWidth="6px";
+var getBorderStyle="solid";   ////none  solid   outset   hidden*/
+var loseBorderStyle="solid";
+var getBorderColor="#ffde00";   //明黄：#ffde00
+var loseBorderColor="transparent";  //transparent #ffffff
+var getFontColor="#ffde00";
+var loseFontColor="#ffffff";
+
+var SERVER_URL = "http://192.168.14.102:8082/EPG/jsp/neirong/player/detail.jsp?id=10000100000000090000000000113186&act=1";
+var pre_currentURL = "http://192.168.14.102:8082/EPG/jsp/neirong/shang/";
+var currentPage = "";
+var act = 1;
+
+var mediaPlayer = 0;  //播放器id
+var playUrl = "";    //p60播放地址
+var backUrl = "";     //返回地址
+var flag=0;
+
+function eventHandler(eventObj, type){
+	var keycode = eventObj.code;    
+	switch (keycode) {
+		case "KEY_LEFT":
+			lrMove(-1);
+			break;
+		case "KEY_RIGHT":
+			lrMove(1);
+			break;
+		case "KEY_SELECT":
+			doSelect();
+			break;
+		case "KEY_BACK":
+			doBack();
+			break;
+		case "KEY_MENU":
+			doMenu();
+			return 0;
+			break;
+	}
+	return eventObj.args.type;
+}
+function init(){
+	getParam();
+	getListData(listSize,DataStartPos);         //获取列表数据
+}
+function getParam(){
+	var url = window.location.href;
+	if(url.indexOf("id")!= -1){ 
+		columnId = getUrlParams("id",url);
+	}
+	if(url.indexOf("focusArea")!= -1){
+		focusArea = parseInt(getUrlParams("focusArea",url),10);
+	}	
+	if(url.indexOf("focusPos")!= -1){
+		focusPos = parseInt(getUrlParams("focusPos",url),10);
+	}
+	if(url.indexOf("dataPos")!= -1){
+		dataPos = parseInt(getUrlParams("dataPos",url),10);
+	}if(url.indexOf("backURL")!= -1){
+		backUrl = getUrlParams("backURL",url);
+		backUrl = decodeURIComponent(backUrl);
+	}
+}
+
+function getListData(listSize,DataStartPos){
+	var url = SERVER_URL;
+	var requestAjaxObj = new AJAX_OBJ(url,function(__ajaxObj){
+		var requestStr = __ajaxObj.responseText;
+		iDebug("getListData requestStr="+requestStr);
+		if(requestStr != ""){
+			eval("var tmpObj = "+requestStr);
+			if(tmpObj.success == true){
+				iDebug("getListData tmpObj.data.length="+tmpObj.data.list.length);
+				columnData = tmpObj.data.column;
+				listData = tmpObj.data.list;
+				$("bg").style.background="url("+columnData.posters['7'][0]+")";
+			}else {
+				//alert("请求数据失败");
+			}
+		}
+	},
+	function(__errorCode){
+		iDebug("getListData __errorCode="+__errorCode);
+	},
+	20000);	
+	requestAjaxObj.requestData("get");
+}
+
+//左右移动焦点  
+function lrMove(__num){
+	if(__num>0){ //list右移
+		if(focusPos!=listSize-1){
+			focusPos++;
+		}
+	}else{  //list左移
+		if(focusPos!=0){
+			focusPos--;
+		}
+	}
+	getListFocus();
+}
+
+//得到焦点
+function getListFocus(){
+	$("focusFrame").style.left = 1+210*focusPos+"px";
+}
+
+function doSelect(){
+	if(flag==0){
+		$("bg").style.background="url("+listData[focusPos].posters['7'][0]+")";
+		$("focusFrame").style.visibility = "hidden";
+		flag=1;
+	}
+	return;
+}
+
+function doBack(){
+	if(flag==1){
+		$("bg").style.background="url("+columnData.posters['7'][0]+")";
+		$("focusFrame").style.visibility = "visible";
+		flag=0;
+	}else{
+		if (isEPGflag||typeof backUrl=='undefined'||backUrl==""||backUrl.indexOf('Category.jsp')!= -1) {
+			doMenu();
+			return;
+		}
+		window.location.href=backUrl;
+	}
+}
+
+</script>
+</head>
+<body id="bg" style="overflow: hidden; background: transparent no-repeat;" leftmargin="0" topmargin="0" onLoad="init();">
+<div id="lists">
+ 	<div id="list0" class="list">
+    	<img id="listImg0" class="listImg" src= ""/>
+        <div id="listName0" class="listName"></div>
+    </div>
+	<div id="list1" class="list">
+    	<img id="listImg1" class="listImg" src= ""/>
+        <div id="listName1" class="listName"></div>
+    </div>
+	<div id="list2" class="list">
+        <img id="listImg2" class="listImg" src= ""/>
+        <div id="listName2" class="listName"></div>
+    </div>
+	<div id="list3" class="list">
+        <img id="listImg3" class="listImg" src= ""/>
+        <div id="listName3" class="listName"></div>
+    </div>
+	<div id="list4" class="list">
+        <img id="listImg4" class="listImg" src= ""/>
+        <div id="listName4" class="listName"></div>
+    </div>
+	<div id="list5" class="list">
+        <img id="listImg5" class="listImg" src= ""/>
+        <div id="listName5" class="listName"></div>
+    </div>
+	<div id="list6" class="list">
+        <img id="listImg6" class="listImg" src= ""/>
+        <div id="listName6" class="listName"></div>
+    </div>
+	<div id="list7" class="list">
+        <img id="listImg7" class="listImg" src= ""/>
+        <div id="listName7" class="listName"></div>
+    </div>
+	<div id="list8" class="list">
+        <img id="listImg8" class="listImg" src= ""/>
+        <div id="listName8" class="listName"></div>
+    </div>
+	<div id="list9" class="list">
+        <img id="listImg9" class="listImg" src= ""/>
+        <div id="listName9" class="listName"></div>
+    </div>
+</div>
+	
+
+
+<div id="focusFrame" style="position: absolute; left: 1px; top: 405px; width: 227px; height: 303px; background: url(images/S20191108focus.png) no-repeat;"></div>
+<!--播放--->
+<iframe id="data_ifm" width="0" height="0" style="display:none;"></iframe>
+
+</body>
+</html>

@@ -1,0 +1,725 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>
+.num{
+	position:absolute;
+	left:3px;
+	top:3px;
+	width:62px;
+	height:66px;
+	background:url(image/love214/biao01.png) no-repeat;
+	font-size:27px;
+	color:#fff; 
+	padding-left:5px;
+	visibility:hidden;
+}
+.cover{
+	position:absolute;
+	top:168px;
+	/*width:234px;*/
+	width:173px;
+	height:36px;
+	font-size:27px;
+	color:#fec995; 
+	background:#d94207; 
+	line-height:36px; 
+	padding-left:15px;
+	/*padding-right:81px;*/
+	/*text-align: center;*/
+	overflow: hidden;
+}
+</style>
+
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script>
+
+var focusArea = 0; //  0  签到列表  1活动规则 
+
+var listData = [
+	{"order":"349","num":"01","img":"image/love214/2017-927-gold-pic1_1.jpg","name":"黄淑良夫妇"},
+	{"order":"350","num":"02","img":"image/love214/2017-927-gold-pic1_2.jpg","name":"黄定德夫妇"},
+	{"order":"351","num":"03","img":"image/love214/2017-927-gold-pic1_3.jpg","name":"隆国琳夫妇"},
+	{"order":"352","num":"04","img":"image/love214/2017-927-gold-pic1_4.jpg","name":"牟元新夫妇"},
+	{"order":"353","num":"05","img":"image/love214/2017-927-gold-pic1_5.jpg","name":"刘敬文夫妇"},
+	{"order":"354","num":"06","img":"image/love214/2017-927-gold-pic1_6.jpg","name":"何玉如夫妇"},
+	{"order":"355","num":"07","img":"image/love214/2017-927-gold-pic1_7.jpg","name":"袁世中夫妇"},
+	{"order":"356","num":"08","img":"image/love214/2017-927-gold-pic1_8.jpg","name":"李淑英夫妇"},
+	{"order":"356","num":"09","img":"image/love214/2017-927-gold-pic2_1.jpg","name":"周云鹏夫妇"},
+	{"order":"349","num":"10","img":"image/love214/2017-927-gold-pic2_2.jpg","name":"朱德福夫妇"},
+	{"order":"350","num":"11","img":"image/love214/2017-927-gold-pic2_3.jpg","name":"王兰英夫妇"},
+	{"order":"351","num":"12","img":"image/love214/2017-927-gold-pic2_4.jpg","name":"漆福昌夫妇"},
+	{"order":"352","num":"13","img":"image/love214/2017-927-gold-pic2_5.jpg","name":"朱玉白夫妇"},
+	{"order":"353","num":"14","img":"image/love214/2017-927-gold-pic2_6.jpg","name":"何远珍夫妇"},
+	{"order":"354","num":"15","img":"image/love214/2017-927-gold-pic2_7.jpg","name":"鲜泽明夫妇"},
+	{"order":"355","num":"16","img":"image/love214/2017-927-gold-pic2_8.jpg","name":"曾凡贵夫妇"},
+	{"order":"356","num":"17","img":"image/love214/2017-927-gold-pic3_1.jpg","name":"华龙宝夫妇"},
+	{"order":"356","num":"18","img":"image/love214/2017-927-gold-pic3_2.jpg","name":"周金龙夫妇"},
+	{"order":"349","num":"19","img":"image/love214/2017-927-gold-pic3_3.jpg","name":"颜道义夫妇"},
+	{"order":"350","num":"20","img":"image/love214/2017-927-gold-pic3_4.jpg","name":"王德明夫妇"},
+	{"order":"351","num":"21","img":"image/love214/2017-927-gold-pic3_5.jpg","name":"朱文碧夫妇"},
+	{"order":"352","num":"22","img":"image/love214/2017-927-gold-pic3_6.jpg","name":"谢学易夫妇"},
+	{"order":"353","num":"23","img":"image/love214/2017-927-gold-pic3_7.jpg","name":"石崇模夫妇"},
+	{"order":"354","num":"24","img":"image/love214/2017-927-gold-pic3_8.jpg","name":"张宣藻夫妇"},
+	{"order":"355","num":"25","img":"image/love214/2017-927-gold-pic4_1.jpg","name":"曹绍荣夫妇"},
+	{"order":"356","num":"26","img":"image/love214/2017-927-gold-pic4_2.jpg","name":"杨世衡夫妇"},
+	{"order":"349","num":"27","img":"image/love214/2017-927-gold-pic4_3.jpg","name":"李光华夫妇"},
+	{"order":"350","num":"28","img":"image/love214/2017-927-gold-pic4_4.jpg","name":"皮新敏夫妇"},
+	{"order":"351","num":"29","img":"image/love214/2017-927-gold-pic4_5.jpg","name":"邱凤碧夫妇"},
+	{"order":"352","num":"30","img":"image/love214/2017-927-gold-pic4_6.jpg","name":"张方伟夫妇"},
+	{"order":"353","num":"31","img":"image/love214/2017-927-gold-pic4_7.jpg","name":"邓仕权夫妇"},
+	{"order":"354","num":"32","img":"image/love214/2017-927-gold-pic4_8.jpg","name":"程积权夫妇"},
+	{"order":"355","num":"33","img":"image/love214/2017-927-gold-pic5_1.jpg","name":"贺兴富夫妇"},
+	{"order":"356","num":"34","img":"image/love214/2017-927-gold-pic5_2.jpg","name":"杨其森夫妇"},
+	{"order":"356","num":"35","img":"image/love214/2017-927-gold-pic5_3.jpg","name":"向春祥夫妇"},
+	{"order":"349","num":"36","img":"image/love214/2017-927-gold-pic5_4.jpg","name":"方湘林夫妇"},
+	{"order":"350","num":"37","img":"image/love214/2017-927-gold-pic5_5.jpg","name":"刘兴信夫妇"},
+	{"order":"351","num":"38","img":"image/love214/2017-927-gold-pic5_6.jpg","name":"陈华伦夫妇"},
+	{"order":"352","num":"39","img":"image/love214/2017-927-gold-pic5_7.jpg","name":"邹贺龙夫妇"},
+	{"order":"353","num":"40","img":"image/love214/2017-927-gold-pic5_8.jpg","name":"隆德伦夫妇"},
+	{"order":"354","num":"41","img":"image/love214/2017-927-gold-pic6_1.jpg","name":"林长编夫妇"},
+	{"order":"355","num":"42","img":"image/love214/2017-927-gold-pic6_2.jpg","name":"蒋和平夫妇"},
+	{"order":"356","num":"43","img":"image/love214/2017-927-gold-pic6_3.jpg","name":"唐太荣夫妇"},
+	{"order":"350","num":"44","img":"image/love214/2017-927-gold-pic6_4.jpg","name":"管维良夫妇"},
+	{"order":"351","num":"45","img":"image/love214/2017-927-gold-pic6_5.jpg","name":"喻世华夫妇"},
+	{"order":"352","num":"46","img":"image/love214/2017-927-gold-pic6_6.jpg","name":"刘洪安夫妇"},
+	{"order":"353","num":"47","img":"image/love214/2017-927-gold-pic6_7.jpg","name":"李先华夫妇"},
+	{"order":"354","num":"48","img":"image/love214/2017-927-gold-pic6_8.jpg","name":"卢开智夫妇"},
+	{"order":"355","num":"49","img":"image/love214/2017-927-gold-pic7_1.jpg","name":"陈坤陵夫妇"},
+	{"order":"356","num":"50","img":"image/love214/2017-927-gold-pic7_2.jpg","name":"文宏武夫妇"}
+];
+
+var listBox = null;
+var listPos = 0;
+
+//var caid = 1234;
+var caid = CA.card.serialNumber;
+
+var isError = true;    //是否输入错误
+var isComplete = true;    //是否已经投票成功
+var inputNum = "";
+var tipBtnPos = 0;  //提示框 确定 取消 焦点框
+var showPhoneFlag = false;   //手机号码输入框是否弹出 false 为没有 true为显示
+var tipTextFlag = false;    //提示框 手机号码不正确的提示
+var startTime = "2017-10-01 00:00:00";
+var endTime = "2017-10-08 23:59:59";
+var footPos = 0;    //右下角焦点
+var buttonPic = [["image/love214/footbtn0_01.png","image/love214/footbtn1_01.png"],
+				 ["image/love214/footbtn0_02.png","image/love214/footbtn1_02.png"]
+				];
+
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+document.onsystemevent = grabEvent;
+
+function grabEvent(){
+	var key_code = event.which;
+	switch(key_code){
+		case 1: //up
+		case 38:
+		case 28:
+		case 269: 
+			if(!showPhoneFlag&&!tipTextFlag){
+				udMove(-1);						
+			} 
+			return false;		
+			break;
+		case 2: //down
+		case 40:
+		case 31:
+		case 270:
+			if(!showPhoneFlag&&!tipTextFlag){
+				udMove(1);						
+			} 
+			return false; 		
+			break;
+		case 3: //left
+		case 37:
+		case 29:
+		case 271:
+			if(showPhoneFlag){
+				changeTipBtn(-1);
+			}else{
+				if(!tipTextFlag){
+					lrMove(-1);
+				}					
+			}   	
+			return false;	
+			break;
+		case 4: //right
+		case 39:
+		case 30:
+		case 272:
+			if(showPhoneFlag){
+				changeTipBtn(1);
+			}else{
+				if(!tipTextFlag){
+					lrMove(1);
+				}					
+			}   
+			return false;	
+			break;
+		case 13:
+			doSelect();
+			return false;
+			break;
+		case 8:   //返回
+		case 45:
+		case 283:
+		case 340:
+			if(showPhoneFlag){ 
+				deleteNum();
+			}else{
+				if(!tipTextFlag){
+					doBack();
+				}					
+			}   
+			return false;
+			break;
+		case 27:   //菜单
+		case 339:
+			if(!tipTextFlag){
+				doMenu();	
+			}
+			return false;
+			break;
+		case 48: //数字键
+		case 49:
+		case 50:
+		case 51:
+		case 52:
+		case 53:
+		case 54:
+		case 55:
+		case 56:
+		case 57:
+			if(showPhoneFlag){
+			   insertNum(key_code-48);
+			}
+			return false;
+			break;
+								
+	}
+}		
+
+
+function init(){
+	showFightData();
+}
+
+
+//上下移动焦点的操作
+function udMove(_num){
+	changeListUD(_num);	
+}
+
+
+//左右移动焦点的操作
+function lrMove(_num){
+	changeListLR(_num);	
+}
+
+
+function showFightData(__pos){
+	
+	if(typeof(__pos) != "undefined")listPos = __pos;
+	//alert("listpos="+listPos);*/
+	listBox = new showList(8, listData.length, listPos, 69, window);
+	listBox.listHigh = 204;
+	listBox.showType  = 0;
+	listBox.haveData = function(List){
+		$("list"+ List.idPos).style.visibility = "visible";
+		$("pic"+ List.idPos).src = listData[List.dataPos].img;
+		$("name"+List.idPos).innerText = listData[List.dataPos].name;	
+		$("num"+List.idPos).innerText = listData[List.dataPos].num;	
+		getZanNumByName(List.idPos,List.dataPos);
+	};
+	listBox.notData = function(List){
+		$("list"+ List.idPos).style.visibility = "hidden";
+		$("pic"+List.idPos).src = "";
+		$("name"+List.idPos).innerText = "";
+		$("num"+List.idPos).innerText = "";	
+	};
+	listBox.startShow();	
+	getListFocus();
+	initScroll();
+}
+
+//获取投票数量的接口
+function getZanNumByName(__idPos,__dataPos){
+	var str = listData[__dataPos].name;
+	var wrapContent = encodeURIComponent(str);
+	//var url = "http://192.168.49.56:8989/VoteStatistics/getVoteInfo?classifyID=398&content="+wrapContent;
+	var url = "http://192.168.49.56:8989/VoteStatistics/getVoteSum?content="+wrapContent+"&classifyID=398";
+	//var url = "http://192.168.49.56:8989/VoteStatistics/getVoteSum?content="+wrapContent+"&classifyID=376";
+	iPanel.debug("fighting.html getZanNum url ===" + url);
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			iPanel.debug("fighting.html onSuccess  voteAction html ===" + html);
+			var res = eval('('+html+')');
+			$("score"+__idPos).innerText = res*100;
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("fighting.html onError  voteAction  ");
+		}
+	});
+}
+
+
+
+
+function changeListUD(_num){
+	if(_num <0){
+		_num = -4;	
+	}else if(_num >0){
+		_num = 4;	
+	}
+	loseListFocus();
+	listBox.changeList(_num);	
+	getListFocus();
+	scrollChange();
+}
+
+function changeListLR(_num){
+	var tempPos = parseInt(listBox.position%8,10);
+	if((tempPos ==0||tempPos==4) &&_num <0){
+		//listBox.changePage(_num);  //左右鍵不翻頁
+		return;		
+	}
+	if((tempPos ==3||tempPos==7)&&_num >0){
+		//listBox.changePage(_num); //左右鍵不翻頁
+		return;		
+	}
+	loseListFocus();
+	listBox.changeList(_num);	
+	getListFocus();
+}
+
+function getListFocus(){
+	$("vote"+listBox.focusPos).style.background = "url(image/love214/2017-927-gold-zan02.png) no-repeat center";
+}
+
+
+function loseListFocus(){
+	$("vote"+listBox.focusPos).style.background = "url(image/love214/2017-927-gold-zan01.png) no-repeat center";
+}
+
+
+//滚动条
+function initScroll(){
+	scrollBar = new ScrollBar("scrollBar");
+	scrollBar.init(Math.ceil(listBox.dataSize/listBox.listSize),1, 320, 0);
+	if(subMenuBox.dataSize == 0){
+	}else{
+		scrollChange();
+	}
+}
+
+function scrollChange(){	//显示当前页码数和总共页码数
+	scrollBar.scroll(listBox.currPage-1);
+}
+
+//底部 首页和返回操作
+function changeFootPos(__num){
+	if(footPos ==0 && __num < 0){
+		focusArea = 1;
+		loseFootFocus();
+		getListFocus();
+		return;	
+	}
+	loseFootFocus();
+	footPos = (footPos + __num + 2)%2;
+	getFootFocus();
+}
+
+function getFootFocus(){
+	$("footBtn"+footPos).src = buttonPic[footPos][1];	
+}
+
+function loseFootFocus(){
+	$("footBtn"+footPos).src = buttonPic[footPos][0];
+}
+
+function doFootSelect(){
+	if(footPos == 0){
+		doMenu();
+	}else if(footPos == 1){
+		doBack();	
+	}	
+}
+
+
+function doSelect(){
+	var start = new Date(startTime).getTime();
+	var end = new Date(endTime).getTime();
+	var now = new Date().getTime();
+	
+	if(start<=now&&now<=end){
+		if(focusArea == 0){
+			if(showPhoneFlag){
+				phoneDoselect();	
+			}else if(tipTextFlag){
+				TipTextDoselect();
+			}else{					
+				showPhoneText();												
+			}   
+		}else if(focusArea == 1){
+			if(footPos == 0){
+				doMenu();
+			}else{
+				doBack();
+			}
+		}
+	}else if(tipTextFlag){
+		TipTextDoselect();
+	}else{
+		var str = "投票未开始或者已结束";
+		showTipText(str);
+		isError=false;
+	}
+	
+	/*if(focusArea == 0){
+		if(showPhoneFlag){
+			phoneDoselect();	
+		}else if(tipTextFlag){
+			TipTextDoselect();
+		}else{					
+			showPhoneText();												
+		}   
+	}else if(focusArea == 1){
+		if(footPos == 0){
+			doMenu();
+		}else{
+			doBack();
+		}
+	}*/
+}
+
+
+//作用不详
+function doMenu(){
+	window.location.href = iPanel.eventFrame.portalUrl;
+}
+
+//历史返回一层
+function doBack(){
+	window.location.href = "<%=turnPage.go(-1)%>";;
+}
+
+
+
+/*  输入手机号码的提示框 相关处理 fuying add start*/
+
+//显示提示框 输入手机号码
+function showPhoneText(){
+	showPhoneFlag = true;
+	$("phoneDiv").style.visibility = "visible";
+}
+
+//隐藏提示框 手机号码
+function hidePhoneText(){
+	showPhoneFlag = false;
+	$("phoneDiv").style.visibility = "hidden";	
+}
+
+//显示提示框
+function showTipText(_text){
+	tipTextFlag = true;
+	$("tipDiv").style.visibility = "visible";
+	$("tipText").innerText = _text;
+	$("btn_ok").innerText = "确  定";
+}
+
+//隐藏提示框
+function hideTipText(){
+	tipTextFlag = false;
+	$("tipDiv").style.visibility = "hidden";
+	$("tipText").innerText = "";
+	$("btn_ok").innerText = "";	
+}
+
+function insertNum(num){
+	if(inputNum.length >=11){
+		return;
+	}
+	inputNum +=num;
+	$("telNum").innerText =inputNum;
+}
+
+function deleteNum(){
+	if(inputNum.length==0){
+		return;
+	}
+	inputNum = inputNum.substr(0,inputNum.length-1);
+	$("telNum").innerText =inputNum;
+}
+
+function changeTipBtn(_num){
+	$("ok_"+tipBtnPos).style.background = "url(image/love214/ld_btn2_01.png) no-repeat center";
+	$("ok_"+tipBtnPos).style.color = "#242424";
+	tipBtnPos = (tipBtnPos+_num+2)%2;
+	$("ok_"+tipBtnPos).style.background = "url(image/love214/ld_btn2_02.png) no-repeat center";
+	$("ok_"+tipBtnPos).style.color = "#ffffff";	
+}
+
+function phoneDoselect(){
+	//iPanel.debug("lgqchtml.htm phoneDoselect tipBtnPos =====" + tipBtnPos);
+	if(tipBtnPos ==0){
+		//验证输入
+		if(checkInput() == false){
+			//iPanel.debug("lgqchtml.htm checkInput voteAction =====");
+			voteAction();
+		}
+	}else{
+		hidePhoneText();	
+		clearPhoneText();
+	}	
+}
+
+function TipTextDoselect(){
+	if(isError == true){
+		showPhoneText();
+		hideTipText();
+	}else{
+		hideTipText();
+	}	
+}
+
+function checkInput(){
+	isError = true;
+    if(inputNum.length == 0 || inputNum == ""){
+	   hidePhoneText();
+	   clearPhoneText();
+	   var str = "为了方便与您联系，请输入您的电话号码!";
+	  showTipText(str);
+   }else if(!isTelephone(inputNum)){
+	   hidePhoneText();
+	   clearPhoneText();
+	   var str = "对不起,您输入手机号码有误,请重新输入!";
+	   showTipText(str);
+   }else{
+	   isError = false;
+   }
+   return isError;
+}
+
+function isTelephone(obj){  
+	//iPanel.debug("bangdingIndex.htm  isTelephone  obj ==="+obj);  
+	if((/^1[3|4|5|7|8]\d{9}$/.test(obj))){ 
+	   return true; 
+	}else { 
+	   return false; 
+	}
+}
+
+function clearPhoneText(){
+	$("ok_"+1).style.background = "url(image/love214/ld_btn2_01.png) no-repeat center";
+	$("ok_"+1).style.color = "#242424";
+	$("ok_"+0).style.background = "url(image/love214/ld_btn2_02.png) no-repeat center";
+	$("ok_"+0).style.color = "#ffffff";
+	tipBtnPos = 0;
+	$("telNum").innerText ="";
+	inputNum = "";
+}
+
+//输入手机号码进行投票
+function voteAction(){
+	hidePhoneText();
+	var str = listData[listBox.position].name;
+	var wrapContent = encodeURIComponent(str);
+	//var url = getAjaxUrl("getVoteAction",caId,inputNum,323,wrapContent);
+	var url = "http://192.168.49.56:8080/voteNew/external/addVote4.ipanel?icid="+caid+"&phone="+inputNum+"&classifyID=398&content="+wrapContent+"&voteCount=10";
+	//iPanel.debug("fighting .html zgcm voteAction url ===" + url);
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			//iPanel.debug("fighting.html onSuccess  voteAction html ===" + html);
+			var res = eval('('+html+')');
+			if(res.recode == "002"){
+				 hidePhoneText();
+				 clearPhoneText();
+				if(res.result == true){
+					var str = "投票成功!";
+					showTipText(str);
+					loseListFocus();   //避免出现双焦点
+					showFightData(listBox.position);
+				}else{
+					//已经抽过奖了
+					var str = "您今日投票数已经封顶，请明日再投！";
+					showTipText(str);
+					//loseListFocus();   //避免出现双焦点
+					//showFightData();
+				}
+			}else{
+				//抽奖失败
+				
+			}
+			isComplete = true;
+		},
+ 		onError:function(){
+			//iPanel.debug("fighting.html onError  voteAction  ");
+		}
+	});
+}
+
+/*  输入手机号码的提示框 相关处理 fuying end */
+
+
+
+
+
+</script>
+</head>
+<body style="background: url(image/love214/2017-927-gold-bg.jpg) no-repeat;" leftmargin="0" topmargin="0" onLoad="init()">
+<!-- vote -->
+<div style="position:absolute;left:69px;top:185px; width:1129px; height:437px;">
+<!-- row1 -->
+<div style="position:absolute;left:0px;top:0px; width:254px; height:204px;" id="list0">	
+    <img src="" width="253" height="161" id="pic0">
+    <div id="score0" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height: 30px; font-size: 28px; text-align:right"></div>
+    <div class="num" id="num0"></div>
+    <div class="cover" id="name0"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote0"></div>
+</div>
+
+<div style="position:absolute;left:292px;top:0px; width:254px; height:204px;" id="list1">	
+    <img src="" width="253" height="161" id="pic1">
+     <div id="score1" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height: 30px; font-size: 28px; text-align: right"></div>
+    <div class="num" id="num1"></div>
+    <div class="cover" id="name1"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote1"></div>
+	</div>
+
+<div style="position:absolute;left:584px;top:0px; width:254px; height:204px;" id="list2">	
+    <img src="" width="253" height="161" id="pic2">
+     <div id="score2" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num2"></div>
+    <div class="cover" id="name2"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote2"></div>
+</div>
+
+<div style="position:absolute;left:876px;top:0px; width:254px; height:204px;" id="list3">	
+    <img src="" width="253" height="161" id="pic3">
+     <div id="score3" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num3"></div>
+    <div class="cover" id="name3"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote3"></div>
+</div>
+
+<!-- row2 -->
+<div style="position:absolute;left:0px;top:235px; width:254px; height:204px;" id="list4">	
+    <img src="" width="253" height="161" id="pic4">
+     <div id="score4" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num4"></div>
+    <div class="cover" id="name4"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote4"></div>
+</div>
+
+<div style="position:absolute;left:292px;top:235px; width:254px; height:204px;" id="list5">	
+    <img src="" width="253" height="161" id="pic5">
+     <div id="score5" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num5"></div>
+    <div class="cover" id="name5"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote5"></div>
+</div>
+
+<div style="position:absolute;left:584px;top:235px; width:254px; height:204px;" id="list6">	
+    <img src="" width="253" height="161" id="pic6">
+     <div id="score6" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num6"></div>
+    <div class="cover" id="name6"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote6"></div>
+</div>
+
+<div style="position:absolute;left:876px;top:235px; width:254px; height:204px;" id="list7">	
+    <img src="" width="253" height="161" id="pic7">
+     <div id="score7" style="position: absolute; left: 118px; width: 134px; height: 30px; top: 132px; color: #ff9900; line-height:30px; font-size:28px; text-align:right"></div>
+    <div class="num" id="num7"></div>
+    <div class="cover" id="name7"></div>
+    <div style="position:absolute;left:173px;top:167px;width:81px;height:38px;background:url(image/love214/2017-927-gold-zan01.png);" id="vote7"></div>
+</div>
+</div>
+
+<!-- focus -->
+<div style="position:absolute;left:69px;top:185px; width:254px; height:204px;" id="focus"></div>
+
+
+ <!--滑动条-->
+    <div style="position:absolute;left:1210px;top:181px; width:5px; height:440px; background:url(2017-927-gold-bg-barbg1.png);">
+    	<div  id="scrollBar" style="position:absolute;left:0px;top:34px; width:5px; height:124px; background:url(image/love214/2017-927-gold-bar02.png)"> </div>
+    </div>
+    
+
+<!-- scroll -->
+<!--<div style="position:absolute;left:1209px;top:180px; width:5px; height:444px; background:url(image/love214/2017-927-gold-bar01.png);">
+	<div style="position:absolute;left:0px;top:0px; width:5px; height:124px; background:url(image/love214/2017-927-gold-bar02.png);" id="scrollBar"></div>
+</div>-->
+
+
+
+<div style="position:absolute;left:365px;top:195px;width:590px; height:299px; background:url(image/love214/ld_pop.png) no-repeat center; visibility:hidden;" id="phoneDiv">
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td height="40" width="90">&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+        <td width="90">&nbsp;</td>
+        </tr>
+        <tr>
+        <td width="90">&nbsp;</td>    
+        <td height="55" colspan="2" style="font-size:30px; color:#ffffff; text-align:center; letter-spacing:8px; font-weight:100;">请输入手机号码:</td>
+        <td width="90">&nbsp;</td>      
+        </tr>
+        <tr>
+        <td width="90">&nbsp;</td>      
+        <td height="70" colspan="2" style="background:url(image/love214/ld_input_box1.png) no-repeat center; font-size:24px; color:#ffffff; text-align:center; letter-spacing:5px; line-height:70px;" id="telNum"></td>
+        <td width="90">&nbsp;</td>      
+        </tr>
+        <tr style="font-size:19px; text-align:center;">
+        <td width="90">&nbsp;</td>    
+        <td style="background:url(image/love214/ld_btn2_02.png) no-repeat center; color:#ffffff; font-size:22px; font-weight:bold;" id="ok_0">确 认</td>
+        <td style="background:url(image/love214/ld_btn2_01.png) no-repeat center; color:#242424;font-size:22px; font-weight:bold;" id="ok_1">取 消</td>
+        <td width="90">&nbsp;</td>
+        </tr>
+        <tr>
+        <td height="60">&nbsp;</td>
+        </tr>    
+    </table>
+</div>
+
+	<!-- tipDiv -->
+<div style="position:absolute;left:365px;top:195px;width:590px; height:299px; background:url(image/love214/ld_pop.png) no-repeat center; visibility: hidden;" id="tipDiv">
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td height="60" colspan="2">&nbsp;</td>
+        </tr>    
+        <tr>
+        <td width="100" height="100" align="right"><img src="image/love214/ld_icon.png" width="41" height="40"  style="padding-:10px; padding-right:10px;"/></td>
+        <td  style="line-height:50px; padding-top:2px;"><div style="position: absolute; left: 110px; top: 86px; width: 445px; height: 55px; font-size: 24px; color: #ffffff; text-align: left; font-weight: 100;" id="tipText">您今日投票数已经用完，请明日再投！</div></td>
+        </tr>
+        <tr style="font-size:19px; text-align:center;">
+        <td colspan="2"id="btn_ok" style="background:url(image/love214/ld_btn2_02.png) no-repeat center; color:#ffffff;">确  定</td>
+        </tr>
+        <tr>
+        <td height="60" colspan="2">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+ <!--投票规则-->
+    <div style="position: absolute; left: 89px; top: 634px; width: 849px; line-height: 25px; font-size: 18px; color: #000;">投票时间：2017年10月1日0:00—8日24：00，评选出1个最佳和美家庭和10个十佳和美家庭；<br/>
+投票规则：每天重庆有线机顶盒ID可投10票。</div>
+
+</body>
+</html>
