@@ -1,0 +1,66 @@
+# 关闭 SELINUX
+sed -i 's/enforcing/disabled/gi' /etc/selinux/config;
+cd /etc/yum.repos.d;rm -rf ./CentOS-CR.repo ./CentOS-fasttrack.repo ./CentOS-Sources.repo ./CentOS-Base.repo ./CentOS-Debuginfo.repo ./CentOS-Media.repo ./CentOS-Vault.repo
+yum install vim ntp -y;
+yum update -y;
+rm -rf ./CentOS-CR.repo ./CentOS-fasttrack.repo ./CentOS-Sources.repo ./CentOS-Base.repo ./CentOS-Debuginfo.repo ./CentOS-Media.repo ./CentOS-Vault.repo
+
+sed -i "s/#Port 22/Port 22\nPort 10082/gi" /etc/ssh/sshd_config
+
+# 修改sshd端口号
+firewall-cmd --get-default-zone
+firewall-cmd --permanent --zone=home --remove-service=dhcpv6-client --remove-service=mdns --remove-service=samba-client
+firewall-cmd --permanent --zone=internal --remove-service=dhcpv6-client --remove-service=mdns --remove-service=samba-client
+firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
+firewall-cmd --permanent --zone=work --remove-service=dhcpv6-client
+firewall-cmd --permanent --zone=trusted --add-port=22/tcp --add-port=80/tcp --add-port=8080/tcp --add-port=10082/tcp
+
+# MYSQL 数据库访问
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.69/32" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.72/32" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.75/32" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.86/32" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.87/32" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.88/32" port protocol="tcp" port="3306" accept"
+
+# MongoDB 数据库访问
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.69/32" port protocol="tcp" port="27017-27019" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.72/32" port protocol="tcp" port="27017-27019" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.75/32" port protocol="tcp" port="27017-27019" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.86/32" port protocol="tcp" port="27017-27019" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.87/32" port protocol="tcp" port="27017-27019" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.88/32" port protocol="tcp" port="27017-27019" accept"
+
+# MongoDB 数据库Web访问
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.86/32" port protocol="tcp" port="28017" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.87/32" port protocol="tcp" port="28017" accept"
+firewall-cmd --permanent --zone=trusted --add-rich-rule="rule family="ipv4" source address="10.216.100.88/32" port protocol="tcp" port="28017" accept"
+
+firewall-cmd --set-default-zone=trusted
+firewall-cmd --zone=trusted --change-interface=eth0 --permanent
+firewall-cmd --reload
+firewall-cmd --list-all-zones
+
+
+echo "export PS1='\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[35;40m\]\W\[\e[0m\]]\\$ '" >> /etc/profile
+echo "" >> /etc/profile
+echo "alias l='ls -AFhlt'" >> /etc/profile
+echo "alias lh='l | head'" >> /etc/profile
+echo "alias vi='vim'" >> /etc/profile
+echo "" >> /etc/profile
+echo "" >> /etc/profile
+echo 'JAVA_HOME=/workspace/serve/jdk1.8.0' >> /etc/profile
+echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
+echo 'CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar' >> /etc/profile
+echo 'export JAVA_HOME' >> /etc/profile
+echo 'export PATH' >> /etc/profile
+echo 'export CLASSPATH' >> /etc/profile
+
+# 修改时区
+/bin/cp -f /usr/share/zoneinfo/Asia/Chongqing /etc/localtime
+
+# PasswordAuthentication
+reboot
+
+# sed -i "s/Port 22//gi" /etc/ssh/sshd_config & reboot
+# 2 0 * * * ntpdate -u 10.216.100.72 > /dev/null 2>&1; /sbin/hwclock -w;
