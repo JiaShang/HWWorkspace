@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="page-view-size" content="1280*720">
+<title>无标题文档</title>
+
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+
+<script>
+
+var focusArea =0;  //0 图片区域 1列表区域
+var imgPos = 0;   //0,1左边广告 2中间小视频 3-7下面的栏目
+
+var listData = [];  //今日赛事
+var listBox = null;  //今日赛事 展示数据
+
+var vodId = "";
+
+var isComplete = true;
+var fromPos = 0;
+
+//top: 81px; left: 347px; width: 590px; height: 421px;
+var imgFocusXY = [
+	{left:"19px", top:"81px", width:"423px", height:"337px"},
+	{left:"19px", top:"330px", width:"423px", height:"337px"},
+	{left:"346px", top:"81px", width:"590px", height:"421px"},
+	{left:"346px", top:"407px", width:"262px", height:"262px"},
+	{left:"510px", top:"407px", width:"262px", height:"262px"},
+	{left:"674px", top:"407px", width:"262px", height:"262px"},
+	{left:"838px", top:"407px", width:"262px", height:"262px"},
+	{left:"1003px", top:"407px", width:"262px", height:"262px"}
+];
+
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+document.onsystemevent = grabEvent;
+
+function grabEvent(){
+	var key_code = event.which;
+	switch(key_code){
+		case 1: //up
+		case 38:
+		case 28:
+		case 269: 
+			udMove(-1);  
+			return false;		
+			break;
+		case 2: //down
+		case 40:
+		case 31:
+		case 270:
+			udMove(1); 
+			return false; 		
+			break;
+		case 3: //left
+		case 37:
+		case 29:
+		case 271:
+			lrMove(-1);	
+			return false;	
+			break;
+		case 4: //right
+		case 39:
+		case 30:
+		case 272:
+			lrMove(1);
+			return false;	
+			break;
+		case 13:
+			doSelect();
+			return false;
+			break;
+		case 8:   //返回
+		case 45:
+		case 283:
+		case 340:
+		case 27:   //菜单
+		case 339:
+		case 513:
+			exit_page();
+			window.location.href = iPanel.eventFrame.portal_url;
+			return false;
+		case 5202://VOD_PREPAREPLAY_SUCCESS
+			media.AV.play();
+			break;	
+		case 5205://case "EIS_VOD_PLAY_SUCCESS"	
+			break;
+		case 5210:
+			exit_page();
+			playIndexVideo();
+			break;				
+	}
+}		
+
+function init(){
+	//top:123px; left:393px; width:486px; height:317px;
+	media.video.setPosition(391,123,486,320);
+	getParam();	
+	getImgFocus();
+	//getChinaImgAd();
+	//getRioImgAd();
+	getIndexVideoVodId();
+	getDailyMatch();
+}
+
+
+function getParam(){
+	var url = window.location.href;
+	if(url.indexOf("menuPos")!= -1){
+		imgPos = parseInt(getUrlParams("menuPos",url),10);
+	}
+	if(url.indexOf("fromPos")!= -1){
+		fromPos = parseInt(getUrlParams("fromPos",url),10);
+	}
+	postPortalCount();
+}
+function postPortalCount(){
+	if(fromPos == 0)return;
+	//播放选中的视频
+	var url = "http://192.168.49.56:8080/voteNew/external/clickCount.ipanel?icid="+CA.card.serialNumber+"&classifyID=345&content=fromPortal";
+	iPanel.debug("postPortalCount url ===" + url);
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+		},
+ 		onError:function(){
+			iPanel.debug("postPortalCount onError    ");
+		}
+	});	
+}
+
+//获取首页左边中国军团的图片
+function getChinaImgAd(){	
+	var url = getAjaxUrl("getChinaData");
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			var temp = eval('('+html+')');
+			$("chinaAdImg").src = temp.posterImg;   //获取广告图片
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("index.html onError  voteAction  ");
+		}
+	});	
+}
+
+
+//获取首页左边里约动态的图片
+function getRioImgAd(){	
+	var url = getAjaxUrl("getRioDynamics");
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			var temp = eval('('+html+')');
+			$("RioAdImg").src = temp.posterImg;   //获取广告图片
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("index.html onError  voteAction  ");
+		}
+	});	
+}
+
+
+
+//获取当天赛程接口
+function getDailyMatch(){ 
+	var url = getAjaxUrl("getDailyMatchData");
+	iPanel.debug("index.html getDailyMatch url ===" + url);
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			listData = eval('('+html+')');
+			iPanel.debug("getDailyMatch listData =====" + listData.length);
+			if(listData.length > 0){
+				showDailyMatch();	
+			}
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("index.html onError  voteAction  ");
+		}
+	});
+}
+//显示当天赛程
+function showDailyMatch(){
+	listBox = new showList(6, listData.length, 0, 70, window);
+	listBox.focusDiv = "rankFocus";
+	listBox.listHigh = 36;
+	listBox.showType  = 0;
+	listBox.haveData = function(List){	
+		iPanel.debug("getDailyMatch listData[List.dataPos].date =====" + listData[List.dataPos].date);	
+		iPanel.debug("getDailyMatch listData[List.dataPos].team1 =====" + listData[List.dataPos].team1);	
+		$("matchTime"+List.idPos).innerText = (listData[List.dataPos].date).substr(5,11);
+		if(getStrChineseLength(listData[List.dataPos].team1) > 10){
+			$("matchName"+List.idPos).innerText =iPanel.misc.interceptString(listData[List.dataPos].team1,18)+"...";	
+		}else{
+			$("matchName"+List.idPos).innerText =listData[List.dataPos].team1;	
+		}
+	};
+	listBox.notData = function(List){
+		$("matchTime"+List.idPos).innerText = "";
+		$("matchName"+List.idPos).innerText = "";
+	};
+	listBox.startShow();	
+}
+
+
+//获取首页小视频的vodId
+function getIndexVideoVodId(){	
+	var url = getAjaxUrl("getIndexVideo");
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			var temp = eval('('+html+')');
+			var tmpVod = temp.vod;
+			if(tmpVod.length > 0){
+				vodId = tmpVod[0].vodID;
+				playIndexVideo();   //显示竞猜框框
+			}
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("index.html onError  voteAction  ");
+		}
+	});	
+}
+
+function playIndexVideo(){
+	//播放选中的视频
+	var url = iPanel.eventFrame.pre_epg_url+"/defaultHD/en/go_authorization.jsp?typeId=-1&playType=1&progId="+vodId+"&contentType=0&business=1";
+	isComplete = false;
+	ajax({
+		url: url,
+		type: "POST",
+		dataType: "html",
+		onSuccess: function(html){
+			var json = eval("("+html+")");
+			var rtsp =json.playUrl.split("^")[4];
+			media.AV.open(rtsp,"VOD");
+			isComplete = true;
+		},
+ 		onError:function(){
+			iPanel.debug("index.html onError  voteAction  ");
+		}
+	});	
+}
+
+function udMove(_num){
+	if(focusArea ==0){
+		changeImgUD(_num);
+	}else if(focusArea ==1){
+		changeRankListUD(_num);	
+	}	
+}
+
+function lrMove(_num){
+	if(focusArea == 0){
+		changeImgLR(_num);
+	}else if(focusArea ==1){
+		if(_num <0){
+			focusArea = 0;
+			$("rankFocus").style.visibility = "hidden";
+			setListStyle(0);
+			imgPos = 2;
+			getImgFocus();	
+		}
+	}	
+}
+
+
+function changeImgUD(_num){
+	if(_num <0){
+		if(imgPos ==0 ||imgPos==2) return;
+		if(imgPos==1){
+			imgPos = 0;	
+		}else if(imgPos>2&&imgPos<8){
+			imgPos=2;	
+		}
+		getImgFocus();	
+	}else if(_num>0){
+		if(imgPos==1||imgPos>2) return;
+		imgPos+=1;
+		getImgFocus();	
+	}	
+}
+
+function changeRankListUD(_num){
+	if(listBox.position == (listData.length-1)&&_num >0){
+		imgPos = 6;
+		focusArea = 0;
+		$("rankFocus").style.visibility = "hidden";
+		setListStyle(0);
+		getImgFocus();	
+		return;	
+	}
+	setListStyle(0);
+	listBox.changeList(_num);	
+	setListStyle(1);
+}
+
+function setListStyle(_num){
+	if(_num == 0){
+		$("matchTime"+listBox.focusPos).style.color = "#ffffff";
+		$("matchName"+listBox.focusPos).style.color = "#ffffff";
+		if(getStrChineseLength(listData[listBox.position].team1) > 10){
+			$("matchName"+listBox.focusPos).innerText =iPanel.misc.interceptString(listData[listBox.position].team1,18)+"...";	
+		}	
+	}else if(_num ==1){
+		$("matchTime"+listBox.focusPos).style.color = "#000000";
+		$("matchName"+listBox.focusPos).style.color = "#000000";
+		if(getStrChineseLength(listData[listBox.position].team1) > 10){
+			$("matchName"+listBox.focusPos).innerHTML ="<marquee>" + listData[listBox.position].team1 +"</marquee>";	
+		}	
+	}	
+}
+
+function changeImgLR(_num){
+	if(_num <0){
+		if(imgPos < 2) return;
+		if(imgPos == 2){
+			imgPos = 0;	
+		}else if(imgPos == 3){
+			imgPos = 1;	
+		}else{
+			imgPos -= 1;
+		}		
+		getImgFocus();	
+	}else if(_num > 0){
+		if(imgPos == 7) return;
+		if(imgPos == 2){
+			focusArea = 1;
+			loseImgFocus();
+			$("rankFocus").style.visibility = "visible";
+			setListStyle(1);
+			return;	
+		}
+		if(imgPos == 0){
+			imgPos = 2;	
+		}else if(imgPos == 1){
+			imgPos = 3;	
+		}else{
+			imgPos += _num;
+		}		
+		getImgFocus();	
+	}		
+}
+
+function getImgFocus(){
+	$("imgFocus").style.visibility = "visible";
+	$("imgFocus").style.left = 	imgFocusXY[imgPos].left;
+	$("imgFocus").style.top = 	imgFocusXY[imgPos].top;
+	$("imgFocus").style.width = imgFocusXY[imgPos].width;
+	$("imgFocus").style.height = imgFocusXY[imgPos].height;	
+}
+
+function loseImgFocus(){
+	$("imgFocus").style.visibility = "hidden";
+}
+
+function doSelect(){
+	if(focusArea ==0){
+		if(imgPos ==0 ||imgPos == 3 || imgPos == 5){   //中国军团, 金牌时刻，动起来， 图片列表显示
+			window.location.href = "imgList.htm?menuPos="+imgPos;
+		}else if(imgPos ==2){   //全屏播放
+			window.location.href = "rtspPlay.htm?vodId="+vodId;
+		}else if(imgPos ==1){   //里约动态，奥运百科 文字列表显示
+			window.location.href = "txtList.htm?menuPos="+imgPos;
+		}else if(imgPos == 4){	 //奥运风云会
+			var reUrl = iPanel.eventFrame.pre_epg_url+"/defaultHD/en/Olympic/Olympic/index.htm?menuPos="+imgPos;
+			reUrl = encodeURIComponent(reUrl);
+			window.location.href = iPanel.eventFrame.pre_epg_url+"/neirong/S20160811.jsp?backURL="+reUrl;
+		}else if(imgPos == 6){	 //约球吧
+			var reUrl = iPanel.eventFrame.pre_epg_url+"/defaultHD/en/Olympic/Olympic/index.htm?menuPos="+imgPos;
+			reUrl = encodeURIComponent(reUrl);
+			window.location.href = iPanel.eventFrame.pre_epg_url+"/neirong/S20160810.jsp?backURL="+reUrl;
+		}else if(imgPos == 7){	 //有奖问答
+			window.location.href ="http://192.168.98.65:10001/IPTVGameEPG/index.jsp?recoCode=LTR_10192";
+		}			
+	}
+}
+
+function exit_page() {
+	DVB.stopAV(0);
+	media.AV.close();
+}
+
+function showDebugInfo(_str){
+	$("showDebug").innerText = "debugInfo ===== "+ _str;
+}
+
+</script>
+</head>
+
+<body background="image/bg4.png" bgcolor="transparent" leftmargin="0" topmargin="0" onload="init();" onunload="exit_page();">
+
+<!-- 左边1个广告图片 -->
+<div style="position:absolute; top:123px; left:65px; width:318px; height:234px;"><img id="chinaAdImg" src="image/chinaImg.jpg" width="318" height="234" />
+  <div style="position:absolute; top:188px; left:0px; width:318px; height:46px; background-image: url(image/cover.png); text-align:center; line-height:46px; color:#ffffff; font-size:30px;">中国军团</div>
+</div>
+<!-- 左边2个广告图片 -->
+<div style="position:absolute; top:372px; left:65px; width:318px; height:234px;"><img id="RioAdImg" src="image/rioImg.jpg" width="318" height="234" />
+  <div style="position:absolute; top:188px; left:0px; width:318px; height:46px; background-image: url(image/cover.png); text-align:center; line-height:46px; color:#ffffff; font-size:30px;">里约动态</div>
+</div>
+
+<!-- 中间视频区域 -->
+<div style="position: absolute; top: 123px; left: 392px; width: 486px; height: 317px; visibility: hidden;"><img src="image/pop_img1_02.jpg" width="486" height="317" /></div>
+
+<!-- 下面5个栏目-->
+<div style="position:absolute; top:450px; left:393px; width:156px; height:156px;"><img src="image/pop_image_01.jpg" width="156" height="156" /></div>
+<div style="position:absolute; top:450px; left:557px; width:156px; height:156px;"><img src="image/pop_image_02.png" width="156" height="156" /></div>
+<div style="position:absolute; top:450px; left:721px; width:156px; height:156px;"><img src="image/pop_image_03.jpg" width="156" height="156" /></div>
+<div style="position:absolute; top:450px; left:885px; width:156px; height:156px;"><img src="image/pop_image_04.png" width="156" height="156" /></div>
+<div style="position:absolute; top:450px; left:1049px; width:156px; height:156px;"><img src="image/pop_image_05.png" width="156" height="156" /></div>
+
+<!-- 奖牌榜 部分  [词典]	silver medal;  [词典]	bronze medal;  -->
+<div style="position:absolute; top:121px; left:881px; width:330px; height:320px; background-image: url(image/jp.png);">
+  <div id="rankFocus" style="position:absolute; top:70px; left:-1px; width:330px; height:49px; background-image: url(image/focus00.png); visibility:hidden;"></div>
+  <div style="position: absolute; top: 74px; left: 3px; width: 319px; height: 216px;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="line-height:36px; text-align:center; font-size:14px; color:#ffffff;">
+      <tr>
+        <td id="matchTime0" width="125" height="36" align="center">&nbsp;</td>
+        <td id="matchName0" width="194"  align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td id="matchTime1"  height="36"  align="center"></td>
+        <td id="matchName1"  align="center">&nbsp;</td>
+       
+      </tr>
+      <tr>
+        <td id="matchTime2" height="36"  align="center"></td>
+        <td id="matchName2"  align="center">&nbsp;</td>
+       
+      </tr>
+      <tr>
+        <td id="matchTime3"  height="36"  align="center"></td>
+        <td id="matchName3"  align="center">&nbsp;</td>
+       
+      </tr>
+       <tr>
+        <td id="matchTime4"  height="36"  align="center"></td>
+        <td id="matchName4"  align="center">&nbsp;</td>
+        
+      </tr>
+       <tr>
+        <td id="matchTime5"  height="36"  align="center"></td>
+        <td id="matchName5"  align="center">&nbsp;</td>
+        
+      </tr>       
+    </table>
+  </div>
+  <div style="position:absolute; top:54px; left:149px; width:20px; height:12px;"><img src="image/up0.png" width="20" height="12" /></div>
+  <div style="position:absolute; top:300px; left:149px; width:20px; height:12px;"><img src="image/down1.png" width="20" height="12" /></div>
+</div>
+
+<!-- 焦点框 "1003px", top:"407px", width:"262px", height:"262px"-->
+<div id="imgFocus" style="position: absolute; left: 19px; top: 81px; width: 423px; height: 337px;">
+  <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="80" height="80" background="image/focus_01.png">&nbsp;</td>
+      <td background="image/focus_02.png">&nbsp;</td>
+      <td width="80" background="image/focus_03.png">&nbsp;</td>
+    </tr>
+    <tr>
+      <td background="image/focus_04.png">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td background="image/focus_05.png">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="80" background="image/focus_06.png">&nbsp;</td>
+      <td background="image/focus_07.png">&nbsp;</td>
+      <td background="image/focus_08.png">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 底部跑马灯 -->
+<div style="position:absolute; top:629px; left:113px; width:1093px; height:33px; color:#ffffff; font-size:23px; line-height:33px;"><marquee>热情桑巴  全民奥运! 重庆有线CCTV5，CCTV5+ 独家正版高清直播，最全赛事覆盖。免费点播奥运专区，最强视听品质，最新最全奥运咨询。参与有奖互动，射击、跳水、棒球，每周排名送大奖。激情奥运，健康有"礼"，精彩尽在重庆有线！</marquee></div>
+<div style="position:absolute; top:630px; left:65px; width:31px; height:24px;"><img src="image/tips.png" width="31" height="24" /></div>
+
+
+
+<!--<div id="showDebug" style="position: absolute; width: 732px; height: 50px; left: 474px; top: 29px; background-color: #000000; font-size: 24px; line-height: 40px; color: #FFFFFF; visibility: hidden"></div>-->
+
+
+
+</body>
+</html>

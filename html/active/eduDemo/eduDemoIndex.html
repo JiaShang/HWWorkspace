@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:450px;height:370px;left:117px;top:267px;position:absolute;}
+        .mask{width:548px;height:209px;background:transparent url("mask-edu-demos.png") no-repeat left top; background-position: 0px 0px;position:absolute;}
+        .mask1{left:80px;top:25px;}
+        .mask2{left:652px;top:25px;}
+        .mask3{left:80px;top:256px;}
+        .mask4{left:652px;top:265px;}
+        .mask5{left:80px;top:488px;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div id="listBody" style="position:absolute;width:1280px;height:720px;left:0px;top:0px;overflow: hidden;background: transparent none no-repeat left top;">
+    <div id='mask'></div>
+</div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.isP60 = typeof sysmisc != 'undefined';
+        win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+        win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+        win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+        win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+        win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://117.59.202.67:8080" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+        var fileJS = win.isComputer ? "../js/common.js"  : (win.EPGUrl + "/neirong/player/common.js");
+
+        var __loadJS = function () {};
+        win.appendJS = function(path){
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        };
+        win.exit = function(){};
+        var tooltipShow = function(message) {
+            message = message || decodeURIComponent('%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92');
+            if( win.isP60 ) sysmisc.showToast(message);
+            else if( win.isGW ) iPanel.debug(message);
+            else alert(message);
+        };
+        var __evalJS = function(strJS){
+            try {
+                if(/^\s*\<html\>/g.test(strJS) ) { tooltipShow(); return ; }
+                eval( strJS );
+            } catch (e) { tooltipShow( e ); }
+        };
+        if( ! win.isP60 ) {
+            __loadJS = function(){
+                if( win.isGW ) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        var state = xhr.readyState, status = xhr.status;
+                        if (state === 4 && ( status == 200 || status == 204 )) __evalJS( xhr.responseText );
+                    };
+                    xhr.open('POST', fileJS, true);
+                    xhr.send(null);
+                } else { appendJS(fileJS); }
+            };
+        } else {
+            win.AndroidHtml5 = {
+                idCounter: 0,
+                OUTPUT_RESULTS: {},
+                CALLBACK_SUCCESS: {},
+                CALLBACK_FAIL: {},
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                    AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                        } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                        }
+                    }
+                },
+            };
+            __loadJS = function () {
+                var cookie = '[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid', '') + '"}]';
+                var o = { "url": fileJS, "method": "post", "mediatype": "text/xml", "body": null, "header": cookie };
+                AndroidHtml5.callNative({ "service": "request","action": '' }, 'json',o, __evalJS ,function(e){});
+            };
+        }
+        var initialize = {
+            init : function(){
+                var typeId = query("typeId");
+                if( typeId.isEmpty() ) { tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') ); return; }
+                var that = this;
+
+                var enc = '&enc=1';
+                if( iPanel.HD30Adv ) enc = '';
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=1' + enc + '&cn=5';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+
+                ajax(url,
+                    function(rst){
+                        var success = rst.success;
+                        if( ! success ) {   //提示：请求栏目数据时，出现错误！
+                            tooltip( decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81') );
+                            return;
+                        }
+
+                        rst = rst.data;
+                        var list = rst.list;
+
+                        if( typeof rst.column === 'undefined' ) {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8D%E4%B8%93%E9%A2%98%E5%B7%B2%E4%B8%8B%E7%BA%BF%E6%88%96%E6%A0%8F%E7%9B%AE%E5%B0%9A%E6%9C%AA%E6%BF%80%E6%B4%BB%EF%BC%8C%E8%AF%B7%E4%B8%8E%E7%BC%96%E8%BE%91%E4%BA%BA%E5%91%98%E8%81%94%E7%B3%BB%EF%BC%8C%E6%8C%89OK%E9%94%AE%E5%90%8E%E9%A1%B5%E9%9D%A2%E9%80%80%E5%87%BA%EF%BC%81') );
+                            setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                            return;
+                        }
+
+                        var bg = cursor.pictureUrl(rst.column.posters,7,'');
+                        if( !bg.isEmpty() ) {
+                            $("listBody").style.backgroundImage = 'url("' + bg + '")';
+                        }
+
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        var url = location.origin + "/active/eduDemo/eduDemoList.html?typeId=";
+                        for( var j = 0 ; j < list.length ; j ++) list[j].linkto = url + list[j].id;
+                        cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: list[0].id };
+                        cursor.call('show');
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+            },
+            move : function(index){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if( index == 11 && focus < 2 || index == -11 && focus + 2 >= items.length || index == -1 && focus % 2 == 0 || index == 1 && ( focus % 2 == 1 || focus + 1 >= items.length )) return;
+
+                if( index == 1 || index == -1 ) {
+                    focus += index;
+                } else {
+                    focus += index > 0 ? -2 : 2;
+                }
+                if( focus < 0 || focus >= items.length ) return;
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('show');
+            },
+            show: function(){
+                var blocked = 0;
+                var focus = cursor.focusable[0].focus;
+                $("mask").className = "mask mask" + String( focus + 1);
+            }
+        };
+        __loadJS();
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

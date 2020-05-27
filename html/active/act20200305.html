@@ -1,0 +1,425 @@
+<!--  //TODO: 重要参考文件 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .mask{position:absolute;background:transparent url("images/mask-2020-03-05.png") no-repeat 0px 0px; background-position: 0px 0px;}
+        .num {font-size:21px;height:23px;text-align: right; overflow: hidden; position:absolute;}
+        .date {width:158px;left:43px;top:179px;color:#e0e3ea;font-size:16px;}
+        .totalWorld {width:100px;left:285px;top:161px;color:#eb5253;}
+        .newWorld {width:100px;left:426px;top:161px;color:#70d7d3;}
+        .totalChina {width:94px;left:676px;top:161px;color:#eb5253;}
+        .newChina {width:80px;left:788px;top:161px;color:#70d7d3;}
+        .totalCq {width:94px;left:976px;top:161px;color:#eb5253;}
+        .newCq {width:80px;left:1078px;top:161px;color:#70d7d3;}
+
+        .title {width:200px;height:58px;left:0px;}
+        .title1 {background-position:0px 0px; top:234px;}
+        .title2 {background-position:0px -100px; top:349px; }
+        .title3 {background-position:0px -200px; top:467px; }
+        .title4 {background-position:0px -300px; top:579px; }
+
+        .item3{width:243px;height:120px;top:541px;position:absolute;overflow: hidden;}
+        .item31{left:737px;}
+        .item32{left:986px;}
+
+        .listBody,.container{width:1280px;height:720px;position:absolute; left:0px;top:0px;overflow: hidden;}
+        .listBody {background: transparent url("images/bg-2020-03-05.png") no-repeat left top;}
+        .container {background: transparent none no-repeat left top;}
+
+        .flowed {width:480px;height:441px;left:230px;top:223px;position:absolute;overflow: hidden;}
+        .flowed .item{width:480px;height:55px;}
+        .flowed .item .text{width:445px;height:55px;color:white;}
+        .video{width:503px;height:324px;left:731px;top:217px; background-position: -250px -100px;}
+
+        .inner {width:405px;margin:0px 20px 0px 20px;font-size:20px;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;line-height:55px;}
+        .marquee{line-height:55px;width:405px;height:100%;}
+
+        .mask31 {width:254px;height:132px;left:731px;top:535px; background-position: -250px -450px;}
+        .mask32 {width:254px;height:132px;left:980px;top:535px; background-position: -250px -450px;}
+
+        .split {width:2px; height:366px;left:713px;top:266px;position:absolute;background: #5e9bcc none no-repeat left top;}
+        .square {width:7px; height:47px;left:710px;position:absolute;background: #5e9bcc none no-repeat left top;}
+
+        img {width:100%;height:100%;border:none;}
+    </style>
+    <script type="text/javascript" language="javascript" src="http://125.62.26.149/active/js/pneumonia.js"></script>
+    <title>众志成城 抗击疫情</title>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-45px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div id="listBody" class="listBody"></div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:492,height:311,left:736,top:224};
+        win.isP60 = typeof sysmisc != 'undefined';
+        win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+        win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+        win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+        win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+        win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://117.59.202.67:8080" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+        //var fileJS = win.isComputer ? "js/common.js"  : (win.EPGUrl + "/neirong/player/common.js");
+        var fileJS = "js/common.js";
+        win.appendJS = function(path){
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        };
+        var __loadJS = function () {
+            if( win.isP60 ) {
+                document.cookie = 'JSESSIONID=' + sysmisc.getEnv('epgServer','') + '; expire=86400000';
+            }
+            appendJS(fileJS);
+        };
+        win.exit = function(){};
+        win.tooltip = function() {
+            var args = arguments;
+            var lisp = function(){ var msg = '';for( var i = 0; i < args.length ; i ++ ) msg += String( args[i] ); return msg; };
+            var message = typeof args == 'undefined' || args.length == 0 ? decodeURIComponent( '%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92' ) : lisp();
+            if( win.isP60 ) sysmisc.showToast(message);
+            else if( win.isGW ) iPanel.debug(message);
+            else setTimeout(function(){alert(message);},500);
+        };
+        var __evalJS = function(strJS){
+            try {
+                if(/^\s*\<html\>/g.test(strJS) ) { tooltip(); return ; }
+                eval( strJS );
+            } catch (e) { tooltip( e ); }
+        };
+        if( win.isP60 ) {
+            win.AndroidHtml5 = {
+                idCounter: 0,
+                OUTPUT_RESULTS: {},
+                CALLBACK_SUCCESS: {},
+                CALLBACK_FAIL: {},
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                    AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                        } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                        }
+                    }
+                },
+            };
+        };
+        var initialize = {
+            init : function(){
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                var that = this;
+                var enc = '&enc=1';
+                if( iPanel.HD30Adv ) enc = '';
+                var typeId = '10000100000000090000000000114226';
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=2' + enc + '&fn=199&spec=1';
+                loadData(url, function(rst){
+                    var list = rst['data']['list'];
+                    var interrupt = function( condition ){
+                        if( !condition ) return false;
+                        tooltip( decodeURIComponent('%E5%BD%93%E5%89%8D%E4%B8%93%E9%A2%98%E5%B7%B2%E4%B8%8B%E7%BA%BF%E6%88%96%E6%A0%8F%E7%9B%AE%E5%B0%9A%E6%9C%AA%E6%BF%80%E6%B4%BB%EF%BC%8C%E8%AF%B7%E4%B8%8E%E7%BC%96%E8%BE%91%E4%BA%BA%E5%91%98%E8%81%94%E7%B3%BB%EF%BC%8C%E6%8C%89OK%E9%94%AE%E5%90%8E%E9%A1%B5%E9%9D%A2%E9%80%80%E5%87%BA%EF%BC%81') );
+                        if ( ! location.origin.startWith("http://localhost") ) setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                        return true;
+                    };
+                    cursor.rows = 8;
+                    cursor.columns = 1;
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    try{
+                        var html = '';
+                        html = '<div id="container" class="container"></div>';
+                        html += '<div class="num totalWorld">' + pneumonia.world.total + '</div>';
+                        html += '<div class="num newWorld">' + pneumonia.world.add + '</div>';
+                        html += '<div class="num totalChina">' + pneumonia.china.total + '</div>';
+                        html += '<div class="num newChina">' + pneumonia.china.add + '</div>';
+                        html += '<div class="num totalCq">' + pneumonia.cq.total + '</div>';
+                        html += '<div class="num newCq">' + pneumonia.cq.add + '</div>';
+                        var date = new Date(Date.parse(pneumonia.update));
+                        html += '<div class="num date">截止 ' + date.Format("M月d日h点") + '</div>';
+                        list[0]['data'].removeAt(0);
+                        while ( list[0]['data'].length > 4 ) list[0]['data'].removeAt(4);
+                        for( var i = 0 ; i < list.length ; i ++ ){
+                            cursor.focusable[i] = {
+                                focus: focused.length > i +1 ? Number(focused[ i + 1 ]) : 0,
+                                items: list[i]["data"],
+                                typeId: list[i]['id']
+                            }
+                        }
+                        for( var i = 0; i < cursor.focusable[cursor.focusable.length - 1].items.length; i ++){
+                            var item = cursor.focusable[cursor.focusable.length - 1].items[i];
+                            var picture = cursor.pictureUrl(item.posters, 7, '');
+                            if( picture != '') picture = '<img src="' + picture + '" />';
+                            html += '<div class="item3 item3' + String( i + 1) + '">' + picture + '</div>';
+                        }
+                        $("listBody").innerHTML = html;
+                    } catch (e) {
+                        return interrupt( true )
+                    }
+                    try {
+                        cursor.call('enterSmallMode');
+                        setTimeout(function(){cursor.call('lazyShow');}, 100);
+                    } catch( e ) {}
+                },{fail:function(rst){
+                    tooltip( rst.msg || decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                    return setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                }});
+            },
+            showList:function(){
+                var focus = cursor.focusable[0].focus;
+                var blocked = focus + 1;
+                focus = cursor.focusable[blocked].focus;
+                var pageCount = cursor.rows * cursor.columns;
+                var items = cursor.focusable[blocked].items;
+
+                var html = '';
+                html += '<div class="split"></div>';
+                html += '<div class="square" style="top:' + String( ( 366 - 47 ) / items.length * focus +  266) + 'px;"></div>';
+                html += '<div class="mask title title' + String(blocked) + '"></div>';
+                html += '<div class="flowed" id="flowed">';
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                if( flowCursorIndex + pageCount >= items.length ) flowCursorIndex = items.length - pageCount ;
+                for( var i = flowCursorIndex ; i < flowCursorIndex + pageCount; i ++ ){
+                    var item = items[i];
+                    var style= cursor.blocked == blocked && focus == i ? ' style="background:transparent url(images/mask-2020-03-05.png) no-repeat -250px 5px"' : '';
+                    html += '<div class="item"><div class="text"' + style + '><div class="inner" id="text' + String(i +1) + '">' + item.name + '</div></div></div>';
+                }
+                html += '</div>';
+                if( cursor.blocked == cursor.focusable.length - 1 ) {
+                    focus = cursor.focusable[cursor.blocked].focus;
+                    html += '<div class="mask mask3' + String( focus + 1) + '"></div>';
+                }
+                $('container').innerHTML = html;
+            },
+            scrollText:function(o){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var name = o.name;
+                cursor.calcStringPixels(name, 20, function(width){
+                    if(cursor.blocked == 0 && cursor.blocked >= cursor.focusable.length - 1 || width < 405 ) return;
+                    if( o.focus != cursor.focusable[blocked].focus ) return;
+                    $("text" + String( o.focus + 1 )).innerHTML = '<marquee class="marquee" scrollamount="8">' + name + '</marquee>';
+                });
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id, callback : function(){
+                        if( cursor.fullmode ) return;
+                        setTimeout( function(){
+                            cursor.call('scrollText', {name: item.name, focus : cursor.focusable[cursor.focusable[0].focus + 1].focus})
+                        }, 200);
+                    }} );
+                } catch (e){ }
+            },
+            goBack : function(){
+                var blocked = cursor.blocked;
+                var exited = true;
+                if( cursor.fullmode ) {
+                    cursor.call("enterSmallMode");
+                    exited = false;
+                }
+                if( !exited ){
+                    //if( blocked != 1 ) cursor.blocked = blocked = 0;
+                    $("listBody").style.visibility = 'visible';
+                    cursor.call("show");
+                    if( blocked != 0 ) {
+                        var focus = cursor.focusable[blocked].focus;
+                        var item = cursor.focusable[blocked].items[focus];
+                        cursor.call('scrollText', {name: item.name, focus : focus});
+                    }
+                    return;
+                }
+                cursor.call('goBackAct');
+            },
+            interval : function(){
+                if( cursor.fullmode && cursor.speed === 1 ) {
+                    var elapsed = 6 - cursor.elapsedSeconds();
+                    if( elapsed <= 0 ) {
+                        $("speed").style.visibility = 'hidden';
+                        return;
+                    }
+                }
+                $("speed").innerHTML = cursor.speed == 1 ? "播放" : "x" + ( Math.abs(cursor.speed) + " "  + ( cursor.speed > 0 ? "快进 " : "快退 " )) ;
+                $("speed").style.visibility = cursor.fullmode ? 'visible' : 'hidden';
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                cursor.call('resumePlay');
+                $("listBody").style.visibility = 'hidden';
+                player.fullScreen();
+                cursor.timer = setInterval(function(){cursor.call('interval');},1000);
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                cursor.call('resumePlay',true);
+                if( cursor.timer ) {
+                    clearInterval(cursor.timer);
+                    cursor.timer = undefined;
+                    $("speed").style.visibility = 'hidden';
+                }
+            },
+            resumePlay : function(resume){
+                cursor.starter = new Date().getTime();
+                if( resume ) { cursor.speed = 1; player.resume(); }
+            },
+            stop : function(){
+                player.setPosition(1279,719,1,1);
+                player.exit();
+                cursor.fullmode = false;
+            },
+            pausePlay : function(){
+                player.setPosition(1279,719,1,1);
+                player.pause();
+            },
+            continuePlay : function(){
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                player.resume();
+            },
+            select: function() {
+                if( cursor.focusable.length <= 0 || cursor.blocked == 0 ) return;
+                if( cursor.fullmode ) { if(cursor.speed != 1 ) cursor.call('resumePlay',true);return;}
+                if( cursor.blocked >= 1 && cursor.blocked < cursor.focusable.length - 1 ) { return cursor.call("enterFullMode"); }
+                return cursor.call('selectAct');
+            },
+            nextVideo : function ( ){
+                if( !cursor.moveTimer ) {
+                    var blocked = cursor.focusable[0].focus + 1;
+                    var playIndex = cursor.focusable[blocked].focus;
+                    playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+                    cursor.focusable[blocked].focus = cursor.playIndex = playIndex;
+                    if( !cursor.fullmode ) {
+                        cursor.call('lazyShow');
+                    } else {
+                        cursor.played = String( blocked ) + "_" + String( playIndex + 1);
+                        cursor.call("playMovie", cursor.focusable[blocked].items[playIndex]);
+                    }
+                }
+            },
+            prepareVideo : function(){
+                var blocked = cursor.focusable[0].focus + 1;
+                var playIndex = cursor.playIndex;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            move : function(index){
+                //上 11，下 -11，左 -1，右 1
+                if( cursor.fullmode ) {
+                    if( index === 11 || index == -11 ) return;
+                    if( index == -1 && cursor.speed > -32) {
+                        cursor.speed = cursor.speed >= 1 ? -2 : Math.abs(cursor.speed) * -2;
+                        player.backward(cursor.speed);
+                    } else if( index == 1 && cursor.speed < 32 ){
+                        cursor.speed = cursor.speed <= 1 ? 2 : Math.abs(cursor.speed) * 2;
+                        player.forward(cursor.speed);
+                    }
+                    cursor.call('resumePlay');
+                    return;
+                }
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var pageCount = cursor.rows * cursor.columns;
+                if(
+                    (blocked == 0 || blocked == cursor.focusable.length - 2) && ( index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length ) ||
+                    blocked == 0 && index == -1 || blocked == cursor.focusable.length - 1 && ( index == 11 || index == -11 || index == 1 && focus + 1 >= items.length )
+                ) return;
+                if( index == 11 || index == -11 ) {
+                    focus += index > 0 ? -1 : 1;
+                    if( focus >= items.length ) {
+                       cursor.focusable[0].focus += 1;
+                        blocked = cursor.focusable[0].focus + 1;
+                        focus = 0;
+                    } else if( focus < 0 ){
+                        blocked = cursor.focusable[0].focus ;
+                        cursor.focusable[0].focus -= 1;
+                        focus = cursor.focusable[blocked].items.length - 1;
+                    }
+                } else {
+                    if ( blocked == 0 ) {
+                        blocked = focus + 1; focus = cursor.focusable[blocked].focus;
+                    } else if( blocked > 0 && blocked < cursor.focusable.length - 1 ) {
+                        blocked = index == -1 ? 0 : cursor.focusable.length - 1;
+                        focus = blocked == cursor.focusable.length - 1 ? 0 : cursor.focusable[blocked].focus;
+                    } else {
+                        if( index == 1 ) focus += 1;
+                        else {
+                            focus -= 1;
+                            if( focus < 0 ) {
+                                blocked = cursor.focusable[0].focus + 1;
+                                focus = cursor.focusable[blocked].focus;
+                            }
+                        }
+                    }
+                }
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            lazyShow : function(){
+                var blocked = cursor.focusable[0].focus + 1;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String(blocked) + "_" + String( focus + 1 );
+                if( cursor.played != id ) {
+                    cursor.playIndex = focus;
+                    cursor.call('prepareVideo');
+                    cursor.call('show');
+                    cursor.played = id;
+                } else if( cursor.blocked > 0 && cursor.blocked < cursor.focusable.length - 1) {
+                    var item = cursor.focusable[blocked].items[focus];
+                    cursor.call('scrollText', {name: item.name, focus : focus});
+                }
+            },
+            show: function(){
+                if( player.status != decodeURIComponent('%E6%92%AD%E6%94%BE') ) {
+                    if( player.status == decodeURIComponent('%E5%81%9C%E6%AD%A2') ) {
+                        var blocked = cursor.focusable[0].focus + 1;
+                        cursor.playIndex = cursor.focusable[blocked].focus;
+                        cursor.played = String( blocked ) + "_" + String(cursor.focusable[blocked].focus + 1);
+                        cursor.call(  'enterSmallMode' );
+                        cursor.call(  'prepareVideo' );
+                    } else {
+                        cursor.call( 'continuePlay' );
+                    }
+                }
+                cursor.call('showList');
+            }
+        };
+        __loadJS();
+        var lazied = function(t){
+            if( typeof win.cursor == 'undefined') {
+                if( t < 7000 ) return setTimeout( function () { lazied( t + 100 ); }, 100 );
+                tooltip( decodeURIComponent('%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%EF%BC%8C%E8%AF%B7%E6%A3%80%E6%9F%A5%E6%9C%BA%E9%A1%B6%E7%9B%92%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E7%95%85%E9%80%9A%EF%BC%81') );
+                return setTimeout(function(){ cursor.call('goBackAct'); },5000);
+            }
+            cursor.initialize(initialize);
+        };
+        lazied(0);
+    })(window);
+</script>
+</body>
+</html>

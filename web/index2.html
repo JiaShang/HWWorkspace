@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GB18030" />
+    <meta name="page-view-size" content="1280*720" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:black none no-repeat;" onUnload="exit();" >
+</body>
+<script typeof="javascript" type="text/javascript">
+    (function() {
+        try{ iPanel.eventFrame.initPage(window); E.is_HD_vod = true;} catch (e) {};
+
+        function init(){
+            media.video.setPosition(1280,720,0,0);
+            play_ajax();
+        }
+
+        function play_ajax(freeVodId){
+            var getMovieRtspUrl = iPanel.eventFrame.pre_epg_url + "/defaultHD/en/go_authorization.jsp?typeId=-1&playType=1&&progId=5041671&baseFlag=0&contentType=0&business=1&startTime=0";
+            var XHR = new XMLHttpRequest();
+            XHR.onreadystatechange = function (){
+                if(XHR.readyState == 4){
+                    if(XHR.status == 200){
+                        var json = eval("(" + XHR.responseText + ")");
+                        var ret = json.playUrl.split("^");
+                        for( var i = 0 ; i < ret.length ; i ++ ){
+                            alert( ret[i] );
+                        }
+                        rtsp =json.playUrl.split("^")[4];
+                        play();
+                    }
+                    else{
+                        XHR.abort();
+                    }
+                }
+            }
+            XHR.open("GET", getMovieRtspUrl, true);
+            XHR.send(null);
+        }
+
+
+        function eventHandler(eventObj, __type){
+            switch(eventObj.code){
+                case "KEY_BACK":
+                case "KEY_EXIT":
+                case "KEY_MENU":
+                    iPanel.IOControlWrite("startAPK", 'com.ipanel.chongqing_ipanelforhw,com.ipanel.join.cq.vod.vodhome.FilmListActivity,params###10000100000000090000000000105822###sub###1');
+                    break;
+                case "VOD_PREPAREPLAY_SUCCESS":
+                    media.AV.play();
+                    break;
+                case "EIS_VOD_PROGRAM_END":
+                    play_ajax();
+                    break;
+            }
+            return eventObj.args.type;
+        }
+
+        function play(){
+            media.AV.open(rtsp,"VOD");
+        }
+
+        window.onload = function(){
+            setTimeout("init()",100);
+        };
+        function exit() {
+            DVB.stopAV(0);
+            media.AV.close();
+        }
+    })();
+</script>
+</html>

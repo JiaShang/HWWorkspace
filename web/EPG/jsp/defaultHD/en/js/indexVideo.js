@@ -1,0 +1,23 @@
+{total:36,posterImg:"001",vod:[
+{vodID:"vod01",name:"如何为考生提供合理膳食",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:" 高考来临 考试心态要放平",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"考前减压 家长别过分关心",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"考前一天 考生需要注意什么？",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"国家统计局公布70大中城市3月份楼市数据",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"楼市政策打出组合拳 4月楼市微有暖意",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod03",name:"楼市政策打出组合拳 4月楼市微有暖意",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"如何为考生提供合理膳食",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:" 高考来临 考试心态要放平",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"考前减压 家长别过分关心",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"考前一天 考生需要注意什么？",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"国家统计",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"国家统计",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod03",name:"国家统计",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"国家统计",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"国家统计",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"考前减压 家长别过分关心",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"考前一天 考生需要注意什么？",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod01",name:"国家统计局公布70大中城市3月份楼市数据",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod02",name:"楼市政策打出组合拳 4月楼市微有暖意",img:"image/love214/20160418_img01.jpg",playType:0},
+{vodID:"vod03",name:"楼市政策打出组合拳 4月楼市微有暖意",img:"image/love214/20160418_img01.jpg",playType:0}
+]}

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;}
+        .titleContainer {width:930px;height:74px;position:absolute;left:280px;top:215px;overflow: hidden;}
+        .title {width:81px;height:36px;float: left;position:relative;line-height: 35px;}
+        .title .hover{width:79px;height:36px;position:absolute;left:1px; top:0px;background:transparent url("images/mask-2020-Sounds-Show.png") no-repeat left top;background-position: -300px -50px;}
+        .title .name{width:81px;height:36px;position:absolute;line-height:34px;left:0px; top:0px; text-align: center;font-size: 20px;color:#ffffff;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+
+        .flowed{width:1121px;height:401px;position:absolute;left:102px;top:337px;overflow: hidden;}
+        .item{width:280px;height:199px;float: left;}
+        .itemContainer{width:258px;height:186px;overflow: hidden;}
+        .img {width:256px;height:144px;}
+        .img img{width:100%;height:100%}
+        .text {width:256px;height:41px;background:transparent url("images/mask-2020-Sounds-Show.png") no-repeat left top;overflow: hidden; background-position: 0px 0px;overflow:hidden;padding:8px 0px 0px 8px;}
+        .chars{width:240px;height:32px;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;color:white;font-size:20px;line-height: 22px; text-align: center;}
+        .marqueeItem {width:240px;height:32px;}
+
+        .mask{width:270px;height:202px;position:absolute;background:transparent url("images/mask-2020-Sounds-Show.png") no-repeat left top;background-position: 0px -50px;}
+        .maskTitle{width:90px;height:36px;position:absolute;background:transparent url("images/mask-2020-Sounds-Show.png") no-repeat left top;background-position: -300px 0px;}
+
+        .page{width:120px;height:30px;position:absolute;left:586px;top:580px; text-align: center;font-size: 22px;line-height: 26px;color:white; text-align: center;}
+        .pageLast {width:85px;height:19px;left:0px;top:255px;background-position:-500px 0px;}
+        .pageNext {width:85px;height:19px;left:1000px;top:255px;background-position:-500px -50px;}
+        .page .number{color:#d0bc7f;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
+<div class='bg' id="bg"><img src="images/bg-2020-Sounds-Show.jpg" style="border:none; width:100%; height:100%"/> </div>
+<div class="titleContainer" id="title"></div>
+<div class="flowed" id="flowed"></div>
+<div class="page" id="page"></div>
+<div id="maskTitle" class="maskTitle" style="visibility: hidden"></div>
+<div id="mask"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:538,height:315,left:651,top:202};
+        win.isP60 = typeof sysmisc != 'undefined';
+        win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+        win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+        win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+        win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+        win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://117.59.202.67:8080" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+        var fileJS = win.isComputer ? "js/common.js"  : (win.EPGUrl + "/neirong/player/common.js");
+
+        var __loadJS = function () {};
+        win.appendJS = function(path){
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        };
+        win.exit = function(){};
+        var tooltipShow = function(message) {
+            message = message || decodeURIComponent('%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92');
+            if( win.isP60 ) sysmisc.showToast(message);
+            else if( win.isGW ) iPanel.debug(message);
+            else alert(message);
+        };
+        var __evalJS = function(strJS){
+            try {
+                if(/^\s*\<html\>/g.test(strJS) ) { tooltipShow(); return ; }
+                eval( strJS );
+            } catch (e) { tooltipShow( e ); }
+        };
+        if( ! win.isP60 ) {
+            __loadJS = function(){
+                if( win.isGW ) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        var state = xhr.readyState, status = xhr.status;
+                        if (state === 4 && ( status == 200 || status == 204 )) __evalJS( xhr.responseText );
+                    };
+                    xhr.open('POST', fileJS, true);
+                    xhr.send(null);
+                } else { appendJS(fileJS); }
+            };
+        } else {
+            win.AndroidHtml5 = {
+                idCounter: 0,
+                OUTPUT_RESULTS: {},
+                CALLBACK_SUCCESS: {},
+                CALLBACK_FAIL: {},
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                    AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                        } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                        }
+                    }
+                },
+            };
+            __loadJS = function () {
+                var cookie = '[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid', '') + '"}]';
+                var o = { "url": fileJS, "method": "post", "mediatype": "text/xml", "body": null, "header": cookie };
+                AndroidHtml5.callNative({ "service": "request","action": '' }, 'json',o, __evalJS ,function(e){});
+            };
+        }
+        var initialize = {
+            init : function() {
+                var typeId = '10000100000000090000000000113792';
+                var enc = '&enc=1';
+                if( iPanel.HD30Adv ) enc = '';
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=2' + enc + '&cn=21&fn=1';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+
+                cursor.row = 1;
+                cursor.column = 4;
+                win.colDistrict = 11;   //区县每行显示11列
+                win.rowDistrict = 2;    //区县显示 2 行
+                cursor.pageCount = cursor.row * cursor.column;
+                win.regex = new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24"), "gi");
+
+                var districts = decodeURIComponent('%E7%92%A7%E5%B1%B1%2C%E7%9F%B3%E6%9F%B1%2C%E6%B8%9D%E5%8C%97%2C%E5%8D%97%E5%B2%B8%2C%E4%B8%87%E5%B7%9E%2C%E5%8C%97%E7%A2%9A%2C%E6%B1%9F%E6%B4%A5%2C%E5%90%88%E5%B7%9D%2C%E6%AD%A6%E9%9A%86%2C%E5%BC%80%E5%B7%9E%2C%E4%BA%91%E9%98%B3%2C%E5%B7%AB%E6%BA%AA%2C%E5%A5%89%E8%8A%82%2C%E6%B0%B8%E5%B7%9D%2C%E7%B6%A6%E6%B1%9F%2C%E6%B2%99%E5%9D%AA%E5%9D%9D%2C%E4%B9%9D%E9%BE%99%E5%9D%A1%2C%E5%8D%97%E5%B7%9D%2C%E6%B8%9D%E4%B8%AD%2C%E5%B7%B4%E5%8D%97%2C%E6%B1%9F%E5%8C%97').split(',');
+                var removes = [];
+                loadData(url, function(rst){
+                    var list = rst['data']['list'];
+                    var columns = list[0]['data'];  //  0是样目列表
+                    columns.removeAt(0); list.removeAt(0); list.removeAt(0);//  0首页
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    var items = [];
+                    for(var i = 0; i < list.length; i++ ) {
+                        var name = columns[i].name;
+                        items[i] = {name: name, used: true, focus : focused.length > i + 2 ? Number(focused[i + 2]) : 0, typeId: list[i].id, items:[]};
+                    }
+                    for(var i = 0; i < districts.length; i++ ) {
+                        var append = true;
+                        for( var j = 0; j < list.length; j ++)
+                        {
+                            if(districts[i] != columns[j].name) continue;
+                            append = false;  break;
+                        }
+                        if( append ) items.push({ name:districts[i], used: false, focus : 0});
+                    }
+                    var html = '';
+                    for( var i = 0; i < items.length; i ++) {
+                        var item = items[i];
+                        var id = 'title' + String( i + 1 );
+                        html += '<div class="title"><div id="' + id + '" class="hover" style="visibility: hidden"></div><div class="name"' + ( item.used ? '' : ' style=" color:#888888"' ) + '>'  + item.name + '</div></div>';
+                    }
+                    $('title').innerHTML = html;
+                    var hover = focused.length > 1 ? Number(focused[1]) : 0;
+                    items.insertAt(0, {name:'导航栏目', items : columns, focus : hover, hover : hover });
+                    cursor.focusable = items;
+                    cursor.call('showItems');
+                    cursor.call('show');
+                }, { fail:function(rst){
+                    tooltip(decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81'));
+                    return;
+                }});
+            },
+            select:function(){
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) {
+                    $("title" + String(cursor.focusable[0].hover + 1)).style.visibility = 'hidden';
+                    cursor.focusable[0].hover = cursor.focusable[0].focus;
+                    cursor.blocked = cursor.focusable[0].hover + 1;
+                    cursor.call('showItems');
+                    return cursor.call('show');
+                }
+                if( cursor.focusable[blocked].items.length > 0 ) cursor.focusable[0].focus = cursor.focusable[0].hover;
+                return cursor.call('selectAct');
+            },
+            move:function(index){
+                var blocked = cursor.blocked;
+                var hover = cursor.focusable[0].hover;
+                var columns = cursor.focusable[0].items;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var column = cursor.column;
+                var pageCount = cursor.pageCount;
+                var previous = hover;
+                if( blocked == 0 ) {
+                    if( index == 11 && Math.floor( focus / colDistrict ) <= 0 || index == -1 && focus % colDistrict == 0 || index == 1 && ( focus % colDistrict == colDistrict - 1 || focus + 1 >= items.length )) return ;
+                    if( index == 1 || index == -1 ) {
+                        focus += index;
+                    } else if( index == 11 ) {
+                        focus -= colDistrict;
+                    } else {
+                        if( focus < colDistrict && colDistrict < items.length ){
+                            focus += colDistrict;
+                            if( focus >= items.length ) focus = items.length - 1;
+                        } else {
+                            if( cursor.focusable[0].focus != cursor.focusable[0].hover ) {
+                                $("title" + String(cursor.focusable[0].hover + 1)).style.visibility = 'hidden';
+                                cursor.focusable[0].hover = cursor.focusable[0].focus;
+                            }
+                            blocked = cursor.focusable[0].hover + 1;
+                            focus = cursor.focusable[blocked].focus;
+                        }
+                    }
+                } else {
+                    if( index == -1 ) {
+                        if( focus % column == 0 ) {
+                            if( focus <= column ) {
+                                if( hover % colDistrict == 0 ) return false;
+                                var district = cursor.focusable[hover];
+                                if( !district.used ) return false;
+                                $("title" + String(hover + 1)).style.visibility = 'hidden';
+                                $("title" + String(hover)).style.visibility = 'visible';
+                                blocked = hover;
+                                cursor.focusable[0].hover = hover -= 1;
+                                focus = cursor.focusable[blocked].items.length - 1;
+                                if( focus < 0 ) focus = 0;
+                            } else {
+                                focus -= pageCount - column + 1;
+                            }
+                        } else focus -= 1;
+                    } else if( index == 1 ) {
+                        var next = function(){
+                            hover += 1;
+                            if( hover % colDistrict == 0 &&  hover != 0 || hover >= columns.length ) return false;
+                            var district = cursor.focusable[hover + 1];
+                            if( !district.used ) return false;
+                            $("title" + String(hover)).style.visibility = 'hidden';
+                            $("title" + String(hover + 1)).style.visibility = 'visible';
+                            cursor.focusable[0].hover = hover;
+                            blocked = hover + 1; focus = 0;
+                            return true;
+                        };
+                        if( focus % column == column - 1 ) {
+                            if( Math.ceil( (focus + 1.0) / pageCount) * pageCount >= items.length ) {
+                                if( !next() ) return;
+                            }
+                            focus += pageCount - column + 1;
+                            if( focus >= items.length ) focus = items.length - 1;
+                        } else if( focus + 1 >= items.length ) {
+                            if( !next() ) return;
+                        }
+                        else  focus += 1;
+                    } else if( index == 11 ) {
+                        if( focus < column ) {
+                            if( hover >= colDistrict ) {
+                                $("title" + String(cursor.focusable[0].hover + 1)).style.visibility = 'hidden';
+                                cursor.focusable[0].hover -= colDistrict;
+                                blocked = cursor.focusable[0].hover + 1;
+                                focus = cursor.focusable[blocked].loaded ? cursor.focusable[blocked].items.length - 1 : cursor.focusable[blocked].focus;
+                            } else {
+                                blocked = 0;
+                                focus = cursor.focusable[0].focus;
+                            }
+                        } else {
+                            focus -= column;
+                        }
+                    } else if( index == -11 ){
+                        if( focus + column >= items.length && ( Math.ceil( (focus + 1.0) / column) == Math.ceil( items.length * 1.0 / column) || items.length == 0 ) ){
+                            if( hover + colDistrict >= columns.length ) return ;
+                            $("title" + String(cursor.focusable[0].hover + 1)).style.visibility = 'hidden';
+                            cursor.focusable[0].hover += colDistrict;
+                            blocked = cursor.focusable[0].hover + 1;
+                            focus = 0;
+                        } else {
+                            focus += column;
+                            if( focus >= items.length ) focus = items.length - 1;
+                            if( focus <= 0 ) focus = 0;
+                        }
+                    }
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('clearMoveTimer');
+                if( cursor.focusable[cursor.focusable[0].focus + 1].loaded ){
+                    cursor.moveTimer = setTimeout(function(){
+                        cursor.call('clearMoveTimer');
+                        cursor.call('lazyShow');
+                        cursor.call('show');
+                    }
+                    , 1500);
+                }
+                cursor.call('showItems');
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            showEmpty : function (o){
+                $("page").style.visibility = 'hidden';
+                $("mask").style.visibility = 'hidden';
+                var html = '<div style="width:1078px;height:382px;position:absolute;left:0px;top:0px">';
+                html += '<img src="images/bg-2020-Sounds-Show-Empty.png" />';
+                html += '</div>';
+                $("flowed").innerHTML = html;
+            },
+            lazyShow : function(){
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) return;
+                try {
+                    var focus = cursor.focusable[blocked].focus;
+                    var item = cursor.focusable[blocked].items[focus];
+                    if( !item ) return;
+                    var name = item.name.replace( regex , "" );
+                    cursor.calcStringPixels(name, 20, function(width){
+                        if( width <= 240 ) return;
+                        $("txt" + String( focus + 1 ) ).innerHTML =  '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                    })
+                } catch (e) {
+                    debug('error in lazyShow');
+                }
+            },
+            loadItems : function( o ) {
+                var blocked = o.blocked;
+                var id = o.id;
+                var name = o.name;
+                var enc = '&enc=1';
+                if( iPanel.HD30Adv ) enc = '';
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + id + '&act=0' + enc;
+                ajax(url,
+                    function(rst){
+                        var success = rst.success;
+                        if( ! success ) {   //提示：请求栏目数据时，出现错误！
+                            tooltip( decodeURIComponent('%E8%AF%B7%E6%B1%82') + name +  decodeURIComponent('%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81') );
+                            return;
+                        }
+                        try{
+                            var list = rst.data.list || [];
+                            cursor.focusable[blocked].items = list;
+                            if( list.length > 0 ) {
+                                cursor.focusable[blocked].loaded = true;
+                                cursor.call('showItems', true);
+                                cursor.call('show');
+                                setTimeout(function(){cursor.call('lazyShow');}, 300);
+                            } else {
+                                cursor.call('showEmpty', o);
+                            }
+                        } catch (e) {
+                            cursor.call('showEmpty', o);
+                        }
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            //tooltip( decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE') + name + decodeURIComponent('%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E4%B8%BA%E7%A9%BA%EF%BC%81') );
+                            cursor.call('showEmpty', o);
+                            return;
+                        }
+                    }
+                );
+            },
+            showItems : function(isCallback){
+                var blocked = ( cursor.blocked == 0 ? cursor.focusable[0].focus : cursor.focusable[0].hover  ) + 1;
+                var items = cursor.focusable[blocked].items;
+                if( items.length == 0 ){
+                    if( !isCallback ) {
+                        items = cursor.focusable[0].items;
+                        return cursor.call("loadItems", {blocked: blocked, id: items[blocked - 1].id, name: items[blocked - 1].name});
+                    }
+                    return cursor.call('showEmpty', {blocked: blocked});
+                }
+                var focus = cursor.focusable[blocked].focus;
+
+                var pageCount = cursor.pageCount;
+                var defaultIndex = Math.floor(pageCount / 2.0);
+
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                var html = '';
+                var length = items.length - flowCursorIndex >= pageCount ? pageCount : items.length - flowCursorIndex;
+
+                for(var i = flowCursorIndex; i < flowCursorIndex + length; i += 1) {
+                    var item = items[i];
+                    html += '<div class="item"><div class="itemContainer">';
+                    html += '<div class="img"><img src="' + cursor.pictureUrl(item.posters,1,'images/defaultImg.png') + '"/></div>';
+                    html += '<div class="text"><div class="chars" id="txt' + (i + 1) + '">' + item.name.replace( regex, "") + '</div></div>';
+                    html += '</div></div>';
+                }
+                var cp = Math.ceil( ( focus + 1.0 ) / pageCount);
+                var tl =  Math.ceil( ( items.length * 1.0 ) / pageCount );
+                if( cp > 1 ) html += '<div class="mask pageLast"></div>';
+                if( cp < tl ) html += '<div class="mask pageNext"></div>';
+                $("flowed").innerHTML = html;
+                $("page").style.visibility = 'visible';
+                $("page").innerHTML = '<span class="number">'+ String( cp ) + '</span> / ' + String( tl );
+            },
+            show : function() {
+                var blocked = cursor.blocked;
+                var focus = undefined;
+                if( blocked == 0 ) {
+                    focus = cursor.focusable[0].hover;
+                    $("mask").style.visibility = 'hidden';
+                    $("title" + String(focus + 1)).style.visibility = focus == cursor.focusable[0].focus ? 'hidden' : 'visible';
+                    focus = cursor.focusable[0].focus;
+                    $("maskTitle").style.left = String( focus % colDistrict * 81 + 275 ) + "px";
+                    $("maskTitle").style.top = String( Math.floor( focus / colDistrict ) * 36 + 216 ) + "px";
+                    $("maskTitle").style.visibility = 'visible';
+                } else {
+                    focus = cursor.focusable[0].hover;
+                    $("title" + String(focus + 1)).style.visibility = 'visible';
+                    $("maskTitle").style.visibility = 'hidden';
+                    focus = cursor.focusable[blocked].focus;
+                    if( cursor.focusable[blocked].items.length == 0 ) return;
+                    $("mask").style.left = String( focus % cursor.column * 280 + 96 ) + "px";
+                    $("mask").style.top = String( Math.floor( focus % cursor.pageCount / cursor.column ) * 199 + 329 ) + "px";
+                    $("mask").className = "mask";
+                    $("mask").style.visibility = 'visible';
+                }
+
+            }
+        };
+        __loadJS();
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

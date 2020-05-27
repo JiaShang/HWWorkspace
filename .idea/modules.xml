@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Distribute/Distribute/Distribute.iml" filepath="$PROJECT_DIR$/../Distribute/Distribute/Distribute.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HWWorkspace.iml" filepath="$PROJECT_DIR$/.idea/HWWorkspace.iml" />
+    </modules>
+  </component>
+</project>

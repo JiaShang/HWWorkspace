@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .text{width:120px;height:24px;color:white;font-size:20px;text-align: center;overflow: hidden;position:absolute;}
+        .text1 {left:94px;top:314px;}
+        .text2 {left:309px;top:314px;}
+        .text3 {left:94px;top:510px;}
+        .text4 {left:309px;top:510px;}
+        .mask {position:absolute;width:75px;height:44px;background: url("images/mask-1912-1.png") no-repeat left top;}
+        .people {width:450px;height:390px;left:93px;top:229px;position:absolute;background: transparent none no-repeat left top;}
+        .introduce {width:590px;height:340px;position:absolute;left: 587px;top:250px;background: transparent none no-repeat left top;}
+        .tooltip {width:1280px;height: 720px;left:0px;top:0px;position:absolute;background: transparent none no-repeat left top;}
+        .mask1{left:218px;top:338px;}
+        .mask2{left:433px;top:338px;}
+        .mask3{left:218px;top:534px;}
+        .mask4{left:433px;top:534px;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute; left:0px; top:0px; width:100%; height:100%">
+    <img src="images/bg-1912-1.jpg" style="width:1280px;height:720px;"/>
+    <div class="people" id="people"></div>
+    <div class="introduce" id="introduce"></div>
+    <div class="text text1" id="text1">-- 票</div>
+    <div class="text text2" id="text2">-- 票</div>
+    <div class="text text3" id="text3">-- 票</div>
+    <div class="text text4" id="text4">-- 票</div>
+    <div class="mask" id="mask"></div>
+    <div class="tooltip" id="tooltip" style="visibility: hidden"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.isP60 = typeof sysmisc != 'undefined';
+        win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+        win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+        win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+        win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+        win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://192.168.14.102:8082" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+        var fileJS = win.isComputer ? "js/common.js"  : (win.EPGUrl + "/neirong/player/common.js");
+
+        var __loadJS = function () {};
+        win.appendJS = function(path){
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        };
+        win.exit = function(){};
+        var tooltipShow = function(message) {
+            message = message || decodeURIComponent('%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92');
+            if( win.isP60 ) sysmisc.showToast(message);
+            else if( win.isGW ) iPanel.debug(message);
+            else alert(message);
+        };
+        var __evalJS = function(strJS){
+            try {
+                if(/^\s*\<html\>/g.test(strJS) ) { tooltipShow(); return ; }
+                eval( strJS );
+            } catch (e) { tooltipShow( e ); }
+        };
+        if( ! win.isP60 ) {
+            __loadJS = function(){
+                if( win.isGW ) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        var state = xhr.readyState, status = xhr.status;
+                        if (state === 4 && ( status == 200 || status == 204 )) __evalJS( xhr.responseText );
+                    };
+                    xhr.open('POST', fileJS, true);
+                    xhr.send(null);
+                } else { appendJS(fileJS); }
+            };
+        } else {
+            win.AndroidHtml5 = {
+                idCounter: 0,
+                OUTPUT_RESULTS: {},
+                CALLBACK_SUCCESS: {},
+                CALLBACK_FAIL: {},
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                    AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                        } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                        }
+                    }
+                },
+            };
+            __loadJS = function () {
+                var cookie = '[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid', '') + '"}]';
+                var o = { "url": fileJS, "method": "post", "mediatype": "text/xml", "body": null, "header": cookie };
+                AndroidHtml5.callNative({ "service": "request","action": '' }, 'json',o, __evalJS ,function(e){});
+            };
+        }
+        var initialize = {
+            init : function(){
+                var names = '陈登超,杜东,段皓严,何晓群,康飞,李光华/李光禄,梁攀,蒲良培,渠吉堂,冉隆友,赛勒玛,石胜兰,夏伯渝,谢兰,杨锡林,于婷婷,袁玉兰,张伟波,张曦,周康云'.split(",");
+                cursor.focusable[0] = {focus : 0, items:[]};
+                for( var i = 0; i < names.length; i ++){
+                    cursor.focusable[0].items[i] = {
+                        'name': names[i],
+                        'voteCount': 0
+                    }
+                }
+
+                cursor.row = 2;
+                cursor.column = 2;
+                cursor.pageCount = cursor.row * cursor.column;
+                cursor.voteId = 471;
+                cursor.showTooltip = false;
+                cursor.call('show');
+                cursor.call('lazyShow');
+                setTimeout(function(){cursor.call('showVoteResult')}, 100);
+            },
+            move: function(index){
+
+                if( cursor.showTooltip ) return;
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                var column = cursor.column;
+                var pageCount = cursor.pageCount;
+                if( index == -1 ) {
+                    if( focus % column == 0 ) {
+                        if( focus <= column ) return;
+                        focus -= pageCount - column + 1;
+                    } else focus -= 1;
+                } else if( index == 1 ) {
+                    if( focus % column == column - 1 ) {
+                        if( Math.ceil( (focus + 1.0) / pageCount) * pageCount >= items.length ) return;
+                        focus += pageCount - column + 1;
+                        if( focus >= items.length ) focus = items.length - 1;
+                    } else if( focus + 1 >= items.length )
+                        return;
+                    else  focus += 1;
+                } else if( index == 11 ) {
+                    if( focus < column ) return;
+                    focus -= column;
+                } else if( index == -11 ){
+                    if( focus + column >= items.length && Math.ceil( (focus + 1.0) / column) == Math.ceil( items.length * 1.0 / column)  )
+                        return;
+                    focus += column;
+                    if( focus >= items.length ) focus = items.length - 1;
+                }
+
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = setTimeout(function(){ clearTimeout(cursor.moveTimer);cursor.moveTimer = undefined;cursor.call('lazyShow');}, 600);
+                cursor.call('show');
+                cursor.call('showVoteItems');
+            },
+            select : function(){
+                if( cursor.showTooltip ) return cursor.call('hideTooltip');
+
+                var now = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
+                if( now <= "2019-12-03 09:00:00") return cursor.call('showTooltip',1);
+                if( now > "2019-12-09 18:00:00" ) return cursor.call('showTooltip',3);
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var item = items[focus];
+                cursor.call("sendVote",{
+                    id:cursor.voteId,
+                    target:item.name,
+                    repeat:true,
+                    limit:10,　　//总投票数限制
+                    limitPer:1,//每个人投票限制
+                    callback: function(result){
+                        if(result.recode != '002' || result.result == false ){
+                            cursor.call('showTooltip', 11);
+                        } else {
+                            cursor.call("showVoteResult");
+                        }
+                    }
+                });
+
+            },
+            goBack : function(){
+                if( cursor.showTooltip ) return cursor.call('hideTooltip');
+                //var backUrl = win.link.query("backURL");
+                //if( backUrl.isEmpty() ) return cursor.call('goHome');
+                //location.href = decodeURIComponent(backUrl);
+                cursor.call('goBackAct');
+            },
+            showVoteResult: function(){
+                cursor.call("voteResult", {blocked : 0, callback: function(){ cursor.call("showVoteItems"); } });
+            },
+            showVoteItems:function(){
+                var focus = cursor.focusable[0].focus;
+                var start = Math.floor( focus / cursor.pageCount );
+                for( var i = 0; i < cursor.pageCount; i ++ ){
+                    var item = cursor.focusable[0].items[ start * 4 + i];
+                    $("text" + String( i + 1)).innerHTML = item.voteCount + '&nbsp;票';
+                }
+            },
+            showTooltip : function(id){
+                $("tooltip").style.backgroundImage = 'url("images/tooltip-' + String(id) + '.png")';
+                $("tooltip").style.visibility = 'visible';
+                cursor.showTooltip = true;
+            },
+            hideTooltip : function(){
+                $("tooltip").style.visibility = 'hidden';
+                $("tooltip").style.backgroundImage = 'none';
+                cursor.showTooltip = false;
+            },
+            lazyShow:function(){
+                var focus = cursor.focusable[0].focus;
+                var name = String(focus + 1);
+                if( name.length == 1 )  name = '0' + name;
+                $("introduce").style.backgroundImage =  'url("images/intro-1912-' + name + '.png")';
+            },
+            show : function( action ){
+                var focus = cursor.focusable[0].focus;
+                var start = Math.floor( focus / 4.0 );
+                focus = focus % 4 + 1;
+                $("people").style.backgroundImage = 'url("images/page-1912-1-' + String(start + 1) + '.png")';
+                $("mask").className = "mask mask" + String(focus);
+            }
+        };
+        __loadJS();
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

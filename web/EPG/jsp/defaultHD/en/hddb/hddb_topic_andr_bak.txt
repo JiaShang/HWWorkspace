@@ -1,0 +1,1381 @@
+﻿{
+	"code":200,
+	"data":[
+		{ 	"id":1,
+			"name":"舌尖上的新年",
+			"url":"/EPG/jsp/defaultHD/en/highvod_happy_classify.jsp?typeId=10000100000000090000000000105833&pageSize=100&startIndex=0"
+		},
+		{ 	"id":2,
+			"name":"电影界最伟大的科幻系列：星球大战",
+			"url":"/EPG/jsp/neirong/S20160105.jsp"
+		},
+		{ 	"id":3,
+			"name":"期末备考帮你赢",
+			"url":"/EPG/jsp/neirong/S20160115.jsp"
+		},
+		{ 	"id":4,
+			"name":"我是歌手第四季",
+			"url":"/EPG/jsp/neirong/S20160116.jsp"
+		},
+		{ 	"id":5,
+			"name":"功夫熊猫卖萌归来",
+			"url":"/EPG/jsp/neirong/S20160125.jsp"
+		},
+		{ 	"id":6,
+			"name":"揭秘“权利游戏第五季”",
+			"url":"/EPG/jsp/neirong/S20160203.jsp"
+		},
+		{ 	"id":7,
+			"name":"小编教你买年货",
+			"url":"/EPG/jsp/neirong/S20160201.jsp"
+		},
+		{ 	"id":8,
+			"name":"贺岁大片全家看",
+			"url":"/EPG/jsp/defaultHD/en/highvod_happy_classify.jsp?typeId=10000100000000090000000000105870&pageSize=100&startIndex=0"
+		},
+		{ 	"id":9,
+			"name":"Get It Beauty一起变美吧",
+			"url":"/EPG/jsp/neirong/S20160205.jsp"
+		},
+		{ 	"id":10,
+			"name":"喜剧之王培训班",
+			"url":"/EPG/jsp/neirong/S20160206.jsp"
+		},
+		{ 	"id":11,
+			"name":"星女郎",
+			"url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000105902"
+		},
+		{ 	"id":12,
+			"name":"TFBOYS陪你开学啦",
+			"url":"/EPG/jsp/neirong/S20160222.jsp"
+		},
+		{ 	"id":13,
+			"name":"抗击节后综合症",
+			"url":"/EPG/jsp/neirong/S20160221.jsp"
+		},
+		{ 	"id":14,
+			"name":"票选荧屏皇帝",
+			"url":"/EPG/jsp/neirong/S20160225.jsp?typeId=10000100000000090000000000105904&voteId=100"
+		},
+		{ 	"id":15,
+			"name":"直击第88届奥斯卡",
+			"url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000105922&voteId=100"
+		},
+		{ 	"id":16,
+			"name":"莱昂纳多问鼎奥斯卡",
+			"url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000105923&voteId=100"
+		},
+		{ 	"id":17,
+			"name":"开学第一课",
+			"url":"/EPG/jsp/neirong/S20160303.jsp"
+		},
+		{ 	"id":18,
+			"name":"2016全国两会",
+			"url":"/EPG/jsp/neirong/S20160307.jsp"
+		},
+		{ 	"id":19,
+			"name":"女医明妃教你不生病的中医调养",
+			"url":"http://192.168.35.153:8080/huoDong_MingFei.jsp?lcn=mingfei"
+		},
+		{ 	"id":20,
+			"name":"我要美美美",
+			"url":"/EPG/jsp/neirong/S20160308.jsp"
+		},
+		{ 	"id":21,
+			"name":"天天向上",
+			"url":"/EPG/jsp/neirong/S20160310.jsp"
+		},
+		{ 	"id":22,
+			"name":"3.15在行动",
+			"url":"/EPG/jsp/neirong/S20160315.jsp"
+		},
+		{ 	"id":23,
+			"name":"中韩男星撩妹技能大比武",
+			"url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000105782&isKorean=1"
+		},
+		{ 	"id":24,
+			"name":"疯狂萌物城",
+			"url":"/EPG/jsp/neirong/S20160316.jsp"
+		},
+		{ 	"id":25,
+			"name":"点爆“冰与火”限时全免",
+			"url":"/EPG/jsp/neirong/S20160322.jsp"
+		},
+		{ 	"id":26,
+			"name":"挑战阿尔法狗",
+			"url":"http://192.168.35.153:8080/weiqi.jsp?lcn=weiqi"
+		},
+		{ 	"id":27,
+			"name":"吃遍重庆旮旮旯旯",
+			"url":"/EPG/jsp/neirong/S20150930.jsp"
+		},
+		{ 	"id":28,
+			"name":"逐梦他乡重庆人",
+			"url":"/EPG/jsp/neirong/S20150714.jsp"
+		},
+		{ 	"id":29,
+			"name":"十大妙招助你过暖冬",
+			"url":"/EPG/jsp/neirong/S20151215.jsp"
+		},
+		{ 	"id":30,
+			"name":"网购达人必看这十条",
+			"url":"/EPG/jsp/neirong/S20151105.jsp"
+		},
+		{ 	"id":31,
+			"name":"我的少女时代",
+			"url":"http://192.168.48.217:8085/iptv/hdzq_wdsnsd.jsp?src=akzq"
+		},
+		{ 	"id":32,
+			"name":"007大长腿系列之幽灵党",
+			"url":"/EPG/jsp/neirong/S20151112.jsp"
+		},
+		{ 	"id":33,
+			"name":"火星救援：艰难生存法则",
+			"url":"/EPG/jsp/neirong/S20151125.jsp"
+		},
+		{ 	"id":34,
+			"name":"港囧来袭 囧囧有神",
+			"url":"/EPG/jsp/neirong/S20150925.jsp"
+		},
+		{ 	"id":35,
+			"name":"青春 奋斗山城故事",
+			"url":"/EPG/jsp/neirong/S20150730.jsp"
+		},
+		{ 	"id":36,
+			"name":"家庭必备科学急救常识",
+			"url":"/EPG/jsp/neirong/S20150330.jsp"
+		},
+		{ 	"id":37,
+			"name":"我家有房要装修",
+			"url":"/EPG/jsp/neirong/S20150522.jsp"
+		},
+		{ 	"id":38,
+			"name":"重庆言子闹山城",
+			"url":"/EPG/jsp/defaultHD/en/20150818_cqyz.jsp?typeId=10000100000000090000000000105402&pageSize=50&startIndex=0"
+		},
+		{ 	"id":39,
+			"name":"速度与激情的前世今生",
+			"url":"/EPG/jsp/neirong/S20150413.jsp"
+		},
+		{ 	"id":40,
+			"name":"最美“贤妻”刘涛",
+			"url":"/EPG/jsp/defaultHD/en/goodwife.jsp?typeId=10000100000000090000000000104981&pageSize=50&startIndex=0"
+		},
+		{ 	"id":41,
+			"name":"春季养生好时节",
+			"url":"/EPG/jsp/defaultHD/en/2015spring.jsp?typeId=10000100000000090000000000104987&pageSize=50&startIndex=0"
+		},
+		{ 	"id":42,
+			"name":"小儿不再“难养”",
+			"url":"/EPG/jsp/neirong/S20150127.jsp"
+		},
+		{ 	"id":43,
+			"name":"天才少年养成记",
+			"url":"/EPG/jsp/neirong/S20151014.jsp"
+		},
+		{ 	"id":44,
+			"name":"娘娘驾到",
+			"url":"/EPG/jsp/defaultHD/en/20151201nnjd.jsp?typeId=10000100000000090000000000105701&pageSize=50&startIndex=0"
+		},
+		{ 	"id":45,
+			"name":"明星情侣秀恩爱",
+			"url":"/EPG/jsp/neirong/S20150629.jsp"
+		},
+		{ 	"id":46,
+			"name":"“老干部”的春天",
+			"url":"/EPG/jsp/neirong/S20151113.jsp"
+		},
+		{ 	"id":47,
+			"name":"漫威超级英雄联盟",
+			"url":"/EPG/jsp/defaultHD/en/hero.jsp?typeId=10000100000000090000000000105123&pageSize=50&startIndex=0"
+		},
+		{ 	"id":48,
+			"name":"逍遥哥哥的成功逆袭 ",
+			"url":"/EPG/jsp/neirong/S20151030.jsp"
+		},
+		{ 	"id":49,
+			"name":"完美表姐养成记",
+			"url":"/EPG/jsp/neirong/S20150618.jsp"
+		},
+		{ 	"id":50,
+			"name":"全球高冷格斗大赛",
+			"url":"/EPG/jsp/neirong/S20150702.jsp"
+		},
+		{ 	"id":51,
+			"name":"最强综艺全收录",
+			"url":"/EPG/jsp/neirong/S20150611.jsp"
+		},
+		{ 	"id":52,
+			"name":"蝙蝠侠大战超人",
+			"url":"/EPG/jsp/neirong/S20160325.jsp"
+		},
+		{ 	"id":53,
+			"name":"点爆“冰与火”限时全免",
+			"url":"/EPG/jsp/neirong/S20160322.jsp"
+		},
+		{ 	"id":54,
+			"name":"不豁你，这些居然是真的",
+			"url":"/EPG/jsp/defaultHD/en/20160328_real.jsp?typeId=10000100000000090000000000106021&pageSize=50&startIndex=0"
+		},
+		{ 	"id":55,
+			"name":"关于茶的那些事",
+			"url":"http://192.168.35.153:8080/huoDong_chadao.jsp?lcn=chadao"
+		},
+		{ 	"id":56,
+			"name":"缘分重温张国荣",
+			"url":"http://192.168.48.217:8085/iptv/entrance.jsp?gpid=153"
+		},
+		{ 	"id":57,
+			"name":"重庆电影地图",
+			"url":"/EPG/jsp/defaultHD/en/20160331film.jsp?typeId=10000100000000090000000000106026&pageSize=50&startIndex=0"
+		},
+        { 	"id":58,
+            "name":"祖孙乐趣味运动会",
+            "url":"/EPG/jsp/neirong/S20160406.jsp"
+        },
+        { 	"id":59,
+            "name":"四月派送健身年卡",
+            "url":"http://192.168.35.153:8080/huoDong_lingJianShenKa.jsp?lcn=jsk"
+        },
+        {  "id":60,
+           "name":"兄弟情剧义",
+           "url":"http://192.168.48.217:8085/iptv/entrance.jsp?gpid=156"
+        },
+        {  "id":61,
+           "name":"外出必备女子防身术",
+           "url":"/EPG/jsp/neirong/S20160415.jsp"
+        },
+        {  "id":62,
+           "name":"决战大洋",
+           "url":"http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=mov_hot_306&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":63,
+            "name":"你们“老公”的黑历史",
+            "url":"/EPG/jsp/neirong/S20160420.jsp"
+        },
+        {   "id":64,
+            "name":"坝坝舞 有请主角儿",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=114"
+        },
+        {   "id":65,
+            "name":"权力的游戏回归粉丝趴",
+            "url":"/EPG/jsp/neirong/S20160421.jsp"
+        },
+        {   "id":66,
+            "name":"不“羁”的少年没人爱",
+            "url":"/EPG/jsp/defaultHD/en/20150731_koreaYoungs.jsp?typeId=10000100000000090000000000105360&pageSize=50&startIndex=0"
+        },
+        {   "id":67,
+            "name":"男神都是穿越来的",
+            "url":"/EPG/jsp/defaultHD/en/ManGod.jsp?typeId=10000100000000090000000000103822&pageSize=50&startIndex=0"
+        },
+        {   "id":68,
+            "name":"“韩剧专区今秋特别企划”第一弹",
+            "url":"/EPG/jsp/neirong/S20150908.jsp"
+        },
+        {   "id":69,
+            "name":"韩流男神，谁是你的菜",
+            "url":"/EPG/jsp/defaultHD/en/hanliuns.jsp?typeId=10000100000000090000000000103561&pageSize=50&startIndex=0"
+        },
+        {   "id":70,
+            "name":"韩剧土豪大盘点",
+            "url":"/EPG/jsp/defaultHD/en/2013hjth.jsp?typeId=10000100000000090000000000103020&pageSize=50&startIndex=0"
+        },
+        {   "id":71,
+            "name":"都教授进化论",
+            "url":"/EPG/jsp/defaultHD/en/djsjhl.jsp?typeId=10000100000000090000000000103020&pageSize=50&startIndex=0"
+        },
+        {   "id":72,
+            "name":"致最强高校思密达",
+            "url":"/EPG/jsp/defaultHD/en/simida.jsp?typeId=10000100000000090000000000104121&pageSize=50&startIndex=0"
+        },
+        {   "id":73,
+            "name":"盛夏带你过“韩”假",
+            "url":"/EPG/jsp/defaultHD/en/hanjiayou.jsp?typeId=10000100000000090000000000104246&pageSize=50&startIndex=0"
+        },
+        {   "id":74,
+            "name":"恋爱中的那些事儿",
+            "url":"/EPG/jsp/defaultHD/en/love.jsp?typeId=10000100000000090000000000104584&pageSize=50&startIndex=0"
+        },
+        {   "id":75,
+            "name":"北京电影节影片展映",
+            "url":"/EPG/jsp/defaultHD/en/20160418film.jsp?typeId=10000100000000090000000000106143&pageSize=50&startIndex=0"
+        },
+        {   "id":76,
+            "name":"冰与火",
+            "url":"/EPG/jsp/neirong/S20160422.jsp"
+        },
+        {   "id":77,
+            "name":"不吃这道菜，友谊的小船会翻哦",
+            "url":"/EPG/jsp/neirong/S20160423.jsp"
+        },
+        {   "id":78,
+            "name":"从小妹撩到老妹的轩哥儿",
+            "url":"/EPG/jsp/neirong/S20160424.jsp"
+        },
+        {   "id":79,
+            "name":"蒋欣的霸屏之旅",
+            "url":"/EPG/jsp/neirong/S20160427.jsp"
+        },
+        {   "id":80,
+            "name":"黄子韬演唱会直播",
+            "url":"http://192.168.48.217:8085/iptv/concTV_entry.jsp?gpid=163"
+        },
+         {   "id":81,
+             "name":"五一看好剧",
+             "url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000106191"
+         } ,
+         {   "id":82,
+             "name":"五一发现更奇妙的朋友",
+             "url":"http://192.168.9.174:80/dvb_cqocn_53/welcome/home.htm?welcome=taqing"
+         } ,
+         {   "id":83,
+             "name":"五一乐翻天",
+             "url":"/EPG/jsp/neirong/S20160429.jsp"
+         },
+        {   "id":84,
+            "name":"美国队长3观影指南",
+            "url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000106201"
+        },
+        {   "id":85,
+            "name":"改变世界的天才们",
+            "url":"/EPG/jsp/neirong/S20160506.jsp"
+        },
+        {   "id":86,
+            "name":"送给妈妈的礼物",
+            "url":"http://192.168.48.217:8085/iptv/cqccn_motherday.jsp?portalID=1"
+        },
+        {   "id":87,
+            "name":"小丈夫",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=ser_hot_182&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":88,
+            "name":"家装消费指南",
+            "url":"/EPG/jsp/neirong/S20160511.jsp"
+        },
+        {   "id":89,
+            "name":"看《权力的游戏》享特惠大礼",
+            "url":"/EPG/jsp/neirong/S20160509.jsp"
+        },
+        {   "id":90,
+            "name":"超女十年",
+            "url":"/EPG/jsp/neirong/S20160510.jsp"
+        },
+        {   "id":91,
+            "name":"功夫熊猫归来",
+            "url":"/EPG/jsp/neirong/S20160513.jsp"
+        },
+        {   "id":92,
+            "name":"再见，再也不见",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=mov_hot_312&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":93,
+            "name":"科学家的摇篮",
+            "url":"/EPG/jsp/neirong/S20160518.jsp"
+        },
+        {   "id":94,
+            "name":"痞痞的小包总",
+            "url":"/EPG/jsp/neirong/S20160519.jsp"
+        },
+        {   "id":95,
+            "name":"星盘告诉你孩子在想啥",
+            "url":"/EPG/jsp/neirong/S20160517.jsp"
+        },
+        {   "id":96,
+            "name":"愤怒的小鸟进化史",
+            "url":"/EPG/jsp/neirong/S20160521.jsp?typeId=10000100000000090000000000106300"
+        },
+        {   "id":97,
+            "name":"欢乐颂五美",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=ser_hot_184&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":98,
+            "name":"海底总动员2抢票大行动",
+            "url":"/EPG/jsp/neirong/S20160530.jsp"
+        },
+        {   "id":99,
+            "name":"魔兽好礼狂相送",
+            "url":"/EPG/jsp/neirong/S20160528.jsp"
+        },
+        {   "id":100,
+            "name":"儿童节玩转童话城堡",
+            "url":"http://192.168.9.174:80/dvb_cqocn_53/welcome/home.htm?welcome=liuyizhuanti"
+        },
+        {   "id":101,
+            "name":"六一舞蹈跟我学",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend&code=20160523_lywdgwx_album"
+        },
+        {   "id":102,
+            "name":"X战警 强者生存",
+            "url":"/EPG/jsp/neirong/S20160527.jsp"
+        },
+        {   "id":103,
+            "name":"注册韩剧会员 小编带你看老公",
+            "url":"/EPG/jsp/neirong/S20160607.jsp"
+        },
+        {   "id":104,
+            "name":"吃货的端午节",
+            "url":"/EPG/jsp/neirong/S20160608.jsp"
+        },
+        {   "id":105,
+            "name":"那年青春我们正好",
+            "url":"/EPG/jsp/neirong/S20160612.jsp"
+        },
+        {   "id":106,
+            "name":"陈奕迅成都演唱会免费抢票",
+            "url":"http://192.168.48.217:8085/iptv/entrance.jsp?gpid=193"
+        },
+        {   "id":107,
+            "name":"唱响武隆",
+            "url":"/EPG/jsp/defaultHD/en/20160612CxwlIndex.jsp?typeId=10000100000000090000000000106379&pageSize=50&startIndex=0"
+        },
+        {   "id":108,
+            "name":"疯狂欧洲杯",
+            "url":"/EPG/jsp/defaultHD/en/eurCup/index.htm"
+        },
+        {   "id":109,
+            "name":"欧洲杯美食",
+            "url":"/EPG/jsp/neirong/S20160614.jsp"
+        },
+        {   "id":110,
+            "name":"行行出状元",
+            "url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000106384"
+        },
+        {   "id":111,
+            "name":"两个爸爸的战争",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=ser_hot_183&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":112,
+            "name":"独立日：卷土重来",
+            "url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000106402"
+        },
+        {   "id":113,
+            "name":"女不强大天不容",
+            "url":"/EPG/jsp/neirong/STemplate4.jsp?typeId=10000100000000090000000000106401"
+        },
+        {   "id":114,
+            "name":"点击必要好货",
+            "url":"/EPG/jsp/neirong/S20160623.jsp"
+        },
+        {   "id":114,
+            "name":"点击必要好货",
+            "url":"/EPG/jsp/neirong/S20160623.jsp"
+        },
+        {   "id":115,
+            "name":"2016欧洲杯小组赛盘点",
+            "url":"/EPG/jsp/neirong/S20160624.jsp"
+        },
+        {   "id":116,
+            "name":"我们约球吧",
+            "url":"/EPG/jsp/neirong/S20160628.jsp"
+        },
+        {   "id":117,
+            "name":"悉数国产硬汉",
+            "url":"/EPG/jsp/neirong/S20160629.jsp"
+        },
+        {   "id":118,
+            "name":"赏金猎人",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=mov_hot_319&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":119,
+            "name":"载歌载舞感党恩",
+            "url":"http://192.168.48.217:8085/iptv/entrance.jsp?gpid=203"
+        },
+        {   "id":120,
+            "name":"抢张学友演唱会门票",
+            "url":"http://192.168.34.81/HiFi_cq/topic/xy/index.html"
+        },
+        {   "id":121,
+            "name":"婆媳的故事",
+            "url":"/EPG/jsp/defaultHD/en/20160629-pxgs.jsp?typeId=10000100000000090000000000105643&pageSize=50&startIndex=0"
+        },
+        {   "id":122,
+            "name":"建党95周年",
+            "url":"/EPG/jsp/neirong/S20160630.jsp"
+        },
+        {   "id":123,
+            "name":"2016暑期档观影指南",
+            "url":"/EPG/jsp/neirong/S20160705.jsp"
+        },
+        {   "id":124,
+            "name":"带你去长隆撒欢",
+            "url":"http://192.168.35.153:8080/huoDong_shujia.jsp?lcn=clong"
+        },
+        {   "id":125,
+            "name":"美妞乱侃欧洲杯",
+            "url":"/EPG/jsp/neirong/S20160706.jsp"
+        },
+        {   "id":126,
+            "name":"跨界歌王",
+            "url":"http://192.168.34.81/HiFi_cq/album.html?albumId=1457"
+        },
+        {   "id":127,
+            "name":"隐秘而伟大",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=ser_hot_190&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":128,
+            "name":"寒战2",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=mov_hot_320&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":129,
+            "name":"大鱼海棠",
+            "url":"/EPG/jsp/neirong/S20160710.jsp"
+        },
+        {   "id":130,
+            "name":"中国新歌声首映礼",
+            "url":"/EPG/jsp/neirong/S20160711.jsp"
+        },
+        {   "id":131,
+            "name":"加勒比海水世界",
+            "url":"http://192.168.34.81/HiFi_cq/topic/summer/index.html"
+        },
+        {   "id":132,
+            "name":"“玩”美暑假",
+            "url":"http://192.168.34.69:8090/huoDong_wanmeishujia.jsp?lcn=lrzx"
+        },
+        {   "id":133,
+            "name":"注册韩剧会员 小编带你看允儿",
+            "url":"/EPG/jsp/neirong/S20160713.jsp"
+        },
+        {   "id":134,
+            "name":"夏季居家必备神器",
+            "url":"http://192.168.35.17:8081/GlobalShopping/zt/XiaoShu?fromUrl=ccngqlm&fromTitle=zqyy"
+        },
+        {   "id":135,
+            "name":"致青春",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=ser_hot_192&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":136,
+            "name":"暑期补剧班之热播剧",
+            "url":"/EPG/jsp/neirong/S20160715.jsp"
+        },
+        {   "id":137,
+            "name":"TED演讲免费公开课",
+            "url":"http://192.168.42.52:8088/epg/newEast/biz_49797689/category/ccms_category_84327448/item/subject/44113.do"
+        },
+        {   "id":138,
+            "name":"重庆青年",
+            "url":"/EPG/jsp/neirong/S20160720.jsp"
+        },
+        {   "id":139,
+            "name":"周华健演唱会抢票活动",
+            "url":"http://192.168.34.81/HiFi_cq/topic/zhj/index.html?portalFlag=1"
+        },
+        {   "id":140,
+            "name":"“暑”你最会画",
+            "url":"http://192.168.34.69:8090/huoDong_zuihuiwan.jsp?lcn=snh"
+        },
+        {   "id":141,
+            "name":"票选你心中的最佳避暑胜地",
+            "url":"/EPG/jsp/neirong/S20160722.jsp"
+        },
+        {   "id":142,
+            "name":"三伏特惠",
+            "url":"http://192.168.33.75:80/TGO/themeActivity.htm?oprtCatNo=00000103&ret=4"
+        },
+        {   "id":143,
+            "name":"十面埋伏演出票免费送",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=142"
+        },
+        {   "id":144,
+            "name":"心中有你 锦瑟年华",
+            "url":"/EPG/jsp/neirong/S20160726.jsp"
+        },
+        {   "id":145,
+            "name":"奥斯卡金牌编剧电视首秀",
+            "url":"/EPG/jsp/neirong/S20160727.jsp"
+        },
+        {   "id":146,
+            "name":"家宴",
+            "url":"/EPG/jsp/neirong/S20160728.jsp"
+        },
+        {   "id":147,
+            "name":"今夏邀你1元看大片",
+            "url":"/EPG/jsp/neirong/S20160729.jsp"
+        },
+        {   "id":148,
+            "name":"爱宠机密曝光台",
+            "url":"/EPG/jsp/neirong/S20160801.jsp"
+        },
+        {   "id":149,
+            "name":"封神传奇",
+            "url":"http://epgServer/defaultHD/en/Category.jsp?url=http://h264-chongqing-utc.wasu.cn/a?f=jump_lanmu&foldercode=mov_hot_325&profile=CQYGQYHDSCENARIO&X-HD-SUPPORT=HD&X-CODEC=H264&X-REGION=CQQYdq"
+        },
+        {   "id":150,
+            "name":"看热辣美剧过热辣盛夏",
+            "url":"/EPG/jsp/neirong/STemplate4.jsp?typeId=10000100000000090000000000106561&bc=dc311c&cl=dc311c&fc=ffffff&lt=45&tp=328"
+        },
+        {   "id":151,
+            "name":"盗墓笔记",
+            "url":"/EPG/jsp/neirong/S20160803.jsp"
+        },
+        {   "id":152,
+            "name":"抢票去看郭德纲",
+            "url":"/EPG/jsp/neirong/S20160804.jsp"
+        },
+        {   "id":153,
+            "name":"三伏消暑",
+            "url":"http://192.168.33.75/TGO/themeActivity.htm?oprtCatNo=00000103"
+        },
+        {   "id":154,
+            "name":"和蓝胖子一起天真",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20160730_hlpzyqtz_album"
+        },
+        {   "id":155,
+            "name":"冠军同款泳姿",
+            "url":"http://192.168.35.153:8080/huoDong_youyong.jsp?lcn=youyong"
+        },
+        {   "id":156,
+            "name":"奥运风云会",
+            "url":"/EPG/jsp/neirong/S20160811.jsp"
+        },
+        {   "id":157,
+            "name":"消暑夜市全攻略",
+            "url":"/EPG/jsp/neirong/S20160812.jsp"
+        },
+        {   "id":158,
+            "name":"今夏邀你1元看大片",
+            "url":"/EPG/jsp/neirong/S20160729.jsp"
+        },
+        {   "id":159,
+            "name":"暑假补剧班之魔幻剧",
+            "url":"/EPG/jsp/neirong/S20160816.jsp"
+        },
+        {   "id":160,
+            "name":"里约豪礼大家约",
+            "url":"http://192.168.34.81/HiFi_cq/topic/aoyun/index.html"
+        },
+        {   "id":161,
+            "name":"中国新歌声",
+            "url":"http://192.168.34.81/HiFi_cq/topic/topicTpl/index.html?id=2893"
+        },
+        {   "id":162,
+            "name":"那些不输给余罪的警匪剧",
+            "url":"/EPG/jsp/neirong/S20160818.jsp"
+        },
+        {   "id":163,
+            "name":"冰川时代的动画电影",
+            "url":"/EPG/jsp/neirong/S20160822.jsp"
+        },
+        {   "id":164,
+            "name":"洪荒之力抢好礼",
+            "url":"http://192.168.35.153:8080/huoDong_honghuangzhili.jsp?lcn=honghzl"
+        },
+        {   "id":165,
+            "name":"谍影重重5",
+            "url":"/EPG/jsp/neirong/S20160824.jsp"
+        },
+        {   "id":166,
+            "name":"抓住暑假尾巴再来一波欢乐",
+            "url":"/EPG/jsp/neirong/S20160823.jsp"
+        },
+        {   "id":167,
+            "name":"火线缉凶生死决战",
+            "url":"/EPG/jsp/neirong/S20160825.jsp"
+        },
+        {   "id":168,
+            "name":"夏日韩妆大揭秘",
+            "url":"/EPG/jsp/neirong/S20160826.jsp"
+        },
+        {   "id":169,
+            "name":"火线缉凶生死决战",
+            "url":"/EPG/jsp/neirong/S20160825.jsp"
+        },
+        {   "id":170,
+            "name":"夏日韩妆大揭秘",
+            "url":"/EPG/jsp/neirong/S20160826.jsp"
+        },
+        {   "id":171,
+            "name":"甜蜜的诱惑 烘焙秀报名啦",
+            "url":"/EPG/jsp/neirong/S20160828.jsp"
+        },
+        {   "id":172,
+            "name":"2016金婚祝福礼",
+            "url":"/EPG/jsp/defaultHD/en/20160923_index_jh.jsp?typeId=10000100000000090000000000106140&pageSize=50&startIndex=0"
+        },
+        {   "id":173,
+            "name":"中秋合家乐",
+            "url":"/EPG/jsp/neirong/S20160901.jsp"
+        },
+        {   "id":174,
+            "name":"结婚为什么？",
+            "url":"/EPG/jsp/neirong/S20160831.jsp"
+        },
+        {   "id":175,
+            "name":"校园女神装备",
+            "url":"http://192.168.35.153:8080/huoDong_xiaoyuannvshen.jsp?lcn=xiaoyuan"
+        },
+        {   "id":176,
+            "name":"金秋九月TGO送好礼",
+            "url":"/EPG/jsp/neirong/S20160830.jsp"
+        },
+        {   "id":177,
+            "name":"2016重庆国际女子半马",
+            "url":"/EPG/jsp/defaultHD/en/20160928_nzmlsindex.jsp?typeId=10000100000000090000000000106721&pageSize=50&startIndex=0"
+        },
+        {   "id":178,
+            "name":"开学摸底大考查",
+            "url":"http://192.168.42.52:80/epg/newEast/biz_52550159/category/ccms_category_33610217/item/subject/45144.do"
+        },
+        {   "id":179,
+            "name":"开开心心上学去",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20160829_kkxxsxq_album"
+        },
+        {   "id":180,
+            "name":"开学季送大礼",
+            "url":"http://192.168.34.81/HiFi_cq/topic/kaixue/index.html"
+        },
+        {   "id":181,
+            "name":"韩星也陷人设坑",
+            "url":"/EPG/jsp/neirong/S20160905.jsp"
+        },
+        {   "id":182,
+            "name":"杨洋一笑也倾城",
+            "url":"/EPG/jsp/neirong/S20160909.jsp"
+        },
+        {   "id":183,
+            "name":"教你妙招防范电信诈骗",
+            "url":"/EPG/jsp/neirong/S20160913.jsp"
+        },
+        {   "id":184,
+            "name":"罗志祥演唱会 送票啦",
+            "url":"http://192.168.34.81/HiFi_cq/topic/lzx/index.html"
+        },
+        {   "id":185,
+            "name":"给老师的礼物",
+            "url":"http://192.168.35.153:8080/huoDong_jiaoshijie.jsp?lcn=JiaoSJ"
+        },
+        {   "id":186,
+            "name":"王的男人 步步惊心",
+            "url":"/EPG/jsp/neirong/S20160910.jsp?isKorean=true"
+        },
+        {   "id":187,
+            "name":"金秋送爽 邂逅美味",
+            "url":"/EPG/jsp/neirong/S20160912.jsp"
+        },
+        {   "id":188,
+            "name":"西部世界 失控的机器人乐园",
+            "url":"/EPG/jsp/neirong/S20160915.jsp"
+        },
+        {   "id":189,
+            "name":"大话西游重回人间",
+            "url":"/EPG/jsp/neirong/S20160914.jsp"
+        },
+        {   "id":190,
+            "name":"合家欢 煲好剧",
+            "url":"/EPG/jsp/neirong/S20160916.jsp"
+        },
+        {   "id":191,
+            "name":"西漫配中秋",
+            "url":"http://192.168.49.225:8081/TICOCartoon/CQBCSecond.jsp?secondId=20"
+        },
+        {   "id":192,
+            "name":"新歌榜",
+            "url":"http://192.168.34.81/HiFi_cq/HiFi_songList.html?albumId=1666&type=0"
+        },
+        {   "id":193,
+            "name":"吃这些熊孩子考双百",
+            "url":"http://192.168.35.17:8084/zt/special?backURL="
+        },
+        {   "id":194,
+            "name":"TFBOYS 见证他的蜕变",
+            "url":"/EPG/jsp/defaultHD/en/20160920tfboys.jsp?typeId=10000100000000090000000000106651&pageSize=50&startIndex=0"
+        },
+        {   "id":195,
+            "name":"今秋必看的破案烧脑剧",
+            "url":"/EPG/jsp/defaultHD/en/20160920-snhj.jsp?typeId=10000100000000090000000000106700&pageSize=50&startIndex=0"
+        },
+        {   "id":196,
+            "name":"重庆香山旅游峰会",
+            "url":"http://192.168.35.17:8082/Kaisa/XiangShan?fromTitle=%E9%87%8D%E5%BA%86%E6%9C%89%E7%BA%BF%E4%BA%92%E5%8A%A8%E4%B8%93%E5%8C%BA"
+        },
+        {   "id":197,
+            "name":"太太万岁",
+            "url":"/EPG/jsp/neirong/S20160926.jsp"
+        },
+        {   "id":198,
+            "name":"国庆特价游 天天有低价",
+            "url":"http://192.168.35.17:8082/Page/Index?tagId=2&currentPage=1&fromTitle=%E6%99%BA%E6%85%A7%E6%97%85%E6%B8%B8-%E9%A6%96%E9%A1%B5"
+        },
+        {   "id":199,
+            "name":"有颜有料还抑郁什么",
+            "url":"http://192.168.35.153:8080/huoDong_youshencai.jsp?lcn=KangYY"
+        },
+        {   "id":200,
+            "name":"从你的全重庆路过",
+            "url":"/EPG/jsp/neirong/S20160928.jsp"
+        },
+        {   "id":201,
+            "name":"演技担当陈建斌",
+            "url":"/EPG/jsp/neirong/S20160927.jsp"
+        },
+        {   "id":202,
+            "name":"国庆长假一起听歌追剧",
+            "url":"http://192.168.34.81/HiFi_cq/HiFi_songList.html?albumId=1811&type=0"
+        },
+        {   "id":203,
+            "name":"国庆游乐园",
+            "url":"/EPG/jsp/neirong/S20161001.jsp"
+        },
+        {   "id":204,
+            "name":"打开火锅地图 开整",
+            "url":"/EPG/jsp/neirong/S20160929.jsp"
+        },
+        {   "id":205,
+            "name":"国庆大片嗨翻天",
+            "url":"/EPG/jsp/neirong/S20160930.jsp"
+        },
+        {   "id":206,
+            "name":"九九重阳乐享健康",
+            "url":"http://192.168.34.73/special/guoqing.php"
+        },
+        {   "id":207,
+            "name":"听歌送张杰演唱会门票",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/zj_wl/HiFi_songList.html?albumId=1953&type=0"
+        },
+        {   "id":208,
+            "name":"重温经典舞蹈",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=155"
+        },
+        {   "id":209,
+            "name":"IP才会赢",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_85441158/item/subject/46612.do"
+        },
+        {   "id":210,
+            "name":"我的战争",
+            "url":"http://192.168.15.19/epg/activity.jsp?activity=1046"
+        },
+        {   "id":211,
+            "name":"坝坝舞专区",
+            "url":"http://192.168.48.217:8082/mo/index_mo.jsp"
+        },
+        {   "id":212,
+            "name":"沙发院线",
+            "url":"http://192.168.15.19"
+        },
+        {   "id":213,
+            "name":"TVB专区",
+            "url":"http://chongqingtvb-utc.wasu.cn/index.jsp"
+        },
+        {   "id":214,
+            "name":"强档好莱坞",
+            "url":"http://192.168.42.52:80/epg/index/hollywood.do"
+        },
+        {   "id":215,
+            "name":"凤凰专区",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/Category.jsp?url=ifeng_index.jsp"
+        },
+        {   "id":216,
+            "name":"英美剧专区",
+            "url":"/EPG/jsp/defaultHD/en/hddb/western/eu_index.jsp"
+        },
+        {   "id":217,
+            "name":"韩剧专区",
+            "url":"/EPG/jsp/defaultHD/en/hddb/hjzq/hj_index.jsp"
+        },
+        {   "id":218,
+            "name":"中国电视院线",
+            "url":"http://192.168.5.229/dyyx/index.htm"
+        },
+        {   "id":219,
+            "name":"2016美国总统大选 孰执牛耳？",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106711"
+        },
+        {   "id":220,
+            "name":"李钟硕",
+            "url":"/EPG/jsp/defaultHD/en/hddb/hjzq/hj_starDes.jsp?typeId=10000100000000090000000000105633"
+        },
+        {   "id":221,
+            "name":"爱 漫游",
+            "url":"/EPG/jsp/neirong/S20161014.jsp"
+        },
+        {   "id":222,
+            "name":"釜山行主演大起底",
+            "url":"/EPG/jsp/neirong/S20161013.jsp"
+        },
+        {   "id":223,
+            "name":"2016秋季房交会",
+            "url":"http://192.168.35.17:8080/QiuJiaoHui2016/ZtDl"
+        },
+        {   "id":224,
+            "name":"西部世界科幻新神剧",
+            "url":"/EPG/jsp/neirong/S20161018.jsp"
+        },
+        {   "id":225,
+            "name":"全球刺客联盟",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_85441158/item/subject/46879.do"
+        },
+        {   "id":226,
+            "name":"养出小明星",
+            "url":"http://192.168.35.153:8080/huoDong_xiaomingxing.jsp?lcn=xmx"
+        },
+        {   "id":227,
+            "name":"侠探与机械师满血复活",
+            "url":"/EPG/jsp/neirong/S20161020.jsp"
+        },
+        {   "id":228,
+            "name":"父母老来乐",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=157"
+        },
+        {   "id":229,
+            "name":"刷爆朋友圈的神片",
+            "url":"http://192.168.5.229/dyyx/zt_list.htm?id=28"
+        },
+        {   "id":230,
+            "name":"IU",
+            "url":"/EPG/jsp/defaultHD/en/hddb/hjzq/hj_starDes.jsp?typeId=10000100000000090000000000105841"
+        },
+        {   "id":231,
+            "name":"人民解放战争三大战役",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106743"
+        },
+        {   "id":232,
+            "name":"超强大片轮番轰炸",
+            "url":"/EPG/jsp/neirong/S20161025.jsp"
+        },
+        {   "id":233,
+            "name":"爸爸去哪儿亲子课堂",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20161010_bbqnl_album"
+        },
+        {   "id":234,
+            "name":"关门练舞",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=159"
+        },
+        {   "id":235,
+            "name":"白蛇传小戏骨",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/bsz_wl/HiFi_songList.html?albumId=1954&type=0"
+        },
+        {   "id":236,
+            "name":"万圣节恐怖片",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_85441158/item/subject/47021.do"
+        },
+        {   "id":237,
+            "name":"最美的你和最美的城",
+            "url":"/EPG/jsp/neirong/S20161031.jsp"
+        },
+        {   "id":238,
+            "name":"造乐者 林忆莲演唱会抢票",
+            "url":"/EPG/jsp/neirong/S20161102.jsp"
+        },
+        {   "id":239,
+            "name":"谁是荧幕最佳组合",
+            "url":"/EPG/jsp/neirong/S20161101.jsp"
+        },
+        {   "id":240,
+            "name":"红星照耀中国",
+            "url":"/EPG/jsp/neirong/S20161103.jsp"
+        },
+        {   "id":241,
+            "name":"脱单派对",
+            "url":"http://192.168.35.153:8080/huoDong_tuoguangpaidui.jsp?lcn=tgpd"
+        },
+        {   "id":242,
+            "name":"人人都是舞蹈家",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=161"
+        },
+        {   "id":243,
+            "name":"海底总动员2",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_37252719/item/subject/47035.do"
+        },
+        {   "id":244,
+            "name":"永远在路上",
+            "url":"/EPG/jsp/neirong/S20161102-2.jsp"
+        },
+        {   "id":245,
+            "name":"卷福变身奇异博士席卷全球",
+            "url":"/EPG/jsp/neirong/S20161104.jsp"
+        },
+        {   "id":246,
+            "name":"李洙赫",
+            "url":"/EPG/jsp/defaultHD/en/hddb/hjzq/hj_starDes.jsp?typeId=10000100000000090000000000106822"
+        },
+        {   "id":247,
+            "name":"乱局之下 女政客的危机",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106823"
+        },
+        {   "id":248,
+            "name":"TVN十年逆袭成爆款",
+            "url":"/EPG/jsp/defaultHD/en/20161102snnx.jsp?typeId=10000100000000090000000000106821&pageSize=50&startIndex=0"
+        },
+        {   "id":249,
+            "name":"双11半价看片 陪你等到12点",
+            "url":"http://192.168.42.52/epg/hollywood/biz_29325867/category/ccms_category_37252719/item/subject/47533.do"
+        },
+        {   "id":250,
+            "name":"舞出小蛮腰",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=163"
+        },
+        {   "id":251,
+            "name":"免费听歌 送林宥嘉演唱会门票",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/lyj_wl/HiFi_songList.html?albumId=634&type=0"
+        },
+        {   "id":252,
+            "name":"TFgirls专题链接",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20161031_cqtfboys_album"
+        },
+        {   "id":253,
+            "name":"看西部世界 品味美式生活",
+            "url":"/EPG/jsp/neirong/S20161108.jsp"
+        },
+        {   "id":254,
+            "name":"这里没有秦明 但这里有法医",
+            "url":"/EPG/jsp/neirong/S20161109.jsp"
+        },
+        {   "id":255,
+            "name":"与“闺蜜门”相关的那些韩剧",
+            "url":"/EPG/jsp/neirong/S20161110.jsp?isKorean=true"
+        },
+        {   "id":256,
+            "name":"反恐士兵如何克服焦躁症",
+            "url":"/EPG/jsp/neirong/STemplate4.jsp?typeId=10000100000000090000000000105870&bc=6A010E&cl=dc311c&fc=ffffff&lt=691&tp=233&w=495&ih=48&fs=24&mr=0&pg=7"
+        },
+        {   "id":257,
+            "name":"白宫新主的中国战略",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106861"
+        },
+        {   "id":258,
+             "name":"共和国之父——孙中山",
+             "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106880"
+        },
+        {   "id":259,
+             "name":"金英光",
+             "url":"/EPG/jsp/defaultHD/en/hddb/hjzq/hj_starDes.jsp?typeId=10000100000000090000000000106898"
+        },
+        {   "id":260,
+             "name":"谭咏麟巡演门票等你拿",
+             "url":"http://192.168.34.81/HiFi_cq/wailiu/tyl_wl/HiFi_songList.html?albumId=1968&type=0"
+        },
+        {   "id":261,
+             "name":"谁说美女不能丑",
+             "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_37252719/item/subject/47782.do"
+        },
+        {   "id":262,
+            "name":"哈利波特与神奇的动物",
+            "url":"/EPG/jsp/neirong/S20161121.jsp"
+        },
+        {   "id":263,
+            "name":"十年唐嫣涅盘路",
+            "url":"/EPG/jsp/neirong/S20161124.jsp"
+        },
+        {   "id":264,
+            "name":"重庆之星主持人大赛",
+            "url":"/EPG/jsp/defaultHD/en/20161122-zcrds.jsp?typeId=10000100000000090000000000106920&pageSize=50&startIndex=0"
+        },
+        {   "id":265,
+            "name":"千与千寻音乐会",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/gqj_wl/HiFi_songList.html?albumId=1969&type=0"
+        },
+        {   "id":266,
+            "name":"大学生音乐节直播",
+            "url":"http://192.168.35.153:8080/program_theme_4.jsp?id=11&type=4&lcn=fengwei"
+        },
+        {   "id":267,
+            "name":"“深港通”蓄势待发",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106922"
+        },
+        {   "id":268,
+            "name":"亡命之徒",
+            "url":"/EPG/jsp/neirong/S20161125.jsp"
+        },
+        {   "id":269,
+            "name":"2016来点好声音",
+            "url":"/EPG/jsp/defaultHD/en/20161124-GoodVoice.jsp?typeId=10000100000000090000000000106943&pageSize=50&startIndex=0"
+        },
+        {   "id":270,
+            "name":"神奇动物在哪里",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20161128_sqdwznl_album"
+        },
+        {   "id":271,
+            "name":"我敢与你一起唱到80岁",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/lry_wl/HiFi_songList.html?albumId=1970&type=0"
+        },
+        {   "id":272,
+            "name":"热舞情歌榜",
+            "url":"http://192.168.48.217:8082/mo/comefrom.jsp?itemid=169"
+        },
+        {   "id":273,
+            "name":"最后的游击战士：卡斯特罗",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106985"
+        },
+        {   "id":274,
+            "name":"TPP停摆，谁是最后赢家？",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000106986"
+        },
+        {   "id":275,
+            "name":"唤醒你的小懒虫",
+            "url":"http://192.168.35.153:8080/program_theme_4.jsp?id=12&type=4&lcn=huanxing"
+        },
+        {   "id":276,
+            "name":"音乐飙升榜",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_002&type=0"
+        },
+        {   "id":277,
+            "name":"秀出魅力 舞出健康",
+            "url":"/EPG/jsp/neirong/S20161208.jsp"
+        },
+        {   "id":278,
+            "name":"姑娘们擦亮眼",
+            "url":"/EPG/jsp/neirong/S20161213.jsp"
+        },
+        {   "id":279,
+            "name":"张艺谋的大片之梦",
+            "url":"/EPG/jsp/neirong/S20161215.jsp"
+        },
+        {   "id":280,
+            "name":"2017年读者新春大联欢",
+            "url":"/EPG/jsp/neirong/S20161216.jsp"
+        },
+        {   "id":281,
+            "name":"空难之殇",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000107022"
+        },
+        {   "id":282,
+            "name":"中国神怪志",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_37252719/item/subject/49058.do"
+        },
+        {   "id":283,
+            "name":"年末出行我买单",
+            "url":"http://192.168.35.17:8082/ZT/MinSu?fromTitle=ztdl"
+        },
+        {   "id":284,
+            "name":"圣诞大片抢先听",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_003&type=0"
+        },
+        {   "id":285,
+            "name":"罗曼蒂克消亡史",
+            "url":"/EPG/jsp/neirong/STemplate2.jsp?typeId=10000100000000090000000000107041"
+        },
+        {   "id":286,
+            "name":"冬至养生有妙招",
+            "url":"http://192.168.34.73/special/dongzhi/d.php"
+        },
+        {   "id":287,
+            "name":"西安事变80周年 解读张学良杨虎城",
+            "url":"/EPG/jsp/defaultHD/en/ifengnew/ifeng_topPicDetail.jsp?typeId=10000100000000090000000000107060"
+        },
+        {   "id":288,
+            "name":"不做大哥很多年",
+            "url":"http://192.168.42.52:80/epg/hollywood/biz_76826310/category/ccms_category_85441158/item/subject/49300.do"
+        },
+        {   "id":289,
+            "name":"Run to 2017",
+            "url":"http://192.168.35.153:8080/huoDong_runto2017.jsp?lcn=runT17"
+        },
+        {   "id":290,
+            "name":"2016年电视剧点播盘点",
+            "url":"/EPG/jsp/neirong/S20161226.jsp"
+        },
+        {   "id":291,
+            "name":"优酷专区",
+            "url":"http://192.168.17.74/youku/index.htm"
+        },
+        {   "id":292,
+            "name":"跨年狂欢",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_005&type=0"
+        },
+        {   "id":293,
+            "name":"两学一做",
+            "url":"/EPG/jsp/neirong/S20161122.jsp"
+        },
+        {   "id":294,
+            "name":"“重庆有线杯”首届忠县舞蹈大赛",
+            "url":"/EPG/jsp/neirong/S20161127.jsp"
+        },
+        {   "id":295,
+            "name":"给孩子新年的第一份礼物",
+            "url":"/EPG/jsp/neirong/S20161227.jsp"
+        },
+        {   "id":296,
+            "name":"2016重庆大事记",
+            "url":"/EPG/jsp/neirong/S20161228.jsp"
+        },
+        {   "id":297,
+            "name":"“科宇杯”唱响潼南电视歌唱大赛",
+            "url":"/EPG/jsp/neirong/S20161231.jsp"
+        },
+        {   "id":298,
+            "name":"中西合璧看好戏",
+            "url":"/EPG/jsp/defaultHD/en/20161229-zxhb.jsp?typeId=10000100000000090000000000107100&pageSize=50&startIndex=0"
+        },
+        {   "id":299,
+            "name":"爱看电影2016观影报告",
+            "url":"/EPG/jsp/neirong/S20161229.jsp"
+        },
+        {   "id":300,
+            "name":"1617跨年演唱会",
+            "url":"/EPG/jsp/neirong/S20161230.jsp"
+        },
+        {   "id":301,
+            "name":"搜狐专区",
+            "url":"http://192.168.17.57:9888/sohuepg/index.html"
+        },
+        {   "id":302,
+            "name":"新年礼最棒",
+            "url":"http://192.168.34.18:8081/activity/new_year/index.do"
+        },
+        {   "id":303,
+            "name":"带好孩子有妙招",
+            "url":"http://192.168.35.17:8086/zt/KWSomething?fromTitle=ztdl"
+        },
+        {   "id":304,
+            "name":"2017我也要天天向上",
+            "url":"http://192.168.17.155/nn_cms/web_template/index.html?nns_page_name=zt_tyhd&nns_instance_id=tyhd_temp&nns_product_id=800622001387&from_pid=ydhd"
+        },
+        {   "id":305,
+            "name":"签到有礼大轮盘抽奖",
+            "url":"http://192.168.33.76:8081/zpyl/20161222-zpyl.htm"
+        },
+        {   "id":306,
+            "name":"星球大战外传：侠盗1号",
+            "url":"/EPG/jsp/neirong/S20170106.jsp"
+        },
+        {   "id":307,
+            "name":"年会表演学几招",
+            "url":"http://192.168.35.153:8080/huoDong_nianhui.jsp?lcn=nianhui"
+        },
+        {   "id":308,
+            "name":"2017年金球奖提名不完全名单",
+            "url":"/EPG/jsp/neirong/S20170109.jsp"
+        },
+        {   "id":309,
+            "name":"蓝猫期末总复习",
+            "url":"http://192.168.98.67:9988/ggly-gd-hd/index.jsp?entry=recommend1&code=20170109_lmqmzfx_album"
+        },
+        {   "id":310,
+            "name":"宝宝冬季御寒食谱",
+            "url":"http://192.168.35.17:8086/zt/WMTChildEatWhat?fromTitle=ztdl"
+        },
+        {   "id":311,
+            "name":"回忆里都是满满的甜",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_007&type=0&wlColor=000000_000000"
+        },
+        {   "id":312,
+            "name":"李霄云“正常人”演唱会 全网独播",
+            "url":"http://192.168.17.53/detail27.html"
+        },
+        {   "id":313,
+            "name":"白褂男神的诱惑",
+            "url":"/EPG/jsp/neirong/S20170113.jsp"
+        },
+        {   "id":314,
+            "name":"新年惊喜Party",
+            "url":"http://192.168.34.18:8081/activity/tpl_activity/film/index.do"
+        },
+        {   "id":315,
+            "name":"寒假最强音：动漫原声抢先听",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_009&type=0&wlColor=ffffff_000000"
+        },
+        {   "id":316,
+            "name":"重庆有线伴你走过2016",
+            "url":"/EPG/jsp/neirong/S20170116.jsp"
+        },
+        {   "id":317,
+            "name":"那些年，他们还木有整容",
+            "url":"/EPG/jsp/neirong/S20170118.jsp"
+        },
+        {   "id":318,
+            "name":"2016HBO美剧盘点",
+            "url":"/EPG/jsp/neirong/S20170119.jsp?typeId=10000100000000090000000000107162&bc=F14579&cl=BDAE98&fc=ffffff&lt=803&tp=268&w=218&ih=26&fs=18&mr=0&pg=9"
+        },
+        {   "id":319,
+            "name":"2016动画电影TOP10",
+            "url":"/EPG/jsp/neirong/S20170120.jsp?typeId=10000100000000090000000000105151&bc=FFE400&cl=FFE400&fc=000000&lt=115&tp=319&w=446&ih=48&fs=22&mr=0&pg=6"
+        },
+        {   "id":320,
+            "name":"喜迎小年 大吉大利",
+            "url":"http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=20170119_xny_album"
+        },
+        {   "id":321,
+            "name":"2017年画宝宝",
+            "url":"http://192.168.35.17:8086/nhbbzt/init?fromTitle=ztdl"
+        },
+        {   "id":322,
+            "name":"一起来做年夜饭",
+            "url":"/EPG/jsp/neirong/S20170121.jsp"
+        },
+        {   "id":323,
+            "name":"寒假乐学趴",
+            "url":"http://192.168.35.153:8080/program_theme_4.jsp?id=15&type=4&lcn=hanjia"
+        },
+        {   "id":324,
+            "name":"你还有份年终奖没领",
+            "url":"http://192.168.35.153:8080/huoDong_nianzhongjiang.jsp?lcn=nzj"
+        },
+        {   "id":325,
+            "name":"巨星云集 大片出击",
+            "url":"/EPG/jsp/neirong/S20170122.jsp"
+        },
+        {   "id":326,
+            "name":"2016世界足坛年终盘点",
+            "url":"/EPG/jsp/neirong/S20170124.jsp"
+        },
+        {   "id":327,
+            "name":"2017新春庙会",
+            "url":"/EPG/jsp/neirong/S20170126.jsp"
+        },
+        {   "id":328,
+            "name":"2017春节联欢晚会",
+            "url":"/EPG/jsp/neirong/S20170125.jsp"
+        },
+        {   "id":329,
+            "name":"开年大戏",
+            "url":"/EPG/jsp/neirong/S20170123.jsp"
+        },
+        {   "id":330,
+            "name":"宝宝寒假高效成长的四个诀窍",
+            "url":"http://192.168.35.17:8086/BBGXCZZT/Index?fromTitle=ztdl"
+        },
+        {   "id":331,
+             "name":"忠县春节联欢晚会",
+             "url":"/EPG/jsp/defaultHD/en/20170119lhwhIndex.jsp?typeId=10000100000000090000000000107165&pageSize=50&startIndex=0"
+        },
+        {   "id":332,
+            "name":"爱乐之城",
+            "url":"/EPG/jsp/neirong/S20170210.jsp"
+        },
+        {   "id":333,
+            "name":"元宵喜乐会",
+            "url":"http://192.168.35.153:8080/huoDong_lexiaoyao.jsp?lcn=yaunxiao"
+        },
+        {   "id":334,
+             "name":"好身材快到碗里来",
+             "url":"http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=20170206_cjw_album"
+        },
+        {   "id":335,
+            "name":"情人节虐狗",
+            "url":"/EPG/jsp/neirong/S20170213.jsp"
+        },
+        {   "id":336,
+            "name":"情人节开糖罐",
+            "url":"http://192.168.35.153:8080/huoDong_qingrenjie.jsp?lcn=qingrenj"
+        },
+        {   "id":337,
+            "name":"情人节浪漫约定",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_013&type=0&wlColor=ffffff_ff5959"
+        },
+        {   "id":338,
+            "name":"开学啦让宝宝精神点",
+            "url":"http://192.168.35.17:8086/KaiXueZT/Index?fromTitle=ztdl"
+        },
+        {   "id":339,
+            "name":"国民声优季冠霖",
+            "url":"/EPG/jsp/neirong/S20170217.jsp"
+        },
+        {   "id":340,
+            "name":"三生三世遇见最好的你",
+            "url":"http://192.168.35.153:8080/huoDong_shilitaohua.jsp?lcn=sanshen"
+        },
+        {   "id":341,
+            "name":"帮孩子克服“开学恐惧症”",
+            "url":"http://192.168.35.17:8086/Special/index?id=2&fromTitle=ztdl"
+        },
+        {   "id":342,
+            "name":"开学有礼 快乐成长",
+            "url":"http://192.168.9.174:80/dvb_cqocn_53/welcome/home.htm?welcome=xinxueqi"
+        },
+        {   "id":343,
+            "name":"听一首歌 爱一部剧",
+            "url":"http://192.168.34.81/HiFi_cq/wailiu/wl/HiFi_songList.html?albumId=wl_014&type=0&wlColor=ffffff_ffffff"
+        }
+	]
+}
