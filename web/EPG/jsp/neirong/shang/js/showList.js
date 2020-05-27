@@ -495,3 +495,35 @@ function delInputNum(id){
 	// var inputKey = temp.substr(0,temp.length-1);
 	$(id).innerText = "请输入您的电话号码!";
 }
+//获取url字段
+function getUrlParams(_key, _url) {
+	if (typeof(_url) == "object") {
+		url = _url.location.href;
+	} else {
+		_url = (typeof(_url) == "undefined" || _url == null || _url == "") ? window.location.href : _url;
+	}
+	if (_url.indexOf("?") == -1) {
+		return "";
+	}
+	var params = [];
+	_url = _url.split("?")[1].split("&");
+	for (var i = 0, len = _url.length; i < len; i++) {
+		params = _url[i].split("=");
+		if (params[0] == _key) {
+			return params[1];
+		}
+	}
+	return "";
+}
+//获取字符串字段
+function getStrParams(_key, _str){
+	var params = [];
+	_url = _str.split("&");
+	for (var i = 0, len = _url.length; i < len; i++) {
+		params = _url[i].split("=");
+		if (params[0] == _key) {
+			return params[1];
+		}
+	}
+	return "";
+}

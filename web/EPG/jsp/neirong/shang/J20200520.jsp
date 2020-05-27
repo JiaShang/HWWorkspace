@@ -277,15 +277,38 @@
         playMovie : function(item){
             var pos = cursor.moviePos;
             player.exit();
-            player.play({
-                vodId:item.id,
-                position:{width:pos[0],height:pos[1],left:pos[2],top:pos[3]},
-                callback:function(){
-                    // cursor.focusable[cursor.blocked].focus = cursor.playIndex;
-                    //cursor.call('show');
-                    //setTimeout(function(){cursor.call('lazyShow');},50);
-                }
-            });
+            var serviceId = parseInt(getStrParams("serviceId", item.name));
+            var frequency = parseInt(getStrParams("frequency", item.name));
+            if (serviceId >0 && frequency >0) {
+                player.play({
+                    position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
+                    serviceId: serviceId,
+                    frequency: frequency
+                });
+            }else {
+                player.play({
+                    vodId: item.id,
+                    position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
+                    callback: function () {
+                        // cursor.focusable[cursor.blocked].focus = cursor.playIndex;
+                        //cursor.call('show');
+                        //setTimeout(function(){cursor.call('lazyShow');},50);
+                    }
+                });
+            }
+        },
+        select : function(){
+            var blocked = cursor.blocked;
+            var focus = cursor.focusable[blocked].focus;
+            var item = cursor.focusable[blocked].items[focus];
+            var serviceId = parseInt(getStrParams("serviceId", item.name));
+            var frequency = parseInt(getStrParams("frequency", item.name));
+            if(blocked == 0 && focus == 0 && serviceId >0 && frequency >0){
+                item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId="+serviceId+"&frequency="+frequency;
+                cursor.call('selectAct');
+            }else {
+                cursor.call('selectAct');
+            }
         },
         move : function(index){
             //上 11，下 -11，左 -1，右 1
