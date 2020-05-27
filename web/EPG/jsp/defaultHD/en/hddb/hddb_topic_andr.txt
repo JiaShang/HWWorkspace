@@ -3312,6 +3312,12 @@
       "name": "看动画 学汉字",
       "url": "http://192.168.89.21:8086/special/index?id=1385&fromTitle=ztdl_ld",
       "uptime": "2020-05-26"
+    },
+    {
+      "id": 553,
+      "name": "快乐童趣 趣味61",
+      "url": "/EPG/jsp/neirong/shang/J20200527.jsp",
+      "uptime": "2020-05-27"
     }
   ]
 }

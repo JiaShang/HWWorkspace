@@ -3858,6 +3858,60 @@
        "name": "全国两会",
        "url": "http://aoh5.cqccn.com/epgTest/meeting/index.html",
        "uptime": "2020-05-20"
+    },
+    {
+       "id": 545,
+       "name": "童年时光 2020重庆缤纷跑",
+       "url": "/EPG/jsp/neirong/shang/J20200521.jsp",
+       "uptime": "2020-05-21"
+    },
+    {
+       "id": 546,
+       "name": "我是乡村带货王",
+       "url": "/EPG/jsp/neirong/shang/J20200520.jsp?typeId=10000100000000090000000000115000&blocked=6&titlePic=62,580,1165,74,20200520,1&focusPic=82,240,550,80,20200515,1&cl=000000&fc=ffffff&cat=1&lft=605&tp=205&w=150&ih=50&mr=0&fs=24&hm=1&pg=4&sc=490,250,330,ffffff,fff332,0,1,0&video=519,297,57,164",
+       "uptime": "2020-05-21"
+    },
+    {
+       "id": 547,
+       "name": "经典小品全荟萃",
+       "url": "/EPG/jsp/neirong/shang/J20200115.jsp?typeId=10000100000000090000000000115020&lft=180&tp=279&w=420&ih=48&mr=1&fs=24&hm=1&pg=7&cl=000000&sc=1147,75,262,EBE3E4,C876A3&video=461,294,729,312",
+       "uptime": "2020-05-22"
+    },
+    {
+       "id": 548,
+       "name": "盘点中国功夫片经典之作",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115180&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+       "uptime": "2020-05-26"
+    },
+    {
+       "id": 549,
+       "name": "刑侦剧盘点 向正义致敬",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115181",
+       "uptime": "2020-05-26"
+    },
+    {
+       "id": 550,
+       "name": "打卡锻炼 高效燃脂减肥操",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=183&lcn=dk",
+       "uptime": "2020-05-26"
+    },
+    {
+       "id": 551,
+       "name": "小猪佩奇最新歌曲 好习惯童谣",
+       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=e1da17ad9b034c4b9642",
+       "uptime": "2020-05-26"
+    },
+    {
+       "id": 552,
+       "name": "看动画 学汉字",
+       "url": "http://192.168.89.21:8086/special/index?id=1385&fromTitle=ztdl_ld",
+       "uptime": "2020-05-26"
+    },
+    {
+       "id": 553,
+       "name": "快乐童趣 趣味61",
+       "url": "/EPG/jsp/neirong/shang/J20200527.jsp",
+       "uptime": "2020-05-27"
     }
   ]
 }

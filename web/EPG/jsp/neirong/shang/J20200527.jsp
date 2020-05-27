@@ -20,7 +20,7 @@
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000114947";
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000115221";
 //    infos.add(new ColumnInfo(typeId,0, 99));
 //    infos.add(new ColumnInfo("10000100000000090000000000113411", 1, 99));  //无二级栏目
 //    infos.add(new ColumnInfo("10000100000000090000000000113412", 1, 99));  //无二级栏目
@@ -29,9 +29,9 @@
     List<Column> columns = inner.getList(typeId, 4, 0 , new Column());//（id，查询数据条数，开始查询位置）
     for( int i = 0 ; columns != null && i < columns.size(); i++ ) {
         infos.add(new ColumnInfo(columns.get(i).id, 0, 99));
+
     }
     //////////////////////////////////////////////////////////
-
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
@@ -62,6 +62,7 @@
         ["images/J20200514_3Focus10.png","images/J20200514_3Focus11.png"],
         ["images/J20200514_3Focus20.png","images/J20200514_3Focus21.png"],
         ["images/J20200514_3Focus30.png","images/J20200514_3Focus31.png"]];
+    var posters = [];
     cursor.initialize({
         data: [<%
                 String html = "";
@@ -73,6 +74,17 @@
                 }
                 out.write(html);
             %>],
+        allData: [<%
+                String html2 = "";
+                for ( int i = 0; i < infos.size(); i++) {
+                    ColumnInfo info = infos.get(i);
+//                    result = inner.writeObject(column);
+                    System.out.println(info);
+//                    html2 += info;
+//                    if( i + 1 < infos.size() ) html2 += ",\n";
+                }
+                out.write(html2);
+            %>],
         focused: [<%= inner.getPreFoucs() %>],
         init: function () {
             cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
@@ -83,40 +95,40 @@
                 cursor.focusable[i].typeId = o["id"];
                 cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
                 cursor.focusable[i].items = [];
+
+                <%--columns[i] = <%= inner.getDetail(typeId,column)%>;--%>
+                <%--var columns = <%= inner.writeObject(column)%>;--%>
             }
             cursor.focusable[0].items[0] = {
-                'name':'博物馆的故事',
+                'name':'乐游六一',
                 'linkto':'/EPG/jsp/neirong/shang/J20200514_3List.jsp?typeId='+cursor.focusable[0].typeId+'&lft=165&tp=227&pg=5&w=400&ih=60&mr=5&fs=24&hm=1&fs=22&ftop=0&fleft=3&fc=3a8086&bc=fff1c0&cl=000000&sc=1,380,ffffff,fff1c0'
             }
             cursor.focusable[0].items[1] = {
-                'name':'博物馆活动指南',
+                'name':'乐看六一',
                 'linkto':'http://125.62.26.147:82/topic/topic.html?classId=149&rank=2&urlType=TOPIC'
             }
             cursor.focusable[0].items[2] = {
-                'name':'非去不可的博物馆',
+                'name':'乐读六一',
                 'linkto':'http://125.62.26.147:82/topic/topic.html?classId=147&rank=2&urlType=TOPIC'
             }
             cursor.focusable[0].items[3] = {
-                'name':'博物馆有好货',
+                'name':'乐吃六一',
                 'linkto':'http://125.62.26.147:82/topic/topic.html?classId=151&rank=2&urlType=TOPIC'
             }
+            // posters = columns.posters['1'];
             setTimeout(function(){ cursor.call('show');},150);
         },
         move : function(index){
         //上 11，下 -11，左 -1，右 1
-        var focus = cursor.focusable[0].focus;
-            cursor.call('loseFocus');
-        if( focus < 2 && index === -11 ){
-            focus = focus+2;
-        }else if ( focus > 1 && index === 11 ) {
-            focus = focus-2;
-        }else if( focus%2 == 0 && index === 1 ) {
-            focus++;
-        }else if( focus%2 == 1 && index === -1 ) {
-            focus--;
-        }
+            var focus = cursor.focusable[0].focus;
+                cursor.call('loseFocus');
+            if( focus < 3 && index === 1 ) {
+                focus++;
+            }else if( focus > 0 && index === -1 ) {
+                focus--;
+            }
             cursor.focusable[0].focus = focus;
-        cursor.call('show');
+            cursor.call('show');
         },
         show : function(){
             var focus = cursor.focusable[0].focus;

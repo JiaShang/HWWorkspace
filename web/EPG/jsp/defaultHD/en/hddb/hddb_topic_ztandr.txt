@@ -3312,6 +3312,12 @@
       "name": "¿´¶¯»­ Ñ§ºº×Ö",
       "url": "http://192.168.89.21:8086/special/index?id=1385&fromTitle=ztdl_ld",
       "uptime": "2020-05-26"
+    },
+    {
+      "id": 553,
+      "name": "¿ìÀÖÍ¯È¤ È¤Î¶61",
+      "url": "/EPG/jsp/neirong/shang/J20200527.jsp",
+      "uptime": "2020-05-27"
     }
   ]
 }
