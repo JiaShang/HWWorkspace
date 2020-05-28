@@ -26,11 +26,16 @@
 //    infos.add(new ColumnInfo("10000100000000090000000000113412", 1, 99));  //无二级栏目
 
     //////////////////////////有二级栏目/////////////////////
+    Column[] subColumns = new Column[4];
+
     List<Column> columns = inner.getList(typeId, 4, 0 , new Column());//（id，查询数据条数，开始查询位置）
     for( int i = 0 ; columns != null && i < columns.size(); i++ ) {
         infos.add(new ColumnInfo(columns.get(i).id, 0, 99));
+        subColumns[i] = new Column();
+        subColumns[i] = inner.getDetail(columns.get(i).id,subColumns[i]);
 
     }
+
     //////////////////////////////////////////////////////////
     //获取当前栏目的详细信息
     Column column = new Column();
@@ -50,19 +55,15 @@
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
 </head>
 <body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200514_3Bg.jpg)":" url('" + picture + "')" %> no-repeat;" onUnload="exit();">
-<div id="focus0" style="position: absolute;width: 126px;height: 72px;left: 240px;top: 110px; overflow:hidden; background: url('images/J20200514_3Focus00.png') no-repeat;" ></div>
-<div id="focus1" style="position: absolute;width: 137px;height: 77px;left: 490px;top: 250px; overflow:hidden; background: url('images/J20200514_3Focus10.png') no-repeat;" ></div>
-<div id="focus2" style="position: absolute;width: 158px;height: 71px;left: 100px;top: 480px; overflow:hidden; background: url('images/J20200514_3Focus20.png') no-repeat;" ></div>
-<div id="focus3" style="position: absolute;width: 125px;height: 72px;left: 500px;top: 470px; overflow:hidden; background: url('images/J20200514_3Focus30.png') no-repeat;" ></div>
+<div id="focus0" style="position: absolute;width: 300px;height: 300px;left: 170px;top: 80px; overflow:hidden; background: none no-repeat;" ></div>
+<div id="focus1" style="position: absolute;width: 300px;height: 300px;left: 420px;top: 125px; overflow:hidden; background: none no-repeat;" ></div>
+<div id="focus2" style="position: absolute;width: 300px;height: 300px;left: 650px;top: 50px; overflow:hidden; background: none no-repeat;" ></div>
+<div id="focus3" style="position: absolute;width: 300px;height: 300px;left: 850px;top: 150px; overflow:hidden; background: none no-repeat;" ></div>
 </body>
 <script language="javascript" type="text/javascript">
 
     <!--
-    var listData = [["images/J20200514_3Focus00.png","images/J20200514_3Focus01.png"],
-        ["images/J20200514_3Focus10.png","images/J20200514_3Focus11.png"],
-        ["images/J20200514_3Focus20.png","images/J20200514_3Focus21.png"],
-        ["images/J20200514_3Focus30.png","images/J20200514_3Focus31.png"]];
-    var posters = [];
+    var focusPics = [];
     cursor.initialize({
         data: [<%
                 String html = "";
@@ -74,17 +75,6 @@
                 }
                 out.write(html);
             %>],
-        allData: [<%
-                String html2 = "";
-                for ( int i = 0; i < infos.size(); i++) {
-                    ColumnInfo info = infos.get(i);
-//                    result = inner.writeObject(column);
-                    System.out.println(info);
-//                    html2 += info;
-//                    if( i + 1 < infos.size() ) html2 += ",\n";
-                }
-                out.write(html2);
-            %>],
         focused: [<%= inner.getPreFoucs() %>],
         init: function () {
             cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
@@ -95,27 +85,37 @@
                 cursor.focusable[i].typeId = o["id"];
                 cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
                 cursor.focusable[i].items = [];
-
-                <%--columns[i] = <%= inner.getDetail(typeId,column)%>;--%>
-                <%--var columns = <%= inner.writeObject(column)%>;--%>
+            }
+            <% int j=0;%>
+            for (var i = 0 ;i <4; i++ ){
+                <%  j++;%>
+                var column =  <%= inner.writeObject(subColumns[j])%>;
+                if (typeof column.posters !='undefined' && typeof column.posters[3] !='undefined' && column.posters[3].length > 0) {
+                    focusPics[i] = column.posters['3'];
+                    if (column.posters[3].length == 1) {
+                        focusPics[i][1] = ["images/defaultImg.png"];
+                    }
+                }else {
+                    focusPics[i] = ["images/defaultImg.png","images/defaultImg.png"];
+                }
+                $("focus"+String(i)).style.backgroundImage = "url("+focusPics[i][0]+")";
             }
             cursor.focusable[0].items[0] = {
                 'name':'乐游六一',
-                'linkto':'/EPG/jsp/neirong/shang/J20200514_3List.jsp?typeId='+cursor.focusable[0].typeId+'&lft=165&tp=227&pg=5&w=400&ih=60&mr=5&fs=24&hm=1&fs=22&ftop=0&fleft=3&fc=3a8086&bc=fff1c0&cl=000000&sc=1,380,ffffff,fff1c0'
+                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=153&rank=2&urlType=TOPIC'
             }
             cursor.focusable[0].items[1] = {
                 'name':'乐看六一',
-                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=149&rank=2&urlType=TOPIC'
+                'linkto':'/EPG/jsp/neirong/shang/J20200514_3List.jsp?typeId=10000100000000090000000000115223&lft=165&tp=225&pg=5&w=400&ih=55&mr=9&fs=24&hm=1&fs=24&ftop=0&fleft=3&fc=ffffff&bc=68c2e5&cl=000000&sc=1,300,ffffff,68c2e5'
             }
             cursor.focusable[0].items[2] = {
                 'name':'乐读六一',
-                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=147&rank=2&urlType=TOPIC'
+                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=157&rank=2&urlType=TOPIC'
             }
             cursor.focusable[0].items[3] = {
                 'name':'乐吃六一',
-                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=151&rank=2&urlType=TOPIC'
+                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=155&rank=2&urlType=TOPIC'
             }
-            // posters = columns.posters['1'];
             setTimeout(function(){ cursor.call('show');},150);
         },
         move : function(index){
@@ -132,11 +132,11 @@
         },
         show : function(){
             var focus = cursor.focusable[0].focus;
-            $("focus"+String(focus)).style.backgroundImage = "url(images/J20200514_3Focus"+String(focus)+"1.png)";
+            $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][1]+")";
         },
         loseFocus : function(){
             var focus = cursor.focusable[0].focus;
-            $("focus"+String(focus)).style.backgroundImage = "url(images/J20200514_3Focus"+String(focus)+"0.png)";
+            $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][0]+")";
         }
     });
     -->

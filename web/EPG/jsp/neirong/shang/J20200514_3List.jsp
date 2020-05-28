@@ -93,6 +93,7 @@
             overflow: hidden;
             text-align: left;
             line-height: <%=ih + mr %>px;
+            padding: 5px;
         }
         #scrollLower{
             left: <%=lt + w +40 %>px;
@@ -262,7 +263,7 @@
 <div style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "" : (" url('" + picture + "')")%> no-repeat;"></div>
 <div id="focus" style="position: absolute;width: 896px;height: 64px;left:<%=lt-fleft%>px;top:<%=tp-ftop%>px;background:transparent no-repeat;overflow:hidden; visibility: visible;"></div>
 <div id="scrollLower" style="position: absolute; left: 1120px; top: 230px; width: 5px; background-color: #dddddd; visibility: hidden; height: 400px;">
-    <div id="scrollUpper" style="position: absolute; top: 0px; height: 85px;width: 28px;left: -12px; background-color: #fff1c0;z-index: 1;color: #3a8086;font-size: 22px;"></div>
+    <div id="scrollUpper" style="position: absolute; top: 0px; height: 100px;width: 28px;left: -12px; background-color: #fff1c0;z-index: 1;color: #3a8086;font-size: 22px;"></div>
 </div>
 
 <div id="listOne">

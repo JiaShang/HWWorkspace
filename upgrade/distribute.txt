@@ -15,6 +15,9 @@ neirong/shang/images/J20200512Bg1.png
 neirong/shang/images/J20200512Bg2.png
 
 neirong/shang/J20200527.jsp
+neirong/shang/J20200514_3List.jsp
+neirong/shang/J20200528.jsp
+
 
 defaultHD/en/hddb/hddb_topic_ztandr.txt
 defaultHD/en/hddb/hddb_topic_andr.txt
