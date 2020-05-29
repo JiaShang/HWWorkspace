@@ -85,14 +85,13 @@ pic:图片类型，默认为海报.
             height: <%=ht %>px;
             left: <%=bd %>px;
             top:  <%=bd %>px;
-            visibility: hidden;
         }
         .list{
             position: absolute;
             background-color: transparent;
             width: <%=wh+2*bd %>px;
             height: <%=ht+2*bd %>px;
-            visibility: visible;
+            visibility: hidden;
         }
         #list{
             position: absolute;

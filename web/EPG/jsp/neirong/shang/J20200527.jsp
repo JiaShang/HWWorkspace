@@ -63,6 +63,7 @@
 <script language="javascript" type="text/javascript">
 
     <!--
+    var subColumns = [];
     var focusPics = [];
     cursor.initialize({
         data: [<%
@@ -86,13 +87,16 @@
                 cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
                 cursor.focusable[i].items = [];
             }
-            <% int j=0;%>
+            var j = 0;
+            <%for (int i = 0 ;i <4; i++ ){%>
+                subColumns[j] = <%= inner.writeObject(subColumns[i])%>;
+                j++;
+            <%}%>
             for (var i = 0 ;i <4; i++ ){
-                <%  j++;%>
-                var column =  <%= inner.writeObject(subColumns[j])%>;
-                if (typeof column.posters !='undefined' && typeof column.posters[3] !='undefined' && column.posters[3].length > 0) {
-                    focusPics[i] = column.posters['3'];
-                    if (column.posters[3].length == 1) {
+                <%--var column = <%= inner.writeObject(subColumns[j+1])%>;--%>
+                if (typeof subColumns[i].posters !='undefined' && typeof subColumns[i].posters[3] !='undefined' && subColumns[i].posters[3].length > 0) {
+                    focusPics[i] = subColumns[i].posters['3'];
+                    if (subColumns[i].posters[3].length == 1) {
                         focusPics[i][1] = ["images/defaultImg.png"];
                     }
                 }else {
