@@ -1,4 +1,4 @@
-#《童年时光 2020重庆缤纷跑》
+#《快乐童趣 趣味61》
 # 重庆视讯传媒有限公司
 # 深圳市茁壮网络股份有限公司
 
@@ -15,7 +15,7 @@ neirong/shang/images/J20200512Bg1.png
 neirong/shang/images/J20200512Bg2.png
 
 neirong/shang/J20200527.jsp
-neirong/shang/J20200514_3List.jsp
+neirong/shang/J20200527List.jsp
 neirong/shang/J20200528.jsp
 
 

@@ -96,7 +96,8 @@
             padding: 5px;
         }
         #scrollLower{
-            left: <%=lt + w +40 %>px;
+            position: absolute;
+            left: <%=2*(lt + w) +25 %>px;
             top: <%= tp %>px;
             height: <%= sc[1]%>px;
             width: 5px;
@@ -104,21 +105,28 @@
             visibility: hidden;
         }
         #scrollUpper {
+            position: absolute;
             background-color:#<%= sc[3]%>;
+            color:#<%= sc[4]%>;
+            height: 100px;
+            width: 28px;
+            left: -12px;
+            z-index: 1;
+            font-size: 22px;
         }
 
-</style>
+    </style>
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
     <script language="javascript" type="application/javascript" src="js/showList.js"></script>
-<script language="javascript" type="text/javascript">
-    <!--
-    var listBox = null;
-    var listData = [];
-    var maxTitleLen = 15;
-    var scrollFlag = <%= sc[0]%>;
-    var scrollWay = 1;
-    cursor.initialize({
-        data : [<%
+    <script language="javascript" type="text/javascript">
+        <!--
+        var listBox = null;
+        var listData = [];
+        var maxTitleLen = 15;
+        var scrollFlag = <%= sc[0]%>;
+        var scrollWay = 1;
+        cursor.initialize({
+            data : [<%
                 String html = "";
                 for ( int i = 0; i < infos.size(); i++) {
                     ColumnInfo info = infos.get(i);
@@ -128,142 +136,142 @@
                 }
                 out.write(html);
             %>],
-        focused : [<%= inner.getPreFoucs() %>],
-        init : function(){
-            cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
-            cursor.backUrl='<%= backUrl %>';
-            <% if( !isEmpty(video) && video.split("\\,").length > 3 ){ %>
-            cursor.moviePos = [<%=video%>];
-            <% } %>
-            for( var i = 0; i < this.data.length; i ++){
-                var o = this.data[i];
-                cursor.focusable[i] = {};
-                cursor.focusable[i].typeId = o["id"];
-                cursor.focusable[i].focus = this.focused.length > i + 1 ? Number( this.focused[ i + 1] ) : 0;
-                cursor.focusable[i].items = o["data"];
-            }
-            listData = cursor.focusable[0].items;
-            setTimeout(function(){
-                initList();
-                cursor.call('show');
-            },150);
-            setTimeout(function(){cursor.call('lazyShow');},250);
-
-        },
-        nextVideo   :   function () {
-            var playIndex = cursor.playIndex;
-            cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[0].items.length ? playIndex + 1 : 0;
-            var item = cursor.focusable[0].items[playIndex];
-            cursor.call("playMovie",item);
-        },
-        prepareVideo : function(){
-            var playIndex = cursor.playIndex;
-            if( cursor.focusable[0].items.length <= 0 )return;
-            var item = cursor.focusable[0].items[playIndex];
-            cursor.call("playMovie",item);
-        },
-        playMovie : function(item){
-            var pos = cursor.moviePos;
-            player.exit();
-            player.play({
-                vodId:item.id,
-                position:{width:pos[0],height:pos[1],left:pos[2],top:pos[3]},
-                callback:function(){
-                    cursor.focusable[0].focus = cursor.playIndex;
+            focused : [<%= inner.getPreFoucs() %>],
+            init : function(){
+                cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
+                cursor.backUrl='<%= backUrl %>';
+                <% if( !isEmpty(video) && video.split("\\,").length > 3 ){ %>
+                cursor.moviePos = [<%=video%>];
+                <% } %>
+                for( var i = 0; i < this.data.length; i ++){
+                    var o = this.data[i];
+                    cursor.focusable[i] = {};
+                    cursor.focusable[i].typeId = o["id"];
+                    cursor.focusable[i].focus = this.focused.length > i + 1 ? Number( this.focused[ i + 1] ) : 0;
+                    cursor.focusable[i].items = o["data"];
+                }
+                listData = cursor.focusable[0].items;
+                setTimeout(function(){
+                    initList();
                     cursor.call('show');
-                    setTimeout(function(){cursor.call('lazyShow');},50);
+                },150);
+                setTimeout(function(){cursor.call('lazyShow');},250);
+
+            },
+            nextVideo   :   function () {
+                var playIndex = cursor.playIndex;
+                cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[0].items.length ? playIndex + 1 : 0;
+                var item = cursor.focusable[0].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            prepareVideo : function(){
+                var playIndex = cursor.playIndex;
+                if( cursor.focusable[0].items.length <= 0 )return;
+                var item = cursor.focusable[0].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            playMovie : function(item){
+                var pos = cursor.moviePos;
+                player.exit();
+                player.play({
+                    vodId:item.id,
+                    position:{width:pos[0],height:pos[1],left:pos[2],top:pos[3]},
+                    callback:function(){
+                        cursor.focusable[0].focus = cursor.playIndex;
+                        cursor.call('show');
+                        setTimeout(function(){cursor.call('lazyShow');},50);
+                    }
+                });
+            },
+            move : function(index){
+                //上 11，下 -11，左 -1，右 1
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if( index == 11 && listBox.position !== 0){
+                    cursor.call('loseFocus');
+                    listBox.changeList(-1);
+                }else if( index == -11 && listBox.position < listBox.dataSize-1){
+                    cursor.call('loseFocus');
+                    listBox.changeList(1);
+                }else if (index == 1 && listBox.focusPos<5 && listBox.position + 5 < listBox.dataSize){
+                    cursor.call('loseFocus');
+                    listBox.changeList(5);
+                }else if (index == -1 && listBox.focusPos>4 && listBox.position > 4){
+                    cursor.call('loseFocus');
+                    listBox.changeList(-5);
+                }else {
+                    return;
                 }
-            });
-        },
-        move : function(index){
-            //上 11，下 -11，左 -1，右 1
-            var blocked = cursor.blocked;
-            var focus = cursor.focusable[blocked].focus;
-            var items = cursor.focusable[blocked].items;
-            if( index == 11 && listBox.position !== 0){
-                cursor.call('loseFocus');
-                listBox.changeList(-1);
-            }else if( index == -11 && listBox.position < listBox.dataSize-1){
-                cursor.call('loseFocus');
-                listBox.changeList(1);
-            }else if (index == 1 && listBox.focusPos<5 && listBox.position + 5 < listBox.dataSize){
-                cursor.call('loseFocus');
-                listBox.changeList(5);
-            }else if (index == -1 && listBox.focusPos>4 && listBox.position > 4){
-                cursor.call('loseFocus');
-                listBox.changeList(-5);
-            }else {
-                return;
-            }
-            cursor.focusable[blocked].focus = listBox.position;
-            if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
-            cursor.moveTimer = setTimeout(function(){
-                clearTimeout(cursor.moveTimer);
-                cursor.call('lazyShow');
-            }, 1000);
-            cursor.call('show');
-        },
-        lazyShow : function(){
-            var focus = listBox.position;
-            var blocked = 0;
-            var text = cursor.focusable[blocked].items[focus].name;
-            var id = String( listBox.focusPos );
-            cursor.calcStringPixels(text, <%=fs%>, function(width){
-                if( width <= <%=w-20%>) return;
-                $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + text + '</marquee>';
-            });
-        },
-        show:function(){
-            var items = cursor.focusable[0].items;
-            if( items.length <= 0 ) return;
-           // alert("listBox.focusPos==="+listBox.focusPos+",,,listBox.position==="+listBox.position);
-            $("listName"+String(listBox.focusPos ) ).style.backgroundColor = '#<%=bc%>';
-            $("listName"+String(listBox.focusPos ) ).style.color = '#<%=fc%>';
-            scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
-            if(listBox.dataSize >= 10){
-                if(listBox.position+1 >= 10){
-                    $("scrollUpper").innerHTML = (listBox.position+1)+"<br />&nbsp;/<br />"+listBox.dataSize;
-                }else{
-                    $("scrollUpper").innerHTML = "&nbsp;"+(listBox.position+1)+"<br />&nbsp;/<br />"+listBox.dataSize;
+                cursor.focusable[blocked].focus = listBox.position;
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = setTimeout(function(){
+                    clearTimeout(cursor.moveTimer);
+                    cursor.call('lazyShow');
+                }, 1000);
+                cursor.call('show');
+            },
+            lazyShow : function(){
+                var focus = listBox.position;
+                var blocked = 0;
+                var text = cursor.focusable[blocked].items[focus].name;
+                var id = String( listBox.focusPos );
+                cursor.calcStringPixels(text, <%=fs%>, function(width){
+                    if( width <= <%=w-20%>) return;
+                    $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + text + '</marquee>';
+                });
+            },
+            show:function(){
+                var items = cursor.focusable[0].items;
+                if( items.length <= 0 ) return;
+                // alert("listBox.focusPos==="+listBox.focusPos+",,,listBox.position==="+listBox.position);
+                $("listName"+String(listBox.focusPos ) ).style.backgroundColor = '#<%=bc%>';
+                $("listName"+String(listBox.focusPos ) ).style.color = '#<%=fc%>';
+                scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
+                if(listBox.dataSize >= 10){
+                    if(listBox.position+1 >= 10){
+                        $("scrollUpper").innerHTML = (listBox.position+1)+"<br />&nbsp;/<br />"+listBox.dataSize;
+                    }else{
+                        $("scrollUpper").innerHTML = "&nbsp;"+(listBox.position+1)+"<br />&nbsp;/<br />"+listBox.dataSize;
+                    }
+                }else {
+                    $("scrollUpper").innerHTML = "&nbsp;"+(listBox.position+1)+"<br />&nbsp;/<br />&nbsp;"+listBox.dataSize;
                 }
-            }else {
-                $("scrollUpper").innerHTML = "&nbsp;"+(listBox.position+1)+"<br />&nbsp;/<br />&nbsp;"+listBox.dataSize;
+            },
+            loseFocus:function(){
+                var  blocked = cursor.blocked;
+                var items = cursor.focusable[blocked].items;
+                if( items.length <= 0 ) return;
+                $("listName"+String(listBox.focusPos )).style.color = "#<%=cl%>";
+                $("listName"+String(listBox.focusPos )).style.backgroundColor = 'transparent';
+                $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
             }
-        },
-        loseFocus:function(){
-            var  blocked = cursor.blocked;
-            var items = cursor.focusable[blocked].items;
-            if( items.length <= 0 ) return;
-            $("listName"+String(listBox.focusPos )).style.color = "#<%=cl%>";
-            $("listName"+String(listBox.focusPos )).style.backgroundColor = 'transparent';
-            $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
+        });
+        function initList() {
+            var focus = cursor.focusable[0].focus;
+            listBox = new showList(10, listData.length, focus, 127, window);
+            listBox.showType = 1;
+            listBox.haveData = function (List) {
+                //$("listImg" + String(List.idPos)).style.backgroundImage = "url(images/J20200110Point0.png)";
+                $("listName" + String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > maxTitleLen?subStr(listData[List.dataPos].name,maxTitleLen,"..."):listData[List.dataPos].name;
+            }
+            listBox.notData = function (List) {
+                $("listName" + String(List.idPos)).innerText = "";
+                //$("listImg"+String(List.idPos)).style.backgroundImage = "images/global_tm.gif";
+            };
+            listBox.startShow();
+            initScroll(listBox.dataSize,1,listBox.listPage);
+            $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />"+listBox.dataSize;
         }
-    });
-    function initList() {
-        var focus = cursor.focusable[0].focus;
-        listBox = new showList(10, listData.length, focus, 127, window);
-        listBox.showType = 1;
-        listBox.haveData = function (List) {
-            //$("listImg" + String(List.idPos)).style.backgroundImage = "url(images/J20200110Point0.png)";
-            $("listName" + String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > maxTitleLen?subStr(listData[List.dataPos].name,maxTitleLen,"..."):listData[List.dataPos].name;
-        }
-        listBox.notData = function (List) {
-            $("listName" + String(List.idPos)).innerText = "";
-            //$("listImg"+String(List.idPos)).style.backgroundImage = "images/global_tm.gif";
-        };
-        listBox.startShow();
-        initScroll(listBox.dataSize,1,listBox.listPage);
-        $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />"+listBox.dataSize;
-    }
-    -->
-</script>
+        -->
+    </script>
 </head>
 <body leftmargin="0" topmargin="0" style="overflow:hidden; background: transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
 <div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 24px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
 <div style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "" : (" url('" + picture + "')")%> no-repeat;"></div>
 <div id="focus" style="position: absolute;width: 896px;height: 64px;left:<%=lt-10%>px;top:<%=tp-10%>px;background:transparent no-repeat;overflow:hidden; visibility: visible;"></div>
-<div id="scrollLower" style="position: absolute; left: 1120px; top: 230px; width: 5px; background-color: #dddddd; visibility: hidden; height: 400px;">
-    <div id="scrollUpper" style="position: absolute; top: 0px; height: 100px;width: 28px;left: -12px; background-color: #fff1c0;z-index: 1;color: #3a8086;font-size: 22px;"></div>
+<div id="scrollLower">
+    <div id="scrollUpper"></div>
 </div>
 
 <div id="listOne">
@@ -287,14 +295,14 @@
         <img id="listImg4" class="listImg"/>
         <div id="listName4" class="listName"></div>
     </div>
-<%--    <div id="list5" class="list0" style="top: 340px;">--%>
-<%--        <img id="listImg5" class="listImg"/>--%>
-<%--        <div id="listName5" class="listName"></div>--%>
-<%--    </div>--%>
-<%--    <div id="list6" class="list0" style="top: 395px;">--%>
-<%--        <img id="listImg6" class="listImg"/>--%>
-<%--        <div id="listName6" class="listName"></div>--%>
-<%--    </div>--%>
+    <%--    <div id="list5" class="list0" style="top: 340px;">--%>
+    <%--        <img id="listImg5" class="listImg"/>--%>
+    <%--        <div id="listName5" class="listName"></div>--%>
+    <%--    </div>--%>
+    <%--    <div id="list6" class="list0" style="top: 395px;">--%>
+    <%--        <img id="listImg6" class="listImg"/>--%>
+    <%--        <div id="listName6" class="listName"></div>--%>
+    <%--    </div>--%>
 </div>
 <div id="listTow">
     <div id="list5" class="list1" style="top: 5px;">

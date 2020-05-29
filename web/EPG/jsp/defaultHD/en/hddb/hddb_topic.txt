@@ -3322,7 +3322,7 @@
     {
       "id": 554,
       "name": "Åû¾£Õ¶¼¬µÄ¸ç¸ç",
-      "url": "/EPG/jsp/neirong/shang/J20200528.jsp?typeId=10000100000000090000000000114932&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+      "url": "/EPG/jsp/neirong/shang/J20200528.jsp?typeId=10000100000000090000000000114932&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&bc=transparent&cl=ffffff&fc=fdfa00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=7",
       "uptime": "2020-05-28"
     }
   ]
