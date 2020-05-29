@@ -114,11 +114,11 @@
             }
             cursor.focusable[0].items[2] = {
                 'name':'乐读六一',
-                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=157&rank=2&urlType=TOPIC'
+                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=155&rank=2&urlType=TOPIC'
             }
             cursor.focusable[0].items[3] = {
                 'name':'乐吃六一',
-                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=155&rank=2&urlType=TOPIC'
+                'linkto':'http://125.62.26.147:82/topic/topic.html?classId=157&rank=2&urlType=TOPIC'
             }
             setTimeout(function(){ cursor.call('show');},150);
         },
