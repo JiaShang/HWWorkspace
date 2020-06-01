@@ -85,6 +85,7 @@
             width: <%=w %>px;
         }
         .listName{
+            position: absolute;
             width: <%=w %>px;
             height: <%=ih + mr %>px;
             color:#<%=cl%>;
@@ -249,6 +250,9 @@
         });
         function initList() {
             var focus = cursor.focusable[0].focus;
+            for(var i=0;i<listData.length;i++){
+                $("listName" + String(i)).style =
+            }
             listBox = new showList(10, listData.length, focus, 127, window);
             listBox.showType = 1;
             listBox.haveData = function (List) {
@@ -277,23 +281,23 @@
 <div id="listOne">
     <div id="list0" class="list0" style="top: 5px;">
         <img id="listImg0" class="listImg"/>
-        <div id="listName0" class="listName"></div>
+        <div id="listName0" class="listName" style="top: 5px;"></div>
     </div>
     <div id="list1" class="list0" style="top: 71px;">
         <img id="listImg1" class="listImg"/>
-        <div id="listName1" class="listName"></div>
+        <div id="listName1" class="listName" style="top: 68px;"></div>
     </div>
     <div id="list2" class="list0" style="top: 137px;">
         <img id="listImg2" class="listImg"/>
-        <div id="listName2" class="listName"></div>
+        <div id="listName2" class="listName" style="top: 135px;"></div>
     </div>
     <div id="list3" class="list0" style="top: 205px;">
         <img id="listImg3" class="listImg"/>
-        <div id="listName3" class="listName"></div>
+        <div id="listName3" class="listName" style="top: 200px;"></div>
     </div>
     <div id="list4" class="list0" style="top: 273px;">
         <img id="listImg4" class="listImg"/>
-        <div id="listName4" class="listName"></div>
+        <div id="listName4" class="listName" style="top: 267px;"></div>
     </div>
     <%--    <div id="list5" class="list0" style="top: 340px;">--%>
     <%--        <img id="listImg5" class="listImg"/>--%>
@@ -307,31 +311,31 @@
 <div id="listTow">
     <div id="list5" class="list1" style="top: 5px;">
         <img id="listImg5" class="listImg"/>
-        <div id="listName5" class="listName"></div>
+        <div id="listName5" class="listName" style="top: 5px;"></div>
     </div>
     <div id="list6" class="list1" style="top: 71px;">
         <img id="listImg6" class="listImg"/>
-        <div id="listName6" class="listName"></div>
+        <div id="listName6" class="listName" style="top: 68px;"></div>
     </div>
     <div id="list7" class="list1" style="top: 137px;">
         <img id="listImg7" class="listImg"/>
-        <div id="listName7" class="listName"></div>
+        <div id="listName7" class="listName" style="top: 135px;"></div>
     </div>
     <div id="list8" class="list1" style="top: 205px;">
         <img id="listImg8" class="listImg"/>
-        <div id="listName8" class="listName"></div>
+        <div id="listName8" class="listName" style="top: 200px;"></div>
     </div>
     <div id="list9" class="list1" style="top: 273px;">
         <img id="listImg9" class="listImg"/>
-        <div id="listName9" class="listName"></div>
+        <div id="listName9" class="listName" style="top: 267px;"></div>
     </div>
     <div id="list12" class="list1" style="top: 340px;">
         <img id="listImg12" class="listImg"/>
-        <div id="listName12" class="listName"></div>
+        <div id="listName12" class="listName" style="top: 340px;"></div>
     </div>
     <div id="list13" class="list1" style="top: 395px;">
         <img id="listImg13" class="listImg"/>
-        <div id="listName13" class="listName"></div>
+        <div id="listName13" class="listName" style="top: 395px;"></div>
     </div>
 </div>
 </body>
