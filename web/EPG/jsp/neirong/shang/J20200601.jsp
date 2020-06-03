@@ -55,7 +55,7 @@
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
 </head>
 <body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200514_3Bg.jpg)":" url('" + picture + "')" %> no-repeat;" onUnload="exit();">
-<div id="focus0" style="position: absolute;width: 600px;height: 400px;left: 170px;top: 80px; overflow:hidden; background: none no-repeat;visibility: hidden;" ></div>
+<div id="focus0" style="position: absolute;width: 603px;height: 358px;left: 573px;top: 248px; overflow:hidden; background: url(images/J20200601Focus.png) no-repeat;visibility: hidden;" ></div>
 <div id="focus1" style="position: absolute;width: 600px;height: 400px;left: 130px;top: 270px; overflow:hidden; background: none no-repeat;" ></div>
 <div id="focus2" style="position: absolute;width: 600px;height: 400px;left: 130px;top: 380px; overflow:hidden; background: none no-repeat;" ></div>
 <div id="focus3" style="position: absolute;width: 600px;height: 400px;left: 130px;top: 490px; overflow:hidden; background: none no-repeat;" ></div>
@@ -80,6 +80,7 @@
         init: function () {
             cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
             cursor.backUrl = '<%= backUrl %>';
+            cursor.lastFocus = 1;
             for (var i = 0; i < this.data.length; i++) {
                 var o = this.data[i];
                 cursor.focusable[i] = {};
@@ -102,22 +103,22 @@
                 }else {
                     focusPics[i] = ["images/defaultImg.png","images/defaultImg.png"];
                 }
-                $("focus"+String(i)).style.backgroundImage = "url("+focusPics[i][0]+")";
+                if (i != 0){
+                    $("focus"+String(i)).style.backgroundImage = "url("+focusPics[i][0]+")";
+                }
             }
-            cursor.focusable[0].items[0] = {
-                'name':'首页视频'
-            }
+            cursor.focusable[0].items[0] = this.data[0]["data"][0];
             cursor.focusable[0].items[1] = {
                 'name':'历史记忆',
-                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[1]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,250,330,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
+                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[1]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,240,335,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
             }
             cursor.focusable[0].items[2] = {
                 'name':'纪念活动',
-                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[2]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,250,330,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
+                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[2]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,240,335,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
             }
             cursor.focusable[0].items[3] = {
                 'name':'人防知识',
-                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[3]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,250,330,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
+                'linkto':'/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId='+this.data[3]["id"]+'&titlePic=50,190,500,80,20200601List,0&focusPic=103,225,550,80,20200601List,1&cl=000000&fc=ffffff&cat=1&lft=110&tp=225&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=520,240,335,ffffff,c01e20,1,1,0&video=617,351,581,252&maxTitleLen=14'
             }
             setTimeout(function(){ cursor.call('show');cursor.call('prepareVideo');},150);
         },
@@ -156,17 +157,31 @@
                 focus++;
             }else if( focus > 1 && index === 11 ) {
                 focus--;
+            }else if (focus > 0 && index === 1) {
+                cursor.lastFocus = focus;
+                focus = 0;
+            }else if (focus == 0 && index === -1) {
+                focus = cursor.lastFocus;
             }
             cursor.focusable[0].focus = focus;
             cursor.call('show');
         },
         show : function(){
             var focus = cursor.focusable[0].focus;
-            $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][1]+")";
+            if (focus >0){
+                $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][1]+")";
+            } else {
+                $("focus"+String(focus)).style.visibility = "visible";
+            }
+
         },
         loseFocus : function(){
             var focus = cursor.focusable[0].focus;
-            $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][0]+")";
+            if (focus >0){
+                $("focus"+String(focus)).style.backgroundImage = "url("+focusPics[focus][0]+")";
+            } else {
+                $("focus"+String(focus)).style.visibility = "hidden";
+            }
         }
     });
     -->

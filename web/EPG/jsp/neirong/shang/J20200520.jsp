@@ -173,15 +173,14 @@
         focused : [<%= inner.getPreFoucs() %>],
         init : function(){
             cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 1;
-            // if (blocked != cursor.blocked){
-            //     blocked = cursor.blocked;
-            // }
             cursor.backUrl='<%= backUrl %>';
             <% if( !isEmpty(video) && video.split("\\,").length > 3 ){ %>
             cursor.moviePos = [<%=video%>];
             cursor.focusPos = 0;
             <% } %>
             totalBlocked = this.data.length;
+            cursor.serviceId = 2603;
+            cursor.frequency = 2750000;
             for( var i = 0; i < this.data.length; i ++){
                 var o = this.data[i];
                 cursor.focusable[i] = {};
@@ -200,8 +199,7 @@
             }
             cursor.focusable[0].items[0]={};
             cursor.focusable[0].items[1]={};
-            cursor.focusable[0].items[0]=this.data[0]["data"][0];
-            cursor.focusable[0].items[1]=this.data[0]["data"][1];
+            cursor.focusable[0].items=this.data[0]["data"];
 
             cursor.focusable[2].items[0]={};
             cursor.focusable[3].items[0]={};
@@ -228,7 +226,6 @@
                         'posters':this.data[1]["data"][i].posters
                     };
                 }
-
             }
             cursor.focusable[2].items[0]={
                 'name':this.data[2]["data"][0].name,
@@ -276,14 +273,14 @@
         },
         playMovie : function(item){
             var pos = cursor.moviePos;
+            var items = cursor.focusable[0].items;
             player.exit();
-            var serviceId = parseInt(getStrParams("serviceId", item.name));
-            var frequency = parseInt(getStrParams("frequency", item.name));
-            if (serviceId >0 && frequency >0) {
+            // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length);
+            if (items.length ==3 && !iPanel.HD30Adv) {
                 player.play({
                     position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
-                    serviceId: serviceId,
-                    frequency: frequency
+                    serviceId: cursor.serviceId,
+                    frequency: cursor.frequency
                 });
             }else {
                 player.play({
@@ -300,11 +297,11 @@
         select : function(){
             var blocked = cursor.blocked;
             var focus = cursor.focusable[blocked].focus;
-            var item = cursor.focusable[blocked].items[focus];
-            var serviceId = parseInt(getStrParams("serviceId", item.name));
-            var frequency = parseInt(getStrParams("frequency", item.name));
-            if(blocked == 0 && focus == 0 && serviceId >0 && frequency >0){
-                item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId="+serviceId+"&frequency="+frequency;
+            var items = cursor.focusable[blocked].items;
+            // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
+            if(blocked == 0 && focus == 0 && items.length ==3 && !iPanel.HD30Adv ){
+                var item = cursor.focusable[blocked].items[0];
+                item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId="+cursor.serviceId+"&frequency="+cursor.frequency;
                 cursor.call('selectAct');
             }else {
                 cursor.call('selectAct');

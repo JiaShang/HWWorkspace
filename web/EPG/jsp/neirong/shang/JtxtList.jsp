@@ -49,28 +49,28 @@
     String[] listImg=  {"100","100","100","60","5","5","ccc000","ffffff"};// left,top,@left,@top,背景色,焦点背景色
     String[] list=  {"100","100","100","100","1","5"}; // left,top,@left,@top,列,行
 
-    if (!isEmpty( inner.get("sc"))){
-        sc =inner.get("sc").split("\\,");
-    }
-    if (!isEmpty( inner.get("titlePic"))){
-        titlePic =inner.get("titlePic").split("\\,");
-    }
-    if (!isEmpty( inner.get("focusPic"))){
-        focusPic =inner.get("focusPic").split("\\,");
-    }
-    if (!isEmpty( inner.get("video"))){
-        video =inner.get("video").split("\\,");
-    }
-    if (!isEmpty( inner.get("listName"))){
-        listName =inner.get("listName").split("\\,");
-    }
-    if (!isEmpty( inner.get("listImg"))){
-        listImg =inner.get("listImg").split("\\,");
-    }
-    if (!isEmpty( inner.get("list"))){
-        list =inner.get("list").split("\\,");
-    }
-
+//    if (!isEmpty( inner.get("sc"))){
+//        sc =inner.get("sc").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("titlePic"))){
+//        titlePic =inner.get("titlePic").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("focusPic"))){
+//        focusPic =inner.get("focusPic").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("video"))){
+//        video =inner.get("video").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("listName"))){
+//        listName =inner.get("listName").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("listImg"))){
+//        listImg =inner.get("listImg").split("\\,");
+//    }
+//    if (!isEmpty( inner.get("list"))){
+//        list =inner.get("list").split("\\,");
+//    }
+//
 //    sc = isEmpty( inner.get("sc") ) ? sc : inner.get("sc").split("\\,");
 //    titlePic = isEmpty( inner.get("titlePic") ) ? titlePic : inner.get("titlePic").split("\\,");
 //    focusPic = isEmpty( inner.get("focusPic") ) ? focusPic : inner.get("focusPic").split("\\,");

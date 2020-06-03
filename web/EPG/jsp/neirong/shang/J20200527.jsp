@@ -110,7 +110,7 @@
             }
             cursor.focusable[0].items[1] = {
                 'name':'乐看六一',
-                'linkto':'/EPG/jsp/neirong/shang/J20200527List.jsp?typeId=10000100000000090000000000115223&lft=165&tp=215&pg=5&w=388&ih=50&mr=7&fs=24&hm=1&fs=24&ftop=0&fleft=114&fc=ffffff&bc=68c2e5&cl=000000&sc=1,350,d8d6d6,68c2e5,ffffff'
+                'linkto':'/EPG/jsp/neirong/shang/J20200527List.jsp?typeId=10000100000000090000000000115223&lft=165&tp=215&pg=5&w=380&ih=45&mr=20&fs=24&hm=1&fs=24&ftop=0&fleft=120&fc=ffffff&bc=68c2e5&cl=000000&sc=1,350,d8d6d6,68c2e5,ffffff'
             }
             cursor.focusable[0].items[2] = {
                 'name':'乐读六一',

@@ -30,8 +30,8 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "" : inner.pictureUrl("images/J20200117ListBg.jpg",column.getPosters(),"7");
-//    picture = "images/J20200514_3ListBg.jpg";
+    String picture = column == null ? "" : inner.pictureUrl("images/J20200527ListBg.jpg",column.getPosters(),"7");
+//    picture = "images/J20200527ListBg.jpg";
     String[] sc = {};
     Integer w = null, h = null, ih = null, fs = null, lt = null,tp = null,   pg = null, mr = null,   ftop = null, fleft = null;
     String cl = null, bc = null,fc = null,bg=null,al=null,hm = null;
@@ -84,6 +84,16 @@
             top: <%= tp %>px;
             width: <%=w %>px;
         }
+        .list0{
+            position: absolute;
+            width: <%=w +20%>px;
+            height: <%=ih + mr %>px;
+        }
+        .list1{
+            position: absolute;
+            width: <%=w +20%>px;
+            height: <%=ih + mr %>px;
+        }
         .listName{
             position: absolute;
             width: <%=w %>px;
@@ -94,11 +104,12 @@
             overflow: hidden;
             text-align: left;
             line-height: <%=ih + mr %>px;
-            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
         #scrollLower{
             position: absolute;
-            left: <%=2*(lt + w) +25 %>px;
+            left: <%=2*(lt + w) +20 %>px;
             top: <%= tp %>px;
             height: <%= sc[1]%>px;
             width: 5px;
@@ -123,7 +134,7 @@
         <!--
         var listBox = null;
         var listData = [];
-        var maxTitleLen = 15;
+        var maxTitleLen = 14;
         var scrollFlag = <%= sc[0]%>;
         var scrollWay = 1;
         cursor.initialize({
@@ -205,28 +216,28 @@
                     return;
                 }
                 cursor.focusable[blocked].focus = listBox.position;
-                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
-                cursor.moveTimer = setTimeout(function(){
-                    clearTimeout(cursor.moveTimer);
-                    cursor.call('lazyShow');
-                }, 1000);
+                // if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                // cursor.moveTimer = setTimeout(function(){
+                //     clearTimeout(cursor.moveTimer);
+                //     cursor.call('lazyShow');
+                // }, 800);
+                cursor.call('lazyShow');
                 cursor.call('show');
             },
             lazyShow : function(){
-                var focus = listBox.position;
-                var blocked = 0;
-                var text = cursor.focusable[blocked].items[focus].name;
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
                 var id = String( listBox.focusPos );
-                cursor.calcStringPixels(text, <%=fs%>, function(width){
-                    if( width <= <%=w-20%>) return;
-                    $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + text + '</marquee>';
-                });
+                var text = $('listName' + id).innerText;
+                if ( text.indexOf("...") != -1 ) {
+                    $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + cursor.focusable[blocked].items[focus].name + '</marquee>';
+                }
             },
             show:function(){
                 var items = cursor.focusable[0].items;
                 if( items.length <= 0 ) return;
                 // alert("listBox.focusPos==="+listBox.focusPos+",,,listBox.position==="+listBox.position);
-                $("listName"+String(listBox.focusPos ) ).style.backgroundColor = '#<%=bc%>';
+                $("list"+String(listBox.focusPos ) ).style.backgroundColor = '#<%=bc%>';
                 $("listName"+String(listBox.focusPos ) ).style.color = '#<%=fc%>';
                 scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
                 if(listBox.dataSize >= 10){
@@ -244,15 +255,15 @@
                 var items = cursor.focusable[blocked].items;
                 if( items.length <= 0 ) return;
                 $("listName"+String(listBox.focusPos )).style.color = "#<%=cl%>";
-                $("listName"+String(listBox.focusPos )).style.backgroundColor = 'transparent';
+                $("list"+String(listBox.focusPos )).style.backgroundColor = 'transparent';
                 $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
             }
         });
         function initList() {
             var focus = cursor.focusable[0].focus;
-            for(var i=0;i<listData.length;i++){
-                $("listName" + String(i)).style =
-            }
+            // for(var i=0;i<listData.length;i++){
+            //     $("listName" + String(i)).style =
+            // }
             listBox = new showList(10, listData.length, focus, 127, window);
             listBox.showType = 1;
             listBox.haveData = function (List) {
@@ -281,23 +292,23 @@
 <div id="listOne">
     <div id="list0" class="list0" style="top: 5px;">
         <img id="listImg0" class="listImg"/>
-        <div id="listName0" class="listName" style="top: 5px;"></div>
+        <div id="listName0" class="listName"></div>
     </div>
-    <div id="list1" class="list0" style="top: 71px;">
+    <div id="list1" class="list0" style="top: 68px;">
         <img id="listImg1" class="listImg"/>
-        <div id="listName1" class="listName" style="top: 68px;"></div>
+        <div id="listName1" class="listName"></div>
     </div>
-    <div id="list2" class="list0" style="top: 137px;">
+    <div id="list2" class="list0" style="top: 135px;">
         <img id="listImg2" class="listImg"/>
-        <div id="listName2" class="listName" style="top: 135px;"></div>
+        <div id="listName2" class="listName"></div>
     </div>
-    <div id="list3" class="list0" style="top: 205px;">
+    <div id="list3" class="list0" style="top: 200px;">
         <img id="listImg3" class="listImg"/>
-        <div id="listName3" class="listName" style="top: 200px;"></div>
+        <div id="listName3" class="listName"></div>
     </div>
-    <div id="list4" class="list0" style="top: 273px;">
+    <div id="list4" class="list0" style="top: 267px;">
         <img id="listImg4" class="listImg"/>
-        <div id="listName4" class="listName" style="top: 267px;"></div>
+        <div id="listName4" class="listName"></div>
     </div>
     <%--    <div id="list5" class="list0" style="top: 340px;">--%>
     <%--        <img id="listImg5" class="listImg"/>--%>
@@ -311,29 +322,29 @@
 <div id="listTow">
     <div id="list5" class="list1" style="top: 5px;">
         <img id="listImg5" class="listImg"/>
-        <div id="listName5" class="listName" style="top: 5px;"></div>
+        <div id="listName5" class="listName"></div>
     </div>
-    <div id="list6" class="list1" style="top: 71px;">
+    <div id="list6" class="list1" style="top: 68px;">
         <img id="listImg6" class="listImg"/>
-        <div id="listName6" class="listName" style="top: 68px;"></div>
+        <div id="listName6" class="listName"></div>
     </div>
-    <div id="list7" class="list1" style="top: 137px;">
+    <div id="list7" class="list1" style="top: 135px;">
         <img id="listImg7" class="listImg"/>
-        <div id="listName7" class="listName" style="top: 135px;"></div>
+        <div id="listName7" class="listName"></div>
     </div>
-    <div id="list8" class="list1" style="top: 205px;">
+    <div id="list8" class="list1" style="top: 200px;">
         <img id="listImg8" class="listImg"/>
-        <div id="listName8" class="listName" style="top: 200px;"></div>
+        <div id="listName8" class="listName"></div>
     </div>
-    <div id="list9" class="list1" style="top: 273px;">
+    <div id="list9" class="list1" style="top: 267px;">
         <img id="listImg9" class="listImg"/>
-        <div id="listName9" class="listName" style="top: 267px;"></div>
+        <div id="listName9" class="listName"></div>
     </div>
-    <div id="list12" class="list1" style="top: 340px;">
+    <div id="list12" class="list1">
         <img id="listImg12" class="listImg"/>
         <div id="listName12" class="listName" style="top: 340px;"></div>
     </div>
-    <div id="list13" class="list1" style="top: 395px;">
+    <div id="list13" class="list1">
         <img id="listImg13" class="listImg"/>
         <div id="listName13" class="listName" style="top: 395px;"></div>
     </div>

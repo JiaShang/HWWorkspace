@@ -3325,11 +3325,53 @@
       "url": "/EPG/jsp/neirong/shang/J20200528.jsp?typeId=10000100000000090000000000115220&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&bc=transparent&cl=ffffff&fc=fdfa00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=7",
       "uptime": "2020-05-28"
     },
+    {
+      "id": 555,
+      "name": "祭奠重庆大轰炸纪念日",
+      "url": "/EPG/jsp/neirong/shang/J20200601.jsp",
+      "uptime": "2020-06-01"
+    },
               {
-                "id": 553,
-                "name": "祭奠重庆大轰炸纪念日",
-                "url": "/EPG/jsp/neirong/shang/J20200601.jsp",
-                "uptime": "2020-06-01"
-              }
+                "id": 548,
+                "name": "盘点电影中冰与火的较量",
+                "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115343&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+                "uptime": "2020-06-02"
+              },
+              {
+                "id": 549,
+                "name": "经典怀旧剧 看了又看",
+                "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115344",
+                "uptime": "2020-06-02"
+              },
+                        {
+                          "id": 549,
+                          "name": "娱乐组专题策划一",
+                          "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115342",
+                          "uptime": "2020-06-02"
+                        },
+                                  {
+                                    "id": 549,
+                                    "name": "少儿组专题策划一",
+                                    "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115341",
+                                    "uptime": "2020-06-02"
+                                  },
+                                                                {
+                                                                  "id": 549,
+                                                                  "name": "六一嗨购单月套餐包",
+                                                                  "url": "http://192.168.89.21:8086/special/index?id=1392&fromTitle=ztdl_ld",
+                                                                  "uptime": "2020-06-02"
+                                                                },
+                                                                                               {
+                                                                                                 "id": 549,
+                                                                                                 "name": "懒人瘦身清单",
+                                                                                                 "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=185&lcn=lanr",
+                                                                                                 "uptime": "2020-06-02"
+                                                                                               },
+                                                                                                                              {
+                                                                                                                                "id": 549,
+                                                                                                                                "name": "青春有你音乐专题",
+                                                                                                                                "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=addc3a87b998456b8bbd",
+                                                                                                                                "uptime": "2020-06-02"
+                                                                                                                              }
   ]
 }
