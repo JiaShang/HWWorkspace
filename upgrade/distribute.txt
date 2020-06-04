@@ -1,29 +1,23 @@
-#《祭奠重庆大轰炸纪念日》
+#《我是乡村带货王》
 # 重庆视讯传媒有限公司
 # 深圳市茁壮网络股份有限公司
 
 
-neirong/shang/J20200512.jsp
-neirong/shang/images/J20200512Focus.png
-neirong/shang/images/J20200512Title0.png
-neirong/shang/images/J20200512Title1.png
-neirong/shang/images/J20200512Title2.png
-neirong/shang/images/J20200512Rule.png
-neirong/shang/images/J20200512Rule0.png
-neirong/shang/images/J20200512Rule1.png
-neirong/shang/images/J20200512Bg0.png
-neirong/shang/images/J20200512Bg1.png
-neirong/shang/images/J20200512Bg2.png
-
+neirong/shang/J20200427_2.jsp
 neirong/shang/J20200520.jsp
+neirong/shang/fullScreenVOD.jsp
 
-neirong/shang/J20200601.jsp
-neirong/shang/images/J20200601ListFocus.png
-neirong/shang/images/J20200601Focus.png
+neirong/shang/J20200603.jsp
+neirong/shang/images/J20200603Bg.png
+neirong/shang/images/J20200603Bg0.png
+neirong/shang/images/J20200603Bg4.png
+neirong/shang/images/J20200603Focus.png
+neirong/shang/images/J20200603Title0.png
+neirong/shang/images/J20200603Title1.png
+neirong/shang/images/J20200603Title2.png
+neirong/shang/images/J20200603Title3.png
+neirong/shang/images/J20200603Title4.png
 
-neirong/shang/J20200527.jsp
-neirong/shang/J20200527List.jsp
-neirong/shang/images/J20200527ListBg.jpg
 
 defaultHD/en/hddb/hddb_topic_ztandr.txt
 defaultHD/en/hddb/hddb_topic_andr.txt

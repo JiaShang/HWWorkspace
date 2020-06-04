@@ -38,15 +38,14 @@
     Column column = new Column();
     column = inner.getDetail(typeId,column);
     Integer  serviceId = null,frequency=null;
-
+    String channelId = null,program=null,VODflag = null;
     List<List<Vod>> list = null;
 
     serviceId = !isNumber( inner.get("serviceId") ) ? 2603 : Integer.valueOf(inner.get("serviceId"));
     frequency = !isNumber( inner.get("frequency") ) ? 2750000 : Integer.valueOf(inner.get("frequency"));
-
-
-
-
+    channelId = isEmpty( inner.get("channelId") ) ? "" : inner.get("channelId");
+    program = isEmpty( inner.get("program") ) ? "" : inner.get("program");
+    VODflag = isEmpty( inner.get("VODflag") ) ? "" : inner.get("VODflag");
 
 %>
 <html>
@@ -62,7 +61,6 @@
     <!--
     <%--var blocked = <%= blocked%>;--%>
     cursor.initialize({
-
         init : function(){
             cursor.backUrl = '<%= backUrl %>';
             cursor.call('playMovie');
@@ -87,11 +85,20 @@
         },
         playMovie : function(){
             player.exit();
-            player.play({
-                position: {width: 1280, height: 720, left: 0, top: 0},
-                serviceId: <%=serviceId %>,
-                frequency: <%=frequency %>
-            });
+            if (<%=VODflag %>) {
+                player.play({
+                    position: {width: 1280, height: 720, left: 0, top: 0},
+                    channelId: <%=channelId %>,
+                    program: <%=program %>
+                });
+            }else {
+                player.play({
+                    position: {width: 1280, height: 720, left: 0, top: 0},
+                    serviceId: <%=serviceId %>,
+                    frequency: <%=frequency %>
+                });
+            }
+
         }
     });
     -->

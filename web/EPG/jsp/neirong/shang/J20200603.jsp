@@ -37,7 +37,8 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "" : inner.pictureUrl("images/J20200515Bg.png",column.getPosters(),"7");
+    String picture = column == null ? "" : inner.pictureUrl("images/J20200603Bg.png",column.getPosters(),"7");
+//    picture = "images/J20200603Bg.png";
     String[] sc = {};
     String[] titlePic = {};
     String[] focusPic = {};
@@ -106,7 +107,6 @@
             text-align: left;
             line-height: <%=ih + mr %>px;
             padding-left: 10px;
-            padding-right: 10px;
         }
         #scrollLower{
             left: <%= sc[0]%>px;
@@ -162,14 +162,13 @@
         %>],
         focused : [<%= inner.getPreFoucs() %>],
         init : function(){
-            cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
-            // if (blocked != cursor.blocked){
-            //     blocked = cursor.blocked;
-            // }
+            cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 3;
             cursor.backUrl='<%= backUrl %>';
             <% if( !isEmpty(video) && video.split("\\,").length > 3 ){ %>
             cursor.moviePos = [<%=video%>];
-            cursor.focusPos = 0;
+            cursor.lastBlocked = 3;
+            cursor.playBlocked = 3;
+            cursor.playIndex = 0;
             <% } %>
             totalBlocked = this.data.length;
             for( var i = 0; i < this.data.length; i ++){
@@ -177,7 +176,15 @@
                 cursor.focusable[i] = {};
                 cursor.focusable[i].typeId = o["id"];
                 cursor.focusable[i].focus = this.focused.length > i + 1 ? Number( this.focused[ i + 1] ) : 0;
-                cursor.focusable[i].items = o["data"];
+                if(typeof o["data"] != 'undefined'){
+                    cursor.focusable[i].items = o["data"];
+                }else {
+                    cursor.focusable[i].items = [];
+                    cursor.focusable[i].items[0] = {
+                        'name':"",
+                        'dataNum':0
+                    };
+                }
                 if( <%=cat %> ){
                     for( var j = 0; j < cursor.focusable[i].items.length; j ++){
                         var name = cursor.focusable[i].items[j].name;
@@ -188,8 +195,20 @@
                     }
                 }
             }
-            cursor.palyBlocked = cursor.blocked;
-            cursor.palyIndex = cursor.focusable[cursor.blocked].focus;
+            if (cursor.blocked < 3){
+                cursor.playBlocked = 3;
+                cursor.playIndex = cursor.focusable[cursor.blocked].focus;
+            } else {
+                if (typeof cursor.focusable[cursor.blocked].items[0].dataNum != 'undefined') {   //没有数据
+                    cursor.playBlocked = 3;
+                    cursor.playIndex = cursor.focusable[cursor.blocked].focus;
+                }else {
+                    cursor.playBlocked = cursor.blocked;
+                    cursor.playIndex = cursor.focusable[cursor.blocked].focus;
+                }
+            }
+            cursor.focusable[0].items[0].linkto = '/EPG/jsp/neirong/shang/J20200420List.jsp?typeId='+this.data[0]["id"]+'&blocked='+i+'&focus='+j+"&direct=0";
+            cursor.focusable[1].items[0].linkto = '/EPG/jsp/neirong/shang/J20200420List.jsp?typeId='+this.data[1]["id"]+'&blocked='+i+'&focus='+j+"&direct=0";
             setTimeout(function(){
                 initList();
                 var focusFlag = <%=focusPic[5]  %>;
@@ -208,25 +227,37 @@
                 }
 
                 cursor.call('show');
+                var item = cursor.focusable[cursor.playBlocked].items[cursor.playIndex];
+                cursor.call('playMovie', item);
             },150);
-            if( typeof cursor.moviePos != 'undefined' ) {
-                cursor.playIndex = cursor.focusable[cursor.blocked].focus;
-                setTimeout(function(){cursor.call('prepareVideo');},150);
-            }
+
         },
         nextVideo   :   function () {
             var playIndex = cursor.playIndex;
-            var blocked = cursor.blocked;
-            cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+            var blocked = cursor.playBlocked;
+            cursor.call('loseFocus');
+
+            if (listBox.position < listBox.dataSize -1){
+                listBox.changeList(1);
+            } else {
+                listBox.changeList(-listBox.position);
+            }
+            cursor.playIndex = listBox.position;
+            playIndex = cursor.playIndex;
+            // cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
             var item = cursor.focusable[blocked].items[playIndex];
             cursor.call("playMovie",item);
+            cursor.focusable[cursor.playBlocked].focus = cursor.playIndex;
+            cursor.call('show');
         },
         prepareVideo : function(){
-            var playIndex = cursor.playIndex || 0;
-            var blocked = cursor.blocked;
+            var playIndex = cursor.playIndex;
+            var blocked = cursor.playBlocked;
             if( cursor.focusable[blocked].items.length <= 0 )return;
             var item = cursor.focusable[blocked].items[playIndex];
             cursor.call("playMovie",item);
+            // cursor.focusable[cursor.playBlocked].focus = cursor.playIndex;
+            // cursor.call('show');
         },
         playMovie : function(item){
             var pos = cursor.moviePos;
@@ -235,8 +266,9 @@
                 vodId:item.id,
                 position:{width:pos[0],height:pos[1],left:pos[2],top:pos[3]},
                 callback:function(){
-                    cursor.focusable[cursor.blocked].focus = cursor.playIndex;
-                    //cursor.call('show');
+                    // cursor.blocked = cursor.playBlocked;
+                    // cursor.focusable[cursor.playBlocked].focus = cursor.playIndex;
+                    // cursor.call('show');
                     //setTimeout(function(){cursor.call('lazyShow');},50);
                 }
             });
@@ -246,45 +278,88 @@
             var blocked = cursor.blocked;
             //var focus = cursor.focusable[blocked].focus;
             //var items = cursor.focusable[blocked].items;
-            if( index == 11 && listBox.position > 0){
-                cursor.call('loseFocus');
-                listBox.changeList(-1);
-                cursor.focusable[blocked].focus = listBox.position;
-                cursor.call('show');
-            }else if( index == -11 && listBox.position < listBox.dataSize-1){
-                cursor.call('loseFocus');
-                listBox.changeList(1);
-                cursor.focusable[blocked].focus = listBox.position;
-                cursor.call('show');
-            }else if(index == -1 && blocked > 0){
-                cursor.call('loseFocus');
-                blocked--;
-                cursor.blocked = blocked;
-                initList();
-                cursor.call('show');
-            }else if(index == 1 && blocked < totalBlocked-1){
-                cursor.call('loseFocus');
-                blocked++;
-                cursor.blocked = blocked;
-                initList();
-                cursor.call('show');
-            }
-            if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
-            cursor.moveTimer = setTimeout(function(){
-                clearTimeout(cursor.moveTimer);
-                <% if( isEmpty(video) || video.split("\\,").length < 4 ){ %>
-                //cursor.call('show');
-                return;
-                <% } else {%>
-                var focus = cursor.focusable[blocked].focus;
-                if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {
-                    cursor.playIndex = focus;
-                    cursor.palyBlocked = blocked;
-                    var item = cursor.focusable[blocked].items[focus];
-                    cursor.call('playMovie', item);
+            if( index == 11 ){  //上
+                if (blocked >2) {
+                    cursor.call('loseFocus');
+                    if (listBox.position > 0 ) {
+                        listBox.changeList(-1);
+                        cursor.focusable[blocked].focus = listBox.position;
+                    }else {
+                        cursor.lastBlocked = blocked;
+                        blocked = blocked -3;
+                        cursor.blocked = blocked;
+                    }
+                    cursor.call('show');
                 }
-                <% }%>
-            }, 1000);
+            }else if( index == -11 ){   // 下
+                if (blocked<2){
+                    cursor.call('loseFocus');
+                    blocked = blocked +3;
+                    cursor.blocked = blocked;
+                    initList();
+                    cursor.call('show');
+                } else if(blocked == 2){
+                    cursor.call('loseFocus');
+                    blocked = 4;
+                    cursor.blocked = blocked;
+                    initList();
+                    cursor.call('show');
+                }else {
+                    if (listBox.position < listBox.dataSize-1) {
+                        cursor.call('loseFocus');
+                        listBox.changeList(1);
+                        cursor.focusable[blocked].focus = listBox.position;
+                        cursor.call('show');
+                    }
+                }
+            }else if(index == -1 && blocked > 0){     //左
+                if (blocked ==1 || blocked ==2){
+                    cursor.call('loseFocus');
+                    blocked--;
+                    cursor.blocked = blocked;
+                    cursor.call('show');
+                } else if (blocked ==4) {
+                    cursor.lastBlocked = blocked;
+                    cursor.call('loseFocus');
+                    blocked--;
+                    cursor.blocked = blocked;
+                    initList();
+                    cursor.call('show');
+                }
+            }else if(index == 1){   // 右
+                if (blocked ==1 || blocked ==0){
+                    cursor.call('loseFocus');
+                    blocked++;
+                    cursor.blocked = blocked;
+                    cursor.call('show');
+                } else if (blocked ==3) {
+                    cursor.lastBlocked = blocked;
+                    cursor.call('loseFocus');
+                    blocked++;
+                    cursor.blocked = blocked;
+                    initList();
+                    cursor.call('show');
+                }
+            }
+            <%--if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);--%>
+            <%--cursor.moveTimer = setTimeout(function(){--%>
+            <%--    clearTimeout(cursor.moveTimer);--%>
+            <%--    <% if( isEmpty(video) || video.split("\\,").length < 4 ){ %>--%>
+            <%--    //cursor.call('show');--%>
+            <%--    return;--%>
+            <%--    <% } else {%>--%>
+            <%--    if (blocked > 2 && typeof cursor.focusable[blocked].items[0].dataNum == 'undefined'){--%>
+            <%--        var focus = cursor.focusable[blocked].focus;--%>
+            <%--        if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {--%>
+            <%--            cursor.playIndex = focus;--%>
+            <%--            cursor.palyBlocked = blocked;--%>
+            <%--            var item = cursor.focusable[blocked].items[focus];--%>
+            <%--            cursor.call('playMovie', item);--%>
+            <%--            cursor.call('show');--%>
+            <%--        }--%>
+            <%--    }--%>
+            <%--    <% }%>--%>
+            <%--}, 1000);--%>
 
         },
         lazyShow : function(){
@@ -295,6 +370,19 @@
             var text = $('listName' + id).innerText;
             if ( text.indexOf("...") != -1 ) {
                 $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + cursor.focusable[blocked].items[focus].name + '</marquee>';
+            }
+        },
+        select : function(){
+            var blocked = cursor.blocked;
+            var focus = cursor.focusable[blocked].focus;
+            var items = cursor.focusable[blocked].items;
+            // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
+            if(blocked == 2){
+                cursor.call('search');
+            }else if (blocked == 4 && typeof cursor.focusable[blocked].items[0].dataNum != 'undefined'){
+                return;
+            }else {
+                cursor.call('selectAct');
             }
         },
         show:function(){
@@ -314,12 +402,61 @@
                 $("listName"+String(listBox.focusPos)).style.backgroundColor = "#<%=bc %>";
             }
             var focusFlag = <%=focusPic[5]  %>;
-            if (focusFlag) {
+            if (focusFlag && cursor.blocked > 2 && typeof cursor.focusable[blocked].items[0].dataNum == 'undefined') {
                 $("focus").style.top =String(listBox.focusPos*(<%=ih %>+<%=mr %>)+<%=focusPic[1] %>)+"px";
+                $("focus").style.visibility = 'visible';
+            }
+            if (cursor.blocked > 2) {
+                if (typeof cursor.focusable[blocked].items[0].dataNum != 'undefined') {    // 没有数据的情况
+                    $("focus").style.visibility = 'hidden';
+                    $("list").style.visibility = 'hidden';
+                    player.exit();
+                    $("bg").style.backgroundImage = 'url(images/J20200603Bg4.png)';
+                } else {
+                    // cursor.playBlocked = cursor.blocked;
+                    if (typeof cursor.focusable[cursor.lastBlocked].items[0].dataNum != 'undefined') { // 没有数据的情况
+                        var item = cursor.focusable[blocked].items[focus];
+                        cursor.call('playMovie', item);
+                    }else {
+                        if( typeof cursor.moviePos != 'undefined') {
+                            if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                            cursor.moveTimer = setTimeout(function(){
+                                clearTimeout(cursor.moveTimer);
+                                <% if( isEmpty(video) || video.split("\\,").length < 4 ){ %>
+                                //cursor.call('show');
+                                return;
+                                <% } else {%>
+                                    var focus = cursor.focusable[blocked].focus;
+                                    if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {
+                                        cursor.playIndex = focus;
+                                        cursor.palyBlocked = blocked;
+                                        var item = cursor.focusable[blocked].items[focus];
+                                        cursor.call('playMovie', item);
+                                        // cursor.call('show');
+                                    }
+                                <% }%>
+                            }, 1000);
+                        }
+                        // cursor.playIndex = cursor.focusable[cursor.blocked].focus;
+                        // setTimeout(function(){cursor.call('prepareVideo');},150);
+                    }
+                    $("focus").style.visibility = 'visible';
+                    $("list").style.visibility = 'visible';
+                    $("bg").style.backgroundImage = "url(" + "<%=picture %>" + ")";
+                    cursor.call('lazyShow');
+                }
+            }else {
+                $("focus").style.visibility = 'hidden';
+                if (typeof cursor.focusable[cursor.lastBlocked].items[0].dataNum != 'undefined') { // 没有数据的情况
+                    $("list").style.visibility = 'hidden';
+                    player.exit();
+                    $("bg").style.backgroundImage = 'url(images/J20200603Bg4.png)';
+                }else{
+                    $("list").style.visibility = 'visible';
+                    $("bg").style.backgroundImage = "url(" + "<%=picture %>" + ")";
+                }
             }
             scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
-            cursor.call('lazyShow');
-
         },
         loseFocus:function(){
             $("listName"+String(listBox.focusPos)).style.color = "#<%=cl %>";
@@ -330,10 +467,18 @@
                 $("listName"+String(listBox.focusPos)).style.backgroundColor = "#<%=bg %>";
             }
             $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
+            if (cursor.blocked < 3 || (cursor.blocked > 2 && typeof cursor.focusable[cursor.blocked].items[0].dataNum != 'undefined')){
+                $("focus").style.visibility = 'hidden';
+            }
         }
     });
     function initList() {
-        var blocked = cursor.blocked;
+        var blocked = 3;
+        if (cursor.blocked < 3 ){
+            blocked = cursor.lastBlocked;
+        }else {
+            blocked = cursor.blocked;
+        }
         var focus = cursor.focusable[blocked].focus;
         listData = cursor.focusable[blocked].items;
         var pageCount = <%= pg %>;
@@ -364,7 +509,7 @@
 </head>
 <body leftmargin="0" topmargin="0" style="overflow:hidden; background: transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
 <div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
-<div style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "url(images/J20200515Bg.png)" : (" url('" + picture + "')")%> no-repeat;"></div>
+<div id="bg" style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "url(images/J20200515Bg.png)" : (" url('" + picture + "')")%> no-repeat;"></div>
 <div id="title" style="background:transparent no-repeat;visibility: hidden;" ></div>
 <div id="focus" style="background:transparent no-repeat;visibility: hidden;" ></div>
 <div id="scrollLower" style="position: absolute;z-index: 1 ">

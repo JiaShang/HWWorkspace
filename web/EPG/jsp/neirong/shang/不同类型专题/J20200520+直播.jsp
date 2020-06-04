@@ -199,10 +199,9 @@
                     }
                 }
             }
+            cursor.focusable[0].items[0]={};
+            cursor.focusable[0].items[1]={};
             cursor.focusable[0].items=this.data[0]["data"];
-            cursor.focusable[0].items[2]={
-                'name':"11&VODflag=1",
-            };
 
             cursor.focusable[2].items[0]={};
             cursor.focusable[3].items[0]={};
@@ -279,16 +278,14 @@
             var items = cursor.focusable[0].items;
             player.exit();
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length);
+            var VODflag = getStrParams("VODflag",items[0].name);
             if (items.length ==3 && !iPanel.HD30Adv) {
-                var VODflag = getStrParams("VODflag",items[2].name);
                 if (VODflag == 1){
                     player.play({
                         position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
                         channelId: cursor.channelId,
                         program: cursor.program
                     });
-                } else if (VODflag == 2){
-                    player.play({'url':'rtsp://192.168.14.60/PLTV/88888888/224/3221227603/10000100000000060000000004489947_0.smil'});
                 } else {
                     player.play({
                         position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
@@ -314,15 +311,11 @@
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
+            var VODflag = getStrParams("VODflag",items[0].name);
             if(blocked == 0 && focus == 0 && items.length ==3 && !iPanel.HD30Adv ) {
-                var VODflag = getStrParams("VODflag",items[2].name);
-                if (VODflag == 1){ //时移播放
+                if (VODflag == 1) {           //时移播放
                     var item = cursor.focusable[blocked].items[0];
                     item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?channelId=" + cursor.channelId + "&program=" + cursor.program + "&VODflag=1";
-                } else if (VODflag == 2) {  //直接链接地址播放
-                    var item = cursor.focusable[blocked].items[0];
-                    item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?VODflag=2";
-
                 } else {
                     var item = cursor.focusable[blocked].items[0];
                     item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId=" + cursor.serviceId + "&frequency=" + cursor.frequency;

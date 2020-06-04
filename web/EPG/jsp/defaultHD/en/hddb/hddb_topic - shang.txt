@@ -2055,7 +2055,7 @@
     },
     {
       "id": 343,
-      "name": "立冬到 饺子俏",
+      "name": "大厨烹小菜",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113161",
       "uptime": "2019-11-06"
     },
@@ -3966,6 +3966,12 @@
        "name": "青春有你音乐专题",
        "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=addc3a87b998456b8bbd",
        "uptime": "2020-06-02"
+    },
+    {
+       "id": 563,
+       "name": "党课开讲啦",
+       "url": "/EPG/jsp/neirong/shang/J20200603.jsp?typeId=10000100000000090000000000114927&blocked=5&titlePic=772,70,413,204,20200603,1&focusPic=697,297,506,59,20200603,1&cl=000000&fc=000000&cat=1&lft=710&tp=302&w=460&ih=50&mr=5&fs=24&hm=1&pg=6&sc=1215,300,330,dcdcdc,8d3614,1,1,0&video=653,378,27,278&maxTitleLen=20",
+       "uptime": "2020-06-03"
     }
   ]
 }

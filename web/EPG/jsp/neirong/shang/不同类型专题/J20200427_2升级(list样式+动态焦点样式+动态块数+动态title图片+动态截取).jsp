@@ -106,6 +106,7 @@
             text-align: left;
             line-height: <%=ih + mr %>px;
             padding-left: 10px;
+            padding-right: 10px;
         }
         #scrollLower{
             left: <%= sc[0]%>px;
