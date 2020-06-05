@@ -181,8 +181,8 @@
             totalBlocked = this.data.length;
             cursor.serviceId = 2603;
             cursor.frequency = 2750000;
-            cursor.channelId = '2452';
-            cursor.program = '30';
+            cursor.channelId = '2372';
+            cursor.program = '3';
             for( var i = 0; i < this.data.length; i ++){
                 var o = this.data[i];
                 cursor.focusable[i] = {};
@@ -200,10 +200,6 @@
                 }
             }
             cursor.focusable[0].items=this.data[0]["data"];
-            cursor.focusable[0].items[2]={
-                'name':"11&VODflag=1",
-            };
-
             cursor.focusable[2].items[0]={};
             cursor.focusable[3].items[0]={};
             cursor.focusable[4].items[0]={};

@@ -8,6 +8,7 @@ neirong/shang/J20200520.jsp
 neirong/shang/fullScreenVOD.jsp
 
 neirong/shang/J20200603.jsp
+neirong/player/common.js
 neirong/shang/images/J20200603Bg.png
 neirong/shang/images/J20200603Bg0.png
 neirong/shang/images/J20200603Bg4.png

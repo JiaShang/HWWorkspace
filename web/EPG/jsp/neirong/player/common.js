@@ -297,7 +297,7 @@
     /*机顶盒的MAC地址*/
     win.iPanel.MAC = (function() {
         var defaultMac = '00:00:00:00:00:00';
-        if ( win.HD30 || win.isP30 ) return network.ethernets[0].MACAddress;
+        if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("NTID") || network.ethernets[0].MACAddress;
         if ( win.isP60 )  return sysmisc.getMac();              //P60盒子
         if ( win.isGW ) return defaultMac; //网关
         return defaultMac;
@@ -305,14 +305,14 @@
     /*机顶盒的IP地址*/
     win.iPanel.IpAddress = (function() {
         var defaultIp = '0.0.0.0';
-        if ( win.HD30 || win.isP30 ) return network.ethernets[0].IPs[0].address;
+        if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("IP") || network.ethernets[0].IPs[0].address;
         if ( win.isP60 )  return sysmisc.getEnv("dhcp.eth0.ipaddress",defaultIp);       //P60盒子
         if ( win.isGW ) return defaultIp; //网关
         return defaultIp;
     })();
     /*机顶盒的序列号*/
     win.iPanel.cardId = (function() {
-        if ( win.HD30 || win.isP30 ) return CA.card.cardId;
+        if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("ICID") || CA.card.cardId;
         if ( win.isP60 )  return sysmisc.getSn();               //P60盒子
         if ( win.isGW ) return ''; //网关
         return "";
@@ -1662,8 +1662,28 @@
                 if(typeof o.callback !== 'function') return;
                 o.callback(rst);
             };
+            var openUrl = function(url){
+                url = url || '';
+                if( url.isEmpty() || ! ( url.startWith('rtsp') || url.startWith('http') ) ) return;
+                if( iPanel.mediaType !== "P60" ){
+                    media.AV.open(url, url.startWith("rtsp") ? 'VOD' : 'HTTP' );
+                } else {
+                    that.rtsp = url;
+                    if( that.playerId === undefined ) {
+                        var p = convertPos();
+                        that.playerId = mixplayer.create(p.x, p.y, p.w, p.h);
+                        that.startTime = o.startTime;
+                    } else {
+                        mixplayer.playUrl(that.playerId, url, o.startTime );
+                    }
+                }
+            };
             //如果vodId存在，那么播放点播
-            if( typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' && typeof o.program != 'undefined' ) {
+            if( typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' && typeof o.program != 'undefined' || typeof o.url != 'undefined') {
+                if( typeof o.url != 'undefined' ) {
+                    openUrl( o.url );
+                    return delegate( o );
+                }
                 var isVodPlay = typeof o.vodId !== 'undefined';
                 if( iPanel.mediaType !== "GW" ) {
                     //'+sysmisc.getEnv('dhcp.eth0.ipaddress','')+'&NTID=20-8B-37-DD-F7-6D&CARDID='+sysmisc.getEnv('persist.sys.CARDID',?sysmisc.getChipId())+'&Version=1.0&lang=1&ChannelID='?+?curChanId?+?'&Prognum=30&ServiceGroupID='+sysmisc.getEnv('service.group.id',?'32768')+'&supportnet=Cable;IP&decodemode=H.264HD;MPEG-2HD&CA=1&encrypt=0';
@@ -1680,7 +1700,7 @@
                         url = win.EPGUrl + '/tstvindex.jsp?User=&pwd=&ip=' + iPanel.IpAddress;
                         url += '&NTID=' + iPanel.MAC + "&CARDID=" + iPanel.serialNumber;
                         url += '&Version=1.0&lang=1&ChannelID=' + (o.channelId || '') + '&Prognum=' + (o.program || '') + '&ServiceGroupID=' + iPanel.groupId;
-                        url += '&supportnet=' + iPanel.netType + ';IP&decodemode=H.264HD;MPEG-2HD&CA=1&encrypt=0';
+                        url += '&supportnet=' + iPanel.netType + '&decodemode=H.264HD;MPEG-2HD&CA=1' + (iPanel.mediaType == 'P60' ? '&encrypt=0' : '');
                     }
                     ajax(url, function(rst){
                         if( !isVodPlay ) {
@@ -1695,18 +1715,7 @@
                         if( rst.playFlag == "1") {
                             var rtsp = rst.playUrl.split("^")[4];
                             win.debug("RTSP:", rtsp );
-                            if( iPanel.mediaType !== "P60" ){
-                                if( rtsp != undefined ) media.AV.open(rtsp,"VOD");
-                            } else {
-                                that.rtsp = rtsp;
-                                if( that.playerId === undefined ) {
-                                    var p = convertPos();
-                                    that.playerId = mixplayer.create(p.x, p.y, p.w, p.h);
-                                    that.startTime = o.startTime;
-                                } else {
-                                    mixplayer.playUrl(that.playerId, rtsp, o.startTime );
-                                }
-                            }
+                            openUrl( rtsp );
                         } else {
                             tooltip(GET_VOD_RTSP_ADDR_ERROR , typeof rst.message == 'string' ? rst.message : TECH_SERVE_STR);
                         }
@@ -1716,8 +1725,8 @@
                     if( isVodPlay ){
                         var open = function(id){
                             var http = iPanelGatewayHelper.getPlayUrl(id);
-                            media.AV.open(http,"HTTP");
-                            delegate(http);
+                            openUrl( http );
+                            delegate( http );
                             win.debug("GW PLAY ID: ", id, " ==> URL: ", http);
                         };
                         if( o.idType !== 'FSN' && String(o.vodId).length <= 8 ){
