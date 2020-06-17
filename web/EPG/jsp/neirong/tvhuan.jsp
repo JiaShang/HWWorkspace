@@ -15,7 +15,7 @@
     MetaData helper = new MetaData(request);
     StringBuilder builder = new StringBuilder();
     if( id.length() > 10 ) {
-        List<Vod> list = getVodList( helper, id, 999, 0);
+        List<Vod> list = getVodList( helper, id, 9999, 0);
         builder.append("[");
         for( int i = 0; i < list.size(); i++){
             Vod vod = list.get(i);
@@ -33,6 +33,8 @@
         getDetailInfo(helper, id,film);
         builder.append("{\"id\":");
         builder.append(film.getId());
+        builder.append(",\"externId\":");
+        builder.append("\"" + film.getCode() + "\"");
         builder.append(",\"name\":\"");
         builder.append(film.getName().replaceAll("\"","&quot;"));
         builder.append("\",\"type\":");
@@ -55,10 +57,13 @@
                     for ( int i = 0; i< list.size(); i++ )
                     {
                         Vod vod = Utils.parse( new Vod(), list.get(i));
+                        Film f = getDetailInfo(helper, String.valueOf(vod.getId()),new Film());
                         builder.append("{\"id\":");
-                        builder.append(vod.getId());
+                        builder.append(f.getId());
+                        builder.append(",\"externId\":");
+                        builder.append("\"" + f.getCode() + "\"");
                         builder.append(",\"name\":\"");
-                        builder.append(vod.getName().replaceAll("\"","&quot;"));
+                        builder.append(f.getName().replaceAll("\"","&quot;"));
                         builder.append("\",\"js\":");
                         builder.append(i + 1);
                         builder.append("}" + (i + 1 < list.size() ? ",":"") + "\r\n");

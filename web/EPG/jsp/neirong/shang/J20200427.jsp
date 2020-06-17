@@ -54,7 +54,7 @@ pic:图片类型，默认为海报.
     fs = inner.getInteger("fs",22);
     row = inner.getInteger("row",1);
     pic = inner.getInteger("pic",1);
-    cat = !isNumber( inner.get("cat") ) ? 0 : Integer.valueOf(inner.get("cat"));
+    cat = !isNumber( inner.get("cat") ) ? 1 : Integer.valueOf(inner.get("cat"));
     maxTitleLen = !isNumber( inner.get("maxTitleLen") ) ? 6 : Integer.valueOf(inner.get("maxTitleLen"));
     sc = isEmpty( inner.get( "sc" )) ? new String[8] : inner.get("sc").split("\\,");
     direct = !isNumber( inner.get("direct") ) ? 0 : Integer.valueOf(inner.get("direct"));

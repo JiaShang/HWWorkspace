@@ -67,7 +67,7 @@ pic:图片类型，默认为海报.
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         .listName{
-            position: relative;
+            position: absolute;
             width: <%=wh %>px;
             height: 60px;
         <%--top: <%=bd %>px;--%>
@@ -80,7 +80,7 @@ pic:图片类型，默认为海报.
             padding: <%=bd %>px;
         }
         img{
-            position: relative;
+            position: absolute;
             width: <%=wh %>px;
             height: <%=ht %>px;
             left: <%=bd %>px;

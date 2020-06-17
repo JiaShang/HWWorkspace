@@ -1,6 +1,6 @@
 ;(function (win) {
     //字符串扩展
-    String.prototype.trim = function () { return this.replace(/(^\s*)|(\s*$)/g, ""); };
+    String.prototype.trim = function () { return this.replace(/(^\s*)|(\s*$)/g, ''); };
     String.prototype.ltrim = function () { return this.replace(/(^\s*)/g, ""); };
     String.prototype.rtrim = function () { return this.replace(/(\s*$)/g, ""); };
     String.prototype.endWith = function (str) {
@@ -35,7 +35,7 @@
         return str;
     };
     String.prototype.query = function (key) {
-        var rs = new RegExp("(\\?|&)" + key + "=([^&]*?)(&|$)", "gi").exec(this);
+        var rs = new RegExp('(\\?|&)' + key + '=([^&]*?)(&|$)', 'gi').exec(this);
         if (typeof rs === 'undefined' || rs === null) return "";
         return rs[2];
     };
@@ -56,19 +56,19 @@
     //日期格式化， 调用方法：var currentTime = (new Date()).format("yyyy-MM-dd hh:mm:ss");
     Date.prototype.Format = function (fmt) {
         var o = {
-            "M+": this.getMonth() + 1,
-            "d+": this.getDate(),
-            "h+": this.getHours(),
-            "m+": this.getMinutes(),
-            "s+": this.getSeconds(),
-            "q+": Math.floor((this.getMonth() + 3) / 3),
-            "S": this.getMilliseconds()
+            'M+': this.getMonth() + 1,
+            'd+': this.getDate(),
+            'h+': this.getHours(),
+            'm+': this.getMinutes(),
+            's+': this.getSeconds(),
+            'q+': Math.floor((this.getMonth() + 3) / 3),
+            'S': this.getMilliseconds()
         };
         if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
         for (var k in o)
             if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
         return fmt;
     };
     //数组扩展
@@ -97,27 +97,27 @@
     win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
     win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
 
-    if (typeof iPanel === "undefined") {
+    if (typeof iPanel === 'undefined') {
         document.onkeydown = function (event) {
-            win.debug("=======>>>>> OnKeydown :", event.keyCode, ' <<<<<=======');
+            win.debug('=======>>>>> OnKeydown :', event.keyCode, ' <<<<<=======');
             switch (event.keyCode) {
                 case 19:                                    //P60 中的 上
-                case 38: cursor.call("onMoveUp"); break;    //上光标键
+                case 38: cursor.call('onMoveUp'); break;    //上光标键
                 case 20:                                    //P60 中的 下
-                case 40: cursor.call("onMoveDown"); break;  //下光标键
+                case 40: cursor.call('onMoveDown'); break;  //下光标键
                 case 21:                                    //P60 中的 左
-                case 37: cursor.call("onMoveLeft"); break;  //左光标键
+                case 37: cursor.call('onMoveLeft'); break;  //左光标键
                 case 22:                                    //P60 中的 右
-                case 39: cursor.call("onMoveRight"); break; //右光标键
-                case 33: cursor.call("onPageUp"); break;    //PageUp
-                case 34: cursor.call("onPageDown"); break;  //PageDown
+                case 39: cursor.call('onMoveRight'); break; //右光标键
+                case 33: cursor.call('onPageUp'); break;    //PageUp
+                case 34: cursor.call('onPageDown'); break;  //PageDown
                 case 66:                                    //P60 中的 OK
-                case 13: cursor.call("select"); break;      //选择回车键
+                case 13: cursor.call('select'); break;      //选择回车键
                 case 4:                                     //P60 中的返回
                 case 8:                                     // Backspace 键执行返回
-                case 46: cursor.call("goBack"); break;      //DEL 键退出
+                case 46: cursor.call('goBack'); break;      //DEL 键退出
                 case 36:
-                case 458: cursor.call("goHome"); break;     //HOME 键执行 HOME 功能
+                case 458: cursor.call('goHome'); break;     //HOME 键执行 HOME 功能
                 default:
                     var code = event.keyCode;
                     if (code >= 48 && code <= 57) {    //如果按数字键,执行输入功能.
@@ -130,22 +130,22 @@
             return false;
         };
         //下列事件,模拟机顶盒播放操作.
-        document.addEventListener("iPanelEvent", function (e) {
+        document.addEventListener('iPanelEvent', function (e) {
             //参数通过 e.detail 传递过来.
             var args = e.detail;
             if (typeof  args === 'undefined') return;
             switch (args.code) {
                 //如果播放地址串加载成功，播放视频流
-                case "VOD_PREPAREPLAY_SUCCESS":
+                case 'VOD_PREPAREPLAY_SUCCESS':
                     media.AV.play();
                     break;
                 //如果播放完成，播放下一条
-                case "EIS_VOD_PROGRAM_END":
-                    cursor.call("nextVideo");
+                case 'EIS_VOD_PROGRAM_END':
+                    cursor.call('nextVideo');
                     break;
                 //页面加载完成
-                case "EIS_MISC_HTML_OPEN_FINISHED":
-                    cursor.call("htmlOpenFinished");
+                case 'EIS_MISC_HTML_OPEN_FINISHED':
+                    cursor.call('htmlOpenFinished');
                     break;
                 default:
                     break;
@@ -170,7 +170,7 @@
             },
             getGlobalVar: function (name) {
                 try {
-                    var __arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                    var __arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
                     if( __arr = document.cookie.match(reg) ){
                         return unescape(__arr[2]);
                     }
@@ -189,6 +189,7 @@
              * @param value "包名,类名,参数1###参数1的值###参数2###参数2的值......###参数N###参数N的值"
              */
             IOControlWrite: function(cmd, value){},
+            ioctlRead:function(){return false;},
             debug: function (message) {
                 console.log(message);
             }
@@ -198,11 +199,10 @@
                 type: undefined,
                 open: function (url, type) {
                     media.AV.type = type;
-                    win.debug("iPanel play prepared (" + type + "):" + url);
+                    win.debug('iPanel play prepared (' + type + '):' + url);
                     //触发播放地址加载成功事件
-                    cursor.fireEvent("VOD_PREPAREPLAY_SUCCESS");
+                    cursor.fireEvent('VOD_PREPAREPLAY_SUCCESS');
                 },
-                //当 paly
                 play: function () {
                     //如果打开的流是 VOD, 15秒后触发播放完成事件
                     if (media.AV.type === 'VOD') {
@@ -214,7 +214,7 @@
                                     elapsed++;
                                     if (elapsed >= duration) {
                                         clearInterval(media.AV.timer);
-                                        cursor.fireEvent("EIS_VOD_PROGRAM_END");
+                                        cursor.fireEvent('EIS_VOD_PROGRAM_END');
                                         media.AV.elapsed = elapsed = 0;
                                         media.AV.timer = undefined;
                                         return;
@@ -251,7 +251,7 @@
         };
         win.iPanelGatewayHelper = win.iPanelGatewayHelper || {
             //TODO: 缺少获取 groupId 和 netType 参数方法
-            getCaCard: function () { return "9950000001424641"; },
+            getCaCard: function () { return '9950000001424641'; },
             playLive: function (serviceId, isHideChannel) {}, //播放直播频道，serviceId 是字符串类型，isHideChannel 是否隐藏频道。
             play: function (vodId) {},
             getPlayUrl: function (vodId /*String 字符串类型*/) {
@@ -269,14 +269,14 @@
             ) {},
             getInnerVodId: function (vodId) {
                 //通过下面的地址可以把VOD的外部ID转换成内部ID
-                var url = this.getEPGServerUrl() + "jsp/defaultHD/en/getContentId.jsp?vodId=" + vodId;
+                var url = this.getEPGServerUrl() + 'jsp/defaultHD/en/getContentId.jsp?vodId=' + vodId;
             }
         };
         win.E = {is_HD_vod: true};
     };
     win.link = win.link || location.href;
     win.debug = function(){
-        var message = "COMMONJS :";
+        var message = 'COMMONJS :';
         for( var i = 0; i < arguments.length ; i ++ ) message += String( arguments[i] );
         if( link.query('debug') != '' ){
             if ( win.isP60 ){
@@ -340,15 +340,15 @@
         if ( win.isGW ) return defaultNetType; //网关
         return defaultNetType;
     })();
+    win.iPanel.HD30Adv = typeof navigator != 'undefined' && typeof navigator.userAgent == 'string' && navigator.userAgent.indexOf('3.0 Advanced') > 0;
     win.iPanel.mediaType = (function(){
-        if( win.HD30 ) return 'HD3.0';
+        if( win.HD30 ) return win.iPanel.HD30Adv ? 'NEW30' : 'HD30';
         if( win.isP30 ) return 'P30';
         if( win.isGW ) return 'GW';
         if( win.isP60 ) return 'P60';
         if( win.isComputer ) return 'PC';
-        return 'HD3.0';
+        return 'HD30';
     })();
-    win.iPanel.HD30Adv = typeof navigator != "undefined" && typeof navigator.userAgent == 'string' && navigator.userAgent.indexOf('3.0 Advanced') > 0;
     win.debug('location.href =======>>>>>> (', win.link, ', serialNumber :', win.iPanel.serialNumber , ')  <<<<<=======' );
     win.query = function(key){return win.link.query(key);};
     win.$ = function (objectId) {
@@ -365,7 +365,7 @@
     var evalJS = function(func, strJS, option){
         var isJSON = option.eval;
         if( typeof isJSON == 'undefined' || isJSON == true ) {
-            if( /^\s*\<html\>/g.test(strJS) ) { tooltip( SYSTEM_BUSY_RETRY_LATER ); return ; }
+            if( /^\s*\<html\>/g.test(strJS) ) { if( option.fail != 'function' ) { tooltip( SYSTEM_BUSY_RETRY_LATER ); return ;} return option.fail( { msg: err }); }
             try {
                 debug('AJAX =======>>>>>> [[[ >>>>', win.isComputer ? strJS : ' BEGIN RUNNING evalJS(...)', ' ]]]');
                 if( strJS.substr(0,1) != '('  || strJS.substr(strJS.length - 1, 1) != ')' ) strJS = "(" + strJS + ")";
@@ -373,7 +373,7 @@
             } catch (e) {
                 var err = decodeURIComponent('%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E5%87%BA%E7%8E%B0%E6%9C%AA%E7%9F%A5%E9%94%99%E8%AF%AF%EF%BC%8C%E6%9C%AA%E8%83%BD%E6%88%90%E5%8A%9F%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%90%8E%E5%86%8D%E8%AF%95%EF%BC%81');
                 debug(err, e);
-                if( win.isP60 && typeof option.fail == 'function' ) option.fail( { msg: err } );
+                if( typeof option.fail == 'function' ) option.fail( { msg: err } );
             }
             debug('AJAX <<<<<<======= [[[ END RUNNING evalJS(...) ]]]');
         } else {
@@ -448,7 +448,7 @@
         };
         if( win.isComputer ) {
             request.withCredentials = true;
-            url += ( url.indexOf('?') >= 0 ? '&' : '?' ) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(location.origin);
+            url = buildUrlMark(url) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(location.origin);
         }
         request.open(option.method, url, option.sync, typeof option.username !== 'undefined' ? option.username : null, typeof  option.password !== 'undefined' ? option.password : null);
         request.timeout = option.timeout;
@@ -616,12 +616,12 @@
                     win.debug(status);
                     if (status == 200) {
                         win.debug(typeof this.CALLBACK_SUCCESS[key]);
-                        if (typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                        if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
                             //setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']("+result.message+")", 0);
                             AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
                         }
                     } else {
-                        if (typeof this.CALLBACK_FAIL != "undefined") {
+                        if (typeof this.CALLBACK_FAIL != 'undefined') {
                             setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']("+result.message+")", 0);
                         }
                     }
@@ -634,11 +634,11 @@
                     win.debug('result message:' + message);
                     var status = obj.status;
                     if (status == 200) {
-                        if (typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                        if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
                             setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + message + "')", 0);
                         }
                     } else {
-                        if (typeof this.CALLBACK_FAIL != "undefined") {
+                        if (typeof this.CALLBACK_FAIL != 'undefined') {
                             setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + message + "')", 0);
                         }
                     }
@@ -653,12 +653,12 @@
                 win.debug(status);
                 if (status == 200) {
                     win.debug(typeof this.CALLBACK_SUCCESS[key]);
-                    if (typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                    if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
                         win.debug(typeof("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')"));
                         setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')",0);
                     }
                 } else {
-                    if (typeof this.CALLBACK_FAIL != "undefined") {
+                    if (typeof this.CALLBACK_FAIL != 'undefined') {
                         win.debug("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')");
                         setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')",0);
                     }
@@ -758,10 +758,9 @@
                 delete o.body;
                 delete o.header;
             };
-            exec_asyn("request","","string",o,
-                success || function(){
-                    sysmisc.showToast("success");
-                },
+            exec_asyn("request","","string",o, success || function(){
+                sysmisc.showToast("success");
+            },
                 fail || function(){
                     sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
                 }
@@ -863,7 +862,7 @@
             if( typeof option.eval == 'unefined' ) option.eval = true;
             if( typeof option.json == 'unefined' ) option.json = true;
             if( typeof option.method == 'unefined' ) option.method = 'post';
-            if( iPanel.mediaType == "P60" && !url.startWith("/") )
+            if( iPanel.mediaType == 'P60' && !url.startWith("/") )
             {
                 var cookie = url.startWith( win.EPGUrl ) ? ('[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid','') + '"}]') : '';
                 win.debug("AJAX -> " + url );
@@ -922,6 +921,10 @@
             return;
         }
         win.ajax(url, callback, option );
+    };
+    win.buildUrlMark = function( str , refer ) {
+        refer = refer || str;
+        return str += refer.indexOf('?') > 0 ? '&' : '?';
     };
     /**
      * 把 整数秒 转换成 hh:MM:ss 格式
@@ -1052,9 +1055,7 @@
             that.calcTimer = setTimeout(calc, 4);
         };
         var enumObj = function (o) {
-            for (var i in o) {
-                if (typeof o[i] === 'object') enumObj(o[i]);
-            }
+            for (var i in o) { if (typeof o[i] === 'object') enumObj(o[i]); }
         };
         this.events = [];
         //专题或页面跳转
@@ -1064,7 +1065,7 @@
             if (uri.indexOf("wasu.cn/") > 0 && !win.isP60) {
                 url = win.EPGUrl + "/defaultHD/en/Category.jsp?url=" + uri;
             } else {
-                var isSearch = uri.indexOf('searchIndex.jsp') > 0;
+                var isSearch = uri.indexOf('searchIndex.jsp') > 0 || uri.indexOf('allSearch') > 0;
                 if (! uri.startWith('http') ) {
                     if( uri.startWith("/EPG/jsp")) { //如果是在EPG服务器上
                         //如果 参数PREFOUCS 和 currFoucs 同时存在，则删除掉 currFoucs
@@ -1076,30 +1077,31 @@
                         port = port == '' || port == 80 ? '' : (':' + port);
                         url = location.protocol + '//' + location.hostname + port + uri;
                     }
-                } else {
-                    url = uri;
-                    if( url.startWith('http://epgServer') ) {
-                        url = url.replace('http://epgServer', win.EPGUrl);
-                    }
+                } else if( (url = uri).startWith('http://epgServer') ) {
+                    url = url.replace('http://epgServer', win.EPGUrl);
                 }
+                // url 要跳转页的地址， link, 当前页的地址
                 if( !url.startWith( win.EPGUrl ) || !link.startWith( win.EPGUrl ) || isSearch) {
-                    url += uri.indexOf("?") > 0 ? '&' : '?';
-                    url += 'HWSCache=0&';//禁止华为添加到缓存
-                    //如果是搜索页，返回参数为：epgBackurl, 否则为：backURL；且搜索页不能使用 encodeURIComponent 编码
-                    url += isSearch ? 'epgBackurl=' : 'backURL=';
+                    url = buildUrlMark(url, uri);
                     if( typeof backUrl == 'undefined' ) {
                         var currSav = link.indexOf('PREFOUCS') >= 0 ? 'PREFOUCS' : 'currFoucs';
                         var focusStr = link.query(currSav);
                         backUrl = link.query('backURL');
                         if( ! backUrl.isEmpty() ) that.href = link.replace('backURL=' + backUrl , '');
-                        if ( focusStr != '') {
-                            that.href = link.replace(focusStr, that.saveCurr());
+                        that.href = focusStr != '' ? link.replace(focusStr, that.saveCurr()) : ( buildUrlMark(that.href) + currSav + "=" + that.saveCurr() );
+                        if( isSearch ) {
+                            //如果是搜索页，返回参数为：epgBackurl, 否则为：backURL；且搜索页不能使用 encodeURIComponent 编码
+                            if( that.href.startWith( win.EPGUrl) ) ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1');
+                            that.href = buildUrlMark(that.href) + ( ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '');//禁止华为添加到缓存
+                            if( !backUrl.isEmpty() ) that.href += 'backURL=' + backUrl;
+                            if( iPanel.mediaType == 'P60' ) { p60_path_save( that.href ); return url; }
+                            url += 'epgBackurl=' + that.href;
                         } else {
-                            that.href += (link.indexOf("?") >= 0 ? "&" : "?") + currSav + "=" + that.saveCurr();
+                            url +=  ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '';
+                            url += 'backURL=' + ( url.startWith(location.origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href) + 'backURL=' +  backUrl ) );
                         }
-                        url += ( isSearch ? that.href : encodeURIComponent( that.href ) ) + ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '');
                     } else {
-                        url += isSearch ? backUrl : encodeURIComponent( backUrl );
+                        url += encodeURIComponent( backUrl );
                     }
                 }
             }
@@ -1116,7 +1118,7 @@
             if( typeof saveUrl == 'undefined' && !link.startWith( win.EPGUrl ) ) saveUrl = buildSaveHref();
             var buildUrl = (function(){
                 var url = '';
-                if( typeof saveUrl == 'undefined' || iPanel.mediaType == "P60") {
+                if( typeof saveUrl == 'undefined' || iPanel.mediaType == 'P60') {
                     url = win.EPGUrl + '/defaultHD/en/' + ( iPanel.mediaType == 'P60' ? 'go_a' : 'A' ) + 'uthorization.jsp?typeId=' + String( typeId ) +'&playType=1';
                     url += parentId == undefined ? '' : ( '1&parentVodId=' + parentId ) ;
                     url += '&progId=' + id + '&contentType=0&business=1&baseFlag=0&startTime=' + win.buildPlayStartTime(item);
@@ -1130,7 +1132,7 @@
                 }
                 return url;
             })();
-            if( iPanel.mediaType == "P60" ){
+            if( iPanel.mediaType == 'P60' ){
                 win.debug("P60 Play Item -> Before Ajax Invoke!");
                 ajax( buildUrl , function(rst){
                     if( rst.playFlag === "1") {
@@ -1143,7 +1145,7 @@
                         tooltip(GET_VOD_RTSP_ADDR_ERROR , typeof rst.message == 'string' ? rst.message : TECH_SERVE_STR);
                     }
                 }); return true;
-            } else if ( iPanel.mediaType == "GW" ) {
+            } else if ( iPanel.mediaType == 'GW' ) {
                 var open = function( vodId ){
                     win.debug("iPanelGatewayHelper.play('" + vodId + "');");
                     iPanelGatewayHelper.play( String( vodId ) );
@@ -1151,7 +1153,7 @@
                 if( idType != 'FSN' ){ open( id ); return true; }
                 convertVodId( id , function( rst ){ open( rst.id ); } );
             } else {
-                win.debug("P30 OR HD3.0 Play Item -> Before Ajax Invoke!");
+                win.debug("P30 OR HD30 Play Item -> Before Ajax Invoke!");
                 var url = that.current() + buildUrl;
                 if( typeof widget != 'undefined' ) {
                     $(widget).src = url;
@@ -1187,9 +1189,9 @@
                 //android 启动外部程序， 启动方式: startApk 启动参数
                 if (typeof item.linkandr === 'string' && iPanel.eventFrame.systemId) {
                     var linkAndr = item.linkandr;
-                    if (iPanel.mediaType == "P30") {
+                    if (iPanel.mediaType == 'P30') {
                         iPanel.IOControlWrite("startAPK", linkAndr);
-                    } else if (iPanel.mediaType == "GW") {
+                    } else if (iPanel.mediaType == 'GW') {
                         var pkg = linkAndr.substr(0, linkAndr.indexOf(","));
                         linkAndr = linkAndr.substr(linkAndr.indexOf(",") + 1);
                         var cls = linkAndr.substr(0, linkAndr.indexOf(","));
@@ -1203,7 +1205,7 @@
                 //例：sysmisc.runCommand("am start -a com.cw.settings.start --es url file:///android_asset/entry.html");
                 //例：sysmisc.runCommand("am start -n com.holyblade.platform2/com.holyblade.platform2.Platform");
                 //例：sysmisc.runCommand("am start -d tenvideo2://?action=7&video_name=腾讯视频&cover_id=086w61i1yf35jzh&is_child_mode=0");
-                if( iPanel.mediaType == "P60" && typeof item.linkP60Apk != 'undefined'  ){
+                if( iPanel.mediaType == 'P60' && typeof item.linkP60Apk != 'undefined'  ){
                     win.debug("P60 call ===> am start ", item.linkP60Apk );
                     sysmisc.runCommand("am start " + item.linkP60Apk );
                     return;
@@ -1220,17 +1222,17 @@
                         if( iPanel.mediaType == 'P60') {
                             p60_path_save();
                             url = 'http://aoh5.cqccn.com/h5_new/vodDetail/index.html?vod_id=' + item.id + '&idtype=0'; // &thirdCategoryid=typeId,此参数加没用，P60带上栏目ID会出错，不带会导致经分无法获取数据
-                        } else if (iPanel.mediaType == 'HD3.0' || iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW'){
+                        } else if (iPanel.mediaType == 'HD30' || iPanel.mediaType == 'NEW30' || iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW'){
                             var detailPage = 'vod/tv_detail.jsp';
                             if (that.isKorean) detailPage = 'hjzq/hj_tvDetail.jsp';
                             else if (that.isWestern) detailPage = 'western/eu_tvDetail.jsp';
-                            url = that.current() + "/EPG/jsp/defaultHD/en/hddb/" + detailPage + "?vodId=" + item.id + "&typeId=" + typeId;
+                            url = that.current() + '/EPG/jsp/defaultHD/en/hddb/' + detailPage + "?vodId=" + item.id + "&typeId=" + typeId;
                         }
                     }
                 }
                 if( url.indexOf( 'HWSCache' ) > 0 ) {
                     ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1');
-                    setTimeout(function(){window.location.href = url;},30)
+                    setTimeout(function(){window.location.href = url;},20);
                 } else {
                     window.location.href = url;
                 }
@@ -1238,7 +1240,7 @@
             },
             search : function( retUrl ){
                 if( iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW' ){
-                    iPanel.IOControlWrite("startOtherApk","com.ipanel.chongqing_ipanelforhw,com.ipanel.join.cq.vod.searchpage.SearchPage");
+                    iPanel.IOControlWrite('startOtherApk','com.ipanel.chongqing_ipanelforhw,com.ipanel.join.cq.vod.searchpage.SearchPage');
                     return;
                 }
                 var searchUrl = iPanel.mediaType == 'P60' ? 'http://aoh5.cqccn.com/h5_vod/allSearch/index.html' : '/EPG/jsp/defaultHD/en/userInfo/searchIndex.jsp';
@@ -1258,10 +1260,10 @@
                 var rmCache = link.query('HWSCache');
                 if( !rmCache.isEmpty() ) { ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1'); }
                 if (!that.EPGflag.isEmpty() || typeof that.backUrl === 'undefined' || that.backUrl.isEmpty() || that.backUrl.indexOf('Category.jsp') >= 0 && that.backUrl.indexOf("Category.jsp?url=") < 0) {
-                    if ( iPanel.mediaType == "P60" ){
+                    if ( iPanel.mediaType == 'P60' ){
                         sysmisc.finish();
                         //如果是来点盒子，或者家庭网关，使用此方法退出到首页
-                    } else if ( iPanel.mediaType == "P30" || iPanel.mediaType == "GW") {
+                    } else if ( iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') {
                         iPanel.eventFrame.exitToHomePage();
                     } else
                         window.location.href = iPanel.eventFrame.portal_url;
@@ -1280,11 +1282,11 @@
             },
             goHome: function () {
                 //如果是来点盒子，或者家庭网关，使用此方法退出到首页
-                if (iPanel.mediaType == "P30" || iPanel.mediaType == 'GW') {
+                if (iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') {
                     iPanel.eventFrame.exitToHomePage();
-                } else if( iPanel.mediaType == "HD3.0" ) {
+                } else if( iPanel.mediaType == 'HD30' || iPanel.mediaType == 'NEW30' ) {
                     window.location.href = iPanel.eventFrame.portal_url;
-                } else if( iPanel.mediaType == "P60" ) {
+                } else if( iPanel.mediaType == 'P60' ) {
                     sysmisc.finish();
                 } else {
                     that.call('goBackAct');
@@ -1376,15 +1378,15 @@
             if ( that.commiting || typeof  vote.target === 'undefined') return;
             if ( typeof that.phoneNumber === 'undefined') that.phoneNumber = '0';
             that.commiting = true;
-            var url = "http://" + (typeof iPanel.isComputer === 'undefined' ? "ivote.vod.cqcnt.com:8080" : "192.168.18.249:8080") + (vote.repeat ? ("/voteNew/external/addVote6.ipanel?icid=" + win.iPanel.serialNumber +
-                    "&phone=" + that.phoneNumber +
-                    "&classifyID=" + that.voteId +
-                    "&voteCount=" + vote.limit +
-                    "&contentNum=" + vote.limitPer + "&content=" + encodeURIComponent(vote.target)) :
-                    ("/voteNew/external/addVote.ipanel?icid=" + win.iPanel.serialNumber +
-                        "&repeat=false&phone=" + that.phoneNumber +
-                        "&classifyID=" + that.voteId +
-                        "&content=" + encodeURIComponent(vote.target))
+            var url = 'http://' + (typeof iPanel.isComputer === 'undefined' ? 'ivote.vod.cqcnt.com:8080' : '192.168.18.249:8080') + (vote.repeat ? ('/voteNew/external/addVote6.ipanel?icid=' + win.iPanel.serialNumber +
+                    '&phone=' + that.phoneNumber +
+                    '&classifyID=' + that.voteId +
+                    '&voteCount=' + vote.limit +
+                    '&contentNum=' + vote.limitPer + '&content=' + encodeURIComponent(vote.target)) :
+                    ('/voteNew/external/addVote.ipanel?icid=' + win.iPanel.serialNumber +
+                        '&repeat=false&phone=' + that.phoneNumber +
+                        '&classifyID=' + that.voteId +
+                        '&content=' + encodeURIComponent(vote.target))
             );
             ajax(url, function (result) {
                 that.commiting = false;
@@ -1426,7 +1428,7 @@
             } catch (e) {}
         };
         this.saveCurr = function () { //此函数可重载
-            var focusStr = that.blocked + ",";
+            var focusStr = that.blocked + ',';
             for (var i = 0; i < that.focusable.length; i++)
                 focusStr += that.focusable[i].focus + ",";
             focusStr += that.playIndex;
@@ -1438,7 +1440,7 @@
         };
         this.parseCurr = function(){};//此函数可重载
         this.current = function () {
-            return win.EPGUrl + "/defaultHD/en/SaveCurrFocus.jsp?currFoucs=" + that.saveCurr() + "&url="
+            return win.EPGUrl + '/defaultHD/en/SaveCurrFocus.jsp?currFoucs=' + that.saveCurr() + '&url='
         };
         this.elapsedSeconds = function () {
             if (this.starter === 'undefined' || isNaN(this.starter)) return 0;
@@ -1447,7 +1449,7 @@
         };
         this.fireEvent = function (name) {
             var args = {"code": name};
-            var evt = document.createEvent("CustomEvent");
+            var evt = document.createEvent('CustomEvent');
             evt.initCustomEvent("iPanelEvent", false, false, args);
             document.dispatchEvent(evt);
         };
@@ -1511,7 +1513,7 @@
             p.w = ( typeof width != 'undefined' ? width : typeof that.position.width != 'undefined' && !that.fullmode ? that.position.width : 1280 ) / 1280.0;
             p.h = ( typeof height != 'undefined' ? height : typeof that.position.height != 'undefined' && !that.fullmode ? that.position.height : 720 ) / 720.0;
 
-            win.debug("convert position ( x: ", p.x, ', p.y: ', p.y, ', p.w: ', p.w, ', p.h: ', p.h);
+            win.debug('convert position ( x: ', p.x, ', p.y: ', p.y, ', p.w: ', p.w, ', p.h: ', p.h);
             return p;
         };
         this.fullScreen = function() {
@@ -1519,32 +1521,32 @@
             that.fullmode = true;
             this.position = {left:0, top:0, width:1280, height:720};
             if( iPanel.mediaType != 'P60' ) {
-                if( iPanel.mediaType == "HD3.0" || iPanel.mediaType == "P30" || iPanel.mediaType == "GW") {
+                if( iPanel.mediaType == 'HD30' || iPanel.mediaType == 'NEW30' || iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') {
                     media.video.fullScreen();
                 }
             } else if( iPanel.mediaType == 'P60' ){
-                if( typeof that.playerId === 'undefined' ) {  return; };
+                if( typeof that.playerId === 'undefined' ) {  return; }
                 sysmisc.bringToForeground("video");
                 var p = convertPos();
-                win.debug(decodeURIComponent("%E6%92%AD%E6%94%BE%E5%99%A8%E7%B1%BB%E5%9E%8B"), "(", that.playType, ", Id: ", that.playerId, "),", decodeURIComponent("%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%8F%E6%92%AD%E6%94%BE"), decodeURIComponent( ( that.playType == "LIVE" ? dvbplayer.resize(that.playerId,p.x,p.y,p.w,p.h) : mixplayer.resize (that.playerId,p.x,p.y,p.w,p.h) ) == 0 ? "%E6%88%90%E5%8A%9F" : "%E5%A4%B1%E8%B4%A5" ), "!!!" );
+                win.debug(decodeURIComponent("%E6%92%AD%E6%94%BE%E5%99%A8%E7%B1%BB%E5%9E%8B"), "(", that.playType, ", Id: ", that.playerId, "),", decodeURIComponent("%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%8F%E6%92%AD%E6%94%BE"), decodeURIComponent( ( that.playType == 'LIVE' ? dvbplayer.resize(that.playerId,p.x,p.y,p.w,p.h) : mixplayer.resize (that.playerId,p.x,p.y,p.w,p.h) ) == 0 ? "%E6%88%90%E5%8A%9F" : "%E5%A4%B1%E8%B4%A5" ), "!!!" );
             }
         };
         this.setPosition = function(left,top,width,height){
-            win.debug("CALL [setPosition] => media position : (x:", left, ",y:", top, ",width:", width, ",height:" , height,")");
+            win.debug('CALL [setPosition] => media position : (x:', left, ',y:', top, ',width:', width, ',height:' , height,")");
             that.fullmode = false;
             this.position = {left:left, top:top, width:width, height:height};
-            if ( iPanel.mediaType != "P60" ) {
+            if ( iPanel.mediaType != 'P60' ) {
                 if( left == top && top == 0 && width == 1280 && height == 720 ) media.video.fullScreen();
                 else  media.video.setPosition(left,top,width,height);
             } else {
                 if( typeof that.playerId === 'undefined' ) return;
                 var p = convertPos(left,top,width,height);
-                win.debug(decodeURIComponent("%E6%92%AD%E6%94%BE%E5%99%A8%E7%B1%BB%E5%9E%8B"), "(", that.playType, ", Id: ", that.playerId, "),", decodeURIComponent("%E8%AE%BE%E7%BD%AE%E5%B0%8F%E7%AA%97%E5%8F%A3%E6%92%AD%E6%94%BE"), decodeURIComponent( ( that.playType == "LIVE" ? dvbplayer.resize(that.playerId,p.x,p.y,p.w,p.h) : mixplayer.resize (that.playerId,p.x,p.y,p.w,p.h) ) == 0 ? "%E6%88%90%E5%8A%9F" : "%E5%A4%B1%E8%B4%A5" ), "!!!" );
+                win.debug(decodeURIComponent('%E6%92%AD%E6%94%BE%E5%99%A8%E7%B1%BB%E5%9E%8B'), '(', that.playType, ', Id: ', that.playerId, '),', decodeURIComponent('%E8%AE%BE%E7%BD%AE%E5%B0%8F%E7%AA%97%E5%8F%A3%E6%92%AD%E6%94%BE'), decodeURIComponent( ( that.playType == 'LIVE' ? dvbplayer.resize(that.playerId,p.x,p.y,p.w,p.h) : mixplayer.resize (that.playerId,p.x,p.y,p.w,p.h) ) == 0 ? '%E6%88%90%E5%8A%9F' : '%E5%A4%B1%E8%B4%A5' ), '!!!' );
             }
         };
         that.seekTo = function(seconds) {
-            if( that.playType == "LIVE" || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
-            if ( iPanel.mediaType !== "P60" ) {
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.AV.seek(cursor.secondsToTime( seconds ));
             } else {
                 mixplayer.seekTo(that.playerId, seconds);
@@ -1554,9 +1556,9 @@
             return that.status;
         };
         this.backward = function(speed){
-            if( that.playType == "LIVE" || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
             that.speed = speed;
-            if ( iPanel.mediaType !== "P60" ) {
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.AV.backward(speed);
             } else {
                 mixplayer.scale(that.playerId, speed);
@@ -1565,50 +1567,50 @@
             win.debug( "=======>>>>> CALL backward() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.forward = function(speed){
-            if( that.playType == "LIVE" || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
             that.speed = speed;
-            if ( iPanel.mediaType !== "P60" ) {
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.AV.forward(speed);
             } else {
                 mixplayer.scale(that.playerId, speed);
             }
             that.status = that.FORWARD;
-            win.debug( "=======>>>>> CALL forward() PLAYER STATUS: (", that.status, ') <<<<<=======');
+            win.debug( '=======>>>>> CALL forward() PLAYER STATUS: (', that.status, ') <<<<<=======');
         };
         this.elapsed = function(){
             var ela = 0;
-            if( that.playType == "LIVE" || iPanel.mediaType == 'P60' && that.playerId == undefined ) return ela;
-            debug("VOD ELAPSED : " ,ela = ( iPanel.mediaType !== "P60" ? media.AV.elapsed : mixplayer.getCurrent(that.playerId) ) || ela);
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return ela;
+            debug("VOD ELAPSED : " ,ela = ( iPanel.mediaType !== 'P60' ? media.AV.elapsed : mixplayer.getCurrent(that.playerId) ) || ela);
             return ela;
         };
         this.duration  = function(){
             var dur = 0;
-            if( that.playType == "LIVE" || iPanel.mediaType == 'P60' && that.playerId == undefined ) return dur;
-            debug("VOD DURATION : " ,dur = ( iPanel.mediaType !== "P60" ? media.AV.duration : mixplayer.getDuration(that.playerId) ) || dur);
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return dur;
+            debug("VOD DURATION : " ,dur = ( iPanel.mediaType !== 'P60' ? media.AV.duration : mixplayer.getDuration(that.playerId) ) || dur);
             return dur;
         };
         this.voiceUp = function(){
-            if ( iPanel.mediaType !== "P60" ) {
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.sound.up();
             } else {
-                if( that.playType == "LIVE" || that.playerId == undefined ) return;
+                if( that.playType == 'LIVE' || that.playerId == undefined ) return;
                 mixplayer.voiceUp();
             }
         };
         this.voiceDown = function(){
-            if ( iPanel.mediaType !== "P60" ) {
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.sound.down();
             } else {
-                if( that.playType == "LIVE" || that.playerId == undefined ) return;
+                if( that.playType == 'LIVE' || that.playerId == undefined ) return;
                 mixplayer.voiceDown();
             }
         };
         this.resume = function(){
-            if( that.playType == "LIVE" || that.status == that.PLAY ) return;
-            if ( iPanel.mediaType !== "P60" ) {
+            if( that.playType == 'LIVE' || that.status == that.PLAY ) return;
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.AV.play();
             } else if( iPanel.mediaType == 'P60' ) {
-                sysmisc.bringToForeground("web");
+                sysmisc.bringToForeground('web');
                 if( that.playerId != undefined ) {
                     mixplayer.resume(that.playerId);
                     mixplayer.scale(that.playerId, 1);
@@ -1618,8 +1620,8 @@
             win.debug( "=======>>>>> CALL resume() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.pause = function() {
-            if( that.playType == "LIVE" ) return;
-            if ( iPanel.mediaType !== "P60" ) {
+            if( that.playType == 'LIVE' ) return;
+            if ( iPanel.mediaType !== 'P60' ) {
                 media.AV.pause();
             } else {
                 if( that.playerId != undefined ) mixplayer.pause(that.playerId);
@@ -1628,14 +1630,14 @@
             win.debug( "=======>>>>> CALL pause() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.close = function(){
-            if ( iPanel.mediaType !== "P60" ) {
-                if( that.playType == "LIVE" ) {
+            if ( iPanel.mediaType !== 'P60' ) {
+                if( that.playType == 'LIVE' ) {
                     DVB.stopAV();
                 }
                 media.AV.close();
             } else {
                 if( that.playerId != undefined ) {
-                    if( that.playType == "LIVE" ) {
+                    if( that.playType == 'LIVE' ) {
                         dvbplayer.stop(that.playerId);
                     } else {
                         mixplayer.stop(that.playerId);
@@ -1653,53 +1655,52 @@
         //arguments.callee 函数本身
         this.play = function(o){
             o = o || {};
-            that.playType = (typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' && typeof o.program != 'undefined') ? 'VOD' : 'LIVE';
+            that.playType = (typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' || typeof o.url != 'undefined') ? 'VOD' : 'LIVE';
             if( typeof o.position != 'undefined' ) that.setPosition(o.position.left,o.position.top,o.position.width,o.position.height);
             win.debug("media Type:" , iPanel.mediaType , ', playType:', that.playType);
             var delegate = function(rst){
                 that.status = that.PLAY;
-                win.debug( "=======>>>>> CALL play() PLAYER STATUS: (", that.status, ') <<<<<=======');
+                win.debug( '=======>>>>> CALL play() PLAYER STATUS: (', that.status, ') <<<<<=======');
                 if(typeof o.callback !== 'function') return;
                 o.callback(rst);
             };
+            that.startTime = o.startTime = win.buildPlayStartTime( o );
             var openUrl = function(url){
                 url = url || '';
                 if( url.isEmpty() || ! ( url.startWith('rtsp') || url.startWith('http') ) ) return;
-                if( iPanel.mediaType !== "P60" ){
-                    media.AV.open(url, url.startWith("rtsp") ? 'VOD' : 'HTTP' );
+                if( iPanel.mediaType !== 'P60' ){
+                    var mode = url.startWith('rtsp') ? 'VOD' : 'HTTP';
+                    media.AV.open(url, mode );
                 } else {
                     that.rtsp = url;
                     if( that.playerId === undefined ) {
                         var p = convertPos();
                         that.playerId = mixplayer.create(p.x, p.y, p.w, p.h);
-                        that.startTime = o.startTime;
                     } else {
                         mixplayer.playUrl(that.playerId, url, o.startTime );
                     }
                 }
             };
             //如果vodId存在，那么播放点播
-            if( typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' && typeof o.program != 'undefined' || typeof o.url != 'undefined') {
+            if( typeof o.vodId !== 'undefined' || typeof o.channelId !== 'undefined' || typeof o.url != 'undefined') {
                 if( typeof o.url != 'undefined' ) {
                     openUrl( o.url );
                     return delegate( o );
                 }
                 var isVodPlay = typeof o.vodId !== 'undefined';
-                if( iPanel.mediaType !== "GW" ) {
-                    //'+sysmisc.getEnv('dhcp.eth0.ipaddress','')+'&NTID=20-8B-37-DD-F7-6D&CARDID='+sysmisc.getEnv('persist.sys.CARDID',?sysmisc.getChipId())+'&Version=1.0&lang=1&ChannelID='?+?curChanId?+?'&Prognum=30&ServiceGroupID='+sysmisc.getEnv('service.group.id',?'32768')+'&supportnet=Cable;IP&decodemode=H.264HD;MPEG-2HD&CA=1&encrypt=0';
+                if( iPanel.mediaType !== 'GW' ) {
                     var url = '';
-                    o.startTime = win.buildPlayStartTime( o );
                     if( isVodPlay ){
                         o.typeId = o.typeId || -1;
                         url = win.EPGUrl + '/defaultHD/en/go_authorization.jsp?typeId=' + o.typeId;
                         url += typeof o.parentId != 'undefined' ? ( '&playType=11&parentVodId=' + String( o.parentId ) ) : ('&playType=1');
                         url += '&progId=' + o.vodId + "&contentType=0&business=1&baseFlag=0";
-                        url += ( String(o.vodId).length > 8 || typeof o.idType != 'undefined' ? "&idType=FSN" : "");
+                        url += ( String(o.vodId).length > 8 || typeof o.idType != 'undefined' ? '&idType=FSN' : '');
                         url += "&startTime=" + o.startTime;
                     } else {
                         url = win.EPGUrl + '/tstvindex.jsp?User=&pwd=&ip=' + iPanel.IpAddress;
                         url += '&NTID=' + iPanel.MAC + "&CARDID=" + iPanel.serialNumber;
-                        url += '&Version=1.0&lang=1&ChannelID=' + (o.channelId || '') + '&Prognum=' + (o.program || '') + '&ServiceGroupID=' + iPanel.groupId;
+                        url += '&Version=1.0&lang=1&ChannelID=' + (o.channelId || '') + '&Prognum=' + (o.program || '0') + '&ServiceGroupID=' + iPanel.groupId;
                         url += '&supportnet=' + iPanel.netType + '&decodemode=H.264HD;MPEG-2HD&CA=1' + (iPanel.mediaType == 'P60' ? '&encrypt=0' : '');
                     }
                     ajax(url, function(rst){
@@ -1727,7 +1728,7 @@
                             var http = iPanelGatewayHelper.getPlayUrl(id);
                             openUrl( http );
                             delegate( http );
-                            win.debug("GW PLAY ID: ", id, " ==> URL: ", http);
+                            win.debug('GW PLAY ID: ', id, ' ==> URL: ', http);
                         };
                         if( o.idType !== 'FSN' && String(o.vodId).length <= 8 ){
                             open(o.vodId); return;
@@ -1745,14 +1746,14 @@
                 if( frequency == '' || serviceId == ''){
                     win.debug(msg); delegate(msg); return;
                 }
-                if( iPanel.mediaType == "HD3.0" || iPanel.mediaType == "P30") {
+                if( iPanel.mediaType == 'HD30' || iPanel.mediaType == 'NEW30' || iPanel.mediaType == 'P30') {
                     DVB.playAV(frequency,serviceId);
-                } else if( iPanel.mediaType == "GW" ) {
+                } else if( iPanel.mediaType == 'GW' ) {
                     var mod = Math.floor(Number(serviceId) / 100);
                     uri = 'http://192.168.1.202:18080/D_40992_' + mod + "_" + serviceId;
                     media.AV.open(uri,"HTTP");
-                } else if( iPanel.mediaType == "P60" ) {
-                    that.dvbUri = uri = 'dvbelement://' + String( Number(frequency) / 10 ) + ".6875.64." + String( serviceId) + '.0.0.0.0.0.0';
+                } else if( iPanel.mediaType == 'P60' ) {
+                    that.dvbUri = uri = 'dvbelement://' + String( Number(frequency) / 10 ) + '.6875.64.' + String( serviceId) + '.0.0.0.0.0.0';
                     win.debug(decodeURIComponent('=======>>>>>%20P60%20%E7%9B%B4%E6%92%AD%E5%9C%B0%E5%9D%80%3A'), uri , ' <<<<<=======');
                     if( that.playerId === undefined ) {
                         var p = convertPos();
@@ -1761,7 +1762,7 @@
                         win.debug(decodeURIComponent('=======>>>>>%20P60%E7%9B%B4%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20( playerId:'), that.playerId ,", Uri:", that.dvbUri , ' ) => ', dvbplayer.playFrequency(that.dvbUri) == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR, ' <<<<<=======');
                     }
                 } else {
-                    msg = "=======>>>>> DVB PLAY ERROR ( invalid mediaType ) <<<<<=======";
+                    msg = '=======>>>>> DVB PLAY ERROR ( invalid mediaType ) <<<<<=======';
                     win.debug(msg); delegate(msg);return;
                 }
                 delegate();
@@ -1772,7 +1773,7 @@
             try {
                 DVB.stopAV(0);
                 media.AV.close();
-                if ( iPanel.mediaType == "P60" && that.playerId != undefined) {         //如果是P60执行清理
+                if ( iPanel.mediaType == 'P60' && that.playerId != undefined) {         //如果是P60执行清理
                     if ( that.playType == 'LIVE' ){       // 小窗口打开了直播窗口
                         dvbplayer.stop(that.playerId);
                         dvbplayer.destroy(that.playerId);
@@ -1783,22 +1784,23 @@
                     that.P60PlayerCreated = that.playerId = undefined;
                 }
             } catch (e) {
-                win.debug("=======>>>>> EXIT PLAY ERROR ( " , e , " ) <<<<<=======" );
+                win.debug('=======>>>>> EXIT PLAY ERROR ( ' , e , ' ) <<<<<=======' );
             }
         };
         var evt = function(e){
             var type = e.type;
             var subtype = e.subtype;
-            win.debug("TYPE ==> ", type, ", SUBTYPE ==> ", type);
+            win.debug('TYPE ==> ', type, ', SUBTYPE ==> ', type);
             if( type == 0 ) {
                 switch (subtype) {
                     case 0 :
                         if( typeof player.P60PlayerCreated == 'undefined') {
                             player.P60PlayerCreated = true;
+                            var plst = -1;
                             if( player.playType  == 'VOD' ) {
-                                win.debug(decodeURIComponent('P60%E7%82%B9%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20( playerId:'), that.playerId ,", rtsp:", player.rtsp , ", startTime:" ,player.startTime , ' ) ====>>>> ', mixplayer.playUrl(that.playerId, player.rtsp, player.startTime ) == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR);
+                                win.debug(decodeURIComponent('P60%E7%82%B9%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20 mixplayer.playUrl( playerId:'), that.playerId ,", Uri:", that.rtsp , ", startTime:" ,that.startTime , ' ) ====>>>> ', decodeURIComponent('%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%9A'), plst = mixplayer.playUrl(that.playerId, that.rtsp, that.startTime ) , ',' , plst == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR);
                             } else if( player.playType == 'LIVE' ) {
-                                win.debug(decodeURIComponent('P60%E7%9B%B4%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20( playerId:'), that.playerId ,", Uri:", that.dvbUri , ' ) ====>>>> ', dvbplayer.playFrequency(that.dvbUri) == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR) ;
+                                win.debug(decodeURIComponent('P60%E7%9B%B4%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20 dvbplayer.playFrequency( playerId:'), that.playerId ,", Uri:", that.dvbUri , ' ) ====>>>> ',decodeURIComponent('%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%9A'),  plst = dvbplayer.playFrequency(that.dvbUri), ',' , plst == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR) ;
                             }
                         }
                         break;   //创建播放器成功
@@ -1806,11 +1808,11 @@
                         if( that.playType == 'VOD' ) dvbplayer.setStopMode(2);
                         break;
                     case 2 :
-                        if( typeof cursor != "undefined" ) {
+                        if( typeof cursor != 'undefined' ) {
                             if( player.playType  == 'VOD' ) {
                                 win.debug(decodeURIComponent('----------------------%20P60%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E7%BB%93%E6%9D%9F%20%20-------------------'));
                                 that.exit();
-                                cursor.call("nextVideo");
+                                cursor.call('nextVideo');
                             }
                         }
                         break;   //播放结束
@@ -1856,7 +1858,7 @@
     win.cursor = new Cursor();
     win.player = new MuxPlayer();
     win.onload = function () {
-        if (iPanel.mediaType == 'PC' ) cursor.fireEvent("EIS_MISC_HTML_OPEN_FINISHED");
+        if (iPanel.mediaType == 'PC' ) cursor.fireEvent('EIS_MISC_HTML_OPEN_FINISHED');
     };
     win.exit = function () {  //页面退出时执行清理
         player.exit();
@@ -1868,59 +1870,59 @@
         var hit = false;
         switch (eventObj.code) {
             //按下遥控器上下键进行光标移动操作，或直接忽略操作。
-            case "KEY_UP" : cursor.call("onMoveUp"); hit = true; break;
-            case "KEY_DOWN" : cursor.call("onMoveDown"); hit = true; break;
+            case 'KEY_UP' : cursor.call('onMoveUp'); hit = true; break;
+            case 'KEY_DOWN' : cursor.call('onMoveDown'); hit = true; break;
             //按下遥控器左右键进行光标移动操作，或进行快进快退。
-            case "KEY_LEFT" : cursor.call("onMoveLeft"); hit = true; break;
-            case "KEY_RIGHT" : cursor.call("onMoveRight"); hit = true; break;
+            case 'KEY_LEFT' : cursor.call('onMoveLeft'); hit = true; break;
+            case 'KEY_RIGHT' : cursor.call('onMoveRight'); hit = true; break;
             //使用遥控器按上一页时，播放前一条内容
-            case "KEY_PAGE_UP" : cursor.call("onPageUp"); hit = true; break;
-            case "KEY_PAGE_DOWN" : cursor.call("onPageDown"); hit = true; break;
+            case 'KEY_PAGE_UP' : cursor.call('onPageUp'); hit = true; break;
+            case 'KEY_PAGE_DOWN' : cursor.call('onPageDown'); hit = true; break;
             //当按回车键时，
-            case "KEY_SELECT" : cursor.call("select"); hit = true; break;
-            case "KEY_NUMERIC" : cursor.call("input", eventObj.args.value); hit = true; break;
+            case 'KEY_SELECT' : cursor.call('select'); hit = true; break;
+            case 'KEY_NUMERIC' : cursor.call('input', eventObj.args.value); hit = true; break;
             //在播放器页面中，按返回键，退出键，均退出播放器
-            case "KEY_BACK" : cursor.call("goBack"); hit = true; break;
-            case "KEY_TV" : cursor.call("goBack"); hit = true; break;
+            case 'KEY_BACK' : cursor.call('goBack'); hit = true; break;
+            case 'KEY_TV' : cursor.call('goBack'); hit = true; break;
             //小遥控器的电视键,大遥控器的退出键
-            case "KEY_EXIT" : cursor.call("goBack"); hit = true; break;
-            case "KEY_MENU" : cursor.call("goHome"); hit = true; break;
+            case 'KEY_EXIT' : cursor.call('goBack'); hit = true; break;
+            case 'KEY_MENU' : cursor.call('goHome'); hit = true; break;
             //如果播放地址串加载成功，播放视频流
-            case "VOD_PREPAREPLAY_SUCCESS" : cursor.call("play"); hit = true; break;
+            case 'VOD_PREPAREPLAY_SUCCESS' : cursor.call('play'); hit = true; break;
             //如果播放完成，播放下一条
-            case "EIS_VOD_PROGRAM_END" :
-                if (typeof cursor.events[eventCode] != "undefined" && currentTime - cursor.events[eventCode] < 4000) return;
-                cursor.call("nextVideo");
+            case 'EIS_VOD_PROGRAM_END' :
+                if (typeof cursor.events[eventCode] != 'undefined' && currentTime - cursor.events[eventCode] < 4000) return;
+                cursor.call('nextVideo');
                 hit = true; break;
             //小遥控器的#键,大遥控器的设置键
-            case "KEY_SET" : cursor.call("press", "SET"); hit = true; break;
+            case 'KEY_SET' : cursor.call('press', 'SET'); hit = true; break;
             //小遥控器的*键,大遥控器的咨讯键.
-            case "KEY_BROADCAST" : cursor.call("press", 'STAR'); hit = true; break;
+            case 'KEY_BROADCAST' : cursor.call('press', 'STAR'); hit = true; break;
             //特殊功能键
-            case "KEY_RED" : cursor.call("press", "RED"); hit = true; break;
-            case "KEY_BLUE" : cursor.call("press", "BLUE"); hit = true; break;
-            case "KEY_GREEN" : cursor.call("press", "GREEN"); hit = true; break;
-            case "KEY_YELLOW" : cursor.call("press", "YELLOW"); hit = true; break;
-            case "KEY_F1" : cursor.call("press", "F1"); hit = true; break;
-            case "KEY_F2" : cursor.call("press", "F2"); hit = true; break;
-            case "KEY_F3" : cursor.call("press", "F3"); hit = true; break;
-            case "KEY_IME" : cursor.call("press", "F4"); hit = true; break;
+            case 'KEY_RED' : cursor.call('press', 'RED'); hit = true; break;
+            case 'KEY_BLUE' : cursor.call('press', 'BLUE'); hit = true; break;
+            case 'KEY_GREEN' : cursor.call('press', 'GREEN'); hit = true; break;
+            case 'KEY_YELLOW' : cursor.call('press', 'YELLOW'); hit = true; break;
+            case 'KEY_F1' : cursor.call('press', 'F1'); hit = true; break;
+            case 'KEY_F2' : cursor.call('press', 'F2'); hit = true; break;
+            case 'KEY_F3' : cursor.call('press', 'F3'); hit = true; break;
+            case 'KEY_IME' : cursor.call('press', 'F4'); hit = true; break;
             //INFO 键被按下
-            case "KEY_INFO" : cursor.call("press", 'INFO'); hit = true; break;
+            case 'KEY_INFO' : cursor.call('press', 'INFO'); hit = true; break;
             //大遥控器的 MAIL 键被按下
-            case "KEY_MAIL" : cursor.call("press", 'MAIL'); hit = true; break;
+            case 'KEY_MAIL' : cursor.call('press', 'MAIL'); hit = true; break;
             //回看键被按下
-            case "KEY_PLAYBACK" : cursor.call("press", 'PLAYBACK'); hit = true; break;
+            case 'KEY_PLAYBACK' : cursor.call('press', 'PLAYBACK'); hit = true; break;
             //大遥控器的广播键被按下
-            case "KEY_AUDIO" : cursor.call("press", 'AUDIO'); hit = true; break;
+            case 'KEY_AUDIO' : cursor.call('press', 'AUDIO'); hit = true; break;
             //声道键被按下
-            case "KEY_AUDIO_MODE" : cursor.call("press", 'AUDIO_MODE'); hit = true; break;
+            case 'KEY_AUDIO_MODE' : cursor.call('press', 'AUDIO_MODE'); hit = true; break;
             //静音键被按下
-            case "KEY_MUTE" : cursor.call("press", 'MUTE'); hit = true; break;
+            case 'KEY_MUTE' : cursor.call('press', 'MUTE'); hit = true; break;
             //TV+ 键被按下, 大遥控器的马赛克键,大遥控器的点播键
-            case "KEY_VOD" : cursor.call("press", 'VOD'); hit = true; break;
+            case 'KEY_VOD' : cursor.call('press', 'VOD'); hit = true; break;
             //页面加载完成
-            case "EIS_MISC_HTML_OPEN_FINISHED" : cursor.call("htmlOpenFinished"); hit = true; break;
+            case 'EIS_MISC_HTML_OPEN_FINISHED' : cursor.call('htmlOpenFinished'); hit = true; break;
             default : break;
         }
         cursor.events[eventCode] = currentTime;

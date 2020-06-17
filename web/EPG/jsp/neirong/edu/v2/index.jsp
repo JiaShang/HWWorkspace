@@ -239,6 +239,7 @@
             }
             // ´ËÎªËÑË÷°´Å¥
             cursor.focusable[cursor.focusable.length] = {focus:0};
+            if( cursor.blocked == cursor.focusable.length - 1 ) cursor.blocked = 0;
             cursor.call('show');
         },
         move        :   function(index){

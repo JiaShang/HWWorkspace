@@ -20,7 +20,7 @@
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000113412";
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000115511";
     infos.add(new ColumnInfo(typeId,0, 99));
 //    infos.add(new ColumnInfo("10000100000000090000000000113411", 1, 99));  //无二级栏目
 //    infos.add(new ColumnInfo("10000100000000090000000000113412", 1, 99));  //无二级栏目
@@ -51,8 +51,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
 </head>
-<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200102Bg.png)":" url('" + picture + "')" %> no-repeat;" onUnload="exit();">
-<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('images/J20191120Focus0.png') no-repeat;" ></div>
+<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200102Bg.png)" : " url('" + picture + "')" %> no-repeat;" onUnload="exit();">
+<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('images/J20191120Focus0.png') no-repeat;visibility: hidden;" ></div>
 </body>
 <script language="javascript" type="text/javascript">
     <!--
@@ -75,28 +75,13 @@
                 var o = this.data[i];
                 cursor.focusable[i] = {};
                 cursor.focusable[i].typeId = o["id"];
-                cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 1;
-                cursor.focusable[i].items = o["data"];
+                cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
+                cursor.focusable[i].items = [];
             }
-            cursor.focusable[0].items[1] = {
+            cursor.focusable[0].items[0] = {
                 'name':'查看图片',
-                'linkto':'/EPG/jsp/neirong/shang/J20191120List纯图片列表+放大不切换.jsp'
+                'linkto':'/EPG/jsp/neirong/shang/Jpicture.jsp?typeId=10000100000000090000000000115512&direct=1'
             }
-        },
-        move : function(index){
-        //上 11，下 -11，左 -1，右 1
-        var focus = cursor.focusable[0].focus;
-        if( focus == 1 && index === -11 ){
-            focus = 0;
-        }else if ( focus == 0 && index === 11 ) {
-            focus = 1;
-        }
-            cursor.focusable[0].focus = focus;
-        cursor.call('show');
-        },
-        show : function(){
-            var focus = cursor.focusable[0].focus;
-            $("focus").style.backgroundImage = "url(images/J20191120Focus"+String(1-focus)+".png)";
         }
     });
     -->

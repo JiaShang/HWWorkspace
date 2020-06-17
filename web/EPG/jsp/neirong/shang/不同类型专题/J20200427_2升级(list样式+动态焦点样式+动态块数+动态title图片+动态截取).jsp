@@ -154,6 +154,7 @@
             String html = "";
             for ( int i = 0; i < infos.size(); i++) {
                 ColumnInfo info = infos.get(i);
+                inner.special = true;
                 Result result = inner.getVodList( info.getTypeId(), info.getStation(),info.getLength() );
                 html += inner.resultToString(result);
                 if( i + 1 < infos.size() ) html += ",\n";

@@ -45,6 +45,8 @@
     String cl = null, bc = null,fc = null,bg=null,al=null,hm = null;
     List<List<Vod>> list = null;
 
+    String classifyID = inner.get("classifyID");
+    //if( isEmpty(classifyID ) ) classifyID = "473";
     w = !isNumber( inner.get("w") ) ? 237 : Integer.valueOf(inner.get("w"));
     h = !isNumber( inner.get("h") ) ? 73 : Integer.valueOf(inner.get("h"));
     ih = !isNumber( inner.get("ih") ) ? 40 : Integer.valueOf(inner.get("ih"));
@@ -254,7 +256,9 @@
                 cursor.playIndex = cursor.focusable[cursor.blocked].focus;
                 setTimeout(function(){cursor.call('prepareVideo');},500);
             }
-
+            if( '<%=classifyID%>' != '' ) {
+                cursor.call('trafficNum');
+            }
         },
         nextVideo   :   function () {
             var playIndex = 0;
@@ -434,6 +438,15 @@
             }else if (blocked == 0){
                 $("focus"+focus).style.visibility = "hidden";
             }
+        },
+        trafficNum      :function(){
+            var url="http://192.168.18.249:8080/voteNew/external/clickCount.ipanel?icid="+iPanel.cardId+"&classifyID="+'<%=classifyID%>'+"&content=1";
+            ajax(url, function(rst){
+                if( rst != "" && rst != 'undefined'&& rst.result ) {
+                    //tooltip( decodeURIComponent('统计成功') );  //统计成功
+                    return;
+                }
+            });
         }
     });
     function initList() {
