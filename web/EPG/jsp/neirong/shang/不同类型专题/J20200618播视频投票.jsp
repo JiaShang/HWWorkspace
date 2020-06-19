@@ -5,7 +5,11 @@
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000114465";
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000115641";
+//    List<Column> columns = inner.getList(typeId, 2, 0 , new Column());
+//    for( int i = 0 ; columns != null && i < columns.size(); i++ ) {
+//        infos.add(new ColumnInfo(columns.get(i).id, 0, 99));
+//    }
 
     infos.add(new ColumnInfo(typeId, 0, 99));
 
@@ -15,16 +19,13 @@
     String picture = "";
     String rulePic = "";
     if( column != null ) {
-        picture = inner.pictureUrl("images/J20200426Bg.jpg", column.getPosters(), "7");
-        rulePic = inner.pictureUrl("images/J20200426Rule.png", column.getPosters(), "4"); //标题图
+        picture = inner.pictureUrl("images/J20200618Bg.jpg", column.getPosters(), "7");
+        rulePic = inner.pictureUrl("images/J20200618Rule.png", column.getPosters(), "4");
     }
-//    String picture = column == null ? "images/J20200426Bg.jpg" : inner.pictureUrl("",column.getPosters(),"7");
-//    String rulePic = column == null ? "images/J20200426Rule.jpg" : inner.pictureUrl("",column.getPosters(),"4");
-//    String picture = "images/J20200426Bg.jpg";
-    Integer maxTitleLen = null,direct=null;
-    maxTitleLen = !isNumber( inner.get("maxTitleLen") ) ? 6 : Integer.valueOf(inner.get("maxTitleLen"));
-    direct = !isNumber( inner.get("direct") ) ? 0 : Integer.valueOf(inner.get("direct"));
-    direct = !isNumber( inner.get("direct") ) ? 0 : Integer.valueOf(inner.get("direct"));
+//    picture = "images/J20200618Bg.jpg";
+//    String picture = column == null ? "images/J"+date+"Bg.jpg" : inner.pictureUrl("",column.getPosters(),"7");
+//    String rulePic = column == null ? "images/J"+date+"Rule.png" : inner.pictureUrl("",column.getPosters(),"4");
+//    String picture = "images/J"+date+"Bg.jpg";
 %>
 <html>
 <head>
@@ -35,37 +36,42 @@
     <style>
         .listName{
             position: absolute;
-            width: 263px;
-            height: 34px;
-            top: 161px;
+            width: 90px;
+            height: 28px;
+            top: 168px;
             color: #ffffff;
-            font-size:24px;
+            font-size:22px;
             overflow: hidden;
-            text-align: center;
-            line-height: 34px;
-            /*padding-left: 10px;*/
+            text-align: left;
+            line-height: 28px;
+            padding-left: 10px;
+            /*background-color: #53a8de;*/
         }
         .listVoteResult{
             position: absolute;
-            width: 253px;
-            height: 34px;
-            top: 161px;
+            width: 173px;
+            height: 28px;
+            left: 90px;
+            top: 168px;
             color: #ffffff;
-            font-size:24px;
+            font-size:22px;
             background: transparent;
             overflow: hidden;
-            text-align: right;
-            line-height: 34px;
+            text-align: left;
+            line-height: 28px;
+            /*background-color: #53a8de;*/
+            /*padding-right: 83px;*/
             /*padding-right: 10px;*/
         }
         .listButton{
             position: absolute;
             width: 265px;
-            height: 30px;
-            top: 210px;
+            height: 29px;
+            left: 187px;
+            top: 168px;
             color: #ffffff;
             font-size:22px;
-            background: url("images/J20200426Praise0.png");
+            /*background: url('images/J20200618Praise0.png');*/
             overflow: hidden;
             text-align: left;
             line-height: 30px;
@@ -73,8 +79,8 @@
             background-repeat: no-repeat;
         }
         img{
-            width: 263px;
-            height: 195px;
+            width: 262px;
+            height: 154px;
 
         }
         .list{
@@ -96,9 +102,10 @@
         var scrollWay = 2;  //1：按数据个数滑动，按数据页数滑动
         var scrollData = 2; //1：按数据个数显示，按数据页数显示
         var focusPic = 1;  //为1时焦点在图片上，为0时焦点在按钮上
+        var date = "20200618";
 
-        var startTime = new Date("2020-05-09 0:0:0").getTime();
-        var endTime = new Date("2020-06-10 0:0:0").getTime();
+        var startTime = new Date("2020-01-18 18:0:0").getTime();
+        var endTime = new Date("2020-06-24 0:0:0").getTime();
         cursor.initialize({
             data: [<%
                 String html = "";
@@ -115,7 +122,7 @@
                 cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
                 cursor.backUrl = '<%= backUrl %>';
                 cursor.enlarged = 0;
-                cursor.voteId = 485 ;
+                cursor.voteId = 489 ;
                 cursor.focusName = "";
                 for (var i = 0; i < this.data.length; i++) {
                     var o = this.data[i];
@@ -123,33 +130,25 @@
                     cursor.focusable[i].typeId = o["id"];
                     cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
                     cursor.focusable[i].items = o["data"];
-                    for( var j = 0; j < cursor.focusable[i].items.length; j ++){
-                        if (typeof cursor.focusable[i].items[j].posters != 'undefined' && typeof cursor.focusable[i].items[j].posters['5'] != 'undefined'){
-                            cursor.focusable[i].items[j]={
-                                'name':o["data"][j].name,
-                                'linkto':'/EPG/jsp/neirong/shang/J20200420List.jsp?typeId='+o["id"]+'&blocked='+i+'&focus='+j+"&direct="+<%=direct%>,
-                                'posters':o["data"][j].posters
-                            };
-                        }
-                    }
                 }
                 for (var i = 0; i < cursor.focusable[0].items.length; i++) {
                     cursor.focusable[0].items[i].voteResult = 0;
                 }
-                cursor.focusable[1] = {};
-                cursor.focusable[1].focus = 0;
+                // cursor.focusable[1] = {};
+                // cursor.focusable[1].focus = 0;
                 <%--var column = <%= inner.writeObject(column)%>;--%>
                 // posters = column.posters['1'];
                 // bgImgs = column.posters['7'];
                 cursor.call('getVoteResult');
                 setTimeout(function(){
                     initList(cursor.focusable[0].focus);
-                },800);
+                },2000);
                 setTimeout(function(){
                     // initList(cursor.focusable[0].focus);
                     cursor.call('show');
-                    // cursor.call('lazyShow');
-                },1000);
+                    $("focus").style.backgroundImage = "url(images/J20200618Focus.png)";
+                    cursor.call('lazyShow');
+                },2000);
             },
             move : function(index){
                 //上 11，下 -11，左 -1，右 1
@@ -205,31 +204,39 @@
                 cursor.focusable[0].focus = listBox.position;
                 scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
                 cursor.call('show');
-                // cursor.call('lazyShow');
+                cursor.call('lazyShow');
             },
             show : function(){
+                // alert("cursor.enlarged=="+cursor.enlarged+";;cursor.blocked=="+cursor.blocked+";;;focus=="+cursor.focusable[cursor.blocked].focus)
                 if(cursor.enlarged ==1){
+                    <%--$("bg").style.backgroundImage = "url(" + "<%=rulePic %>"+ ")";--%>
+                    // $("focus").style.visibility = "hidden";
+                    // $("list").style.visibility = "hidden";
+                    // cursor.call("prepareVideo");
                     $("enlargedPic").style.visibility = "visible";
-
                 }else {
+                    <%--$("bg").style.backgroundImage = "url(" + "<%=picture %>"+ ")";--%>
+                    // $("focus").style.visibility = "visible";
+                    // $("list").style.visibility = "visible";
+                    // player.exit();
                     $("enlargedPic").style.visibility = "hidden";
                 }
                 if(cursor.blocked == 0){
                     if (focusPic ==1 ){
                         $("focus").style.left = String(55+(listBox.focusPos%4)*280)+"px";
-                        $("focus").style.top = String(170+Math.floor(listBox.focusPos/4)*255)+"px";
+                        $("focus").style.top = String(245+Math.floor(listBox.focusPos/4)*218)+"px";
                         $("focus").style.visibility = "visible";
-                        $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J20200426Praise0.png)";
+                        $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J"+date+"Praise0.png)";
                         $("listButton"+String(listBox.focusPos)).style.color = "#ffffff";
                     }else {
                         $("focus").style.visibility = "hidden";
-                        $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J20200426Praise1.png)";
+                        $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J"+date+"Praise1.png)";
                         $("listButton"+String(listBox.focusPos)).style.color = "#000000";
                     }
-                    $("rule").style.backgroundImage = "url(images/J20200426Rule0.png)";
+                    $("rule").style.backgroundImage = "url(images/J"+date+"Rule0.png)";
                 }else {
-                    $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J20200426Praise0.png)";
-                    $("rule").style.backgroundImage = "url(images/J20200426Rule1.png)";
+                    $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J"+date+"Praise0.png)";
+                    $("rule").style.backgroundImage = "url(images/J"+date+"Rule1.png)";
                     $("focus").style.visibility = "hidden";
                     $("listButton"+String(listBox.focusPos)).style.color = "#ffffff";
                 }
@@ -237,19 +244,19 @@
             lazyShow    :   function(){
                 var blocked = cursor.blocked;
                 var focus = cursor.focusable[0].focus;
-                if( blocked <= 0 && focusPic == 1) {
+                if( blocked <= 0 && focusPic == 0) {
                     var text = cursor.focusable[blocked].items[focus].name;
                     var id = String(focus);
                     cursor.calcStringPixels(text, 22, function(width){
-                        if( width <= 230 ) return;
+                        if( width <= 80 ) return;
                         $('listName' + String(listBox.focusPos)).innerHTML = '<marquee class="marquee" scrollamount="8">' + text + '</marquee>';
                     });
                 };
             },
             loseFocus : function(){
-                $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J20200426Praise0.png)";
+                $("listButton"+String(listBox.focusPos)).style.backgroundImage = "url(images/J"+date+"Praise0.png)";
                 $("listButton"+String(listBox.focusPos)).style.color = "#ffffff";
-                // $("listName"+String(listBox.focusPos)).innerText = cursor.focusable[0].items[listBox.position].name;
+                $("listName"+String(listBox.focusPos)).innerText = cursor.focusable[0].items[listBox.position].name;
             },
             select : function(){
                 if (cursor.blocked == 0){
@@ -298,12 +305,39 @@
             },
             showTip : function(id){
                 tipFlag = 1;
-                $("tooltip").style.backgroundImage = 'url("images/Vote' + String(id) + '.png")';
+                $("tooltip").style.backgroundImage = 'url(images/J20200521Vote' + String(id) + '.png)';
                 $("tooltip").style.visibility = 'visible';
             },
             loseTip : function(){
                 tipFlag = 0;
                 $("tooltip").style.visibility = 'hidden';
+            },
+            nextVideo   :   function () {
+                var playIndex = 0;
+                var blocked = 1;
+                // cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            prepareVideo : function(){
+                var playIndex = 0;
+                var blocked = 1;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            playMovie : function(item){
+                var pos = [318,178,40,264];
+                player.exit();
+                player.play({
+                    vodId:item.id,
+                    position:{width:pos[0],height:pos[1],left:pos[2],top:pos[3]},
+                    callback:function(){
+                        // cursor.focusable[cursor.blocked].focus = cursor.playIndex;
+                        //cursor.call('show');
+                        //setTimeout(function(){cursor.call('lazyShow');},50);
+                    }
+                });
             },
             vote : function(){
                 var blocked = cursor.blocked;
@@ -377,7 +411,7 @@
                                     }
                                 }
                                 initList(cursor.focusable[0].focus);
-                                $("listButton"+String(listBox.focusPos)).innerText = cursor.focusable[0].items[cursor.focusable[0].focus].voteResult;
+                                $("listVoteResult"+String(listBox.focusPos)).innerText = cursor.focusable[0].items[cursor.focusable[0].focus].voteResult + "票";
                                 cursor.call('show');
                             },800);
                         }
@@ -429,29 +463,26 @@
             listBox = new showList(8,items.length,starPos,127,window);
             listBox.showType =0 ;
             listBox.haveData = function(List){
-                if ( typeof items[List.dataPos].posters == "undefined"){
+                if (typeof items[List.dataPos].posters == "undefined" || typeof items[List.dataPos].posters['1'] == "undefined") {
                     $("listImg"+String(List.idPos)).src = "images/defaultImg.png";
                 }else {
-                    if (typeof items[List.dataPos].posters['5'] != 'undefined'){   //广告图
-                        $("listImg"+String(List.idPos)).src = items[List.dataPos].posters['5'][0];
-                    }else if (typeof items[List.dataPos].posters['1'] != 'undefined'){   //海报图
-                        $("listImg"+String(List.idPos)).src = items[List.dataPos].posters['1'][0];
-                    }else {
-                        $("listImg"+String(List.idPos)).src = "images/defaultImg.png";
-                    }
+                    $("listImg"+String(List.idPos)).src = items[List.dataPos].posters['1'][0];
                 }
                 $("listName"+String(List.idPos)).innerText = items[List.dataPos].name;
-                $("listName"+List.idPos).style.backgroundImage = "url(images/J20200415_2Title.png)";
-                $("listButton"+String(List.idPos)).innerText = String(items[List.dataPos].voteResult);
-                $("listButton"+List.idPos).style.backgroundImage = "url(images/J20200426Praise0.png)";
-                $("listName"+String(List.idPos)).innerText = "";
-                $("listName"+List.idPos).style.backgroundImage = "url(images/global_tm.gif)";
+                $("listName"+String(List.idPos)).style.backgroundColor = "#53a8de";
+                // $("listName"+List.idPos).style.backgroundImage = "url(images/J20200213Title.png)";
+                $("listVoteResult"+String(List.idPos)).innerText = String(items[List.dataPos].voteResult)+"票";
+                $("listVoteResult"+String(List.idPos)).style.backgroundColor = "#53a8de";
+                $("listButton"+List.idPos).style.backgroundImage = "url(images/J"+date+"Praise0.png)";
+                // $("listButton"+String(List.idPos)).style.left = String(items[List.dataPos].voteResult);
             }
             listBox.notData = function(List){
                 $("listImg"+List.idPos).src = "images/global_tm.gif";
                 $("listName"+String(List.idPos)).innerText = "";
-                $("listButton"+String(List.idPos)).innerText = "";
+                $("listVoteResult"+String(List.idPos)).innerText = "";
                 $("listName"+List.idPos).style.backgroundImage = "url(images/global_tm.gif)";
+                $("listName"+String(List.idPos)).style.backgroundColor = "transparent";
+                $("listVoteResult"+String(List.idPos)).style.backgroundColor = "transparent";
                 $("listButton"+List.idPos).style.backgroundImage = "url(images/global_tm.gif)";
             };
             listBox.startShow();
@@ -459,16 +490,16 @@
         }
     </script>
 </head>
-<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200426Bg.jpg)" : (" url(" + picture + ")")%> no-repeat;" onUnload="exit();">
-<div id="focus" style="position: absolute;width: 274px;height: 204px;left: 55px;top: 170px; overflow:hidden; background: url('images/J20200426Focus.png') no-repeat; visibility: visible; z-index: 1;" ></div>
-<div id="scrollLower" style="position: absolute; left: 1200px; top: 175px; width: 5px; background-color: #959ea5; visibility: hidden; height: 490px;">
-    <div id="scrollUpper" style="position: absolute; top: 0px; height: 100px;width: 25px;left: -12px; background-color: #fbba54;z-index: 1;color: #fffbfb;font-size: 22px;"></div>
+<body id="bg" leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "none" : (" url(" + picture + ")")%> no-repeat;" onUnload="exit();">
+<div id="focus" style="position: absolute;width: 274px;height: 204px;left: 55px;top: 245px; overflow:hidden; background: no-repeat; visibility: visible; z-index: 1;" ></div>
+<div id="scrollLower" style="position: absolute; left: 1210px; top: 245px; width: 4px; background-color: #959595; visibility: hidden; height: 420px;">
+    <div id="scrollUpper" style="position: absolute; top: 0px; height: 100px;width: 25px;left: -12px; background-color: #ffffff;z-index: 1;color: #1cacff;font-size: 22px;"></div>
 </div>
-<div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent <%= isEmpty(rulePic) ? "url(images/J20200426Rule.jpg)" : (" url(" + rulePic + ")")%> no-repeat; z-index: 2;"></div>
-<div id="rule" style="position: absolute;left: 1000px; top: 135px;width: 141px;height: 34px;visibility: visible;overflow: hidden; background: url('images/J20200426Rule0.png') no-repeat;"></div>
+<div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent <%= isEmpty(rulePic) ? "none" : (" url(" + rulePic + ")")%> no-repeat; z-index: 2;"></div>
+<div id="rule" style="position: absolute;left: 980px; top: 200px;width: 180px;height: 79px;visibility: visible;overflow: hidden; background:  no-repeat;"></div>
 <div id="tooltip" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: visible;overflow: hidden; background: no-repeat;z-index: 2;"></div>
 
-<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 220px;">
     <div id="list0" class="list" style="left: 10px; top: 30px;">
         <img id="listImg0" class="listImg"/>
         <div id="listName0" class="listName"></div>
@@ -493,25 +524,25 @@
         <div id="listVoteResult3" class="listVoteResult"></div>
         <div id="listButton3" class="listButton"></div>
     </div>
-    <div id="list4" class="list" style="left: 10px; top: 285px;">
+    <div id="list4" class="list" style="left: 10px; top: 250px;">
         <img id="listImg4" class="listImg"/>
         <div id="listName4" class="listName"></div>
         <div id="listVoteResult4" class="listVoteResult"></div>
         <div id="listButton4" class="listButton"></div>
     </div>
-    <div id="list5" class="list" style="left: 290px; top: 285px;">
+    <div id="list5" class="list" style="left: 290px; top: 250px;">
         <img id="listImg5" class="listImg"/>
         <div id="listName5" class="listName"></div>
         <div id="listVoteResult5" class="listVoteResult"></div>
         <div id="listButton5" class="listButton"></div>
     </div>
-    <div id="list6" class="list" style="left: 570px; top: 285px;">
+    <div id="list6" class="list" style="left: 570px; top: 250px;">
         <img id="listImg6" class="listImg"/>
         <div id="listName6" class="listName"></div>
         <div id="listVoteResult6" class="listVoteResult"></div>
         <div id="listButton6" class="listButton"></div>
     </div>
-    <div id="list7" class="list" style="left: 850px; top: 285px;">
+    <div id="list7" class="list" style="left: 850px; top: 250px;">
         <img id="listImg7" class="listImg"/>
         <div id="listName7" class="listName"></div>
         <div id="listVoteResult7" class="listVoteResult"></div>

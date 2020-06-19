@@ -26,25 +26,15 @@ pic:图片类型，默认为海报.
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000115583";
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000114702";
 
-//    infos.add(new ColumnInfo(typeId, 0, 99));
-
-    Integer blocked = null;
-    blocked = !isNumber( inner.get("blocked") ) ? 1 : Integer.valueOf(inner.get("blocked"));
-    if(blocked == 1){
-        infos.add(new ColumnInfo(typeId, 0, 99));
-    }else {
-        List<Column> columns = inner.getList(typeId, blocked, 0 , new Column());
-        for( int i = 0 ; columns != null && i < columns.size(); i++ ) {
-            infos.add(new ColumnInfo(columns.get(i).id, 0, 99));
-        }
-    }
+    infos.add(new ColumnInfo(typeId, 0, 99));
 
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "images/J20200615List1Bg.jpg" : inner.pictureUrl("picture",column.getPosters(),"7");
+    String picture = column == null ? "images/J20200514_4Bg.jpg" : inner.pictureUrl("",column.getPosters(),"7");
+//    picture = "images/J20200514_4Bg.jpg";
     String[] sc = {};
     String bo = null,bc = null,fc = null,cl = null;
     Integer tp = null,ct=null,lt=null,st=null,wh=null,ht=null,ml=null,mh = null,mt=null,bd = null, row = null, fs = null,pic=null, cat = null,maxTitleLen = null,direct=null;
@@ -89,19 +79,20 @@ pic:图片类型，默认为海报.
             line-height: 50px;
             padding: <%=bd %>px;
         }
-        .listImg{
+        img{
             position: absolute;
             width: <%=wh %>px;
             height: <%=ht %>px;
             left: <%=bd %>px;
             top:  <%=bd %>px;
+            visibility: hidden;
         }
         .list{
             position: absolute;
             background-color: transparent;
             width: <%=wh+2*bd %>px;
             height: <%=ht+2*bd %>px;
-            visibility: hidden;
+            /*visibility: hidden;*/
         }
         #list{
             position: absolute;
@@ -109,35 +100,6 @@ pic:图片类型，默认为海报.
             top: <%=tp %>px;
             width:<%=(wh + ml) * ct %>px;
             height:<%=(tp + mh)* row %>px;
-        }
-
-        #title{
-            position: absolute;
-            left: 750px;
-            top: 240px;
-            width:600px;
-            height:100px;
-        }
-        .title{
-            position: absolute;
-            background-color: transparent;
-            width: 152px;
-            height: 53px;
-        }
-        .titleName{
-            position: absolute;
-            width: 152px;
-            height: 53px;
-            color:#4d9bde;
-            font-size:30px;
-            background-color: transparent;
-            overflow: hidden;
-            text-align: center;
-            line-height: 53px;
-        }
-        .titleImg{
-            visibility: hidden;
-            background-color: transparent;
         }
         #scrollLower{
             position: absolute;
@@ -172,8 +134,6 @@ pic:图片类型，默认为海报.
         var scrollFlag = <%= sc[5]%>;
         var scrollWay = <%= sc[6]%>;
         var scrollData = <%= sc[7]%>;
-        var titleFlag = 0;
-        var blockedNum = 1;
         var row = <%=row %>;
         var ct = <%=ct %>;
         cursor.initialize({
@@ -181,7 +141,6 @@ pic:图片类型，默认为海报.
                 String html = "";
                 for ( int i = 0; i < infos.size(); i++) {
                     ColumnInfo info = infos.get(i);
-                    inner.special = true;
                     Result result = inner.getVodList( info.getTypeId(), info.getStation(),info.getLength() );
                     html += inner.resultToString(result);
                     if( i + 1 < infos.size() ) html += ",\n";
@@ -193,35 +152,13 @@ pic:图片类型，默认为海报.
                 cursor.blocked = this.focused.length > 0 ? Number(this.focused[0]) : 0;
                 cursor.backUrl = '<%= backUrl %>';
                 cursor.enlarged = 0;
-                blockedNum = this.data.length;
                 for (var i = 0; i < this.data.length; i++) {
                     var o = this.data[i];
                     cursor.focusable[i] = {};
                     cursor.focusable[i].typeId = o["id"];
                     cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
-                    if (typeof o["data"] != 'undefined') {
-                        cursor.focusable[i].items = o["data"];
-                    }else{
-                        cursor.focusable[i].items = [];
-                    }
-                    for( var j = 0; j < cursor.focusable[i].items.length; j++){
-                        if (typeof cursor.focusable[i].items[j].posters != 'undefined' && typeof cursor.focusable[i].items[j].posters['5'] != 'undefined'){
-                            cursor.focusable[i].items[j]={
-                                'name':o["data"][j].name,
-                                'linkto':'/EPG/jsp/neirong/shang/J20200420List.jsp?typeId='+"<%=typeId%>"+'&blockedCount=3&blocked='+i+'&focus='+j+"&direct="+<%=direct%>,
-                                'posters':o["data"][j].posters
-                            };
-                            // adBgImgs = cursor.focusable[i].items[j].posters['5'];
-                        }else if (typeof cursor.focusable[i].items[j].posters != 'undefined' && typeof cursor.focusable[i].items[j].posters['99'] != 'undefined'){
-                            var namePos = cursor.focusable[i].items[j].name.indexOf("&name=");
-                            var name =cursor.focusable[i].items[j].name.substring(namePos+6);
-                            var linkTo = cursor.focusable[i].items[j].name.substring(0,namePos);
-                            cursor.focusable[i].items[j]={
-                                'name':name,
-                                'linkto':linkTo,
-                                'posters':o["data"][j].posters
-                            };
-                        }
+                    cursor.focusable[i].items = o["data"];
+                    for (var j = 0; j < cursor.focusable[i].items.length; j++) {
                         if( <%=cat %> ){
                             var name = cursor.focusable[i].items[j].name;
                             var star = name.indexOf("：");  //不存在返回-1
@@ -229,111 +166,91 @@ pic:图片类型，默认为海报.
                             var end = name.indexOf("（") <=0 ? name.length : name.indexOf("（");
                             cursor.focusable[i].items[j].name = name.substring(0,end);  //substring取前不取后
                         }
+                    <%--    if (typeof cursor.focusable[i].items[j].posters['5'] != 'undefined') {--%>
+                    <%--        cursor.focusable[i].items[j] = {--%>
+                    <%--            'name': o["data"][j].name,--%>
+                    <%--            'linkto': '/EPG/jsp/neirong/shang/J20200420List.jsp?typeId=' + o["id"] + '&blocked=' + i + '&focus=' + j + "&direct=" +<%=direct%>,--%>
+                    <%--            'posters': o["data"][j].posters--%>
+                    <%--        };--%>
+                    <%--        // adBgImgs = cursor.focusable[i].items[j].posters['5'];--%>
+                    <%--    } else if (typeof cursor.focusable[i].items[j].posters['99'] != 'undefined') {--%>
+                    <%--        var namePos = cursor.focusable[i].items[j].name.indexOf("&name=");--%>
+                    <%--        var name = cursor.focusable[i].items[j].name.substring(namePos + 6);--%>
+                    <%--        var linkTo = cursor.focusable[i].items[j].name.substring(0, namePos);--%>
+                    <%--        cursor.focusable[i].items[j] = {--%>
+                    <%--            'name': name,--%>
+                    <%--            'linkto': linkTo,--%>
+                    <%--            'posters': o["data"][j].posters--%>
+                    <%--        };--%>
+                    <%--    }--%>
                     }
                 }
+                cursor.focusable[0].items[0] = {
+                    'name':'婚前21天',
+                    'linkto':'http://192.168.17.155/nn_cms/web_template/index.html?nns_page_name=movie_detail&nns_video_id=5e65a86e3291a5c2d54f3807d1fb9940'
+                }
+                // cursor.focusable[0].items[2] = {
+                //     'name':'笑起来真好看',
+                //     'linkto':'http://192.168.17.155/nn_cms/web_template/index.html?nns_page_name=movie_detail&nns_video_id=5eb5507f1449d5d04ba1ffe7d8eb8443'
+                // }
+
                 <%--var column = <%= inner.writeObject(column)%>;--%>
                 <%--posters = column.posters['1'];--%>
                 <%--bgImgs = column.posters['7'];--%>
-                setTimeout(function(){ cursor.call('show');initList();cursor.call('getFocus');},150);
+                setTimeout(function(){ initList();cursor.call('show');cursor.call('getFocus');},150);
             },
             move : function(index){
                 //上 11，下 -11，左 -1，右 1
                 // if(cursor.enlarged ==1) return;
-                var blocked = cursor.blocked;
-                cursor.call('loseFocus');
                 switch (index) {
                     case 11:    //上
-                        if (titleFlag == 0) {
-                            if( row > 1){   //列数
-                                if (listBox.position > (ct-1) ){   //行数
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(-ct);
-                                }else{                            //第一行时
-                                    titleFlag = 1;
-                                }
-                            }else {                           //只有1行时
-                                titleFlag = 1;
+                        if( row > 1){
+                            if (listBox.position > (ct-1) ){
+                                cursor.call('loseFocus');
+                                listBox.changeList(-ct);
                             }
                         }
                         break;
                     case -11:   //下
-                        if ( titleFlag == 1){
-                            titleFlag = 0;
-                        }else{
-                            if( row > 1){
-                                if ((listBox.position + ct) < listBox.dataSize ){
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(ct);
-                                }else if ( Math.floor(listBox.position/ct) < Math.floor((listBox.dataSize-1)/ct) ) {
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(listBox.dataSize-1-listBox.position);
-                                }
+                        if( row > 1){
+                            if ((listBox.position + ct) < listBox.dataSize ){
+                                cursor.call('loseFocus');
+                                listBox.changeList(ct);
+                            }else if ( Math.floor(listBox.position/ct) < Math.floor((listBox.dataSize-1)/ct) ) {
+                                cursor.call('loseFocus');
+                                listBox.changeList(listBox.dataSize-1-listBox.position);
                             }
                         }
                         break;
                     case -1:    //左
-                        if (titleFlag == 1) {
-                            if (blocked > 0){
-                                cursor.blocked -- ;
-                                initList();
+                        if( row > 1){
+                            if (listBox.focusPos%ct !=0){
+                                cursor.call('loseFocus');
+                                listBox.changeList(-1);
                             }
-                        }else{
-                            if( row > 1){
-                                if (listBox.focusPos%ct !=0){
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(-1);
-                                }else {
-                                    if (blocked > 0){
-                                        cursor.blocked -- ;
-                                        initList();
-                                    }
-                                }
-                            }else {
-                                if( listBox.position > 0){
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(-1);
-                                }else {
-                                    if (blocked > 0){
-                                        cursor.blocked -- ;
-                                        initList();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case 1:     //右
-                        if (titleFlag == 1) {
-                            if (blocked < blockedNum-1){
-                                cursor.blocked ++ ;
-                                initList();
-                            }
-                        }else{
-                            if( row > 1){
-                                if (listBox.focusPos%ct !=ct-1 && listBox.position < listBox.dataSize-1){
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(1);
-                                }else {
-                                    if (blocked < blockedNum-1){
-                                        cursor.blocked ++ ;
-                                        initList();
-                                    }
-                                }
-                            }else {
-                                if( listBox.position < listBox.dataSize-1){
-                                    cursor.call('loseFocus');
-                                    listBox.changeList(1);
-                                }else {
-                                    if (blocked < blockedNum-1){
-                                        cursor.blocked ++ ;
-                                        initList();
-                                    }
-                                }
+                        }else {
+                            if( listBox.position > 0){
+                                cursor.call('loseFocus');
+                                listBox.changeList(-1);
                             }
                         }
 
                         break;
+                    case 1:     //右
+                        if( row > 1){
+                            if (listBox.focusPos%ct !=ct-1 && listBox.position < listBox.dataSize-1){
+                                cursor.call('loseFocus');
+                                listBox.changeList(1);
+                            }
+                        }else {
+                            if( listBox.position < listBox.dataSize-1){
+                                cursor.call('loseFocus');
+                                listBox.changeList(1);
+                            }
+                        }
+                        break;
                 }
-                cursor.focusable[cursor.blocked].focus = listBox.position;
+                cursor.focusable[0].focus = listBox.position;
                 scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
                 cursor.call('getFocus');
             },
@@ -351,7 +268,7 @@ pic:图片类型，默认为海报.
                 for (var i = 0; i < row; i++) {
                     for (var j = 0; j < ct; j++) {
                         var id=i*ct + j;
-                        $("list"+String(id)).style.visibility = 'visible';
+                        // $("list"+String(id)).style.visibility = 'visible';
                         $("list"+String(id)).style.left = <%=lt %>+j*(<%=wh + ml %>)+"px";
                         $("list"+String(id)).style.top = <%=tp %>+i*(<%=ht + mh +50 %>)+"px";
                         $("listName"+String(id)).style.top = <%=ht %>+"px";
@@ -361,24 +278,19 @@ pic:图片类型，默认为海报.
                         $("list"+String(id)).style.backgroundColor = "transparent";
                     }
                 }
+                $("focus").style.left = String(99+listBox.focusPos*222)+"px";
             },
             getFocus : function(){
-                if (titleFlag == 1){
-                    $("titleName"+String(cursor.blocked)).style.backgroundImage = "url(images/J20200615List1Title1.png)";
-                    $("titleName"+String(cursor.blocked)).style.color = "#ffffff";
-                } else {
-                    var bc = "<%=bc %>";
-                    if( bc == "transparent"){
-                        $("list"+String(listBox.focusPos)).style.backgroundColor = "<%=bc %>";
-                    }else {
-                        $("list"+String(listBox.focusPos)).style.backgroundColor = "#<%=bc %>";
-                    }
-                    $("listName"+String(listBox.focusPos)).style.color = "#<%=fc %>";
-                    $("titleName"+String(cursor.blocked)).style.backgroundImage = "url(images/J20200615List1Title0.png)";
-                    $("titleName"+String(cursor.blocked)).style.color = "#ffffff";
-                    cursor.call('lazyShow');
+                var bc = "<%=bc %>";
+                if( bc == "transparent"){
+                    $("list"+String(listBox.focusPos)).style.backgroundColor = "<%=bc %>";
+                }else {
+                    $("list"+String(listBox.focusPos)).style.backgroundColor = "#<%=bc %>";
                 }
+                $("listName"+String(listBox.focusPos)).style.color = "#<%=fc %>";
                 scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
+                cursor.call('lazyShow');
+                $("focus").style.left = String(99+listBox.focusPos*222)+"px";
 
             },
             loseFocus : function(){
@@ -390,9 +302,7 @@ pic:图片类型，默认为海报.
                 }
                 $("listName"+String(listBox.focusPos)).style.color = "#<%=cl %>";
                 $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
-                $("titleName"+String(cursor.blocked)).style.backgroundImage = "none";
-                $("titleName"+String(cursor.blocked)).style.color = "#4d9bde";
-                },
+            },
         });
         function initList(){
             var blocked = cursor.blocked;
@@ -405,12 +315,12 @@ pic:图片类型，默认为海报.
                 if ( typeof listData[List.dataPos].posters == "undefined"){
                     $("listImg"+String(List.idPos)).src = "images/defaultImg.png";
                 }else {
-                    if (typeof listData[List.dataPos].posters['5'] != 'undefined'){   //广告图
+                    if (typeof listData[List.dataPos].posters['1'] != 'undefined'){   //海报图
+                        $("listImg"+String(List.idPos)).src = listData[List.dataPos].posters['1'][0];
+                    }else if (typeof listData[List.dataPos].posters['5'] != 'undefined'){   //广告图
                         $("listImg"+String(List.idPos)).src = listData[List.dataPos].posters['5'][0];
                     }else if (typeof listData[List.dataPos].posters['99'] != 'undefined'){   //其他图
                         $("listImg"+String(List.idPos)).src = listData[List.dataPos].posters['99'][0];
-                    }else if (typeof listData[List.dataPos].posters['1'] != 'undefined'){   //海报图
-                        $("listImg"+String(List.idPos)).src = listData[List.dataPos].posters['1'][0];
                     }else {
                         $("listImg"+String(List.idPos)).src = "images/defaultImg.png";
                     }
@@ -439,25 +349,11 @@ pic:图片类型，默认为海报.
         -->
     </script>
 </head>
-<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200414ListBg.jpg)" : (" url('" + picture + "')")%> no-repeat;" onUnload="exit();">
-<div id="focus" style="position: absolute;width: 319px;height: 197px;left: 148px;top: 178px; overflow:hidden; background: url('images/J20200414ListFocus.png') no-repeat; visibility: hidden; z-index: 1;" ></div>
+<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200514_4Bg.jpg)" : (" url('" + picture + "')")%> no-repeat;" onUnload="exit();">
+<div id="focus" style="position: absolute;width: 203px;height: 255px;left: 98px;top: 375px; overflow:hidden; background: url('images/J20200514_4Focus.png') no-repeat; visibility: visible; z-index: 1;" ></div>
 <%--<div id="scroll" style="position: absolute;width: 24px;height: 92px;left: 1206px;top: 150px; overflow:hidden; background: url('images/J20200414ListScroll.png') no-repeat; visibility: visible;" ></div>--%>
 <div id="scrollLower" style="z-index: 1; ">
     <div id="scrollUpper" style="z-index: 2;"></div>
-</div>
-<div id="title">
-    <div id="title0" class="title">
-        <img id="titleImg0" class="titleImg"/>
-        <div id="titleName0" class="titleName" style="left: 10px;">周边游</div>
-    </div>
-    <div id="title1" class="title">
-        <img id="titleImg1" class="titleImg"/>
-        <div id="titleName1" class="titleName" style="left: 155px;">国内游</div>
-    </div>
-    <div id="title2" class="title">
-        <img id="titleImg2" class="titleImg"/>
-        <div id="titleName2" class="titleName" style="left: 300px;">出境游</div>
-    </div>
 </div>
 <div id="list">
     <div id="list0" class="list">

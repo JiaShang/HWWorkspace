@@ -89,15 +89,14 @@
                 }else {
                     cursor.focusable[i].items = o['data'];
                 }
-
             }
             cursor.focusable[1].items[0] = {
                 'name': '线路推荐',
-                'linkto': '/EPG/jsp/neirong/shang/J20200615List1.jsp?typeId='+cursor.focusable[1].typeId+'&row=1&ct=3&wh=330&ht=219&ml=30&cl=ffffff&fc=dc6b19&bc=ecaa4b&cat=1&lft=60&tp=180&w=800&fs=24&hm=1&cl=725f51&sc=540,255,390,d1dde9,c88bad,0,1,0&maxTitleLen=13&blocked=3'
+                'linkto': '/EPG/jsp/neirong/shang/J20200615List1.jsp?typeId='+cursor.focusable[1].typeId+'&row=1&ct=3&wh=330&ht=219&ml=30&cl=ffffff&fc=dc6b19&bc=ecaa4b&cat=1&lft=60&tp=180&w=800&fs=24&hm=1&cl=725f51&sc=540,255,390,d1dde9,c88bad,0,1,0&maxTitleLen=14&blocked=3'
             }
             cursor.focusable[2].items[0] = {
                 'name': '足迹活动',
-                'linkto': "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+cursor.focusable[2].typeId+"&titlePic=50,190,500,80,20200422,0&focusPic=760,77,550,80,20200615List2,1&cl=000000&fc=000000&cat=1&lft=770&tp=73&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=1250,90,580,4d9bde,ecaa4b,1,1,0&video=615,402,68,232&maxTitleLen=18"
+                'linkto': "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+cursor.focusable[2].typeId+"&titlePic=50,190,500,80,20200422,0&focusPic=760,77,550,80,20200615List2,1&cl=000000&fc=000000&cat=1&lft=770&tp=73&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=1250,90,580,4d9bde,ecaa4b,1,1,0&video=614,347,68,263&maxTitleLen=18"
             }
             if(cursor.focusable[3].items.length == 0 || (typeof cursor.focusable[3].items[0].posters != 'undefined' && typeof cursor.focusable[3].items[0].posters['5'] != 'undefined')){
                 cursor.focusable[3].items[0] = {
@@ -218,7 +217,7 @@
             player.exit();
             player.play({
                 vodId:item.id,
-                position:{width:475,height:271,left:52,top:235},
+                position:{width:480,height:271,left:52,top:235},
                 callback:function(){
                 }
             });

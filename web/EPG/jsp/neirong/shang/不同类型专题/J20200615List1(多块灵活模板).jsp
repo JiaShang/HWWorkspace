@@ -392,7 +392,7 @@ pic:图片类型，默认为海报.
                 $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
                 $("titleName"+String(cursor.blocked)).style.backgroundImage = "none";
                 $("titleName"+String(cursor.blocked)).style.color = "#4d9bde";
-                },
+            },
         });
         function initList(){
             var blocked = cursor.blocked;

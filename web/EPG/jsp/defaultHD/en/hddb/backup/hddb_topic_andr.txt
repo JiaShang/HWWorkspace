@@ -3435,33 +3435,87 @@
     },
     {
       "id": 573,
-      "name": "推荐官形象展示",
-      "url": "/EPG/jsp/neirong/shang/J20200611.jsp",
-      "uptime": "2020-06-11"
-    },
-    {
-      "id": 574,
       "name": "坚持锻炼百病无，耄耋之年仍幸福",
       "url": "/EPG/jsp/neirong/shang/J20200415.jsp?typeId=10000100000000090000000000115504&lft=92&tp=295&w=395&ih=40&mr=1&fs=24&hm=1&pg=8&bc=fce422&fc=000000&cl=000000&video=590,371,610,274",
       "uptime": "2020-06-11"
     },
     {
-      "id": 575,
+      "id": 574,
       "name": "晒旅游精品 晒文创产品",
       "url": "http://125.62.26.152/html/TwoAct2020Index.html",
       "uptime": "2020-06-11"
     },
     {
-      "id": 576,
+      "id": 575,
       "name": "来足博仕 畅游世界",
       "url": "/EPG/jsp/neirong/shang/J20200615.jsp",
       "uptime": "2020-06-15"
     },
     {
-      "id": 577,
+      "id": 576,
       "name": "端午到、粽子香、包五粮",
       "url": "/EPG/jsp/neirong/shang/J20200617.jsp",
       "uptime": "2020-06-17"
-    }
+    },
+    {
+      "id": 577,
+      "name": "2020年中热剧大赏",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115605&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 578,
+      "name": "少儿组专题策划三",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115607",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 579,
+      "name": "娱乐组专题策划三",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115608",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 580,
+      "name": "玩的就是心跳 盘点挑战极限电影合辑",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115604&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 581,
+      "name": "618您为健康买过单吗",
+      "url": "http://192.168.34.73/special/618/z.php",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 582,
+      "name": "家长口语差 如何做好英语启蒙",
+      "url": "http://192.168.89.21:8086/special/index?id=1420&fromTitle=ztdl_ld",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 583,
+      "name": "徐佳莹线上演唱会",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=bb5fc807fbef42e5a845",
+      "uptime": "2020-06-17"
+    },
+    {
+      "id": 584,
+      "name": "巫溪县“童心童礼”少儿文明礼仪大赛投票活动",
+      "url": "/EPG/jsp/neirong/shang/J20200618.jsp",
+      "uptime": "2020-06-18"
+    },
+    {
+      "id": 585,
+      "name": "首席推荐官十六强选手",
+      "url": "/EPG/jsp/neirong/shang/J20200619.jsp",
+      "uptime": "2020-06-19"
+    },
+              {
+                "id": 531,
+                "name": "娱乐圈童颜奶爸大盘点",
+                "url": "/EPG/jsp/neirong/shang/J20200619_2.jsp?typeId=10000100000000090000000000115606&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+                "uptime": "2020-06-19"
+              }
   ]
 }
