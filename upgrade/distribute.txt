@@ -1,10 +1,13 @@
-#《来足博仕 畅游世界》
+#《你妈妈喊你回家吃粽子》
 # 重庆视讯传媒有限公司
 # 深圳市茁壮网络股份有限公司
 
-neirong/shang/J20200619_2.jsp
+neirong/shang/J20200623.jsp
+neirong/shang/J20200624.jsp
+neirong/shang/images/J20200623Focus0.png
+neirong/shang/images/J20200623Focus1.png
+neirong/shang/images/J20200623Bg.jpg
 
-defaultHD/en/hddb/fh_new/fh_topic.txt
 defaultHD/en/hddb/hddb_topic_ztandr.txt
 defaultHD/en/hddb/hddb_topic_andr.txt
 defaultHD/en/hddb/hddb_topic.txt

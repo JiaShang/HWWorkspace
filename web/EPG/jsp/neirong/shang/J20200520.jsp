@@ -183,7 +183,7 @@
             totalBlocked = this.data.length;
             cursor.serviceId = 2603;
             cursor.frequency = 2750000;
-            cursor.channelId = '2372';
+            cursor.channelId = '3792';
             cursor.program = '3';
             for( var i = 0; i < this.data.length; i ++){
                 var o = this.data[i];

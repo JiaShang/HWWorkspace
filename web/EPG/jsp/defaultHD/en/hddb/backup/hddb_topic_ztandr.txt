@@ -1029,7 +1029,7 @@
     },
     {
       "id": 172,
-      "name": "好好吃饭，甩掉月饼节负担！",
+      "name": "端午安康宴记得吃五红",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112688&fc=de591a&bc=de591a",
       "uptime": "2019-09-12"
     },
@@ -3511,11 +3511,59 @@
       "url": "/EPG/jsp/neirong/shang/J20200619.jsp",
       "uptime": "2020-06-19"
     },
+    {
+      "id": 586,
+      "name": "娱乐圈童颜奶爸大盘点",
+      "url": "/EPG/jsp/neirong/shang/J20200619_2.jsp?typeId=10000100000000090000000000115606&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=transparent&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=7",
+      "uptime": "2020-06-19"
+    },
+    {
+      "id": 587,
+      "name": "一起见证华夏历史文明",
+      "url": "/EPG/jsp/neirong/shang/J20200623.jsp?typeId=10000100000000090000000000115742&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 588,
+      "name": "娱乐组专题策划四",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115744",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 589,
+      "name": "少儿组专题策划四",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115743",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 590,
+      "name": "姐姐演技大赏",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115740&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 591,
+      "name": "家长如何做好英语启蒙教育",
+      "url": "http://192.168.89.21:8086/special/index?id=1413&fromTitle=ztdl_ld",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 592,
+      "name": "粽享好音乐专题",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=02e70b9288144701835c",
+      "uptime": "2020-06-23"
+    },
+    {
+      "id": 593,
+      "name": "你妈妈喊你回家吃粽子",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=187&lcn=dw",
+      "uptime": "2020-06-23"
+    },
               {
-                "id": 531,
-                "name": "娱乐圈童颜奶爸大盘点",
-                "url": "/EPG/jsp/neirong/shang/J20200619_2.jsp?typeId=10000100000000090000000000115606&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
-                "uptime": "2020-06-19"
+                 "id": 629,
+                 "name": "年中盘点 上半年霸屏的男明星们",
+                 "url": "/EPG/jsp/neirong/shang/J20200624.jsp?typeId=10000100000000090000000000115741&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+                 "uptime": "2020-06-24"
               }
   ]
 }
