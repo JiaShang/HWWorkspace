@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page import="com.huawei.iptvmw.epg.bean.MetaData" %>
 <%@ page import="com.huawei.iptvmw.epg.bean.TurnPage" %>
+<%@ page import="com.huawei.iptvmw.epg.bean.ServiceHelp" %>
 <%@ page import="java.util.regex.Matcher" %>
 <%@ page import="java.util.regex.Pattern" %>
 <%@ page import="java.lang.annotation.*" %>
@@ -19,6 +20,7 @@ public final class Result {
     private String id = "";
     private boolean success = true;
     private String message = "";
+    private Integer total = null;
     private Object data;
 
     public Result() {}
@@ -78,6 +80,14 @@ public final class Result {
             this.data = data;
         }
     }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
 }
 
 final JsonConfig JSConfig = new JsonConfig();
@@ -124,6 +134,7 @@ public final class InnerUtils {
     private boolean special = false;
     private boolean withSubscribe = false;
     private boolean isDebug = false;
+    private int total = 0;
 
     private boolean initWithSubscribe = false;
     private boolean initWithSpecials = false;
@@ -142,7 +153,7 @@ public final class InnerUtils {
 
         JSConfig.setJsonPropertyFilter(new PropertyFilter() {
             public boolean apply(Object source, String name, Object value) {
-                if (value == null || value instanceof String && ((String) value).equals("") || value instanceof List && ((List) value).size() == 0 || value instanceof Map && ((Map) value).size() == 0) {
+                if (value == null || value instanceof String && ((String) value).equals("") || value instanceof List && ((List) value).size() == 0 || value instanceof Map && ((Map) value).size() == 0 ) {
                     return true;
                 }
                 return false;
@@ -372,7 +383,8 @@ public final class InnerUtils {
         if (list == null || list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
 
         HashMap map = (HashMap) list.get(0);
-        if (((Integer) map.get("COUNTTOTAL")).intValue() < 0) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
+        total = ((Integer) map.get("COUNTTOTAL")).intValue();
+        if ( total < 0 ) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
 
         list = (List<?>) list.get(1);
         if (list.size() == 0) return null;
@@ -448,9 +460,62 @@ public final class InnerUtils {
         if (list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
 
         HashMap map = (HashMap) list.get(0);
-        if (((Integer) map.get("COUNTTOTAL")).intValue() < 0) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
+        total = ((Integer) map.get("COUNTTOTAL")).intValue();
+        if ( total < 0 ) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
 
         return (List<?>) list.get(1);
+    }
+
+    /**
+     * @param name 影片名称
+     * @param asSubVod 是否包括子集
+     * @param searchType 1：影片名称（代码），2：影片名称（汉字或字母），3：按演员名称， 4:导演, 5：外部ID, 6:按演员搜索代码
+     * @return
+     * @throws Throwable
+     */
+    private List search(String name, int asSubVod, int searchType) throws Throwable {
+        return search( name, 2, 999, 0, searchType );
+    }
+
+    /**
+     * @param name 影片名称
+     * @param asSubVod 是否包括子集
+     * @param start 查询的起始位置
+     * @param length 单次查询最大数量
+     * @param searchType 1：影片名称（代码），2：影片名称（汉字或字母），3：按演员名称， 4:导演, 5：外部ID, 6:按演员搜索代码
+     * @return
+     * @throws Throwable
+     */
+    private List search(String name, int start, int length, int asSubVod, int searchType) throws Throwable {
+        ServiceHelp helper = new ServiceHelp(request);
+
+        List list = null;
+        if (searchType == SearchType.FILMNAME)
+            list = helper.searchFilmsByName(name, start, length, asSubVod);
+        else if (searchType == SearchType.FILMCODE)
+            list = helper.searchFilmsByCode(name, start, length, asSubVod);
+        else if (searchType == SearchType.ACTOR)
+            list = helper.searchFilmsByActor(name, start, length, asSubVod);
+        else if (searchType == SearchType.DIRECTOR)
+            list = helper.searchFilmsByDirector(name, start, length, asSubVod);
+        else if (searchType == SearchType.FOREIGNSN)
+            list = helper.searchFilmById(name);
+        else if (searchType == SearchType.CASTCODE)
+            list = helper.searchCastByCastCode(name, start, length);
+
+        if (list == null || list.size() == 0) return null;
+        if (list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
+        HashMap map = (HashMap) list.get(0);
+        total = ((Integer) map.get("COUNTTOTAL")).intValue();
+        if ( total < 0 )  throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
+
+        list = (List<?>) list.get(1);
+        List results = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            Bean bean = ReflectUtil.parse(list.get(i), new Vod());
+            if (!results.contains(bean))  results.add(bean);
+        }
+        return results;
     }
 
     /**
@@ -471,9 +536,7 @@ public final class InnerUtils {
                 map = metaData.getTypeInfoByTypeId(id);
             }
             return map == null || map.size() == 0 ? null : ReflectUtil.parse(map, t);
-        } catch (Throwable e) {
-
-        }
+        } catch (Throwable e) { }
         return null;
     }
 
@@ -586,6 +649,10 @@ public final class InnerUtils {
 
     public void setSpecial(boolean special) {
         this.special = special;
+    }
+
+    public List getSitcomList(String vodId){
+        return metaData.getSitcomList(vodId, 999, 0);
     }
 
     public void debug(Object... message) {
@@ -737,7 +804,7 @@ public final static class ReflectUtil {
         }
     }
 
-    public static <T> T getEnumEntity(Class<T> T, Object value) {
+    public final static <T> T getEnumEntity(Class<T> T, Object value) {
         if (!T.isEnum()) return null;
         T[] items = T.getEnumConstants();
         T item = null;
@@ -1370,4 +1437,19 @@ public final class Film implements Bean {
         this.definition = definition;
     }
 }
+
+public final static class SearchType {
+        //影片名称（代码）
+        public final static int FILMCODE = 1;
+        //影片名称（汉字或字母）
+        public final static int FILMNAME = 2;
+        //按演员名称
+        public final static int ACTOR = 3;
+        //按演员搜索代码
+        public final static int CASTCODE = 6;
+        //导演
+        public final static int DIRECTOR = 4;
+        //外部ID
+        public final static int FOREIGNSN = 5;
+    }
 %>

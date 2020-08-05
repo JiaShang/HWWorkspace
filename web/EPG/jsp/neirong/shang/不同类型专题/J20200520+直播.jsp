@@ -45,6 +45,8 @@
     String cl = null, bc = null,fc = null,bg=null,al=null,hm = null;
     List<List<Vod>> list = null;
 
+    String classifyID = inner.get("classifyID");
+    //if( isEmpty(classifyID ) ) classifyID = "473";
     w = !isNumber( inner.get("w") ) ? 237 : Integer.valueOf(inner.get("w"));
     h = !isNumber( inner.get("h") ) ? 73 : Integer.valueOf(inner.get("h"));
     ih = !isNumber( inner.get("ih") ) ? 40 : Integer.valueOf(inner.get("ih"));
@@ -181,8 +183,8 @@
             totalBlocked = this.data.length;
             cursor.serviceId = 2603;
             cursor.frequency = 2750000;
-            cursor.channelId = '2452';
-            cursor.program = '30';
+            cursor.channelId = '3792';
+            cursor.program = '3';
             for( var i = 0; i < this.data.length; i ++){
                 var o = this.data[i];
                 cursor.focusable[i] = {};
@@ -199,10 +201,7 @@
                     }
                 }
             }
-            cursor.focusable[0].items[0]={};
-            cursor.focusable[0].items[1]={};
             cursor.focusable[0].items=this.data[0]["data"];
-
             cursor.focusable[2].items[0]={};
             cursor.focusable[3].items[0]={};
             cursor.focusable[4].items[0]={};
@@ -243,7 +242,7 @@
             };
             cursor.focusable[5].items[0]={
                 'name':this.data[5]["data"][0].name,
-                'linkto':"/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+this.data[5].id+"&titlePic=50,190,500,80,20200422,0&focusPic=785,74,550,80,20200520List,1&cl=ffffff&fc=ffffff&cat=1&lft=795&tp=70&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=490,250,330,ffffff,fff332,1,1,0&video=615,402,70,235&maxTitleLen=18"
+                'linkto':"/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+this.data[5].id+"&titlePic=50,190,500,80,20200422,0&focusPic=785,74,550,80,20200520List,1&cl=ffffff&fc=ffffff&cat=1&lft=795&tp=70&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=490,250,330,ffffff,fff332,0,1,0&video=615,402,70,235&maxTitleLen=18"
             };
 
             cursor.palyBlocked = 0;
@@ -257,7 +256,9 @@
                 cursor.playIndex = cursor.focusable[cursor.blocked].focus;
                 setTimeout(function(){cursor.call('prepareVideo');},500);
             }
-
+            if( '<%=classifyID%>' != '' ) {
+                cursor.call('trafficNum');
+            }
         },
         nextVideo   :   function () {
             var playIndex = 0;
@@ -278,14 +279,16 @@
             var items = cursor.focusable[0].items;
             player.exit();
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length);
-            var VODflag = getStrParams("VODflag",items[0].name);
             if (items.length ==3 && !iPanel.HD30Adv) {
+                var VODflag = getStrParams("VODflag",items[2].name);
                 if (VODflag == 1){
                     player.play({
                         position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
                         channelId: cursor.channelId,
                         program: cursor.program
                     });
+                } else if (VODflag == 2){
+                    player.play({'url':'rtsp://192.168.14.60/PLTV/88888888/224/3221227603/10000100000000060000000004489947_0.smil'});
                 } else {
                     player.play({
                         position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
@@ -311,11 +314,15 @@
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
-            var VODflag = getStrParams("VODflag",items[0].name);
             if(blocked == 0 && focus == 0 && items.length ==3 && !iPanel.HD30Adv ) {
-                if (VODflag == 1) {           //时移播放
+                var VODflag = getStrParams("VODflag",items[2].name);
+                if (VODflag == 1){ //时移播放
                     var item = cursor.focusable[blocked].items[0];
                     item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?channelId=" + cursor.channelId + "&program=" + cursor.program + "&VODflag=1";
+                } else if (VODflag == 2) {  //直接链接地址播放
+                    var item = cursor.focusable[blocked].items[0];
+                    item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?VODflag=2";
+
                 } else {
                     var item = cursor.focusable[blocked].items[0];
                     item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId=" + cursor.serviceId + "&frequency=" + cursor.frequency;
@@ -431,6 +438,15 @@
             }else if (blocked == 0){
                 $("focus"+focus).style.visibility = "hidden";
             }
+        },
+        trafficNum      :function(){
+            var url="http://192.168.18.249:8080/voteNew/external/clickCount.ipanel?icid="+iPanel.cardId+"&classifyID="+'<%=classifyID%>'+"&content=1";
+            ajax(url, function(rst){
+                if( rst != "" && rst != 'undefined'&& rst.result ) {
+                    //tooltip( decodeURIComponent('统计成功') );  //统计成功
+                    return;
+                }
+            });
         }
     });
     function initList() {

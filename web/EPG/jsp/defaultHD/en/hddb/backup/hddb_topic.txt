@@ -687,2883 +687,3015 @@
     },
     {
       "id": 115,
-      "name": "经典国产谍战剧",
-      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000111524",
-      "uptime": "2019-04-26"
-    },
-    {
-      "id": 116,
       "name": "权游战损人物有奖竞猜",
       "url": "/EPG/jsp/neirong/STemplateOnePicture.jsp?typeId=10000100000000090000000000111581",
       "uptime": "2019-04-26"
     },
     {
-      "id": 117,
+      "id": 116,
       "name": "新丝路·新梦想",
       "url": "/EPG/jsp/neirong/S20190425.jsp?typeId=10000100000000090000000000111523",
       "uptime": "2019-04-26"
     },
     {
-      "id": 118,
+      "id": 117,
       "name": "爱国情 奋斗者",
       "url": "/EPG/jsp/neirong/S20190423.jsp?typeId=10000100000000090000000000111561&ps=445,280,727,229&bp=385,180,210,ffffff&loop=0&pg=8&fc=cab061&split=0&mk=56,45,ff4040&fcbr=2,cab061&item=545,400,80,210,450,40,transparent,ffffff,18",
       "uptime": "2019-04-30"
     },
     {
-      "id": 119,
+      "id": 118,
       "name": "复联4后 看这些电影解忧愁",
       "url": "/EPG/jsp/neirong/STemplateAllPicture.jsp?typeId=10000100000000090000000000111720&direct=1",
       "uptime": "2019-05-17"
     },
     {
-      "id": 120,
+      "id": 119,
       "name": "快乐六一 放飞梦想",
       "url": "/EPG/jsp/neirong/S20190524.jsp?typeId=10000100000000090000000000111765",
       "uptime": "2019-05-23"
     },
     {
-      "id": 121,
+      "id": 120,
       "name": "六一小小舞蹈家",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=KASJSJX_album",
       "uptime": "2019-05-31"
     },
     {
-      "id": 122,
+      "id": 121,
       "name": "百科大课堂 共同进步",
       "url": "http://192.168.17.155/nn_cms/web_template/index.html?nns_page_name=special_list&nns_special_id=5ceb6b8f3a283e342879ef54f05a8faa",
       "uptime": "2019-05-31"
     },
     {
-      "id": 123,
+      "id": 122,
       "name": "勿忘历史警钟长鸣",
       "url": "/EPG/jsp/neirong/S20190529.jsp?typeId=10000100000000090000000000111829",
       "uptime": "2019-05-31"
     },
     {
-      "id": 124,
-      "name": "黑凤凰：二代X战警的银幕绝唱",
-      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000111869",
-      "uptime": "2019-06-04"
-    },
-    {
-      "id": 125,
+      "id": 123,
       "name": "追龙2：终极对决",
       "url": "http://192.168.34.131:8300/activity/special/chasing_the_dragon_20190603/index.do",
       "uptime": "2019-06-04"
     },
     {
-      "id": 126,
+      "id": 124,
       "name": "欢乐童年 放飞梦想",
       "url": "/EPG/jsp/neirong/S20190604.jsp?typeId=10000100000000090000000000111864",
       "uptime": "2019-06-06"
     },
     {
-      "id": 127,
+      "id": 125,
       "name": "端午出游一起去看赛龙舟",
       "url": "http://192.168.89.21:8082/special/index?id=89&DefaultFocusId=link1&fromTitle=ztdl_ld",
       "uptime": "2019-06-06"
     },
     {
-      "id": 128,
+      "id": 126,
       "name": "2019高考服务站",
       "url": "http://192.168.89.21:8086/special/index?id=129&fromTitle=ztdl",
       "uptime": "2019-06-06"
     },
     {
-      "id": 129,
+      "id": 127,
       "name": "2019“风云球王”五人制足球争霸赛",
       "url": "/EPG/jsp/neirong/S20190606.jsp?typeId=10000100000000090000000000111871",
       "uptime": "2019-06-06"
     },
     {
-      "id": 130,
+      "id": 128,
       "name": "虎妈猫爸智斗熊孩子",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000111962",
       "uptime": "2019-06-18"
     },
     {
-      "id": 131,
+      "id": 129,
       "name": "冰火如歌：克罗地亚寻觅之旅",
       "url": "/EPG/jsp/neirong/S20190617.jsp?typeId=10000100000000090000000000111981",
       "uptime": "2019-06-18"
     },
     {
-      "id": 132,
+      "id": 130,
       "name": "第五季祖孙乐趣味运动会",
       "url": "/EPG/jsp/neirong/S20190618.jsp?typeId=10000100000000090000000000111982",
       "uptime": "2019-06-18"
     },
     {
-      "id": 133,
+      "id": 131,
       "name": "2019“风云球王” 五人制足球争霸赛投票",
       "url": "/EPG/jsp/neirong/S20190701.jsp?typeId=10000100000000090000000000111871",
       "uptime": "2019-06-06"
     },
     {
-      "id": 134,
+      "id": 132,
       "name": "少年派 年轻态",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=SNPNQT_album",
       "uptime": "2019-06-06"
     },
     {
-      "id": 135,
+      "id": 133,
       "name": "扫毒2 刘德华亿元悬赏古天乐",
       "url": "http://slave.cqccntv.com/httpdocsdown/commtemplate/subject/32/subject15/template/index_stb.html?subjectId=1300000645",
       "uptime": "2019-07-02"
     },
     {
-      "id": 136,
+      "id": 134,
       "name": "舌尖上的非遗美食",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112064&bo=000000&wh=263&ht=164&ct=4&ml=0&bc=b90700&cl=000000&fc=000000&lt=41&tp=430",
       "uptime": "2019-07-02"
     },
     {
-      "id": 137,
-      "name": "叔圈男神202",
-      "url": "/EPG/jsp/neirong/S20190412.jsp?typeId=10000100000000090000000000112062",
-      "uptime": "2019-07-02"
-    },
-    {
-      "id": 138,
+      "id": 135,
       "name": "邓超：做爸爸不易，做导演更难",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112144",
       "uptime": "2019-07-17"
     },
     {
-      "id": 139,
+      "id": 136,
       "name": "2019年重庆广场舞忠县展演",
       "url": "/EPG/jsp/neirong/S20190719.jsp?typeId=10000100000000090000000000112146",
       "uptime": "2019-07-17"
     },
     {
-      "id": 140,
+      "id": 137,
       "name": "制霸暑期档的国漫来了",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112185",
       "uptime": "2019-07-24"
     },
     {
-      "id": 141,
+      "id": 138,
       "name": "绿水青山 美好家园",
       "url": "/EPG/jsp/neirong/S20190726.jsp?typeId=10000100000000090000000000112180",
       "uptime": "2019-07-24"
     },
     {
-      "id": 142,
+      "id": 139,
       "name": "记录新时代",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112220",
       "uptime": "2019-09-29"
     },
     {
-      "id": 143,
+      "id": 140,
       "name": "烈火英雄 无畏前行",
       "url": "http://192.168.34.131:8300/activity/special/fire_hero/index.do",
       "uptime": "2019-07-29"
     },
     {
-      "id": 144,
+      "id": 141,
       "name": "热血如初红心依旧",
       "url": "/EPG/jsp/neirong/S20190731.jsp",
       "uptime": "2019-07-29"
     },
     {
-      "id": 145,
+      "id": 142,
       "name": "2019中国美食夜市全攻略暑期版",
       "url": "/EPG/jsp/neirong/S20190801.jsp",
       "uptime": "2019-08-01"
     },
     {
-      "id": 146,
+      "id": 143,
       "name": "乡愁故里 古镇偏岩",
       "url": "/EPG/jsp/neirong/S20190802.jsp?typeId=10000100000000090000000000112226&ps=445,280,727,229&bp=385,180,210,ffffff&loop=0&pg=8&fc=dc7317&split=0&mk=56,45,dc7317&fcbr=2,dc7317&item=545,400,80,210,450,40,transparent,3255ba,18",
       "uptime": "2019-08-01"
     },
     {
-      "id": 147,
+      "id": 144,
       "name": "“五个一工程奖”优秀入围剧展播",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112280",
       "uptime": "2019-08-03"
     },
     {
-      "id": 148,
+      "id": 145,
       "name": "画说中国",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000111828&bg=bg-2019-08-09-img.png&row=2&tp=148&wh=180&ht=210&bd=5&fs=18&mt=4&lft=100",
       "uptime": "2019-09-29"
     },
     {
-      "id": 149,
+      "id": 146,
       "name": "赏玩多彩节会 体验夏日风情",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112260&st=1&tp=304&bc=74AA00&cl=ffffff&fc=A9F400",
       "uptime": "2019-08-11"
     },
     {
-      "id": 150,
+      "id": 147,
       "name": "2019重庆市广场舞展演",
       "url": "http://192.168.19.193:8386/bbw/index_ds2019h_3.h",
       "uptime": "2019-08-11"
     },
     {
-      "id": 151,
+      "id": 148,
       "name": "我们的70年",
       "url": "/EPG/jsp/neirong/S20190809.jsp",
       "uptime": "2019-08-12"
     },
     {
-      "id": 152,
+      "id": 149,
       "name": "广场舞“双晒”之“晒舞装”",
       "url": "/EPG/jsp/neirong/S20190810.jsp",
       "uptime": "2019-08-12"
     },
     {
-      "id": 153,
-      "name": "霸占荧屏的少年们",
-      "url": "/EPG/jsp/neirong/S20190814.jsp?typeId=10000100000000090000000000112350",
-      "uptime": "2019-08-12"
-    },
-    {
-      "id": 154,
+      "id": 150,
       "name": "双晒之巴渝宴席",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112408",
       "uptime": "2019-08-12"
     },
     {
-      "id": 155,
+      "id": 151,
       "name": "全城美食 点我享优惠",
       "url": "/EPG/jsp/neirong/S20190815.jsp",
       "uptime": "2019-08-12"
     },
     {
-      "id": 156,
-      "name": "系列动画大赏",
-      "url": "/EPG/jsp/neirong/S20190816.jsp",
-      "uptime": "2019-08-16"
-    },
-    {
-      "id": 157,
+      "id": 152,
       "name": "速度与激情 特别行动",
       "url": "http://192.168.34.17:8300/app_redirect/video/video_hall/zsj_from=spc_hobbs_and_shaw_20190821",
       "uptime": "2019-08-21"
     },
     {
-      "id": 158,
+      "id": 153,
       "name": "寻找巴渝文旅云",
       "url": "/EPG/jsp/neirong/S20190824Act.jsp",
       "uptime": "2019-08-21"
     },
     {
-      "id": 159,
+      "id": 154,
       "name": "演员招募令",
       "url": "/EPG/jsp/neirong/S20190821.jsp",
       "uptime": "2019-08-21"
     },
     {
-      "id": 160,
+      "id": 155,
       "name": "聚焦2019智博会",
       "url": "/EPG/jsp/neirong/S20190824.jsp?typeId=10000100000000090000000000112443",
       "uptime": "2019-08-24"
     },
     {
-      "id": 161,
+      "id": 156,
       "name": "智慧时代不忘传统技艺",
       "url": "/EPG/jsp/neirong/S20190829.jsp?typeId=10000100000000090000000000112484&ps=445,280,727,229&bp=385,180,210,ffffff&loop=0&pg=8&fc=dc7317&split=0&mk=56,45,dc7317&fcbr=2,dc7317&item=545,400,80,210,450,40,transparent,3255ba,18",
       "uptime": "2019-08-29"
     },
     {
-      "id": 162,
+      "id": 157,
       "name": "金婚祝福礼第六季",
       "url": "/EPG/jsp/neirong/S20190931.jsp?lft=140&tp=240&w=420&ih=40&mr=4&fs=20&hm=1&al=0&pg=7&bc=b7a057&fc=ffffff&cl=ffffff&video=582,364,636,229",
       "uptime": "2019-08-29"
     },
     {
-      "id": 163,
+      "id": 158,
       "name": "免费观影 教师节专属福利",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-09-04"
     },
     {
-      "id": 164,
+      "id": 159,
       "name": "优秀电视剧百日展播",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112522&row=2&tp=148&wh=180&ht=210&bd=5&fs=18&mt=4&lft=100",
       "uptime": "2019-09-04"
     },
     {
-      "id": 165,
+      "id": 160,
       "name": "品重庆古茶 观巴渝文化",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112520&st=1&tp=304&bc=74AA00&cl=ffffff&fc=A9F400",
       "uptime": "2019-09-04"
     },
     {
-      "id": 166,
+      "id": 161,
       "name": "新中国印迹——美丽巴渝",
       "url": "/EPG/jsp/neirong/STemplateOnePicture.jsp?typeId=10000100000000090000000000112664",
       "uptime": "2019-09-12"
     },
     {
-      "id": 167,
+      "id": 162,
       "name": "2019重庆市广场舞融媒体集中展演",
       "url": "/EPG/jsp/neirong/S20190911.jsp?typeId=10000100000000090000000000112660",
       "uptime": "2019-09-12"
     },
     {
-      "id": 168,
+      "id": 163,
       "name": "渝北区回兴街道商会庆祝新中国成立70周年",
       "url": "/EPG/jsp/neirong/S20190912.jsp",
       "uptime": "2019-09-12"
     },
     {
-      "id": 169,
+      "id": 164,
       "name": "机灵宠物车专题",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone5/link.do",
       "uptime": "2019-09-18"
     },
     {
-      "id": 170,
+      "id": 165,
       "name": "影响中国影坛的百部佳片",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112687&row=2&tp=148&wh=180&ht=210&bd=5&fs=18&mt=4&lft=100",
       "uptime": "2019-09-18"
     },
     {
-      "id": 171,
+      "id": 166,
       "name": "家国70年——我与国庆的故事",
       "url": "/EPG/jsp/neirong/STemplateOnePicture.jsp?typeId=10000100000000090000000000112697",
       "uptime": "2019-09-18"
     },
     {
-      "id": 172,
-      "name": "端午安康宴记得吃五红",
+      "id": 167,
+      "name": "二伏吃苦正当时",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112688&fc=de591a&bc=de591a",
       "uptime": "2019-09-12"
     },
     {
-      "id": 173,
+      "id": 168,
       "name": "第71届艾美奖热剧大赏",
       "url": "/EPG/jsp/neirong/S20190923.jsp?typeId=10000100000000090000000000108421&isWestern=true",
       "uptime": "2019-09-23"
     },
     {
-      "id": 174,
+      "id": 169,
       "name": "双晒之后看文旅",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112692&lft=90&tp=263&w=440&ih=44&mr=16&fs=22&hm=1&al=0&pg=6&bc=4473c8&fc=ffffff&cl=000000&sc=560,263,342,8e8e8e,4473c8&video=612,399,603,239",
       "uptime": "2019-09-23"
     },
     {
-      "id": 175,
+      "id": 170,
       "name": "祖国的召唤——新兵的征程",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112761&lft=90&tp=263&w=440&ih=44&mr=16&fs=22&hm=1&al=0&pg=6&bc=4473c8&fc=ffffff&cl=000000&sc=560,263,342,8e8e8e,4473c8&video=612,399,603,239",
       "uptime": "2019-09-23"
     },
     {
-      "id": 176,
+      "id": 171,
       "name": "歌唱祖国 群众合唱音乐会",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112741&row=2&tp=206&bd=5&fs=18&lft=84&row=2&ct=4&wh=242&ht=130&mh=90&mt=10&cl=ffffff&fc=00ffff&bc=00ffff&pic=2",
       "uptime": "2019-09-23"
     },
     {
-      "id": 177,
+      "id": 172,
       "name": "游神州大地，看祖国繁荣",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112765",
       "uptime": "2019-09-23"
     },
     {
-      "id": 178,
+      "id": 173,
       "name": "初夏的小酒和凉菜最配",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112763&fc=ec0007&bc=ec0007&cl=222222",
       "uptime": "2019-09-23"
     },
     {
-      "id": 179,
-      "name": "闪耀银幕的巨星",
-      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112766",
-      "uptime": "2019-09-23"
-    },
-    {
-      "id": 180,
+      "id": 174,
       "name": "百善孝为先",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112789",
       "uptime": "2019-09-29"
     },
     {
-      "id": 181,
+      "id": 175,
       "name": "八方佳肴献礼国庆，伴您七天美食每刻",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112790",
       "uptime": "2019-09-29"
     },
     {
-      "id": 182,
+      "id": 176,
       "name": "新中国成立70周年特辑",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112801&lft=90&tp=263&w=440&ih=44&mr=16&fs=22&hm=1&al=0&pg=6&bc=6d0003&fc=ffffff&cl=000000&sc=560,263,342,8e8e8e,6d0003&video=612,399,603,239",
       "uptime": "2019-09-29"
     },
     {
-      "id": 183,
+      "id": 177,
       "name": "中国梦·主题歌曲展播",
       "url": "/EPG/jsp/neirong/S20190809Txt.jsp?typeId=10000100000000090000000000112305",
       "uptime": "2019-09-29"
     },
     {
-      "id": 184,
+      "id": 178,
       "name": "快闪·我和我的祖国",
       "url": "/EPG/jsp/neirong/S20190809Txt.jsp?typeId=10000100000000090000000000111827",
       "uptime": "2019-09-29"
     },
     {
-      "id": 185,
+      "id": 179,
       "name": "我和我的祖国特别节目",
       "url": "/EPG/jsp/neirong/S20190809Txt.jsp?typeId=10000100000000090000000000112820",
       "uptime": "2019-09-29"
     },
     {
-      "id": 186,
+      "id": 180,
       "name": "庆祝国庆与国同梦",
       "url": "/EPG/jsp/neirong/S20190929.jsp",
       "uptime": "2019-09-29"
     },
     {
-      "id": 187,
+      "id": 181,
       "name": "假期亲子陪伴记",
       "url": "http://192.168.19.249/r/mianfei01",
       "uptime": "2019-09-29"
     },
     {
-      "id": 188,
+      "id": 182,
       "name": "九九重阳日",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-09-29"
     },
     {
-      "id": 189,
+      "id": 183,
       "name": "重阳养生很重要",
       "url": "http://192.168.34.73/chongyang/z.php",
       "uptime": "2019-09-29"
     },
     {
-      "id": 190,
+      "id": 184,
       "name": "女孩喜爱的动画大全",
       "url": "http://192.168.89.21:8086/special/index?id=1043&fromTitle=ztdl_ld",
       "uptime": "2019-09-29"
     },
     {
-      "id": 191,
+      "id": 185,
       "name": "歌唱祖国 奋斗新时代",
       "url": "/EPG/jsp/neirong/S20190930.jsp?typeId=10000100000000090000000000112768&lft=708&tp=160&w=490&ih=50&mr=10&fs=22&hm=1&al=0&pg=8&bc=ffa30e&fc=a00005&cl=a00005&sc=1220,160,470,8e8e8e,ad1b00&video=611,398,42,251",
       "uptime": "2019-09-29"
     },
     {
-      "id": 192,
+      "id": 186,
       "name": "壮丽70年 奋斗新时代",
       "url": "/EPG/jsp/neirong/S20190809Txt.jsp?typeId=10000100000000090000000000111826",
       "uptime": "2019-09-29"
     },
     {
-      "id": 193,
+      "id": 187,
       "name": "新中国的第一",
       "url": "/EPG/jsp/neirong/S20190809Txt.jsp?typeId=10000100000000090000000000112307",
       "uptime": "2019-09-29"
     },
     {
-      "id": 194,
+      "id": 188,
       "name": "共和国不会忘记",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112889&lft=90&tp=260&w=440&ih=44&mr=16&fs=22&hm=1&al=0&pg=6&bc=6d0003&fc=ffffff&cl=ffffff&sc=560,260,342,8e8e8e,6d0003&video=612,399,603,239",
       "uptime": "2019-09-29"
     },
     {
-      "id": 195,
+      "id": 189,
       "name": "一盅寒露养深秋（汤粥养生合辑）",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112803&cl=333333&fc=e85226&bc=e85226",
       "uptime": "2019-10-08"
     },
     {
-      "id": 196,
+      "id": 190,
       "name": "将故事写成我们专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=53fedb9d9b004fe9898f",
       "uptime": "2019-10-08"
     },
     {
-      "id": 197,
+      "id": 191,
       "name": "节后养生 调出好状态",
       "url": "http://192.168.34.73/jiehou/z.php",
       "uptime": "2019-10-08"
     },
     {
-      "id": 198,
+      "id": 192,
       "name": "小玩具有大智慧",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-10-08"
     },
     {
-      "id": 199,
+      "id": 193,
       "name": "奥特曼英雄大集结 男孩们的视觉盛宴",
       "url": "http://192.168.89.21:8086/special/index?id=1037&fromTitle=ztdl_ld",
       "uptime": "2019-10-08"
     },
     {
-      "id": 200,
-      "name": "500亿项目你参了么",
-      "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112920&lft=90&tp=260&w=440&ih=44&mr=16&fs=22&hm=1&al=0&pg=6&bc=6d0003&fc=ffffff&cl=ffffff&sc=560,260,342,8e8e8e,6d0003&video=612,399,603,239",
-      "uptime": "2019-10-08"
-    },
-    {
-      "id": 201,
+      "id": 194,
       "name": "换季流感预防攻略",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000112960&lft=180&tp=210&w=440&ih=44&mr=10&fs=22&hm=1&al=0&pg=7&bc=dc7317&fc=ffffff&cl=3255ba&sc=630,210,362,8e8e8e,dc7317&video=445,280,727,229",
       "uptime": "2019-10-16"
     },
     {
-      "id": 202,
+      "id": 195,
       "name": "节后10分钟 快速恢复活力",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=148&lcn=jh",
       "uptime": "2019-10-08"
     },
     {
-      "id": 203,
+      "id": 196,
       "name": "头号玩家大闯关",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2019-10-08"
     },
     {
-      "id": 204,
+      "id": 197,
       "name": "探索童年美好时光",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone3/link.do",
       "uptime": "2019-10-08"
     },
     {
-      "id": 205,
+      "id": 198,
       "name": "中国好声音精彩回顾",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=beb51a8ed97d4322936f",
       "uptime": "2019-10-08"
     },
     {
-      "id": 206,
+      "id": 199,
       "name": "智慧妈妈选择 宝贝英语启蒙",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone4/link.do",
       "uptime": "2019-10-08"
     },
     {
-      "id": 207,
+      "id": 200,
       "name": "恐龙星球带你重返侏罗纪",
       "url": "http://192.168.89.21:8086/special/index?id=1053&fromTitle=ztdl_ld",
       "uptime": "2019-10-08"
     },
     {
-      "id": 208,
+      "id": 201,
       "name": "沉睡魔咒2专题",
       "url": "http://192.168.34.131:8300/activity/tpl_special/csmz2/index.do",
       "uptime": "2019-10-08"
     },
     {
-      "id": 209,
+      "id": 202,
       "name": "张译：大器晚成的男人",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112966",
       "uptime": "2019-10-08"
     },
     {
-      "id": 210,
+      "id": 203,
       "name": "触摸山城温情 倾听百姓故事",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112964&st=1&tp=304&bc=74AA00&cl=ffffff&fc=A9F400",
       "uptime": "2019-10-18"
     },
     {
-      "id": 211,
+      "id": 204,
       "name": "健康的一天，就该这么吃！",
       "url": "/EPG/jsp/neirong/S20191018.jsp",
       "uptime": "2019-10-18"
     },
     {
-      "id": 212,
+      "id": 205,
       "name": "2019年女子半马",
       "url": "/EPG/jsp/neirong/S20191020.jsp",
       "uptime": "2019-10-18"
     },
     {
-      "id": 213,
+      "id": 206,
       "name": "完美身材管理",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=WMSCGL_album",
       "uptime": "2019-10-23"
     },
     {
-      "id": 214,
+      "id": 207,
       "name": "开启超级飞侠环保之旅",
       "url": "http://192.168.89.21:8086/special/index?id=1067&fromTitle=ztdl_ld",
       "uptime": "2019-10-23"
     },
     {
-      "id": 215,
+      "id": 208,
       "name": "秋天的童话音乐专题",
       "url": "http://192.168.17.134:8787/larko-epg-hd/index.jsp?entry=freeRecommend&code=QTDTH_album",
       "uptime": "2019-10-23"
     },
     {
-      "id": 216,
+      "id": 209,
       "name": "霜降养生 保暖从脚开始",
       "url": "http://192.168.34.73/special/shuangjiang/z.php",
       "uptime": "2019-10-23"
     },
     {
-      "id": 217,
+      "id": 210,
       "name": "国际动画日 陪你哭过笑过的经典",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-10-23"
     },
     {
-      "id": 218,
+      "id": 211,
       "name": "双讲之山城记忆",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113049&lft=640&tp=140&w=484&ih=44&mr=16&fs=22&hm=1&al=0&pg=8&bc=c00000&fc=ffffff&cl=000000&sc=1140,140,468,8e8e8e,c00000",
       "uptime": "2019-10-23"
     },
     {
-      "id": 219,
+      "id": 212,
       "name": "漫学党章党规",
       "url": "/EPG/jsp/neirong/S20191023.jsp?typeId=10000100000000090000000000113043",
       "uptime": "2019-10-23"
     },
     {
-      "id": 220,
+      "id": 213,
       "name": "霜降吃够，一年补透！",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113065&bc=e85226&cl=333333&fc=e85226",
       "uptime": "2019-10-23"
     },
     {
-      "id": 221,
+      "id": 214,
       "name": "霜降养生，从养胃、护腿开始",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113064&lft=226&tp=225&w=428&ih=52&mr=16&fs=22&hm=1&al=0&pg=7&bc=D27700&fc=ffffff&cl=424242&video=446,279,727,229",
       "uptime": "2019-10-23"
     },
     {
-      "id": 222,
+      "id": 215,
       "name": "葛优：我不只是个表情包",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113074",
       "uptime": "2019-10-25"
     },
     {
-      "id": 223,
+      "id": 216,
       "name": "少年的你电影专题",
       "url": "http://192.168.34.131:8300/activity/tpl_special/sndn/index.do",
       "uptime": "2019-10-25"
     },
     {
-      "id": 224,
+      "id": 217,
       "name": "会员权益大放送",
       "url": "/EPG/jsp/neirong/shang/J20191119.jsp",
       "uptime": "2019-10-25"
     },
     {
-      "id": 225,
+      "id": 218,
       "name": "画像奋斗者 立传新时代——《谢谢你来了》“爱国情 奋斗者”特别节目",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113073&lft=180&tp=210&w=440&ih=44&mr=10&fs=22&hm=1&al=0&pg=7&bc=dc7317&fc=ffffff&cl=3255ba&sc=630,210,366,8e8e8e,dc7317&video=446,280,727,229",
       "uptime": "2019-10-25"
     },
     {
-      "id": 226,
+      "id": 219,
       "name": "壮丽七十年共筑新人防",
       "url": "/EPG/jsp/neirong/S20191025.jsp",
       "uptime": "2019-10-25"
     },
     {
-      "id": 227,
+      "id": 220,
       "name": "老有所学—名师教您《轻松学书法》",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113084&lft=235&tp=225&w=412&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=500,285,700,228",
       "uptime": "2019-10-29"
     },
     {
-      "id": 228,
+      "id": 221,
       "name": "舞蹈风暴 360度燃爆你",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=151&lcn=wd",
       "uptime": "2019-10-29"
     },
     {
-      "id": 229,
+      "id": 222,
       "name": "魔法学院之少年战士",
       "url": "http://192.168.19.249/r/mianfei01",
       "uptime": "2019-10-29"
     },
     {
-      "id": 230,
+      "id": 223,
       "name": "看猪猪侠如何守卫梦想",
       "url": "http://192.168.89.21:8086/special/index?id=1081&fromTitle=ztdl_ld",
       "uptime": "2019-10-29"
     },
     {
-      "id": 231,
+      "id": 224,
       "name": "神奇的穴位专题",
       "url": "http://192.168.34.73/special/xuewei/z.php",
       "uptime": "2019-10-29"
     },
     {
-      "id": 232,
+      "id": 225,
       "name": "大手牵小手 亲子代言人",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-10-29"
     },
     {
-      "id": 233,
+      "id": 226,
       "name": "少年的你 年少的歌",
       "url": "http://192.168.17.134:8787/larko-epg-hd/index.jsp?entry=freeRecommend&code=BetterDays_album",
       "uptime": "2019-10-29"
     },
     {
-      "id": 234,
+      "id": 227,
       "name": "2019女子半程马拉松",
       "url": "http://192.168.18.14:8080/marathon/index.html",
       "uptime": "2019-10-29"
     },
     {
-      "id": 235,
+      "id": 228,
       "name": "人生百味 麻辣一城",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113103",
       "uptime": "2019-10-30"
     },
     {
-      "id": 236,
+      "id": 229,
       "name": "我是重庆人",
       "url": "/EPG/jsp/neirong/S20191104.jsp?typeId=10000100000000090000000000113105",
       "uptime": "2019-11-01"
     },
     {
-      "id": 237,
+      "id": 230,
       "name": "红岩系列史志人物片",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113140",
       "uptime": "2019-11-01"
     },
     {
-      "id": 238,
+      "id": 231,
       "name": "修炼3D好身材",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=3DHSC_album",
       "uptime": "2019-11-06"
     },
     {
-      "id": 239,
+      "id": 232,
       "name": "少年的你音乐专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=0ab0c2e2be514034bc49",
       "uptime": "2019-11-06"
     },
     {
-      "id": 240,
+      "id": 233,
       "name": "国学少年 畅享经典诗词",
       "url": "http://192.168.89.21:8086/special/index?id=1095&fromTitle=ztdl_ld",
       "uptime": "2019-11-06"
     },
     {
-      "id": 241,
+      "id": 234,
       "name": "秋季跳舞好处多",
       "url": "http://192.168.34.73/special/tiaowu/z.php",
       "uptime": "2019-11-06"
     },
     {
-      "id": 242,
+      "id": 235,
       "name": "老有所学--名师教您《彩墨山水新界画—秋》",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113148&lft=235&tp=225&w=412&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=500,285,700,228",
       "uptime": "2019-11-06"
     },
     {
-      "id": 243,
+      "id": 236,
       "name": "中共十九届四中全会",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113160&lft=734&tp=247&w=435&h=387&ih=60&mr=0&fs=22&al=0&pg=5&bc=fff141&fc=000000&cl=171717&sc=1195,245,310,e0e1e3,d50000&video=614,349,63,236",
       "uptime": "2019-11-06"
     },
     {
-      "id": 244,
+      "id": 237,
       "name": "脱贫路上暖心事",
       "url": "/EPG/jsp/neirong/S20191101.jsp?typeId=10000100000000090000000000113120&lft=738&tp=216&w=428&ih=50&mr=0&fs=22&hm=1&al=0&pg=5&bc=F5CA00&fc=000000&cl=000000&video=595,345,93,186",
       "uptime": "2019-11-06"
     },
     {
-      "id": 245,
+      "id": 238,
       "name": "大厨烹小菜",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113161",
       "uptime": "2019-11-06"
     },
     {
-      "id": 246,
+      "id": 239,
       "name": "双11购物狂欢节",
       "url": "/EPG/jsp/neirong/shang/S20191108.html?typeId=10000100000000090000000000113186",
       "uptime": "2019-11-08"
     },
     {
-      "id": 247,
+      "id": 240,
       "name": "“双11” 我们玩真的！",
       "url": "/EPG/jsp/neirong/S20191108.jsp?typeId=10000100000000090000000000113180",
       "uptime": "2019-11-08"
     },
     {
-      "id": 248,
+      "id": 241,
       "name": "演技派的巅峰对决",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113208",
       "uptime": "2019-11-12"
     },
     {
-      "id": 249,
+      "id": 242,
       "name": "竞速小英雄专题",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-11-12"
     },
     {
-      "id": 250,
+      "id": 243,
       "name": "少年成长给父母的教育启示",
       "url": "http://192.168.89.21:8086/special/index?id=1129&fromTitle=ztdl_ld",
       "uptime": "2019-11-12"
     },
     {
-      "id": 251,
+      "id": 244,
       "name": "优雅气质 成就主持魅力",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=153&lcn=zcr",
       "uptime": "2019-11-12"
     },
     {
-      "id": 252,
+      "id": 245,
       "name": "迷你特工队专题",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone2/link.do",
       "uptime": "2019-11-12"
     },
     {
-      "id": 253,
+      "id": 246,
       "name": "造梦空间的舞蹈风暴",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2019-11-12"
     },
     {
-      "id": 254,
+      "id": 247,
       "name": "解析“防癌”密码",
       "url": "http://192.168.34.73/special/fangai/z.php",
       "uptime": "2019-11-12"
     },
     {
-      "id": 255,
+      "id": 248,
       "name": "冬季老年防寒食谱攻略",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113206",
       "uptime": "2019-11-12"
     },
     {
-      "id": 256,
+      "id": 249,
       "name": "跟着电影游重庆",
       "url": "/EPG/jsp/neirong/shang/J20191115.jsp?typeId=10000100000000090000000000113203&lft=708&tp=160&w=490&ih=50&mr=10&fs=24&hm=1&al=0&pg=8&bc=fac319&fc=000000&cl=000000&sc=1220,160,470,8e8e8e,ff7200&video=624,410,36,246",
       "uptime": "2019-11-13"
     },
     {
-      "id": 257,
+      "id": 250,
       "name": "万元课程免费学-启骧老师带您写书法",
       "url": "/EPG/jsp/neirong/shang/J20191114.jsp?typeId=10000100000000090000000000113209&lft=235&tp=225&w=412&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=500,290,700,248",
       "uptime": "2019-11-14"
     },
     {
-      "id": 258,
+      "id": 251,
       "name": "跟着易洋千玺打卡重庆美食",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=99&rank=2",
       "uptime": "2019-11-18"
     },
     {
-      "id": 259,
+      "id": 252,
       "name": "哎呀好身材健身专题",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=freeRecommend&code=AYHSC_album",
       "uptime": "2019-11-19"
     },
     {
-      "id": 260,
+      "id": 253,
       "name": "肖战王一博同台演唱",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=73b5e120f8054dceb2d7",
       "uptime": "2019-11-19"
     },
     {
-      "id": 261,
+      "id": 254,
       "name": "冰雪奇缘2 未知世界奇妙探险",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone5/link.do",
       "uptime": "2019-11-19"
     },
     {
-      "id": 262,
+      "id": 255,
       "name": "和孩子一起认知世界",
       "url": "http://192.168.89.21:8086/special/index?id=1142&fromTitle=ztdl_ld",
       "uptime": "2019-11-19"
     },
     {
-      "id": 263,
+      "id": 256,
       "name": "入冬不生病的秘诀",
       "url": "http://192.168.34.73/special/rudong/z.php",
       "uptime": "2019-11-19"
     },
     {
-      "id": 264,
+      "id": 257,
       "name": "艾莎携手安娜踏上未知的《冰雪奇缘2》",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113241",
       "uptime": "2019-11-19"
     },
     {
-      "id": 265,
+      "id": 258,
       "name": "全域重庆带你畅游足球视界",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113247&lft=649&tp=133&w=506&ih=55&mr=5&fs=24&al=0&pg=8&bc=fac319&fc=ffffff&cl=171717",
       "uptime": "2019-11-21"
     },
     {
-      "id": 266,
+      "id": 259,
       "name": "我的粉丝 我买单！",
       "url": "/EPG/jsp/neirong/shang/J20191120.jsp",
       "uptime": "2019-11-21"
     },
     {
-      "id": 267,
+      "id": 260,
       "name": "2019重庆最全红叶观赏地图",
       "url": "/EPG/jsp/neirong/shang/J20191121.jsp?typeId=10000100000000090000000000113271&direct=1",
       "uptime": "2019-11-21"
     },
     {
-      "id": 268,
+      "id": 261,
       "name": "2019国际女子半马最美笑脸票选活动",
       "url": "/EPG/jsp/neirong/S20191125.jsp",
       "uptime": "2019-11-25"
     },
     {
-      "id": 269,
+      "id": 262,
       "name": "七个您必须知道的厨房小妙招",
       "url": "/EPG/jsp/neirong/shang/J20191126.jsp?typeId=10000100000000090000000000113303&lft=235&tp=225&w=412&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=452,259,725,268",
       "uptime": "2019-11-26"
     },
     {
-      "id": 270,
+      "id": 263,
       "name": "常怀感恩心也是养生经",
       "url": "http://192.168.34.73/special/ganenjie/z.php",
       "uptime": "2019-11-27"
     },
     {
-      "id": 271,
+      "id": 264,
       "name": "小海鹦的成长探险",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2019-11-27"
     },
     {
-      "id": 272,
+      "id": 265,
       "name": "旅行是最好的教育",
       "url": "http://192.168.89.21:8086/special/index?id=1149&fromTitle=ztdl_ld",
       "uptime": "2019-11-27"
     },
     {
-      "id": 273,
+      "id": 266,
       "name": "周深 愿得一人心",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=77a806fbd93247a88927",
       "uptime": "2019-11-27"
     },
     {
-      "id": 274,
+      "id": 267,
       "name": "熊熊乐园3  萌趣成长时光",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-11-27"
     },
     {
-      "id": 275,
+      "id": 268,
       "name": "20天纤腰收腹操",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=154&lcn=xy",
       "uptime": "2019-11-27"
     },
     {
-      "id": 276,
+      "id": 269,
       "name": "2019忠县马拉松",
       "url": "/EPG/jsp/neirong/shang/J20191129.jsp",
       "uptime": "2019-11-29"
     },
     {
-      "id": 277,
+      "id": 270,
       "name": "2019感动重庆十大人物评选",
       "url": "http://192.168.89.23/active/act1912-1.html",
       "uptime": "2019-12-02"
     },
     {
-      "id": 278,
+      "id": 271,
       "name": "中老年书法展演 ",
       "url": "/EPG/jsp/neirong/STemplateAllPicture.jsp?typeId=10000100000000090000000000113350&direct=1&type=2",
       "uptime": "2019-12-3"
     },
     {
-      "id": 279,
+      "id": 272,
       "name": "冰雪奇缘2电影原声专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=6f5aeb764a1d400fa26a",
       "uptime": "2019-12-3"
     },
     {
-      "id": 280,
+      "id": 273,
       "name": "感谢您的陪伴 我会快快长大",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone4/link.do",
       "uptime": "2019-12-3"
     },
     {
-      "id": 281,
+      "id": 274,
       "name": "大雪 传承千年的养身功法",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=147&dx",
       "uptime": "2019-12-3"
     },
     {
-      "id": 282,
+      "id": 275,
       "name": "新大头儿子小头爸爸第3季专题",
       "url": "http://192.168.89.21:8086/special/index?id=1163&fromTitle=ztdl_ld",
       "uptime": "2019-12-3"
     },
     {
-      "id": 283,
+      "id": 276,
       "name": "雪季广场舞 你也来哟",
       "url": "http://192.168.34.73/special/piaoxue/z.php",
       "uptime": "2019-12-3"
     },
     {
-      "id": 284,
+      "id": 277,
       "name": "安全知识知多少 文明礼仪总动员",
       "url": "http://192.168.19.249/r/mianfei01",
       "uptime": "2019-12-3"
     },
     {
-      "id": 285,
+      "id": 278,
       "name": "达康书记 你怎么能叫陈萍萍",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113348",
       "uptime": "2019-12-3"
     },
     {
-      "id": 286,
+      "id": 279,
       "name": "中共重庆市委五届七次全会",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113359&lft=732&tp=299&w=435&h=387&ih=50&mr=3&fs=24&al=0&pg=6&bc=980204&fc=ffffff&cl=171717&sc=1185,298,320,e0e1e3,980204&video=642,361,49,281",
       "uptime": "2019-12-4"
     },
     {
-      "id": 287,
+      "id": 280,
       "name": "大雪进补 开春打虎",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113349",
       "uptime": "2019-12-4"
     },
     {
-      "id": 288,
+      "id": 281,
       "name": "聚焦十九届四中全会",
       "url": "/EPG/jsp/neirong/shang/J20191204.jsp?typeId=10000100000000090000000000113340&lft=708&tp=160&w=490&ih=52&mr=8&fs=24&hm=1&al=0&pg=8&bc=fac319&fc=000000&cl=000000&sc=1220,160,470,8e8e8e,aa0104&video=602,337,44,304",
       "uptime": "2019-12-4"
     },
     {
-      "id": 289,
+      "id": 282,
       "name": "2019重庆最强温泉攻略",
       "url": "/EPG/jsp/neirong/shang/J20191205.jsp?typeId=10000100000000090000000000113281&direct=1&type=1",
       "uptime": "2019-12-5"
     },
     {
-      "id": 290,
+      "id": 283,
       "name": "盘点电影中那些改变命运瞬间",
       "url": "/EPG/jsp/neirong/shang/J20191206.jsp?typeId=10000100000000090000000000113347&type=1",
       "uptime": "2019-12-6"
     },
     {
-      "id": 291,
+      "id": 284,
       "name": "岁末享大戏 会员送好礼",
       "url": "http://192.168.34.18:8081/activity/act_turntable/index.do",
       "uptime": "2019-12-6"
     },
     {
-      "id": 292,
+      "id": 285,
       "name": "深冬藏肉10斤穿搭法",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=156&lcn=cd",
       "uptime": "2019-12-10"
     },
     {
-      "id": 293,
+      "id": 286,
       "name": "最新电视剧OST",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=731c56f967414a90b006",
       "uptime": "2019-12-10"
     },
     {
-      "id": 294,
+      "id": 287,
       "name": "冰雪运动季游玩正当时",
       "url": "/EPG/jsp/neirong/shang/J20191211.jsp?typeId=10000100000000090000000000113401",
       "uptime": "2019-12-11"
     },
     {
-      "id": 295,
+      "id": 288,
       "name": "冬天斗该吃羊肉",
       "url": "http://125.62.26.147:82/topic/topic1.html?classId=105&rank=2",
       "uptime": "2019-12-11"
     },
     {
-      "id": 296,
+      "id": 289,
       "name": "神仙阵容上演烧脑悬疑片",
       "url": "/EPG/jsp/neirong/shang/J20191212.jsp",
       "uptime": "2019-12-13"
     },
     {
-      "id": 297,
+      "id": 290,
       "name": "竞速小英雄2专题",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone2/link.do",
       "uptime": "2019-12-17"
     },
     {
-      "id": 298,
+      "id": 291,
       "name": "冬至暖胃烘培小食",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=157&lcn=dz",
       "uptime": "2019-12-17"
     },
     {
-      "id": 299,
+      "id": 292,
       "name": "赛罗·贝利亚英雄对决专题",
       "url": "http://192.168.89.21:8086/special/index?id=1170&fromTitle=ztdl_ld",
       "uptime": "2019-12-17"
     },
     {
-      "id": 300,
+      "id": 293,
       "name": "南方车站的聚会音乐专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=f6f51a4a2bba4665ae9a",
       "uptime": "2019-12-17"
     },
     {
-      "id": 301,
+      "id": 294,
       "name": "宝宝的奇妙好习惯",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2019-12-17"
     },
     {
-      "id": 302,
+      "id": 295,
       "name": "茅台王子传承1999之夜 杨坤演唱会",
       "url": "/EPG/jsp/neirong/shang/J20191217.jsp?typeId=10000100000000090000000000113464&video=550,310,107,327",
       "uptime": "2019-12-17"
     },
     {
-      "id": 303,
+      "id": 296,
       "name": "新年歌会——天天630特别节目",
       "url": "/EPG/jsp/neirong/shang/J20191218.jsp?typeId=10000100000000090000000000113480&lft=710&tp=160&w=490&h=387&ih=55&mr=5&fs=24&al=0&pg=8&bc=fac319&fc=000000&cl=171717&sc=1215,160,470,404040,fac319&video=618,402,40,248",
       "uptime": "2019-12-18"
     },
     {
-      "id": 304,
+      "id": 297,
       "name": "赏冬日美景摘田园硕果",
       "url": "/EPG/jsp/neirong/shang/J20191219.jsp?typeId=10000100000000090000000000113440&lft=700&tp=110&w=482&ih=60&mr=5&fs=24&hm=1&al=0&pg=8&bc=fac319&fc=000000&cl=000000&video=528,298,70,250",
       "uptime": "2019-12-19"
     },
     {
-      "id": 305,
+      "id": 298,
       "name": "羊肉要去这里吃",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=107&rank=2",
       "uptime": "2019-12-19"
     },
     {
-      "id": 306,
+      "id": 299,
       "name": "盘点2019年了不起的国剧爸爸",
       "url": "/EPG/jsp/neirong/S20190412.jsp?typeId=10000100000000090000000000113463",
       "uptime": "2019-12-19"
     },
     {
-      "id": 307,
+      "id": 300,
       "name": "“肠道君”您还好吗？",
       "url": "/EPG/jsp/neirong/shang/J20191219_2.jsp?typeId=10000100000000090000000000113461&lft=235&tp=225&w=413&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=460,285,720,293",
       "uptime": "2019-12-19"
     },
     {
-      "id": 308,
+      "id": 301,
       "name": "手把手教您学上网",
       "url": "/EPG/jsp/neirong/shang/J20191219_2.jsp?typeId=10000100000000090000000000113460&lft=235&tp=230&w=413&ih=51&mr=18&fs=22&al=0&pg=5&bc=fda100&fc=ffffff&cl=171717&video=454,259,724,360",
       "uptime": "2019-12-19"
     },
     {
-      "id": 309,
+      "id": 302,
       "name": "2020星动跨年趴之歌坛大咖",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113520&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 310,
+      "id": 303,
       "name": "2020星动跨年趴之实力唱将",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113521&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 311,
+      "id": 304,
       "name": "2020星动跨年趴之跨界高手",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113522&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 312,
+      "id": 305,
       "name": "2020星动跨年趴之顶流爱豆",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113523&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 313,
+      "id": 306,
       "name": "2020星动跨年趴之人气组合",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113524&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 314,
+      "id": 307,
       "name": "2020星动跨年趴之合作舞台",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113525&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 315,
+      "id": 308,
       "name": "2020星动跨年趴之全场回顾",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113526&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-23"
     },
     {
-      "id": 316,
+      "id": 309,
       "name": "冰雪游乐园 在家也能开心玩雪",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2019-12-24"
     },
     {
-      "id": 317,
+      "id": 310,
       "name": "吃货福利 三只松鼠萌趣来袭",
       "url": "http://192.168.89.21:8086/special/index?id=1184&fromTitle=ztdl_ld",
       "uptime": "2019-12-24"
     },
     {
-      "id": 318,
+      "id": 311,
       "name": "让你看花眼 2019精彩综艺大集锦",
       "url": "http://192.168.17.155/nn_cms/data/template/200000/free_special/index.html",
       "uptime": "2019-12-24"
     },
     {
-      "id": 319,
+      "id": 312,
       "name": "你若盛开清风徐来 庆余年",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=158&lcn=yn",
       "uptime": "2019-12-24"
     },
     {
-      "id": 320,
+      "id": 313,
       "name": "2019腾讯音乐娱乐盛典专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=2a948d14cb6740f08ee7",
       "uptime": "2019-12-24"
     },
     {
-      "id": 321,
+      "id": 314,
       "name": "小精灵们的音乐尾牙",
       "url": "http://192.168.19.249/r/mianfei01",
       "uptime": "2019-12-24"
     },
     {
-      "id": 322,
+      "id": 315,
       "name": "2019中国电影年度总票房TOP10",
       "url": "/EPG/jsp/neirong/shang/J20191223.jsp?typeId=10000100000000090000000000113593&lft=84&tp=168&w=410&h=387&ih=53&mr=5&fs=24&al=0&pg=8&bc=fd8a26&fc=ffffff&cl=ffffff&video=599,348,572,267",
       "uptime": "2019-12-26"
     },
     {
-      "id": 323,
+      "id": 316,
       "name": "愿你的新年有点甜",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000113595",
       "uptime": "2019-12-26"
     },
     {
-      "id": 324,
+      "id": 317,
       "name": "2019微盘点",
       "url": "/EPG/jsp/neirong/shang/J20191226_2.jsp?typeId=10000100000000090000000000113596&lft=720&tp=160&w=470&ih=50&mr=10&fs=24&hm=1&pg=8&cl=725f51&sc=1220,160,450,c9b1a4,92502a&video=616,400,39,249",
       "uptime": "2019-12-26"
     },
     {
-      "id": 325,
+      "id": 318,
       "name": "2020星动跨年趴",
       "url": "/EPG/jsp/neirong/S20191225.jsp",
       "uptime": "2019-12-26"
     },
     {
-      "id": 326,
+      "id": 319,
       "name": "我们的节日 · 元旦",
       "url": "/EPG/jsp/neirong/shang/J20191226_3.jsp?typeId=10000100000000090000000000113540&lft=692&tp=167&w=477&ih=60&mr=5&fs=24&hm=1&al=0&pg=7&bc=ffd200&fc=d31f12&cl=ffffff&video=531,301,67,266",
       "uptime": "2019-12-26"
     },
     {
-      "id": 327,
+      "id": 320,
       "name": "演出季：年末要看剧",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=109&rank=2",
       "uptime": "2019-12-26"
     },
     {
-      "id": 328,
+      "id": 321,
       "name": "2019中国电竞难忘时刻",
       "url": "http://192.168.34.131:8300/activity/tpl_special/2019dj1218/index.do?",
       "uptime": "2019-12-26"
     },
     {
-      "id": 329,
+      "id": 322,
       "name": "2019年终音乐大盘点",
       "url": "http://192.168.17.134:8787/larko-epg-hd/index.jsp?entry=pyyRecommend&code=NZYYPD_album",
       "uptime": "2019-12-26"
     },
     {
-      "id": 330,
+      "id": 323,
       "name": "2020我的心愿清单",
       "url": "http://192.168.17.131:8181/health-epg-gd-hd/index.jsp?entry=pyyrecommend&code=WishList_activity",
       "uptime": "2019-12-26"
     },
     {
-      "id": 331,
+      "id": 324,
       "name": "动画萌星会",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/ANcommend2/link.do",
       "uptime": "2019-12-26"
     },
     {
-      "id": 332,
+      "id": 325,
       "name": "吴晓波年终秀",
       "url": "/EPG/jsp/neirong/S20191226.jsp",
       "uptime": "2019-12-26"
     },
     {
-      "id": 333,
+      "id": 326,
       "name": "和全世界最心动的你一起迎新年",
       "url": "http://192.168.17.155/nn_cms/data/template/200000/free_special/index.html",
       "uptime": "2019-12-30"
     },
     {
-      "id": 334,
+      "id": 327,
       "name": "腊八喝粥有讲究",
       "url": "http://192.168.34.73/special/naba/z.php",
       "uptime": "2019-12-30"
     },
     {
-      "id": 335,
+      "id": 328,
       "name": "明星带你玩转2020",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=159&lcn=yd",
       "uptime": "2019-12-30"
     },
     {
-      "id": 336,
+      "id": 329,
       "name": "抖音热歌专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=efeb4d47fe554641be3c",
       "uptime": "2019-12-30"
     },
     {
-      "id": 337,
+      "id": 330,
       "name": "柯南教你如何真相大揭秘",
       "url": "http://192.168.89.21:8086/special/index?id=1191&fromTitle=ztdl_ld",
       "uptime": "2019-12-30"
     },
     {
-      "id": 338,
+      "id": 331,
       "name": "全国第十五届观摩交流活动重庆市获奖作品展播",
       "url": "/EPG/jsp/neirong/shang/J20191227.jsp?typeId=10000100000000090000000000113600&pg=10&video=558,317,58,248",
       "uptime": "2019-12-31"
     },
     {
-      "id": 339,
+      "id": 332,
       "name": "投票抢红包，免费看大片",
       "url": "http://192.168.18.14:8080/voting/index.html",
       "uptime": "2019-12-26"
     },
     {
-      "id": 340,
+      "id": 333,
       "name": "中国年 中国味",
       "url": "/EPG/jsp/neirong/shang/JpicVote.jsp?typeId=10000100000000090000000000113642&direct=1&type=1&classifyID=473",
       "uptime": "2020-01-02"
     },
     {
-      "id": 341,
+      "id": 334,
       "name": "寒冬腊月季，保暖正当时",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113621&lft=235&tp=225&w=412&ih=50&mr=19&fs=22&al=0&pg=5&bc=FDA100&fc=FEE6BB&cl=171717&video=451,285,725,266",
       "uptime": "2020-01-02"
     },
     {
-      "id": 342,
+      "id": 335,
       "name": "2020重庆美食必吃榜",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=111&rank=2",
       "uptime": "2020-01-02"
     },
     {
-      "id": 343,
+      "id": 336,
       "name": "2019年爱豆影响力价值榜",
       "url": "http://192.168.34.131:8300/activity/special/idol_20200102/index.do?",
       "uptime": "2020-01-03"
     },
     {
-      "id": 344,
+      "id": 337,
       "name": "脱贫攻坚 以民生换民心",
       "url": "/EPG/jsp/neirong/shang/J20200106.jsp",
       "uptime": "2020-01-06"
     },
     {
-      "id": 345,
+      "id": 338,
       "name": "恐龙当家奇妙世界大探险",
       "url": "http://192.168.17.155/nn_cms/data/template/200000/free_special/index.html",
       "uptime": "2020-01-07"
     },
     {
-      "id": 346,
+      "id": 339,
       "name": "梦幻城堡新纪元专题",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2020-01-07"
     },
     {
-      "id": 347,
+      "id": 340,
       "name": "李子柒的后院美食 年夜饭",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=161&lcn=nianyf",
       "uptime": "2020-01-07"
     },
     {
-      "id": 348,
+      "id": 341,
       "name": "萌娃考前特训营",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone2/link.do",
       "uptime": "2020-01-07"
     },
     {
-      "id": 349,
+      "id": 342,
       "name": "我们的歌精华版专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=1e4c7a83710e4d39a2ff",
       "uptime": "2020-01-07"
     },
     {
-      "id": 350,
+      "id": 343,
       "name": "我们的朋友熊小米专题",
       "url": "http://192.168.89.21:8086/special/index?id=1198&fromTitle=ztdl_ld",
       "uptime": "2020-01-07"
     },
     {
-      "id": 351,
+      "id": 344,
       "name": "直通2020年重庆区县两会",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000113680&lft=730&tp=250&w=425&h=387&ih=42&mr=1&fs=24&al=0&pg=8&bc=fff332&fc=000000&cl=171717&sc=1185,250,350,8c8c8c,fff332&video=631,392,42,232",
       "uptime": "2020-01-09"
     },
     {
-      "id": 352,
+      "id": 345,
       "name": "不可辜负的冬日美味",
       "url": "/EPG/jsp/neirong/shang/J20200109_2.jsp",
       "uptime": "2020-01-09"
     },
     {
-      "id": 353,
+      "id": 346,
       "name": "聚焦2020年重庆两会",
       "url": "http://192.168.89.23/active/act020110.html",
       "uptime": "2020-01-10"
     },
     {
-      "id": 354,
+      "id": 347,
       "name": "杨坤演唱会",
       "url": "/EPG/jsp/neirong/shang/J20200109.jsp",
       "uptime": "2020-01-13"
     },
     {
-      "id": 355,
+      "id": 348,
       "name": "2019年度感动重庆十大人物",
       "url": "/EPG/jsp/neirong/shang/J20200114.jsp?typeId=10000100000000090000000000113761",
       "uptime": "2020-01-14"
     },
     {
-      "id": 356,
+      "id": 349,
       "name": "游乐学院免费专区专题01",
       "url": "http://192.168.19.249/r/mianfei01",
       "uptime": "2020-01-15"
     },
     {
-      "id": 357,
+      "id": 350,
       "name": "游乐学院免费专区专题02",
       "url": "http://192.168.19.249/r/mianfei02",
       "uptime": "2020-01-15"
     },
     {
-      "id": 358,
+      "id": 351,
       "name": "芒果TV免费专区专题",
       "url": "http://192.168.17.155/nn_cms/data/template/200000/free_special/index.html",
       "uptime": "2020-01-15"
     },
     {
-      "id": 359,
+      "id": 352,
       "name": "i12免费专区专题01",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone/link.do",
       "uptime": "2020-01-15"
     },
     {
-      "id": 360,
+      "id": 353,
       "name": "i12免费专区专题02",
       "url": "http://192.168.34.18:8081/tico_cartoon/link_repeater/freezone2/link.do",
       "uptime": "2020-01-15"
     },
     {
-      "id": 361,
+      "id": 354,
       "name": "小猪佩奇第五季欢乐上线",
       "url": "http://192.168.89.21:8086/special/index?id=1212&fromTitle=ztdl_ld",
       "uptime": "2020-01-15"
     },
     {
-      "id": 362,
+      "id": 355,
       "name": "再见吧 脂肪肝",
       "url": "http://192.168.34.73/special/zhifanggan/z.php",
       "uptime": "2020-01-15"
     },
     {
-      "id": 363,
+      "id": 356,
       "name": "舌尖上的年味",
       "url": "/EPG/jsp/neirong/shang/J20200103.jsp?typeId=10000100000000090000000000113781&lft=45&tp=415&row=1&ct=4&ht=192&wh=262&ml=0&bc=ffe200&fc=ffe200&lft=165&tp=143",
       "uptime": "2020-01-15"
     },
     {
-      "id": 364,
+      "id": 357,
       "name": "家乡的年味儿",
       "url": "/EPG/jsp/neirong/shang/J20200116_2.jsp?typeId=10000100000000090000000000113869",
       "uptime": "2020-01-16"
     },
     {
-      "id": 365,
+      "id": 358,
       "name": "回家 回家——春运路上那些事",
       "url": "/EPG/jsp/neirong/shang/J20200116.jsp?typeId=10000100000000090000000000113868&lft=730&tp=159&w=450&ih=50&mr=10&fs=24&hm=1&pg=8&cl=af0200&sc=1,470,EBE3E4,af0200&video=618,402,38,248",
       "uptime": "2020-01-16"
     },
     {
-      "id": 366,
+      "id": 359,
       "name": "笑星巨匠伴您度春节",
       "url": "/EPG/jsp/neirong/shang/J20200115.jsp?typeId=10000100000000090000000000113780&lft=180&tp=279&w=420&ih=48&mr=1&fs=24&hm=1&pg=7&cl=ffffff&sc=1147,75,262,EBE3E4,C876A3&video=451,284,729,312",
       "uptime": "2020-01-16"
     },
     {
-      "id": 367,
+      "id": 360,
       "name": "重庆年夜饭地图",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=113&rank=2",
       "uptime": "2020-01-16"
     },
     {
-      "id": 368,
+      "id": 361,
       "name": "2019年这些大片绝不能错过",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000113880&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-01-16"
     },
     {
-      "id": 369,
+      "id": 362,
       "name": "新春大拜年",
       "url": "/EPG/jsp/neirong/shang/J20200117.jsp?typeId=10000100000000090000000000113885&lft=863&tp=309&w=133&ih=40&mr=0&fs=20&hm=1&pg=7&fs=20&ftop=0&fleft=10&fc=ffffff&cl=000000&sc=1,470,EBE3E4,af0200&video=575,322,266,295",
       "uptime": "2020-01-17"
     },
     {
-      "id": 370,
+      "id": 363,
       "name": "2020重庆市区县春节联欢晚会",
       "url": "/EPG/jsp/neirong/shang/J20200117_2.jsp?typeId=10000100000000090000000000113882&lft=180&tp=235&w=420&ih=48&mr=1&fs=24&hm=1&pg=8&cl=ffffff&sc=1147,75,262,EBE3E4,C876A3&video=520,297,660,261",
       "uptime": "2020-01-17"
     },
     {
-      "id": 371,
+      "id": 364,
       "name": "春节贺岁金曲专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=a559c9aef94b4900a412",
       "uptime": "2020-01-20"
     },
     {
-      "id": 372,
+      "id": 365,
       "name": "春节喝酒不伤身",
       "url": "http://192.168.34.73/special/hejiu/z.php",
       "uptime": "2020-01-20"
     },
     {
-      "id": 373,
+      "id": 366,
       "name": "恭喜发财新年妆 气场全开",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=162&lcn=fc",
       "uptime": "2020-01-20"
     },
     {
-      "id": 374,
+      "id": 367,
       "name": "虹蓝贺岁“鼠”你幸福",
       "url": "http://192.168.89.21:8086/special/index?id=1260&fromTitle=ztdl_ld",
       "uptime": "2020-01-20"
     },
     {
-      "id": 375,
+      "id": 368,
       "name": "热门卡通影视原声",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=68ebe6d43785425888db",
       "uptime": "2020-01-20"
     },
     {
-      "id": 376,
+      "id": 369,
       "name": "朱利安“狐猴”王国盛大狂欢",
       "url": "http://192.168.89.21:8086/special/index?id=1253&fromTitle=ztdl_ld",
       "uptime": "2020-01-20"
     },
     {
-      "id": 377,
+      "id": 370,
       "name": "2020新春乐影会",
       "url": "http://aoh5.cqccn.com/epgTest/200115/index.html",
       "uptime": "2020-01-20"
     },
     {
-      "id": 378,
+      "id": 371,
       "name": "2020观影抢红包",
       "url": "http://aoh5.cqccn.com/epgTest/200120/temp.html",
       "uptime": "2020-01-20"
     },
     {
-      "id": 379,
+      "id": 372,
       "name": "节后“调”出好状态",
       "url": "http://192.168.34.73/special/haozhuangtai/z.php",
       "uptime": "2020-01-20"
     },
     {
-      "id": 380,
+      "id": 373,
       "name": "新有所“鼠” 来点陪伴",
       "url": "http://192.168.89.23/active/act2020NewYear.html",
       "uptime": "2020-01-20"
     },
     {
-      "id": 381,
+      "id": 374,
       "name": "最美年味",
       "url": "/EPG/jsp/neirong/shang/J20200121_3.jsp?typeId=10000100000000090000000000113921",
       "uptime": "2020-01-21"
     },
     {
-      "id": 382,
+      "id": 375,
       "name": "历届央视春晚精彩盘点",
       "url": "/EPG/jsp/neirong/shang/J20200121_2.jsp?typeId=10000100000000090000000000113904&lft=720&tp=160&w=470&ih=50&mr=10&fs=24&hm=1&pg=8&cl=fbba54&sc=1220,160,450,c9b1a4,92502a&video=610,398,42,250",
       "uptime": "2020-01-21"
     },
     {
-      "id": 383,
+      "id": 376,
       "name": "2020各大卫视春节联欢晚会",
       "url": "/EPG/jsp/neirong/shang/J20200121.jsp?typeId=10000100000000090000000000113903&lft=720&tp=160&w=470&ih=50&mr=10&fs=24&hm=1&pg=8&cl=fbba54&sc=1220,160,450,c9b1a4,92502a&video=610,398,42,250",
       "uptime": "2020-01-21"
     },
     {
-      "id": 384,
+      "id": 377,
       "name": "“煲”剧过春节 宅家不寂寞",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000113925&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=153",
       "uptime": "2020-01-21"
     },
     {
-      "id": 385,
+      "id": 378,
       "name": "2020签到赢福袋",
       "url": "http://aoh5.cqccn.com/cqccnVideo/signIn/index.html",
       "uptime": "2020-01-21"
     },
     {
-      "id": 386,
+      "id": 379,
       "name": "2019重庆市广场舞展演活动回顾",
       "url": "http://192.168.89.23/active/act2020SquareDance-1.html?typeId=10000100000000090000000000113923",
       "uptime": "2020-01-22"
     },
     {
-      "id": 387,
+      "id": 380,
       "name": "新春游巴渝",
       "url": "http://192.168.89.23/active/act2020NewHikeCQBY.html",
       "uptime": "2020-01-22"
     },
     {
-      "id": 388,
+      "id": 381,
       "name": "坚决打赢疫情防控阻击战",
       "url": "http://192.168.89.23/active/act2020Pneumonia.html?typeId=10000100000000090000000000113980",
       "uptime": "2020-01-27"
     },
     {
-      "id": 389,
+      "id": 382,
       "name": "闹元宵，猜灯谜",
       "url": "http://192.168.18.14:8080/riddles/index.html",
       "uptime": "2020-02-03"
     },
     {
-      "id": 390,
+      "id": 383,
       "name": "团圆圆年高糕",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114042",
       "uptime": "2020-02-06"
     },
     {
-      "id": 391,
+      "id": 384,
       "name": "疫情防控 足不出户",
       "url": "/EPG/jsp/neirong/shang/Jpicture.jsp?typeId=10000100000000090000000000114043&direct=1",
       "uptime": "2020-02-06"
     },
     {
-      "id": 392,
+      "id": 385,
       "name": "新冠状病毒防护手册",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=119&rank=2",
       "uptime": "2020-02-07"
     },
     {
-      "id": 393,
+      "id": 386,
       "name": "宅在家也能逛 线上博物馆",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=123&rank=2",
       "uptime": "2020-02-08"
     },
     {
-      "id": 394,
+      "id": 387,
       "name": "我们用声音为武汉加油",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114067&lft=130&tp=280&w=440&h=380&ih=50&mr=5&fs=24&al=0&pg=6&bc=fff332&fc=000000&cl=ffffff&video=549,355,638,255",
       "uptime": "2020-02-11"
     },
     {
-      "id": 395,
+      "id": 388,
       "name": "共抗疫情，老年群体居家防控指南",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114066&lft=130&tp=280&w=440&h=380&ih=50&mr=5&fs=24&al=0&pg=6&bc=fff332&fc=000000&cl=ffffff&video=541,350,642,299",
       "uptime": "2020-02-11"
     },
     {
-      "id": 396,
+      "id": 389,
       "name": "超实用上班族的带饭攻略",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114080",
       "uptime": "2020-02-13"
     },
     {
-      "id": 397,
+      "id": 390,
       "name": "复工期间疫情防控",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114065&lft=95&tp=123&w=447&h=380&ih=52&mr=5&fs=24&al=0&pg=9&bc=fff332&fc=000000&cl=000000&sc=565,125,500,a5b7c6,495762&video=591,335,610,311",
       "uptime": "2020-02-13"
     },
     {
-      "id": 398,
+      "id": 391,
       "name": "热血医疗剧盘点",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114082",
       "uptime": "2020-02-13"
     },
     {
-      "id": 399,
+      "id": 392,
       "name": "看爱情片学恋爱妙招",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114081",
       "uptime": "2020-02-13"
     },
     {
-      "id": 400,
+      "id": 393,
       "name": "二月养生捂春寒",
       "url": "http://192.168.34.73/special/eryue/z.php",
       "uptime": "2020-02-18"
     },
     {
-      "id": 401,
+      "id": 394,
       "name": "居家办公简易工间操",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=165&lcn=bj",
       "uptime": "2020-02-18"
     },
     {
-      "id": 402,
+      "id": 395,
       "name": "在家也能嗨",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=164&lcn=zj",
       "uptime": "2020-02-18"
     },
     {
-      "id": 403,
+      "id": 396,
       "name": "超震撼！超高分战争电影盘点",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114124",
       "uptime": "2020-02-18"
     },
     {
-      "id": 404,
+      "id": 397,
       "name": "法证铁三角重出江湖",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114125",
       "uptime": "2020-02-18"
     },
     {
-      "id": 405,
+      "id": 398,
       "name": "战“疫”故事 致敬逆行者",
       "url": "/EPG/jsp/neirong/shang/J20200220.jsp?typeId=10000100000000090000000000114123&w=400&h=500&lft=135&tp=280&pg=6&ih=50&mr=7&cl=ffffff&sc=575,280,350,ffffff,fff667&fs=24&video=547,348,653,265",
       "uptime": "2020-02-20"
     },
     {
-      "id": 406,
+      "id": 399,
       "name": "疫情期间做饭指南",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114140&tp=379&lft=110&ml=8&cl=000000&fc=000000&bc=af854b",
       "uptime": "2020-02-20"
     },
     {
-      "id": 407,
+      "id": 400,
       "name": "孩子千万不能错过的经典纪录片",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114141&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-02-20"
     },
     {
-      "id": 408,
+      "id": 401,
       "name": "最美励志剧盘点",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114180",
       "uptime": "2020-02-25"
     },
     {
-      "id": 409,
+      "id": 402,
       "name": "游戏中的另一种人生",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114181",
       "uptime": "2020-02-25"
     },
     {
-      "id": 410,
+      "id": 403,
       "name": "自制馋嘴小零食",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=167&lcn=xs",
       "uptime": "2020-02-25"
     },
     {
-      "id": 411,
+      "id": 404,
       "name": "爱在重庆有线",
       "url": "/EPG/jsp/neirong/shang/J20200227.jsp",
       "uptime": "2020-02-27"
     },
     {
-      "id": 412,
+      "id": 405,
       "name": "战疫情 养生健体不缺席",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114162&lft=108&tp=273&w=474&h=380&ih=56&mr=0&fs=24&al=0&pg=6&bc=fff332&fc=000000&cl=ffffff&video=545,346,640,297",
       "uptime": "2020-02-27"
     },
     {
-      "id": 413,
+      "id": 406,
       "name": "众志成城专题",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114200&lft=108&tp=273&w=474&h=380&ih=56&mr=0&fs=24&al=0&pg=6&bc=fff332&fc=6e0000&cl=ffffff&video=547,348,639,256",
       "uptime": "2020-02-27"
     },
     {
-      "id": 414,
+      "id": 407,
       "name": "以艺战“疫”",
       "url": "http://192.168.89.23/active/act20200302.html",
       "uptime": "2020-03-02"
     },
     {
-      "id": 415,
+      "id": 408,
       "name": "乐享生活·帮帮手机小讲堂",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114201&ct=4&cl=000000&fc=972521&bc=972521&lft=160&ml=35",
       "uptime": "2020-03-03"
     },
     {
-      "id": 416,
+      "id": 409,
       "name": "女性力量 瑜伽专题",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=134&lcn=yj",
       "uptime": "2020-03-03"
     },
     {
-      "id": 417,
+      "id": 410,
       "name": "娱乐组专题策划01",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114203",
       "uptime": "2020-03-03"
     },
     {
-      "id": 418,
+      "id": 411,
       "name": "最美古装大女主",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114221",
       "uptime": "2020-03-03"
     },
     {
-      "id": 419,
+      "id": 412,
       "name": "战“疫”女神 她们是最美逆行者",
       "url": "/EPG/jsp/neirong/shang/J20200303.jsp?typeId=10000100000000090000000000114202&lft=720&tp=160&w=470&ih=50&mr=10&fs=24&hm=1&pg=8&cl=725f51&sc=1220,160,450,c9b1a4,92502a&video=616,405,39,247",
       "uptime": "2020-03-03"
     },
     {
-      "id": 420,
+      "id": 413,
       "name": "疫情防控“家”力量 宅家也精彩",
       "url": "/EPG/jsp/neirong/shang/J20200305.jsp?typeId=10000100000000090000000000114240&lft=120&tp=300&w=470&ih=50&mr=5&fs=24&hm=1&pg=6&cl=000000&sc=570,300,320,cac5c1,475764&video=592,370,609,275",
       "uptime": "2020-03-05"
     },
     {
-      "id": 421,
+      "id": 414,
       "name": "勇敢女孩做自己的HERO",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114220&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-03-05"
     },
     {
-      "id": 422,
+      "id": 415,
       "name": "养肝护肾抓住春日黄金养护期",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114241&tp=379&lft=110&ml=8&cl=5971be&fc=ff2100&bc=f7bb6e",
       "uptime": "2020-03-05"
     },
     {
-      "id": 423,
+      "id": 416,
       "name": "众志成城 抗击疫情",
       "url": "http://192.168.89.23/active/act20200305.html",
       "uptime": "2020-03-05"
     },
     {
-      "id": 424,
+      "id": 417,
       "name": "综艺特辑 带你“心”旅行",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114260",
       "uptime": "2020-03-10"
     },
     {
-      "id": 425,
+      "id": 418,
       "name": "盘点电影中最迷人的英国口音",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114284",
       "uptime": "2020-03-10"
     },
     {
-      "id": 426,
+      "id": 419,
       "name": "2020最强科幻剧来袭",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000106561&isWestern=isWestern",
       "uptime": "2020-03-10"
     },
     {
-      "id": 427,
+      "id": 420,
       "name": "相约春天 云约舞",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=171&lcn=w",
       "uptime": "2020-03-10"
     },
     {
-      "id": 428,
+      "id": 421,
       "name": "线上自助服务",
       "url": "/EPG/jsp/neirong/shang/J20200310_2.jsp",
       "uptime": "2020-03-10"
     },
     {
-      "id": 429,
+      "id": 422,
       "name": "拍视频 亮承诺 现百态 战疫情",
       "url": "/EPG/jsp/neirong/shang/J20200213.jsp",
       "uptime": "2020-03-10"
     },
     {
-      "id": 430,
+      "id": 423,
       "name": "健康轻食，和春天最配",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114315&tp=379&lft=110&ml=8&cl=000407&fc=ff0000&bc=fe8500",
       "uptime": "2020-03-12"
     },
     {
-      "id": 431,
+      "id": 424,
       "name": "军民携手共抗疫情",
       "url": "/EPG/jsp/neirong/shang/J20200310.jsp",
       "uptime": "2020-03-12"
     },
     {
-      "id": 432,
+      "id": 425,
       "name": "疫情宅家 中老年人群护眼秘籍",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114340&lft=100&tp=251&w=420&ih=50&mr=7&fs=24&hm=1&pg=7&cl=000000&sc=538,300,320,cac5c1,475764&video=640,403,559,243",
       "uptime": "2020-03-13"
     },
     {
-      "id": 433,
+      "id": 426,
       "name": "热血竞技 别样青春",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114362",
       "uptime": "2020-03-17"
     },
     {
-      "id": 434,
+      "id": 427,
       "name": "文化综艺伴娃行",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114363",
       "uptime": "2020-03-17"
     },
     {
-      "id": 435,
+      "id": 428,
       "name": "三月春分 养生好时节",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=172&lcn=cf",
       "uptime": "2020-03-17"
     },
     {
-      "id": 436,
+      "id": 429,
       "name": "在线“云赏花”  烟花3月，许你一场春梦",
       "url": "/EPG/jsp/neirong/shang/J20200317.jsp?typeId=10000100000000090000000000114360&lft=108&tp=273&w=474&h=380&ih=56&mr=0&fs=24&al=0&pg=6&bc=f98aaa&fc=ffffff&cl=000000&video=544,343,641,260",
       "uptime": "2020-03-17"
     },
     {
-      "id": 437,
+      "id": 430,
       "name": "重庆记“疫”",
       "url": "/EPG/jsp/neirong/shang/J20200318.jsp",
       "uptime": "2020-03-18"
     },
     {
-      "id": 438,
+      "id": 431,
       "name": "春暖花开，“胃”你着想",
       "url": "http://125.62.26.147:82/topic/topic.html?classId=131&rank=2",
       "uptime": "2020-03-18"
     },
     {
-      "id": 439,
+      "id": 432,
       "name": "盘点那些停拍的电影系列",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114361&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-03-18"
     },
     {
-      "id": 440,
+      "id": 433,
       "name": "复工大吉 穿出一周时尚范儿",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=173&lcn=fg",
       "uptime": "2020-03-24"
     },
     {
-      "id": 441,
+      "id": 434,
       "name": "钙补好 人不老",
       "url": "http://192.168.34.73/special/bugai/z.php",
       "uptime": "2020-03-24"
     },
     {
-      "id": 442,
+      "id": 435,
       "name": "幼儿启蒙教育 开启宝宝教育之门",
       "url": "http://192.168.89.21:8086/special/index?id=1239&fromTitle=ztdl_ld",
       "uptime": "2020-03-24"
     },
     {
-      "id": 443,
+      "id": 436,
       "name": "那些念念不忘的电影角色",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114380",
       "uptime": "2020-03-24"
     },
     {
-      "id": 444,
+      "id": 437,
       "name": "古装小生你最爱谁",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114381",
       "uptime": "2020-03-24"
     },
     {
-      "id": 445,
+      "id": 438,
       "name": "盘点人间最in美食",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114382",
       "uptime": "2020-03-24"
     },
     {
-      "id": 446,
+      "id": 439,
       "name": "谢谢您，为武汉拼过命",
       "url": "/EPG/jsp/neirong/shang/J20200324.jsp?typeId=10000100000000090000000000114401",
       "uptime": "2020-03-24"
     },
     {
-      "id": 447,
+      "id": 440,
       "name": "不可错过的全球美食",
       "url": "/EPG/jsp/neirong/shang/J20200325.jsp?typeId=10000100000000090000000000114402",
       "uptime": "2020-03-25"
     },
     {
-      "id": 448,
+      "id": 441,
       "name": "在线“拥抱春暖花开 享受美好生活",
       "url": "/EPG/jsp/neirong/shang/J20200317.jsp?typeId=10000100000000090000000000114422&lft=108&tp=273&w=434&h=380&ih=56&mr=0&fs=24&al=0&pg=6&bc=ffff00&fc=000000&cl=ffffff&sc=565,280,350,cac5c1,ffff00&video=552,349,650,266",
       "uptime": "2020-03-26"
     },
     {
-      "id": 449,
+      "id": 442,
       "name": "在熟悉的城市 与人间烟火重逢—复苏的城市",
       "url": "/EPG/jsp/neirong/shang/J20200326.jsp?typeId=10000100000000090000000000114421&lft=720&tp=165&w=470&ih=50&mr=10&fs=24&hm=1&pg=8&cl=725f51&sc=1220,160,470,bbbbbb,ff6108&video=616,405,39,248",
       "uptime": "2020-03-26"
     },
     {
-      "id": 450,
+      "id": 443,
       "name": "最新宝宝巴士音乐专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=c25229796ce54b56a988",
       "uptime": "2020-03-26"
     },
     {
-      "id": 451,
+      "id": 444,
       "name": "2020中国好声音全国海选重庆赛区",
       "url": "http://192.168.89.23/active/act2020SoundIndex.html",
       "uptime": "2020-03-26"
     },
     {
-      "id": 452,
-      "name": "打开春天的味蕾",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=174&lcn=cr",
-      "uptime": "2020-03-31"
-    },
-    {
-      "id": 453,
-      "name": "《青春有你》音乐专题",
-      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=f8d81b1ff7b341f19b09",
-      "uptime": "2020-03-31"
-    },
-    {
-      "id": 454,
-      "name": "虹猫蓝兔童年的侠义英雄梦",
-      "url": "http://192.168.89.21:8086/special/index?id=1295&fromTitle=ztdl_ld",
-      "uptime": "2020-03-31"
-    },
-    {
-      "id": 455,
+      "id": 445,
       "name": "国产硬核冒险系列合辑",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114482",
       "uptime": "2020-03-31"
     },
     {
-      "id": 456,
+      "id": 446,
       "name": "高分悬疑探案剧全集",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114483",
       "uptime": "2020-03-31"
     },
     {
-      "id": 457,
+      "id": 447,
       "name": "周董和他的朋友们",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114484",
       "uptime": "2020-03-31"
     },
     {
-      "id": 458,
+      "id": 448,
       "name": "少儿组专题策划01",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114485",
       "uptime": "2020-03-31"
     },
     {
-      "id": 459,
+      "id": 449,
       "name": "那些年，一起看过的露天电影",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114501",
       "uptime": "2020-03-31"
     },
     {
-      "id": 460,
+      "id": 450,
       "name": "游乐学院免费专区专题03",
       "url": "http://192.168.19.249/r/mianfei03",
       "uptime": "2020-03-31"
     },
     {
-      "id": 461,
+      "id": 451,
       "name": "主播带货助农脱贫",
       "url": "/EPG/jsp/neirong/shang/J20200401.jsp?typeId=10000100000000090000000000114486&lft=90&tp=250&w=430&ih=40&mr=5&fs=22&hm=1&pg=9&cl=725f51&sc=540,255,390,bbbbbb,074ea6&video=662,416,563,240&focusPic=20200401",
       "uptime": "2020-04-01"
     },
     {
-      "id": 462,
+      "id": 452,
       "name": "春季养生推荐：饮食搭配好、身体不疲劳",
       "url": "/EPG/jsp/neirong/STemplateOneTextColumn.jsp?typeId=10000100000000090000000000114521&lft=127&tp=260&w=435&ih=40&mr=5&fs=24&hm=1&pg=8&bc=fff5d2&fc=000000&cl=ffffff&video=543,344,641,298",
       "uptime": "2020-04-02"
     },
     {
-      "id": 463,
+      "id": 453,
       "name": "清平乐专题",
       "url": "/EPG/jsp/neirong/shang/J20200403.jsp",
       "uptime": "2020-04-03"
     },
     {
-      "id": 464,
-      "name": "春季跳舞好处多",
-      "url": "http://192.168.34.73/special/tiaowu/z.php",
-      "uptime": "2020-04-07"
-    },
-    {
-      "id": 465,
-      "name": "假如火锅是一首歌",
-      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=6717ffe4196f480ba0d7",
-      "uptime": "2020-04-07"
-    },
-    {
-      "id": 466,
-      "name": "古风舞 绝色海棠红",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=175&lcn=xq",
-      "uptime": "2020-04-07"
-    },
-    {
-      "id": 467,
+      "id": 454,
       "name": "那些被低估的高分网剧",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114561",
       "uptime": "2020-04-07"
     },
     {
-      "id": 468,
+      "id": 455,
       "name": "少儿组专题策划02",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114562",
       "uptime": "2020-04-07"
     },
     {
-      "id": 469,
+      "id": 456,
       "name": "爱看·春日影展",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114560&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-04-07"
     },
     {
-      "id": 470,
+      "id": 457,
       "name": "漂亮小姐姐的初舞台",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114563",
       "uptime": "2020-04-07"
     },
     {
-      "id": 471,
+      "id": 458,
       "name": "春天云踏青 天地有大美而不言",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114566",
       "uptime": "2020-04-07"
     },
     {
-      "id": 472,
+      "id": 459,
       "name": "美好终将来——《谢谢你来了》抗疫特别节目",
       "url": "/EPG/jsp/neirong/shang/J20200408.jsp?typeId=10000100000000090000000000114565&cat=1&lft=90&tp=250&w=430&ih=40&mr=5&fs=22&hm=1&pg=9&cl=725f51&sc=540,255,390,d1dde9,c88bad,1,1,0&video=657,412,565,241&focusPic=20200408",
       "uptime": "2020-04-08"
     },
     {
-      "id": 473,
+      "id": 460,
       "name": "米香味足 先到鲜得",
       "url": "http://192.168.17.235:82/prefecture?prefectNo=412&backURL=index&sp_code=sxcmyycf",
       "uptime": "2020-04-08"
     },
     {
-      "id": 474,
+      "id": 461,
       "name": "四月生万物长嘴也忙谷物篇",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114600",
       "uptime": "2020-04-09"
     },
     {
-      "id": 475,
+      "id": 462,
       "name": "把习近平总书记的殷殷嘱托全面落实在重庆大地上",
       "url": "/EPG/jsp/neirong/shang/J20200413.jsp?typeId=10000100000000090000000000114642&lft=100&tp=260&w=430&ih=40&mr=5&fs=22&hm=1&pg=8&cl=725f51&fc=e80000&sc=560,255,380,d1dde9,e80000,1,1,0&video=616,387,591,252&titlePic=20200413&titleLeft=72&titleTop=193&maxTitleLen=17",
       "uptime": "2020-04-13"
     },
     {
-      "id": 476,
+      "id": 463,
       "name": "小人物的奋斗史",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114650",
       "uptime": "2020-04-14"
     },
     {
-      "id": 477,
+      "id": 464,
       "name": "春日音乐会 “听”见春暖花开",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114651",
       "uptime": "2020-04-14"
     },
     {
-      "id": 478,
+      "id": 465,
       "name": "少儿卡通明星汇",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114652",
       "uptime": "2020-04-14"
     },
     {
-      "id": 479,
-      "name": "谷雨时节巧除三痛",
-      "url": "http://192.168.34.73/special/guyu/z.php",
-      "uptime": "2020-04-14"
-    },
-    {
-      "id": 480,
-      "name": "塑性私教课 轻松拥有好身材",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=149&lcn=js",
-      "uptime": "2020-04-14"
-    },
-    {
-      "id": 481,
-      "name": "妈妈假期学来的网红美食",
-      "url": "http://192.168.89.21:8086/special/index?id=1302&fromTitle=ztdl_ld",
-      "uptime": "2020-04-14"
-    },
-    {
-      "id": 482,
+      "id": 466,
       "name": "第八届重庆市爱在公租房邻里节",
       "url": "/EPG/jsp/neirong/shang/J20200414.jsp",
       "uptime": "2020-04-14"
     },
     {
-      "id": 483,
+      "id": 467,
       "name": "看《我和我的儿女们》欢喜家庭故事",
       "url": "/EPG/jsp/neirong/shang/J20200415.jsp?typeId=10000100000000090000000000114644&lft=127&tp=260&w=435&ih=40&mr=5&fs=24&hm=1&pg=8&bc=fff5d2&fc=000000&cl=ffffff&video=543,344,641,298",
       "uptime": "2020-04-15"
     },
     {
-      "id": 484,
+      "id": 468,
       "name": "四月生万物长野菜篇",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114663",
       "uptime": "2020-04-16"
     },
     {
-      "id": 485,
+      "id": 469,
       "name": "唱好双城记 建好经济圈",
       "url": "/EPG/jsp/neirong/shang/J20200317.jsp?typeId=10000100000000090000000000114653&lft=118&tp=262&w=431&h=380&ih=38&mr=2&fs=24&al=0&pg=9&bc=ffff00&fc=000000&cl=ffffff&sc=580,265,355,cac5c1,ffff00&video=545,345,640,257",
       "uptime": "2020-04-16"
     },
     {
-      "id": 486,
+      "id": 470,
       "name": "读书——品味书香世界 悦读智慧人生",
       "url": "/EPG/jsp/neirong/shang/J20200417.jsp?typeId=10000100000000090000000000114684&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=118&tp=270&w=450&ih=50&mr=6&fs=24&hm=1&pg=6&cl=725f51&sc=540,255,390,d1dde9,c88bad,0,1,0&video=544,344,640,258",
       "uptime": "2020-04-17"
     },
     {
-      "id": 487,
+      "id": 471,
       "name": "我和春天有个约会",
       "url": "/EPG/jsp/neirong/shang/J20200421_2.jsp",
       "uptime": "2020-04-21"
     },
     {
-      "id": 488,
-      "name": "清平乐音乐专题",
-      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=94ab2cecf6f04bdfb8f0",
-      "uptime": "2020-04-21"
-    },
-    {
-      "id": 489,
-      "name": "陪你入睡的兔小贝儿歌",
-      "url": "http://192.168.89.21:8086/special/index?id=1316&fromTitle=ztdl_ld",
-      "uptime": "2020-04-21"
-    },
-    {
-      "id": 490,
-      "name": "带你走出高血压饮食误区",
-      "url": "http://192.168.34.73/special/wuqu/z.php",
-      "uptime": "2020-04-21"
-    },
-    {
-      "id": 491,
+      "id": 472,
       "name": "曾经火爆一时的院线电影",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114720&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-04-21"
     },
     {
-      "id": 492,
+      "id": 473,
       "name": "必看！高分英美剧合集",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000111981&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-04-21"
     },
     {
-      "id": 493,
+      "id": 474,
       "name": "捍卫正义的守护者",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114721",
       "uptime": "2020-04-21"
     },
     {
-      "id": 494,
+      "id": 475,
       "name": "王牌5季爆笑名场面",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114723",
       "uptime": "2020-04-21"
     },
     {
-      "id": 495,
+      "id": 476,
       "name": "世界读书日 孩子今天阅读了吗",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114722",
       "uptime": "2020-04-21"
     },
     {
-      "id": 496,
+      "id": 477,
       "name": "八大秘诀，让您“肾”气凌人",
       "url": "/EPG/jsp/neirong/shang/J20200415.jsp?typeId=10000100000000090000000000114700&lft=127&tp=260&w=435&ih=40&mr=5&fs=24&hm=1&pg=8&bc=fff5d2&fc=000000&cl=ffffff&video=543,344,641,298",
       "uptime": "2020-04-21"
     },
     {
-      "id": 497,
+      "id": 478,
       "name": "探店专题",
       "url": "/EPG/jsp/neirong/shang/J20200427.jsp?typeId=10000100000000090000000000114702&row=1&ct=3&wh=330&ht=219&ml=30&cl=ffffff&fc=dc6b19&bc=ffff00&cat=1&lft=60&tp=205&w=800&fs=24&hm=1&cl=725f51&sc=540,255,390,d1dde9,c88bad,0,1,0&maxTitleLen=13",
       "uptime": "2020-04-20"
     },
     {
-      "id": 498,
+      "id": 479,
       "name": "汉服 玫瑰  睡仙眼里的春夏",
       "url": "/EPG/jsp/neirong/shang/J20200421.jsp?typeId=10000100000000090000000000114724&focusTop=258&focusLeft=710&titleTop=540&titleLeft=685&titlePic=20200421&focusPic=20200421&blocked=4&cl=000000&fc=b30000&cat=1&lft=720&tp=253&w=455&ih=45&mr=5&fs=24&hm=1&pg=5&cl=725f51&sc=940,255,390,d1dde9,c88bad,0,1,0&video=610,345,40,262",
       "uptime": "2020-04-21"
     },
     {
-      "id": 499,
+      "id": 480,
       "name": "微胖女孩塑形  蜂腰翘臀都要",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=178&lcn=wp",
       "uptime": "2020-04-21"
     },
     {
-      "id": 500,
+      "id": 481,
       "name": "决战决胜 脱贫攻坚",
       "url": "/EPG/jsp/neirong/shang/J20200422.jsp?typeId=10000100000000090000000000114762&titlePic=50,190,500,80,20200422&focusPic=52,287,550,80,20200422&cl=000000&fc=000000&blocked=2&cat=1&lft=78&tp=290&w=450&ih=60&mr=2&fs=24&hm=1&pg=5&cl=725f51&sc=585,280,330,bda5a9,b30000,1,1,0&video=611,363,621,270",
       "uptime": "2020-04-22"
     },
     {
-      "id": 501,
+      "id": 482,
       "name": "种植物 赢好礼",
       "url": "/EPG/jsp/neirong/shang/J20200415_2.jsp?typeId=10000100000000090000000000114768",
       "uptime": "2020-04-23"
     },
     {
-      "id": 502,
+      "id": 483,
       "name": "重庆分赛区形象代言人",
       "url": "/EPG/jsp/neirong/shang/J20200426.jsp",
       "uptime": "2020-04-26"
     },
     {
-      "id": 503,
+      "id": 484,
       "name": "网红民宿伴你游五一",
       "url": "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId=10000100000000090000000000114808&titlePic=50,190,500,80,20200422,0&focusPic=52,287,550,80,20200422,0&cl=000000&fc=ffffff&bc=348d39&cat=1&lft=110&tp=262&w=450&ih=50&mr=0&fs=24&hm=1&pg=7&cl=725f51&sc=585,280,330,bda5a9,b30000,0,1,0&video=550,350,640,257",
       "uptime": "2020-04-27"
     },
     {
-      "id": 504,
+      "id": 485,
       "name": "购物专题",
       "url": "/EPG/jsp/neirong/shang/J20200427.jsp?typeId=10000100000000090000000000114806&row=2&ct=3&wh=330&ht=219&ml=38&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=43&tp=61&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=13",
       "uptime": "2020-04-27"
     },
     {
-      "id": 505,
-      "name": "五一养生的意义",
-      "url": "http://192.168.34.73/special/xiazi/z.php",
-      "uptime": "2020-04-28"
-    },
-    {
-      "id": 506,
-      "name": "解救宅假期 在家轻松早幼教",
-      "url": "http://192.168.89.21:8086/special/index?id=1344&fromTitle=ztdl_ld",
-      "uptime": "2020-04-28"
-    },
-    {
-      "id": 507,
-      "name": "最美广场舞 献给逆行者",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=179&lcn=wy",
-      "uptime": "2020-04-28"
-    },
-    {
-      "id": 508,
+      "id": 486,
       "name": "回到古代打一望",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114802",
       "uptime": "2020-04-28"
     },
     {
-      "id": 509,
+      "id": 487,
       "name": "我的青春不一Young",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114803",
       "uptime": "2020-04-28"
     },
     {
-      "id": 510,
+      "id": 488,
       "name": "超级飞侠带你云游世界",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114804",
       "uptime": "2020-04-28"
     },
     {
-      "id": 511,
+      "id": 489,
       "name": "春日影展 假日电影院",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114800&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-04-28"
     },
     {
-      "id": 512,
+      "id": 490,
       "name": "打卡经典电影取景地",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000114801&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-04-28"
     },
     {
-      "id": 513,
+      "id": 491,
       "name": "五一影视大放送，抗战好剧免费看",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114817",
       "uptime": "2020-04-28"
     },
     {
-      "id": 514,
+      "id": 492,
       "name": "畅享消费季 欢度五一节",
       "url": "/EPG/jsp/neirong/shang/J20200429.jsp",
       "uptime": "2020-04-29"
     },
     {
-      "id": 515,
-      "name": "10分钟瘦出漫画腿",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=180&lcn=mh",
-      "uptime": "2020-04-29"
-    },
-    {
-      "id": 516,
-      "name": "李荣浩新歌我爱你",
-      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=a5d77dcae7394ac08eb1",
-      "uptime": "2020-04-29"
-    },
-    {
-      "id": 517,
-      "name": "开学复课安全小贴士",
-      "url": "http://192.168.89.21:8086/special/index?id=1337&fromTitle=ztdl_ld",
-      "uptime": "2020-04-29"
-    },
-    {
-      "id": 518,
+      "id": 493,
       "name": "鹅桃大战 选秀导师你爱谁",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114843",
       "uptime": "2020-04-29"
     },
     {
-      "id": 519,
+      "id": 494,
       "name": "超治愈萌宠电影合集",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114880",
       "uptime": "2020-05-08"
     },
     {
-      "id": 520,
+      "id": 495,
       "name": "乘风破浪的刘敏涛姐姐",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114881",
       "uptime": "2020-05-08"
     },
     {
-      "id": 521,
+      "id": 496,
       "name": "辣妈101",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114882",
       "uptime": "2020-05-08"
     },
     {
-      "id": 522,
+      "id": 497,
       "name": "全英文启蒙动画片 助力幼衔小过渡期",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114883",
       "uptime": "2020-05-08"
     },
     {
-      "id": 523,
+      "id": 498,
       "name": "和明星主播一起探店",
       "url": "/EPG/jsp/neirong/shang/J20200508.jsp?typeId=10000100000000090000000000114886&video=546,312,465,338",
       "uptime": "2020-05-08"
     },
     {
-      "id": 524,
+      "id": 499,
       "name": "致敬护士队伍 携手战胜疫情",
       "url": "/EPG/jsp/neirong/shang/J20200511.jsp?typeId=10000100000000090000000000114921&blocked=3&focusTop=238&focusLeft=160&titleTop=580&titleLeft=165&titlePic=20200511&focusPic=20200511&cl=000000&fc=000000&cat=1&lft=170&tp=238&w=355&ih=45&mr=5&fs=24&hm=1&pg=6&cl=725f51&sc=565,235,295,000000,dd5354,1,1,0",
       "uptime": "2020-05-11"
     },
     {
-      "id": 525,
+      "id": 500,
       "name": "爸妈都想要的动画片单",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114933",
       "uptime": "2020-05-12"
     },
     {
-      "id": 526,
-      "name": "创造营2020音乐专题",
-      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=809c824ead0a4650b3c7",
-      "uptime": "2020-05-12"
-    },
-    {
-      "id": 527,
-      "name": "拯救低头族  脊柱理疗瑜伽",
-      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=181&lcn=jz",
-      "uptime": "2020-05-12"
-    },
-    {
-      "id": 528,
-      "name": "季节交替宝宝易感冒 育儿专家见招拆招",
-      "url": "http://192.168.89.21:8086/special/index?id=719&fromTitle=ztdl_ld",
-      "uptime": "2020-05-12"
-    },
-    {
-      "id": 529,
-      "name": "小心腰痛可能会毁了您的下半生",
-      "url": "http://192.168.34.73/special/yaotong/z.php",
-      "uptime": "2020-05-12"
-    },
-    {
-      "id": 530,
+      "id": 501,
       "name": "开学季 暖阳照 带起萌娃果园跳",
       "url": "/EPG/jsp/neirong/shang/J20200513.jsp",
       "uptime": "2020-05-13"
     },
     {
-      "id": 531,
+      "id": 502,
       "name": "5月热综指南",
       "url": "/EPG/jsp/neirong/shang/J20200514_4.jsp?typeId=10000100000000090000000000114932&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
       "uptime": "2020-05-14"
     },
     {
-      "id": 532,
+      "id": 503,
       "name": "会员权益",
       "url": "/EPG/jsp/neirong/shang/J20200514.jsp",
       "uptime": "2020-05-14"
     },
     {
-      "id": 533,
+      "id": 504,
       "name": "博物馆奇妙之旅",
       "url": "/EPG/jsp/neirong/shang/J20200514_3.jsp",
       "uptime": "2020-05-14"
     },
     {
-      "id": 534,
+      "id": 505,
       "name": "盘点恋爱中的微表情",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114961",
       "uptime": "2020-05-15"
     },
     {
-      "id": 535,
+      "id": 506,
       "name": "支部条例一起学",
       "url": "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId=10000100000000090000000000114962&titlePic=50,190,500,80,20200422,0&focusPic=82,240,550,80,20200515,1&cl=000000&fc=ffffff&cat=1&lft=90&tp=240&w=350&ih=50&mr=0&fs=24&hm=1&pg=7&sc=490,250,330,ffffff,fff332,1,1,0&video=696,395,530,224&maxTitleLen=14",
       "uptime": "2020-05-15"
     },
     {
-      "id": 536,
+      "id": 507,
       "name": "跟着书本去旅行",
       "url": "/EPG/jsp/neirong/shang/J20200519.jsp?typeId=10000100000000090000000000114982&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=000000&bc=ffecc1&cat=1&lft=93&tp=293&w=388&ih=40&mr=1&fs=24&hm=1&pg=8&cl=725f51&sc=535,300,325,7da9c7,183f91,1,1,0&video=590,371,610,274",
       "uptime": "2020-05-19"
     },
     {
-      "id": 537,
+      "id": 508,
       "name": "520舞爱你广场舞精选",
       "url": "http://192.168.34.73/special/520/z.php",
       "uptime": "2020-05-19"
     },
     {
-      "id": 538,
+      "id": 509,
       "name": "精灵叶罗丽第六季专题",
       "url": "http://192.168.89.21:8086/special/index?id=1364&fromTitle=ztdl_ld",
       "uptime": "2020-05-19"
     },
     {
-      "id": 539,
+      "id": 510,
       "name": "相信未来演唱会免费专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=5fad839d076f443e88e6",
       "uptime": "2020-05-19"
     },
     {
-      "id": 540,
+      "id": 511,
       "name": "国风魔幻大片合集",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115001&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
       "uptime": "2020-05-19"
     },
     {
-      "id": 541,
+      "id": 512,
       "name": "乘风破浪的姐姐们 女明星女团舞台大赏",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115002",
       "uptime": "2020-05-19"
     },
     {
-      "id": 542,
+      "id": 513,
       "name": "小公主片单——梦幻哭！神奇魔法动画",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115003",
       "uptime": "2020-05-19"
     },
     {
-      "id": 543,
+      "id": 514,
       "name": "这个520：回忆我们经历过的爱情故事",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000114981",
       "uptime": "2020-05-19"
     },
     {
-      "id": 544,
+      "id": 515,
       "name": "全国两会",
       "url": "http://aoh5.cqccn.com/epgTest/meeting/index.html",
       "uptime": "2020-05-20"
     },
     {
-      "id": 545,
+      "id": 516,
       "name": "童年时光 2020重庆缤纷跑",
       "url": "/EPG/jsp/neirong/shang/J20200521.jsp",
       "uptime": "2020-05-21"
     },
     {
-      "id": 546,
+      "id": 517,
       "name": "我是乡村带货王",
       "url": "/EPG/jsp/neirong/shang/J20200520.jsp?typeId=10000100000000090000000000115000&classifyID=488&blocked=6&titlePic=62,580,1165,74,20200520,1&focusPic=82,240,550,80,20200515,1&cl=000000&fc=ffffff&cat=1&lft=605&tp=205&w=150&ih=50&mr=0&fs=24&hm=1&pg=4&sc=490,250,330,ffffff,fff332,0,1,0&video=519,297,57,164",
       "uptime": "2020-05-21"
     },
     {
-      "id": 547,
+      "id": 518,
       "name": "经典小品全荟萃",
       "url": "/EPG/jsp/neirong/shang/J20200115.jsp?typeId=10000100000000090000000000115020&lft=180&tp=279&w=420&ih=48&mr=1&fs=24&hm=1&pg=7&cl=000000&sc=1147,75,262,EBE3E4,C876A3&video=461,294,729,312",
       "uptime": "2020-05-22"
     },
     {
-      "id": 548,
+      "id": 519,
       "name": "盘点中国功夫片经典之作",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115180&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-05-26"
     },
     {
-      "id": 549,
+      "id": 520,
       "name": "刑侦剧盘点 向正义致敬",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115181",
       "uptime": "2020-05-26"
     },
     {
-      "id": 550,
+      "id": 521,
       "name": "打卡锻炼 高效燃脂减肥操",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=183&lcn=dk",
       "uptime": "2020-05-26"
     },
     {
-      "id": 551,
+      "id": 522,
       "name": "小猪佩奇最新歌曲 好习惯童谣",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=e1da17ad9b034c4b9642",
       "uptime": "2020-05-26"
     },
     {
-      "id": 552,
+      "id": 523,
       "name": "看动画 学汉字",
       "url": "http://192.168.89.21:8086/special/index?id=1385&fromTitle=ztdl_ld",
       "uptime": "2020-05-26"
     },
     {
-      "id": 553,
+      "id": 524,
       "name": "快乐童趣 趣味61",
       "url": "/EPG/jsp/neirong/shang/J20200527.jsp",
       "uptime": "2020-05-27"
     },
     {
-      "id": 554,
+      "id": 525,
       "name": "披荆斩棘的哥哥",
       "url": "/EPG/jsp/neirong/shang/J20200528.jsp?typeId=10000100000000090000000000115220&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&bc=transparent&cl=ffffff&fc=fdfa00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=7",
       "uptime": "2020-05-28"
     },
     {
-      "id": 555,
+      "id": 526,
       "name": "祭奠重庆大轰炸纪念日",
       "url": "/EPG/jsp/neirong/shang/J20200601.jsp",
       "uptime": "2020-06-01"
     },
     {
-      "id": 556,
+      "id": 527,
       "name": "盘点电影中冰与火的较量",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115343&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-06-02"
     },
     {
-      "id": 557,
+      "id": 528,
       "name": "经典怀旧剧 看了又看",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115344",
       "uptime": "2020-06-02"
     },
     {
-      "id": 558,
+      "id": 529,
       "name": "娱乐组专题策划一",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115342",
       "uptime": "2020-06-02"
     },
     {
-      "id": 559,
+      "id": 530,
       "name": "少儿组专题策划一",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115341",
       "uptime": "2020-06-02"
     },
     {
-      "id": 560,
+      "id": 531,
       "name": "六一嗨购单月套餐包",
       "url": "http://192.168.89.21:8086/special/index?id=1392&fromTitle=ztdl_ld",
       "uptime": "2020-06-02"
     },
     {
-      "id": 561,
+      "id": 532,
       "name": "懒人瘦身清单",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=185&lcn=lanr",
       "uptime": "2020-06-02"
     },
     {
-      "id": 562,
+      "id": 533,
       "name": "青春有你音乐专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=addc3a87b998456b8bbd",
       "uptime": "2020-06-02"
     },
     {
-      "id": 563,
+      "id": 534,
       "name": "党课开讲啦",
       "url": "/EPG/jsp/neirong/shang/J20200603.jsp?typeId=10000100000000090000000000114927&blocked=5&titlePic=772,70,413,204,20200603,1&focusPic=697,297,506,59,20200603,1&cl=000000&fc=000000&cat=1&lft=710&tp=302&w=460&ih=50&mr=5&fs=24&hm=1&pg=6&sc=1215,300,330,dcdcdc,8d3614,1,1,0&video=653,378,27,278&maxTitleLen=20",
       "uptime": "2020-06-03"
     },
     {
-      "id": 564,
+      "id": 535,
       "name": "开心农场 走进梦里山村",
       "url": "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId=10000100000000090000000000115340&titlePic=50,190,500,80,20200422,0&focusPic=52,287,550,80,20200422,0&cl=000000&fc=000000&bc=f8f8fa&cat=1&lft=110&tp=349&w=470&ih=44&mr=0&fs=24&hm=1&pg=6&sc=635,370,240,c8b46a,f8f8fa,1,1,0&video=464,292,708,341&maxTitleLen=19",
       "uptime": "2020-06-04"
     },
     {
-      "id": 565,
+      "id": 536,
       "name": "盘点让你肾上腺“飙车”的极速大片",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115500&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-06-09"
     },
     {
-      "id": 566,
+      "id": 537,
       "name": "披荆斩棘的叔叔",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115501",
       "uptime": "2020-06-09"
     },
     {
-      "id": 567,
+      "id": 538,
       "name": "娱乐组专题策划二",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115502",
       "uptime": "2020-06-09"
     },
     {
-      "id": 568,
+      "id": 539,
       "name": "少儿组专题策划二",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115503",
       "uptime": "2020-06-09"
     },
     {
-      "id": 569,
+      "id": 540,
       "name": "简易太极 夏日养心不二选",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=186&lcn=tj",
       "uptime": "2020-06-09"
     },
     {
-      "id": 570,
+      "id": 541,
       "name": "五月天线上演唱会",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=1b106ddedce14424adda",
       "uptime": "2020-06-09"
     },
     {
-      "id": 571,
+      "id": 542,
       "name": "夏季养胃很有必要",
       "url": "http://192.168.34.73/special/xiayangwei/z.php",
       "uptime": "2020-06-09"
     },
     {
-      "id": 572,
+      "id": 543,
       "name": "萌娃返园防疫小知识",
       "url": "http://192.168.89.21:8086/special/index?id=1399&fromTitle=ztdl_ld",
       "uptime": "2020-06-09"
     },
     {
-      "id": 573,
+      "id": 544,
       "name": "坚持锻炼百病无，耄耋之年仍幸福",
       "url": "/EPG/jsp/neirong/shang/J20200415.jsp?typeId=10000100000000090000000000115504&lft=92&tp=295&w=395&ih=40&mr=1&fs=24&hm=1&pg=8&bc=fce422&fc=000000&cl=000000&video=590,371,610,274",
       "uptime": "2020-06-11"
     },
     {
-      "id": 574,
+      "id": 545,
       "name": "晒旅游精品 晒文创产品",
       "url": "http://125.62.26.152/html/TwoAct2020Index.html",
       "uptime": "2020-06-11"
     },
     {
-      "id": 575,
+      "id": 546,
       "name": "来足博仕 畅游世界",
       "url": "/EPG/jsp/neirong/shang/J20200615.jsp",
       "uptime": "2020-06-15"
     },
     {
-      "id": 576,
+      "id": 547,
       "name": "端午到、粽子香、包五粮",
       "url": "/EPG/jsp/neirong/shang/J20200617.jsp",
       "uptime": "2020-06-17"
     },
     {
-      "id": 577,
+      "id": 548,
       "name": "2020年中热剧大赏",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115605&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-06-17"
     },
     {
-      "id": 578,
+      "id": 549,
       "name": "少儿组专题策划三",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115607",
       "uptime": "2020-06-17"
     },
     {
-      "id": 579,
+      "id": 550,
       "name": "娱乐组专题策划三",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115608",
       "uptime": "2020-06-17"
     },
     {
-      "id": 580,
+      "id": 551,
       "name": "玩的就是心跳 盘点挑战极限电影合辑",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115604&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-06-17"
     },
     {
-      "id": 581,
+      "id": 552,
       "name": "618您为健康买过单吗",
       "url": "http://192.168.34.73/special/618/z.php",
       "uptime": "2020-06-17"
     },
     {
-      "id": 582,
+      "id": 553,
       "name": "家长口语差 如何做好英语启蒙",
       "url": "http://192.168.89.21:8086/special/index?id=1420&fromTitle=ztdl_ld",
       "uptime": "2020-06-17"
     },
     {
-      "id": 583,
+      "id": 554,
       "name": "徐佳莹线上演唱会",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=bb5fc807fbef42e5a845",
       "uptime": "2020-06-17"
     },
     {
-      "id": 584,
+      "id": 555,
       "name": "巫溪县“童心童礼”少儿文明礼仪大赛投票活动",
       "url": "/EPG/jsp/neirong/shang/J20200618.jsp",
       "uptime": "2020-06-18"
     },
     {
-      "id": 585,
+      "id": 556,
       "name": "首席推荐官十六强选手",
-      "url": "/EPG/jsp/neirong/shang/J20200619.jsp",
+      "url": "/EPG/jsp/neirong/shang/J20200619.jsp?playFlag=0",
       "uptime": "2020-06-19"
     },
     {
-      "id": 586,
+      "id": 557,
       "name": "娱乐圈童颜奶爸大盘点",
       "url": "/EPG/jsp/neirong/shang/J20200619_2.jsp?typeId=10000100000000090000000000115606&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=transparent&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=7",
       "uptime": "2020-06-19"
     },
     {
-      "id": 587,
+      "id": 558,
       "name": "一起见证华夏历史文明",
       "url": "/EPG/jsp/neirong/shang/J20200623.jsp?typeId=10000100000000090000000000115742&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
       "uptime": "2020-06-23"
     },
     {
-      "id": 588,
+      "id": 559,
       "name": "娱乐组专题策划四",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115744",
       "uptime": "2020-06-23"
     },
     {
-      "id": 589,
+      "id": 560,
       "name": "少儿组专题策划四",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115743",
       "uptime": "2020-06-23"
     },
     {
-      "id": 590,
+      "id": 561,
       "name": "姐姐演技大赏",
       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115740&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
       "uptime": "2020-06-23"
     },
     {
-      "id": 591,
+      "id": 562,
       "name": "家长如何做好英语启蒙教育",
       "url": "http://192.168.89.21:8086/special/index?id=1413&fromTitle=ztdl_ld",
       "uptime": "2020-06-23"
     },
     {
-      "id": 592,
+      "id": 563,
       "name": "粽享好音乐专题",
       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=02e70b9288144701835c",
       "uptime": "2020-06-23"
     },
     {
-      "id": 593,
+      "id": 564,
       "name": "你妈妈喊你回家吃粽子",
       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=187&lcn=dw",
       "uptime": "2020-06-23"
     },
-              {
-                 "id": 629,
-                 "name": "年中盘点 上半年霸屏的男明星们",
-                 "url": "/EPG/jsp/neirong/shang/J20200624.jsp?typeId=10000100000000090000000000115741&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
-                 "uptime": "2020-06-24"
-              }
+    {
+      "id": 565,
+      "name": "年中盘点 上半年霸屏的男明星们",
+      "url": "/EPG/jsp/neirong/shang/J20200624.jsp?typeId=10000100000000090000000000115741&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+      "uptime": "2020-06-24"
+    },
+    {
+      "id": 566,
+      "name": "探索一夏纪实专题",
+      "url": "/EPG/jsp/neirong/shang/J20200630.jsp",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 567,
+      "name": "夏日冷知识",
+      "url": "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId=10000100000000090000000000115843&titlePic=50,190,500,80,20200422,0&focusPic=702,147,550,80,20200630,1&cl=6f6053&fc=6f6053&cat=1&lft=710&tp=162&w=460&ih=55&mr=5&fs=24&hm=1&pg=8&sc=1220,180,430,c5b2a6,895332,1,1,0&video=615,403,38,248&maxTitleLen=20",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 568,
+      "name": "追到男神是什么体验",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115841",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 569,
+      "name": "火爆动作大片系列合集",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115840&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 570,
+      "name": "小暑会养生 百病不缠身",
+      "url": "http://192.168.34.73/special/xiaoshu/z.php",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 571,
+      "name": "毕业季音乐专题",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=e0270bc0aa6b49ccafe8",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 572,
+      "name": "肚皮舞 跳出性感水蛇腰",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=188&lvn=dup",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 573,
+      "name": "重温经典之虹猫蓝兔七侠传",
+      "url": "http://192.168.89.21:8086/special/index?id=1378&fromTitle=ztdl_ld",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 574,
+      "name": "我们，毕业了！",
+      "url": "/EPG/jsp/neirong/shang/J20200630_3.jsp?typeId=10000100000000090000000000115820&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=ffffff&bc=4f9537&cat=1&lft=93&tp=293&w=388&ih=40&mr=1&fs=24&hm=1&pg=8&cl=725f51&sc=535,300,325,7da9c7,4f9537,1,1,0&video=590,371,610,274",
+      "uptime": "2020-06-30"
+    },
+    {
+      "id": 575,
+      "name": "巫溪县“童心童礼”少儿文明礼仪大赛展播",
+      "url": "/EPG/jsp/neirong/shang/J20200702.jsp?typeId=10000100000000090000000000115901&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=ffffff&bc=4489c0&cat=1&lft=850&tp=252&w=335&ih=45&mr=0&fs=24&hm=1&pg=7&fc=ffffff&cl=000000&bc=4489c0&sc=535,300,325,7da9c7,4f9537,0,1,0&video=752,473,73,208&maxTitleLen=13",
+      "uptime": "2020-07-02"
+    },
+    {
+      "id": 576,
+      "name": "隐秘的主角 综艺盘点隐秘主创的两幅面孔",
+      "url": "/EPG/jsp/neirong/shang/J20200702_2.jsp?typeId=10000100000000090000000000115844&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+      "uptime": "2020-07-02"
+    },
+    {
+      "id": 577,
+      "name": "不老容颜魔鬼身材 拒变老阿姨",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=190&lcn=j",
+      "uptime": "2020-07-07"
+    },
+    {
+      "id": 578,
+      "name": "养生知时节 吃出健康来",
+      "url": "http://192.168.89.21:8086/special/index?id=1330&fromTitle=ztdl_ld",
+      "uptime": "2020-07-07"
+    },
+    {
+      "id": 579,
+      "name": "防暑妙招你学会了吗",
+      "url": "http://192.168.34.73/special/fangshu/z.php",
+      "uptime": "2020-07-07"
+    },
+    {
+      "id": 580,
+      "name": "AI重生 视效奇观建立的世界",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115962&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-07"
+    },
+    {
+      "id": 581,
+      "name": "实力演技派请就位",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115963",
+      "uptime": "2020-07-07"
+    },
+    {
+      "id": 582,
+      "name": "宠你一夏 礼遇VIP",
+      "url": "http://192.168.34.18:8081/activity/act_turntable/index.do",
+      "uptime": "2020-07-13"
+    },
+    {
+      "id": 583,
+      "name": "永不毕业的大学",
+      "url": "http://192.168.34.73/special/daxue/z.php",
+      "uptime": "2020-07-13"
+    },
+    {
+      "id": 584,
+      "name": "怪兽来袭惊夏电影大盘点",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116161&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 585,
+      "name": "2020年上半年收视排行榜揭晓",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116162&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 586,
+      "name": "娱乐组专题策划五",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116180&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 587,
+      "name": "少儿组专题策划五",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116181",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 588,
+      "name": "童心未泯 蓝胖子陪你快乐成长",
+      "url": "http://192.168.89.21:8086/special/index?id=1406&fromTitle=ztdl_ld",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 589,
+      "name": "小猪佩奇快乐暑假",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=fcf3ebd281f64768829d",
+      "uptime": "2020-07-16"
+    },
+    {
+      "id": 590,
+      "name": "电影院营业了 你最想看哪部片",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116300&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 591,
+      "name": "少儿组专题策划六",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116303",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 592,
+      "name": "盘点独立女性剧",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116301",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 593,
+      "name": "娱乐组专题策划六",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116302",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 594,
+      "name": "夏日美食 轻松解决宝宝厌食症",
+      "url": "http://192.168.89.21:8086/special/index?id=859&fromTitle=ztdl_ld",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 595,
+      "name": "奥特曼荣耀之战音乐专题",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=c5d8b2fa6efa4f87b182",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 596,
+      "name": "极限青春 热血一夏",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=192&lcn=r",
+      "uptime": "2020-07-21"
+    },
+    {
+      "id": 597,
+      "name": "首席推荐官",
+      "url": "/EPG/jsp/neirong/shang/J20200721.jsp",
+      "uptime": "2020-07-22"
+    },
+    {
+      "id": 598,
+      "name": "影院复工第二波 重映大片抢先看",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116500&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 599,
+      "name": "高能番剧来袭 二次元魅力难敌",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116501&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 600,
+      "name": "娱乐组专题策划七",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116502",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 601,
+      "name": "娱乐组专题策划八",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116503",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 602,
+      "name": "少儿组专题策划七",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116504",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 603,
+      "name": "少儿组专题策划八",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116505",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 604,
+      "name": "暑于你的健康",
+      "url": "http://192.168.34.73/special/shu/z.php",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 605,
+      "name": "暑期安全小提示",
+      "url": "http://192.168.89.21:8086/special/index?id=1441&fromTitle=ztdl_ld",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 606,
+      "name": "炎炎夏日 露哪儿减哪儿",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=193&lcn=xr",
+      "uptime": "2020-07-28"
+    },
+    {
+      "id": 607,
+      "name": "打卡王源重庆同款之旅",
+      "url": "http://aoh5.cqccn.com/epgTest/wangyuan/index.html",
+      "uptime": "2020-07-29"
+    },
+    {
+      "id": 608,
+      "name": "人人为村农村互联网",
+      "url": "/EPG/jsp/neirong/shang/J20200730.jsp",
+      "uptime": "2020-07-30"
+    },
+    {
+      "id": 609,
+      "name": "打卡王源重庆同款之旅 第二波",
+      "url": "http://aoh5.cqccn.com/epgTest/wangyuan2/index.html",
+      "uptime": "2020-07-30"
+    },
+    {
+      "id": 610,
+      "name": "失落的黄金国—安第斯文明特展活动",
+      "url": "/EPG/jsp/neirong/shang/J20200731.jsp",
+      "uptime": "2020-07-31"
+    },
+    {
+      "id": 611,
+      "name": "中国故事100讲",
+      "url": "/EPG/jsp/neirong/shang/J20200803.jsp",
+      "uptime": "2020-08-03"
+    },
+         {
+           "id": 599,
+           "name": "暑期动画合集又来了",
+           "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116688&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+           "uptime": "2020-08-04"
+         },
+         {
+           "id": 600,
+           "name": "避暑降温切莫贪凉",
+           "url": "http://192.168.34.73/special/bishu/z.php",
+           "uptime": "2020-08-04"
+         },
+         {
+           "id": 601,
+           "name": "第27届东方风云榜音乐专题",
+           "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=33fbb48dda2d4e289dd9",
+           "uptime": "2020-08-04"
+         },
+         {
+           "id": 602,
+           "name": "立秋养生 阳台上的养生操",
+           "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=194&lcn=lq",
+           "uptime": "2020-08-04"
+         },
+         {
+           "id": 603,
+           "name": "热爱古偶的你 专属片单来了",
+           "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116689",
+           "uptime": "2020-08-04"
+         }
   ]
 }

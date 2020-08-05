@@ -11,10 +11,18 @@
      *      为0时,取栏目下绑定的VOD的内容
      *      为1时,取栏目下绑定的子栏目的内容.
      *      为2时,取栏目下的子栏目中(用cn指定子栏目个数)绑定的VOD的内容
+     *      为3时，根据输入的名字，搜索栏目或内容
+     *      为4时，取电视剧子集信息
      * cn:  当act==1,act==2时,指定取子栏目的个数,默认为199个
      * fn:  当act==0,act==2时,指定取子栏目中VOD的个数
      * rmChs: 删除指定符号中的字符串
      * script: 如果 script 不为空，返回 var data = {}; 的 json 字符串
+     *
+     * sub: 当 act 为 3时，传递参数，不空空时，包括子集信息，否则不包含子集
+     * stp: 当 act 为 3时，传递参数（为空时，按影片名称搜索），1：影片名称（代码），2：影片名称（汉字或字母），3：按演员名称， 4:导演, 5：外部ID, 6:按演员搜索代码
+     * start: 当 act 为 3时，传递参数单次查询的起始位置
+     * length: 当 act 为 3时，传递参数单次查询的最大数量
+     * detail: 当 act 为 3时，detail 不为空时，且返回长度不超过200时，把影片转换成详情
      */
     inner.turnPage.removeLast();
 
@@ -45,101 +53,140 @@
     } else {
         List list = new ArrayList();
         HashMap<String,Object> map = new HashMap<String, Object>();
-        Column column = null;
-        int cn = inner.getInteger("cn",199);
-        int fn = inner.getInteger("fn",199);
-        inner.setSpecial(!isEmpty(inner.get("spec")));
-        if( id.indexOf(',') < 0 ) {
-            column = inner.getDetail(id, new Column());
-            map.put("column", column);
-            result.setSuccess(true);
-            if( action.equalsIgnoreCase("0") ) { /*如果 act == 0 取绑定的VOD内容*/
-                list = inner.getList(id, fn ,0,new Vod());
-            } else if(action.equalsIgnoreCase("1")) { /*如果act=1,仅取子栏目内容*/
-                list = inner.getList(id, cn ,0, new Column());
-            } else if( action.equalsIgnoreCase("2")){ /*如果act=2,仅取子栏目内容*/
-                List<Column> columns = inner.getList(id, cn ,0, new Column());
-                list.add(new Result(id, columns));
-                for( Column col : columns ) {
-                    try {
-                        List<Vod> films = inner.getList(col.getId(), fn , 0, new Vod());
-                        if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                            list.add(new Result(col.getId(), films));
-                        } else {
-                            List<Column> children = inner.getList(col.getId(), fn, 0, new Column());
-                            list.add(new Result( col.getId(), children ));
+        if( ! ( action.equalsIgnoreCase("3") || action.equalsIgnoreCase("4") ) ){
+            Column column = null;
+            int cn = inner.getInteger("cn",199);
+            int fn = inner.getInteger("fn",199);
+            inner.setSpecial(!isEmpty(inner.get("spec")));
+            if( id.indexOf(',') < 0 ) {
+                column = inner.getDetail(id, new Column());
+                map.put("column", column);
+                result.setSuccess(true);
+                if( action.equalsIgnoreCase("0") ) { /*如果 act == 0 取绑定的VOD内容*/
+                    list = inner.getList(id, fn ,0,new Vod());
+                } else if(action.equalsIgnoreCase("1")) { /*如果act=1,仅取子栏目内容*/
+                    list = inner.getList(id, cn ,0, new Column());
+                } else if( action.equalsIgnoreCase("2")){ /*如果act=2,仅取子栏目内容*/
+                    List<Column> columns = inner.getList(id, cn ,0, new Column());
+                    list.add(new Result(id, columns));
+                    for( Column col : columns ) {
+                        try {
+                            List<Vod> films = inner.getList(col.getId(), fn , 0, new Vod());
+                            if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                                list.add(new Result(col.getId(), films));
+                            } else {
+                                List<Column> children = inner.getList(col.getId(), fn, 0, new Column());
+                                list.add(new Result( col.getId(), children ));
+                            }
+                        } catch (Throwable e){
+                            list.add( new Result(col.getId(), e.getMessage()));
                         }
-                    } catch (Throwable e){
-                        list.add( new Result(col.getId(), e.getMessage()));
                     }
+                } else {
+                    result.setSuccess(false);
+                    result.setMessage(URLDecoder.decode("act%20%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF111"));
                 }
+                map.put("list", list);
+                result.setData(map);
             } else {
-                result.setSuccess(false);
-                result.setMessage(URLDecoder.decode("act%20%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF"));
-            }
-            map.put("list", list);
-            result.setData(map);
-        } else {
-            String[] ids = id.split("\\,");
-            List<Column> columns = new ArrayList<Column>();
-            list.add(null);
-            if( action.equalsIgnoreCase( "0") || action.equalsIgnoreCase("1") ) {
-                for( String str : ids) {
-                    if( isEmpty( str ) ) continue;
-                    column = inner.getDetail( str , new Column());
-                    columns.add( column );
-                    try {
-                        List<Vod> films = inner.getList( str , fn , 0, new Vod());
-                        if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                            list.add(new Result(str, films));
-                        } else {
-                            List<Column> children = inner.getList(str, fn, 0, new Column());
-                            list.add(new Result( str, children ));
+                String[] ids = id.split("\\,");
+                List<Column> columns = new ArrayList<Column>();
+                list.add(null);
+                if( action.equalsIgnoreCase( "0") || action.equalsIgnoreCase("1") ) {
+                    for( String str : ids) {
+                        if( isEmpty( str ) ) continue;
+                        column = inner.getDetail( str , new Column());
+                        columns.add( column );
+                        try {
+                            List<Vod> films = inner.getList( str , fn , 0, new Vod());
+                            if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                                list.add(new Result(str, films));
+                            } else {
+                                List<Column> children = inner.getList(str, fn, 0, new Column());
+                                list.add(new Result( str, children ));
+                            }
+                        } catch (Throwable e){
+                            list.add(new Result( str, e.getMessage() ));
                         }
-                    } catch (Throwable e){
-                        list.add(new Result( str, e.getMessage() ));
                     }
-                }
-                list.set(0, columns);
-                result.setData(list);
-            } else {
-                for( String str : ids) {
-                    if( isEmpty( str ) ) continue;
-                    column = inner.getDetail( str , new Column() );
-                    columns.add( column );
+                    list.set(0, columns);
+                    result.setData(list);
+                } else {
+                    for( String str : ids) {
+                        if( isEmpty( str ) ) continue;
+                        column = inner.getDetail( str , new Column() );
+                        columns.add( column );
 
-                    List lst = new ArrayList();
-                    try {
-                        List<Column> cols = inner.getList(str, cn ,0, new Column());
-                        lst.add(new Result(str, cols));
-                        for( Column col : cols ) {
-                            List children = null;
-                            try {
-                                children = inner.getList(col.getId(), fn , 0, new Vod());
-                                if( children != null && children.size() > 0 ){
-                                    lst.add(new Result(col.getId(), children));
-                                    continue;
+                        List lst = new ArrayList();
+                        try {
+                            List<Column> cols = inner.getList(str, cn ,0, new Column());
+                            lst.add(new Result(str, cols));
+                            for( Column col : cols ) {
+                                List children = null;
+                                try {
+                                    children = inner.getList(col.getId(), fn , 0, new Vod());
+                                    if( children != null && children.size() > 0 ){
+                                        lst.add(new Result(col.getId(), children));
+                                        continue;
+                                    }
+                                } catch (Throwable t){}
+
+                                try {
+                                    lst.add(new Result(col.getId(), children = inner.getList(col.getId(), fn , 0, new Column())));
+                                } catch (Throwable e){
+                                    lst.add(new Result( col.getId(), e.getMessage()));
                                 }
-                            } catch (Throwable t){}
-
-                            try {
-                                lst.add(new Result(col.getId(), children = inner.getList(col.getId(), fn , 0, new Column())));
+                            }
+                            list.add(new Result( str, lst));
+                        } catch (Throwable t){
+                            try{
+                                list.add(new Result( str, inner.getList(str, cn , 0, new Vod())));
                             } catch (Throwable e){
-                                lst.add(new Result( col.getId(), e.getMessage()));
+                                list.add(new Result( str, t.getMessage() + ":::" + e.getMessage()));
                             }
                         }
-                        list.add(new Result( str, lst));
-                    } catch (Throwable t){
-                        try{
-                            list.add(new Result( str, inner.getList(str, cn , 0, new Vod())));
-                        } catch (Throwable e){
-                            list.add(new Result( str, t.getMessage() + ":::" + e.getMessage()));
-                        }
                     }
+                    list.set(0, columns);
+                    result.setData(list);
                 }
-                list.set(0, columns);
+            }
+        } else if( action.equalsIgnoreCase("3") ) {
+            int sub = isEmpty( inner.get("sub") ) ? 0 : 1;
+            int stp = inner.getInteger( "stp", 2 );
+            int start = inner.getInteger( "start", 0 );
+            int length = inner.getInteger( "length", 999 );
+            int detail = isEmpty( inner.get("detail") ) ? 0 : 1;
+            list = inner.search(id, start, length, sub, stp );
+            result.setTotal( inner.total );
+            result.setId(id);
+            if( detail == 1 && inner.total <= 200) {
+                List<Film> films = new ArrayList<Film>();
+                for( Object o: list) {
+                    Vod v = (Vod)o;
+                    int vid = v.getId();
+                    Film film = inner.getDetail(String.valueOf(vid), new Film());
+                    films.add(film);
+                }
+                result.setData(films);
+            } else {
                 result.setData(list);
             }
+        } else if( action.equalsIgnoreCase("4") ) {
+            Film film = id.length() <= 10 ? inner.getDetail(id, new Film()) : inner.getFSNDetail(id, new Film());
+            List lst = inner.getSitcomList(String.valueOf(film.getId()));
+            if (lst != null && lst.size() == 2 ) {
+                lst = (List) lst.get(1);
+                if( lst != null && lst.size() > 0 ) {
+                    for ( int i = 0; i< lst.size(); i++ )
+                    {
+                        Vod v = ReflectUtil.parse( lst.get(i) , new Vod());
+                        list.add( inner.getDetail( String.valueOf( v.getId() ), new Film() ) );
+                    }
+                }
+            }
+            map.put("film", film);
+            map.put("list", list);
+            result.setData( map );
         }
         if( isScript ) inner.write("window.lazyLoadData = ");
         inner.write(inner.writeObject( result, rmChars ));

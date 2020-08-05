@@ -1,4 +1,4 @@
-<%@ include file="../player/include.jsp" %>
+<%@ include file="../../player/include.jsp" %>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%--
     w:整个条目的宽度
@@ -51,10 +51,10 @@
     <meta name="page-view-size" content="1280*720">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script language="javascript" type="text/javascript" src="../player/common.js"></script>
+    <script language="javascript" type="text/javascript" src="../../player/common.js"></script>
 </head>
 <body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200102Bg.png)" : " url('" + picture + "')" %> no-repeat;" onUnload="exit();">
-<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('images/J20191120Focus0.png') no-repeat;visibility: hidden;" ></div>
+<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('../images/J20191120Focus0.png') no-repeat;visibility: hidden;" ></div>
 </body>
 <script language="javascript" type="text/javascript">
     <!--

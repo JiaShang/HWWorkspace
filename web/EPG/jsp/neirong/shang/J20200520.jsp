@@ -242,7 +242,7 @@
             };
             cursor.focusable[5].items[0]={
                 'name':this.data[5]["data"][0].name,
-                'linkto':"/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+this.data[5].id+"&titlePic=50,190,500,80,20200422,0&focusPic=785,74,550,80,20200520List,1&cl=ffffff&fc=ffffff&cat=1&lft=795&tp=70&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=490,250,330,ffffff,fff332,1,1,0&video=615,402,70,235&maxTitleLen=18"
+                'linkto':"/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId="+this.data[5].id+"&titlePic=50,190,500,80,20200422,0&focusPic=785,74,550,80,20200520List,1&cl=ffffff&fc=ffffff&cat=1&lft=795&tp=70&w=420&ih=65&mr=0&fs=24&hm=1&pg=9&sc=490,250,330,ffffff,fff332,0,1,0&video=615,402,70,235&maxTitleLen=18"
             };
 
             cursor.palyBlocked = 0;

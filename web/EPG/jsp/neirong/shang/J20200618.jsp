@@ -105,7 +105,7 @@
     var date = "20200618";
 
     var startTime = new Date("2020-06-19 18:0:0").getTime();
-    var endTime = new Date("2020-06-24 0:0:0").getTime();
+    var endTime = new Date("2020-06-25 0:0:0").getTime();
     cursor.initialize({
         data: [<%
                 String html = "";

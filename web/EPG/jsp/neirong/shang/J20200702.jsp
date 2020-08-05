@@ -37,7 +37,8 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "" : inner.pictureUrl("images/J20200515Bg.png",column.getPosters(),"7");
+    String picture = column == null ? "" : inner.pictureUrl("images/J20200702Bg.png",column.getPosters(),"7");
+//    picture = "images/J20200702Bg.png";
     String[] sc = {};
     String[] titlePic = {};
     String[] focusPic = {};
@@ -97,7 +98,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         .listName{
-            width: <%=w %>px;
+            position:absolute;
+            <%--left: <%=lt%>px;--%>
+            <%--width: <%=w %>px;--%>
             height: <%=ih + mr %>px;
             color:#<%=cl%>;
             font-size:<%=fs %>px;
@@ -105,8 +108,8 @@
             overflow: hidden;
             text-align: left;
             line-height: <%=ih + mr %>px;
-            padding-left: 10px;
-            padding-right: 10px;
+            /*padding-left: 10px;*/
+            /*padding-right: 10px;*/
         }
         #scrollLower{
             left: <%= sc[0]%>px;
@@ -134,6 +137,14 @@
             top: <%= focusPic[1]%>px;
             width: <%= focusPic[2]%>px;
             height: <%= focusPic[3]%>px;
+        }
+        #more{
+            position:absolute;
+            overflow:hidden;
+            left: 840px;
+            top: 620px;
+            width: 190px;
+            height: 42px;
         }
     </style>
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
@@ -181,19 +192,28 @@
                 if( <%=cat %> ){
                     for( var j = 0; j < cursor.focusable[i].items.length; j ++){
                         var name = cursor.focusable[i].items[j].name;
-                        var star = name.indexOf("——");  //不存在返回-1
-                        if (star == -1){
-                            star++;
-                        } else {
-                            star = star+2;
-                        }
+                        var star = name.indexOf("】");  //不存在返回-1
+                        star++;
+                        // if (star == -1){
+                        //     star++;
+                        // } else {
+                        //     star = star+2;
+                        // }
                         var end = name.indexOf("（") <=0 ? name.length : name.indexOf("（");
                         cursor.focusable[i].items[j].name = name.substring(star,end);  //substring取前不取后
                     }
                 }
             }
+            cursor.focusable[0].items[this.data[0]["data"].length]={
+                'name': '',
+                'linkto': '/EPG/jsp/neirong/shang/J20200618.jsp'
+            };
+            if (cursor.focusable[cursor.blocked].focus == cursor.focusable[cursor.blocked].items.length-1){
+                cursor.palyIndex = cursor.focusable[cursor.blocked].items.length-2;
+            } else{
+                cursor.palyIndex = cursor.focusable[cursor.blocked].focus;
+            }
             cursor.palyBlocked = cursor.blocked;
-            cursor.palyIndex = cursor.focusable[cursor.blocked].focus;
             setTimeout(function(){
                 initList();
                 var focusFlag = <%=focusPic[5]  %>;
@@ -249,7 +269,7 @@
             //上 11，下 -11，左 -1，右 1
             var blocked = cursor.blocked;
             //var focus = cursor.focusable[blocked].focus;
-            //var items = cursor.focusable[blocked].items;
+            // var items = cursor.focusable[blocked].items;
             if( index == 11 && listBox.position > 0){
                 cursor.call('loseFocus');
                 listBox.changeList(-1);
@@ -281,11 +301,14 @@
                 return;
                 <% } else {%>
                 var focus = cursor.focusable[blocked].focus;
-                if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {
-                    cursor.playIndex = focus;
-                    cursor.palyBlocked = blocked;
-                    var item = cursor.focusable[blocked].items[focus];
-                    cursor.call('playMovie', item);
+                var items = cursor.focusable[blocked].items;
+                if (focus != items.length-1) {
+                    if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {
+                        cursor.playIndex = focus;
+                        cursor.palyBlocked = blocked;
+                        var item = cursor.focusable[blocked].items[focus];
+                        cursor.call('playMovie', item);
+                    }
                 }
                 <% }%>
             }, 1000);
@@ -307,33 +330,44 @@
             var focus = cursor.focusable[blocked].focus;
             if( items.length <= 0 ) return;
             var titleFlag = <%=titlePic[5]  %>;
-            if (titleFlag == 1) {
-                $("title").style.backgroundImage = "url(images/J<%=titlePic[4]%>Title" + blocked + ".png)";
+            if (focus <  items.length - 1) {
+                if (titleFlag == 1) {
+                    $("title").style.backgroundImage = "url(images/J<%=titlePic[4]%>Title" + blocked + ".png)";
+                }
+                $("listName"+String(listBox.focusPos)).style.color = "#<%=fc %>";
+                var bc = "<%=bc %>";
+                if( bc == "transparent"){
+                    $("listName"+String(listBox.focusPos)).style.backgroundColor = "<%=bc %>";
+                }else {
+                    $("listName"+String(listBox.focusPos)).style.backgroundColor = "#<%=bc %>";
+                }
+                var focusFlag = <%=focusPic[5]  %>;
+                if (focusFlag) {
+                    $("focus").style.top =String(listBox.focusPos*(<%=ih %>+<%=mr %>)+<%=focusPic[1] %>)+"px";
+                }
+                $("more").style.backgroundImage = "url(images/J20200702More0.png)";
+            }else{
+                $("more").style.backgroundImage = "url(images/J20200702More1.png)";
             }
-            $("listName"+String(listBox.focusPos)).style.color = "#<%=fc %>";
-            var bc = "<%=bc %>";
-            if( bc == "transparent"){
-                $("listName"+String(listBox.focusPos)).style.backgroundColor = "<%=bc %>";
-            }else {
-                $("listName"+String(listBox.focusPos)).style.backgroundColor = "#<%=bc %>";
-            }
-            var focusFlag = <%=focusPic[5]  %>;
-            if (focusFlag) {
-                $("focus").style.top =String(listBox.focusPos*(<%=ih %>+<%=mr %>)+<%=focusPic[1] %>)+"px";
-            }
+
             scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
             cursor.call('lazyShow');
 
         },
         loseFocus:function(){
-            $("listName"+String(listBox.focusPos)).style.color = "#<%=cl %>";
-            var bg = "<%=bg %>";
-            if( bg == "transparent"){
-                $("listName"+String(listBox.focusPos)).style.backgroundColor = "<%=bg %>";
-            }else {
-                $("listName"+String(listBox.focusPos)).style.backgroundColor = "#<%=bg %>";
+            var  blocked = cursor.blocked;
+            var items = cursor.focusable[blocked].items;
+            var focus = cursor.focusable[blocked].focus;
+            if (focus <  items.length - 1) {
+                var bg = "<%=bg %>";
+                $("listName"+String(listBox.focusPos)).style.color = "#<%=cl %>";
+                if (bg == "transparent") {
+                    $("listName" + String(listBox.focusPos)).style.backgroundColor = "<%=bg %>";
+                } else {
+                    $("listName" + String(listBox.focusPos)).style.backgroundColor = "#<%=bg %>";
+                }
+                $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen ? subStr(listData[listBox.position].name, maxTitleLen, "...") : listData[listBox.position].name;
             }
-            $("listName" + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxTitleLen?subStr(listData[listBox.position].name,maxTitleLen,"..."):listData[listBox.position].name;
         }
     });
     function initList() {
@@ -348,6 +382,8 @@
             listBox.showType = 0;
         }
         listBox.haveData = function (List) {
+            var tp = <%=ih + mr %>*List.idPos;
+            $("listName" + String(List.idPos)).style.top = String(tp) + "px";
             $("listName" + String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > maxTitleLen?subStr(listData[List.dataPos].name,maxTitleLen,"..."):listData[List.dataPos].name;
             var bg = "<%=bg %>";
             if( bg == "transparent"){
@@ -371,42 +407,43 @@
 <div style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "url(images/J20200515Bg.png)" : (" url('" + picture + "')")%> no-repeat;"></div>
 <div id="title" style="background:transparent no-repeat;visibility: hidden;" ></div>
 <div id="focus" style="background:transparent no-repeat;visibility: hidden;" ></div>
+<div id="more" style="background:transparent no-repeat;visibility: visible;" ></div>
 <div id="scrollLower" style="position: absolute;z-index: 1 ">
     <div id="scrollUpper" style="position: absolute;left: -2px; top: 0px; height: 70px;  width: 6px;z-index: 2;"></div>
 </div>
 
 <div id="list" style="position: absolute;width: <%=w %>px;height:<%= h %>px;left: <%=lt%>px;top: <%=tp%>px;">
-    <div id="list0" class="list" style="top: 15px;">
+    <div id="list0" class="list">
         <img id="listImg0" class="listImg"/>
-        <div id="listName0" class="listName"></div>
+        <div id="listName0" class="listName" style="top: 15px;"></div>
     </div>
-    <div id="list1" class="list" style="top: 60px;">
+    <div id="list1" class="list">
         <img id="listImg1" class="listImg"/>
-        <div id="listName1" class="listName"></div>
+        <div id="listName1" class="listName" style="top: 60px;"></div>
     </div>
-    <div id="list2" class="list" style="top: 105px;">
+    <div id="list2" class="list">
         <img id="listImg2" class="listImg"/>
-        <div id="listName2" class="listName"></div>
+        <div id="listName2" class="listName" style="top: 105px;"></div>
     </div>
-    <div id="list3" class="list" style="top: 153px;">
+    <div id="list3" class="list">
         <img id="listImg3" class="listImg"/>
-        <div id="listName3" class="listName"></div>
+        <div id="listName3" class="listName" style="top: 153px;"></div>
     </div>
-    <div id="list4" class="list" style="top: 197px;">
+    <div id="list4" class="list">
         <img id="listImg4" class="listImg"/>
-        <div id="listName4" class="listName"></div>
+        <div id="listName4" class="listName" style="top: 197px;"></div>
     </div>
-    <div id="list5" class="list" style="top: 248px;">
+    <div id="list5" class="list">
         <img id="listImg5" class="listImg"/>
-        <div id="listName5" class="listName"></div>
+        <div id="listName5" class="listName" style="top: 248px;"></div>
     </div>
-    <div id="list6" class="list" style="top: 295px;">
+    <div id="list6" class="list">
         <img id="listImg6" class="listImg"/>
-        <div id="listName6" class="listName"></div>
+        <div id="listName6" class="listName" style="top: 295px;"></div>
     </div>
-    <div id="list7" class="list" style="top: 341px;">
+    <div id="list7" class="list">
         <img id="listImg7" class="listImg"/>
-        <div id="listName7" class="listName"></div>
+        <div id="listName7" class="listName" style="top: 341px;"></div>
     </div>
 </div>
 </body>

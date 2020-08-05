@@ -1593,7 +1593,7 @@
     },
     {
       "id": 266,
-      "name": "端午安康宴记得吃五红",
+      "name": "二伏吃苦正当时",
       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000112688&fc=de591a&bc=de591a",
       "uptime": "2019-09-12"
     },
@@ -4090,7 +4090,7 @@
     {
        "id": 585,
        "name": "首席推荐官十六强选手",
-       "url": "/EPG/jsp/neirong/shang/J20200619.jsp",
+       "url": "/EPG/jsp/neirong/shang/J20200619.jsp?playFlag=0",
        "uptime": "2020-06-19"
     },
     {
@@ -4146,6 +4146,318 @@
         "name": "年中盘点 上半年霸屏的男明星们",
         "url": "/EPG/jsp/neirong/shang/J20200624.jsp?typeId=10000100000000090000000000115741&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
         "uptime": "2020-06-24"
+    },
+    {
+       "id": 595,
+       "name": "探索一夏纪实专题",
+       "url": "/EPG/jsp/neirong/shang/J20200630.jsp",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 596,
+       "name": "夏日冷知识",
+       "url": "/EPG/jsp/neirong/shang/J20200427_2.jsp?typeId=10000100000000090000000000115843&titlePic=50,190,500,80,20200422,0&focusPic=702,147,550,80,20200630,1&cl=6f6053&fc=6f6053&cat=1&lft=710&tp=162&w=460&ih=55&mr=5&fs=24&hm=1&pg=8&sc=1220,180,430,c5b2a6,895332,1,1,0&video=615,403,38,248&maxTitleLen=20",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 597,
+       "name": "追到男神是什么体验",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115841",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 598,
+       "name": "火爆动作大片系列合集",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115840&row=2&ht=220&wh=160&ml=1&bc=00deff&fc=00deff&lft=165&tp=143",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 599,
+       "name": "小暑会养生 百病不缠身",
+       "url": "http://192.168.34.73/special/xiaoshu/z.php",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 600,
+       "name": "毕业季音乐专题",
+       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=e0270bc0aa6b49ccafe8",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 601,
+       "name": "肚皮舞 跳出性感水蛇腰",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=188&lvn=dup",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 602,
+       "name": "重温经典之虹猫蓝兔七侠传",
+       "url": "http://192.168.89.21:8086/special/index?id=1378&fromTitle=ztdl_ld",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 603,
+       "name": "我们，毕业了！",
+       "url": "/EPG/jsp/neirong/shang/J20200630_3.jsp?typeId=10000100000000090000000000115820&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=ffffff&bc=4f9537&cat=1&lft=93&tp=293&w=388&ih=40&mr=1&fs=24&hm=1&pg=8&cl=725f51&sc=535,300,325,7da9c7,4f9537,1,1,0&video=590,371,610,274",
+       "uptime": "2020-06-30"
+    },
+    {
+       "id": 604,
+       "name": "巫溪县“童心童礼”少儿文明礼仪大赛展播",
+       "url": "/EPG/jsp/neirong/shang/J20200702.jsp?typeId=10000100000000090000000000115901&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=ffffff&bc=4489c0&cat=1&lft=850&tp=260&w=310&ih=40&mr=5&fs=24&hm=1&pg=7&fc=ffffff&cl=000000&bc=4489c0&sc=535,300,325,7da9c7,4f9537,0,1,0&video=752,473,73,208&maxTitleLen=13",
+       "uptime": "2020-07-02"
+    },
+    {
+       "id": 605,
+       "name": "隐秘的主角 综艺盘点隐秘主创的两幅面孔",
+       "url": "/EPG/jsp/neirong/shang/J20200702_2.jsp?typeId=10000100000000090000000000115844&row=1&ct=5&wh=187&ht=239&ml=37&mh=5&cl=000000&fc=dc6b19&bc=ffff00&cat=1&lft=48&tp=190&w=800&fs=24&cl=725f51&sc=1190,125,500,959ea5,fbba54,1,2,2&maxTitleLen=10",
+       "uptime": "2020-07-02"
+    },
+    {
+       "id": 586,
+       "name": "不老容颜魔鬼身材 拒变老阿姨",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=190&lcn=j",
+       "uptime": "2020-07-07"
+    },
+    {
+       "id": 587,
+       "name": "养生知时节 吃出健康来",
+       "url": "http://192.168.89.21:8086/special/index?id=1330&fromTitle=ztdl_ld",
+       "uptime": "2020-07-07"
+    },
+    {
+       "id": 588,
+       "name": "防暑妙招你学会了吗",
+       "url": "http://192.168.34.73/special/fangshu/z.php",
+       "uptime": "2020-07-07"
+    },
+    {
+       "id": 589,
+       "name": "AI重生 视效奇观建立的世界",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000115962&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-07"
+    },
+    {
+       "id": 590,
+       "name": "实力演技派请就位",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000115963",
+       "uptime": "2020-07-07"
+    },
+    {
+       "id": 591,
+       "name": "厨房饮食小妙招 助您省心省时又省力",
+       "url": "/EPG/jsp/neirong/shang/J20200630_3.jsp?typeId=10000100000000090000000000115820&titlePic=50,190,500,80,20200422,0&focusPic=50,190,500,80,20200422,0&cl=000000&fc=ffffff&bc=0263a6&cat=1&lft=93&tp=293&w=388&ih=40&mr=1&fs=24&hm=1&pg=8&cl=725f51&sc=535,300,325,7da9c7,0263a6,1,1,0&video=590,371,610,274",
+       "uptime": "2020-07-08"
+    },
+    {
+       "id": 582,
+       "name": "宠你一夏 礼遇VIP",
+       "url": "http://192.168.34.18:8081/activity/act_turntable/index.do",
+       "uptime": "2020-07-13"
+    },
+    {
+       "id": 583,
+       "name": "永不毕业的大学",
+       "url": "http://192.168.34.73/special/daxue/z.php",
+       "uptime": "2020-07-13"
+    },
+    {
+       "id": 584,
+       "name": "怪兽来袭惊夏电影大盘点",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116161&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 585,
+       "name": "2020年上半年收视排行榜揭晓",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116162&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 586,
+       "name": "娱乐组专题策划五",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116180&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 587,
+       "name": "少儿组专题策划五",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116181",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 588,
+       "name": "童心未泯 蓝胖子陪你快乐成长",
+       "url": "http://192.168.89.21:8086/special/index?id=1406&fromTitle=ztdl_ld",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 589,
+       "name": "小猪佩奇快乐暑假",
+       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=fcf3ebd281f64768829d",
+       "uptime": "2020-07-16"
+    },
+    {
+       "id": 590,
+       "name": "电影院营业了 你最想看哪部片",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116300&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 591,
+       "name": "少儿组专题策划六",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116303",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 592,
+       "name": "盘点独立女性剧",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116301",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 593,
+       "name": "娱乐组专题策划六",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116302",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 594,
+       "name": "夏日美食 轻松解决宝宝厌食症",
+       "url": "http://192.168.89.21:8086/special/index?id=859&fromTitle=ztdl_ld",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 595,
+       "name": "奥特曼荣耀之战音乐专题",
+       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=c5d8b2fa6efa4f87b182",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 596,
+       "name": "极限青春 热血一夏",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=192&lcn=r",
+       "uptime": "2020-07-21"
+    },
+    {
+       "id": 597,
+       "name": "首席推荐官",
+       "url": "/EPG/jsp/neirong/shang/J20200721.jsp",
+       "uptime": "2020-07-22"
+    },
+    {
+       "id": 598,
+       "name": "影院复工第二波 重映大片抢先看",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116500&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 599,
+       "name": "高能番剧来袭 二次元魅力难敌",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116501&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 600,
+       "name": "娱乐组专题策划七",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116502",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 601,
+       "name": "娱乐组专题策划八",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116503",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 602,
+       "name": "少儿组专题策划七",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116504",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 603,
+       "name": "少儿组专题策划八",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116505",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 604,
+       "name": "暑于你的健康",
+       "url": "http://192.168.34.73/special/shu/z.php",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 605,
+       "name": "暑期安全小提示",
+       "url": "http://192.168.89.21:8086/special/index?id=1441&fromTitle=ztdl_ld",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 606,
+       "name": "炎炎夏日 露哪儿减哪儿",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=193&lcn=xr",
+       "uptime": "2020-07-28"
+    },
+    {
+       "id": 607,
+       "name": "打卡王源重庆同款之旅",
+       "url": "http://aoh5.cqccn.com/epgTest/wangyuan/index.html",
+       "uptime": "2020-07-29"
+    },
+    {
+       "id": 608,
+       "name": "人人为村农村互联网",
+       "url": "/EPG/jsp/neirong/shang/J20200730.jsp",
+       "uptime": "2020-07-30"
+    },
+    {
+       "id": 609,
+       "name": "打卡王源重庆同款之旅 第二波",
+       "url": "http://aoh5.cqccn.com/epgTest/wangyuan2/index.html",
+       "uptime": "2020-07-30"
+    },
+    {
+       "id": 610,
+       "name": "失落的黄金国—安第斯文明特展活动",
+       "url": "/EPG/jsp/neirong/shang/J20200731.jsp",
+       "uptime": "2020-07-31"
+    },
+    {
+       "id": 611,
+       "name": "中国故事100讲",
+       "url": "/EPG/jsp/neirong/shang/J20200803.jsp",
+       "uptime": "2020-08-03"
+    },
+    {
+       "id": 612,
+       "name": "暑期动画合集又来了",
+       "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116688&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+       "uptime": "2020-08-04"
+    },
+    {
+       "id": 613,
+       "name": "避暑降温切莫贪凉",
+       "url": "http://192.168.34.73/special/bishu/z.php",
+       "uptime": "2020-08-04"
+    },
+    {
+       "id": 614,
+       "name": "第27届东方风云榜音乐专题",
+       "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=33fbb48dda2d4e289dd9",
+       "uptime": "2020-08-04"
+    },
+    {
+       "id": 615,
+       "name": "立秋养生 阳台上的养生操",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=194&lcn=lq",
+       "uptime": "2020-08-04"
+    },
+    {
+       "id": 616,
+       "name": "热爱古偶的你 专属片单来了",
+       "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116689",
+       "uptime": "2020-08-04"
     }
   ]
 }

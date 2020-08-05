@@ -365,7 +365,7 @@
     var evalJS = function(func, strJS, option){
         var isJSON = option.eval;
         if( typeof isJSON == 'undefined' || isJSON == true ) {
-            if( /^\s*\<html\>/g.test(strJS) ) { tooltip( SYSTEM_BUSY_RETRY_LATER ); return ; }
+            if( /^\s*\<html\>/g.test(strJS) ) { if( option.fail != 'function' ) { tooltip( SYSTEM_BUSY_RETRY_LATER ); return ;} return option.fail( { msg: err }); }
             try {
                 debug('AJAX =======>>>>>> [[[ >>>>', win.isComputer ? strJS : ' BEGIN RUNNING evalJS(...)', ' ]]]');
                 if( strJS.substr(0,1) != '('  || strJS.substr(strJS.length - 1, 1) != ')' ) strJS = "(" + strJS + ")";
@@ -373,7 +373,7 @@
             } catch (e) {
                 var err = decodeURIComponent('%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E5%87%BA%E7%8E%B0%E6%9C%AA%E7%9F%A5%E9%94%99%E8%AF%AF%EF%BC%8C%E6%9C%AA%E8%83%BD%E6%88%90%E5%8A%9F%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%90%8E%E5%86%8D%E8%AF%95%EF%BC%81');
                 debug(err, e);
-                if( win.isP60 && typeof option.fail == 'function' ) option.fail( { msg: err } );
+                if( typeof option.fail == 'function' ) option.fail( { msg: err } );
             }
             debug('AJAX <<<<<<======= [[[ END RUNNING evalJS(...) ]]]');
         } else {
@@ -448,7 +448,7 @@
         };
         if( win.isComputer ) {
             request.withCredentials = true;
-            url += ( url.indexOf('?') >= 0 ? '&' : '?' ) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(location.origin);
+            url = buildUrlMark(url) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(location.origin);
         }
         request.open(option.method, url, option.sync, typeof option.username !== 'undefined' ? option.username : null, typeof  option.password !== 'undefined' ? option.password : null);
         request.timeout = option.timeout;
@@ -758,10 +758,9 @@
                 delete o.body;
                 delete o.header;
             };
-            exec_asyn("request","","string",o,
-                success || function(){
-                    sysmisc.showToast("success");
-                },
+            exec_asyn("request","","string",o, success || function(){
+                sysmisc.showToast("success");
+            },
                 fail || function(){
                     sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
                 }
@@ -923,6 +922,10 @@
         }
         win.ajax(url, callback, option );
     };
+    win.buildUrlMark = function( str , refer ) {
+        refer = refer || str;
+        return str += refer.indexOf('?') > 0 ? '&' : '?';
+    };
     /**
      * 把 整数秒 转换成 hh:MM:ss 格式
      * @param seconds
@@ -1052,9 +1055,7 @@
             that.calcTimer = setTimeout(calc, 4);
         };
         var enumObj = function (o) {
-            for (var i in o) {
-                if (typeof o[i] === 'object') enumObj(o[i]);
-            }
+            for (var i in o) { if (typeof o[i] === 'object') enumObj(o[i]); }
         };
         this.events = [];
         //专题或页面跳转
@@ -1076,31 +1077,31 @@
                         port = port == '' || port == 80 ? '' : (':' + port);
                         url = location.protocol + '//' + location.hostname + port + uri;
                     }
-                } else {
-                    url = uri;
-                    if( url.startWith('http://epgServer') ) {
-                        url = url.replace('http://epgServer', win.EPGUrl);
-                    }
+                } else if( (url = uri).startWith('http://epgServer') ) {
+                    url = url.replace('http://epgServer', win.EPGUrl);
                 }
                 // url 要跳转页的地址， link, 当前页的地址
                 if( !url.startWith( win.EPGUrl ) || !link.startWith( win.EPGUrl ) || isSearch) {
-                    url += uri.indexOf("?") > 0 ? '&' : '?';
-                    url += 'HWSCache=0&';//禁止华为添加到缓存
-                    //如果是搜索页，返回参数为：epgBackurl, 否则为：backURL；且搜索页不能使用 encodeURIComponent 编码
-                    url += isSearch ? 'epgBackurl=' : 'backURL=';
+                    url = buildUrlMark(url, uri);
                     if( typeof backUrl == 'undefined' ) {
                         var currSav = link.indexOf('PREFOUCS') >= 0 ? 'PREFOUCS' : 'currFoucs';
                         var focusStr = link.query(currSav);
                         backUrl = link.query('backURL');
                         if( ! backUrl.isEmpty() ) that.href = link.replace('backURL=' + backUrl , '');
-                        if ( focusStr != '') {
-                            that.href = link.replace(focusStr, that.saveCurr());
+                        that.href = focusStr != '' ? link.replace(focusStr, that.saveCurr()) : ( buildUrlMark(that.href) + currSav + "=" + that.saveCurr() );
+                        if( isSearch ) {
+                            //如果是搜索页，返回参数为：epgBackurl, 否则为：backURL；且搜索页不能使用 encodeURIComponent 编码
+                            if( that.href.startWith( win.EPGUrl) ) ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1');
+                            that.href = buildUrlMark(that.href) + ( ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '');//禁止华为添加到缓存
+                            if( !backUrl.isEmpty() ) that.href += 'backURL=' + backUrl;
+                            if( iPanel.mediaType == 'P60' ) { p60_path_save( that.href ); return url; }
+                            url += 'epgBackurl=' + that.href;
                         } else {
-                            that.href += (link.indexOf("?") >= 0 ? "&" : "?") + currSav + "=" + that.saveCurr();
+                            url +=  ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '';
+                            url += 'backURL=' + ( url.startWith(location.origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href) + 'backURL=' +  backUrl ) );
                         }
-                        url += ( isSearch ? that.href : encodeURIComponent( that.href ) ) + ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '');
                     } else {
-                        url += isSearch ? backUrl : encodeURIComponent( backUrl );
+                        url += encodeURIComponent( backUrl );
                     }
                 }
             }
@@ -1231,7 +1232,7 @@
                 }
                 if( url.indexOf( 'HWSCache' ) > 0 ) {
                     ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1');
-                    setTimeout(function(){window.location.href = url;},30);
+                    setTimeout(function(){window.location.href = url;},20);
                 } else {
                     window.location.href = url;
                 }

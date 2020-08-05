@@ -181,12 +181,13 @@
                 if( <%=cat %> ){
                     for( var j = 0; j < cursor.focusable[i].items.length; j ++){
                         var name = cursor.focusable[i].items[j].name;
-                        var star = name.indexOf("——");  //不存在返回-1
-                        if (star == -1){
-                            star++;
-                        } else {
-                            star = star+2;
-                        }
+                        var star = name.indexOf("】");  //不存在返回-1
+                        star++;
+                        // if (star == -1){
+                        //     star++;
+                        // } else {
+                        //     star = star+2;
+                        // }
                         var end = name.indexOf("（") <=0 ? name.length : name.indexOf("（");
                         cursor.focusable[i].items[j].name = name.substring(star,end);  //substring取前不取后
                     }

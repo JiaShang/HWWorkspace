@@ -20,30 +20,34 @@
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000115680";
-//    infos.add(new ColumnInfo(typeId,0, 99));
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000116520";
+    //infos.add(new ColumnInfo(typeId,0, 99));
 //    infos.add(new ColumnInfo("10000100000000090000000000113411", 1, 99));  //无二级栏目
 //    infos.add(new ColumnInfo("10000100000000090000000000113412", 1, 99));  //无二级栏目
+    List<Column> columns = inner.getList(typeId, 3, 0 , new Column());
+    for( int i = 0 ; columns != null && i < columns.size(); i++ ) {
+        infos.add(new ColumnInfo(columns.get(i).id, 0, 99));
+    }
 
     //////////////////////////有二级栏目/////////////////////
-    Column column = new Column();
-    List<Column> columns = inner.getList(typeId, 3, 0, column);   //（id，查询数据条数，开始查询位置）
-    for( Column col : columns ) {
-        infos.add(new ColumnInfo(col.getId(), 0, 5));
-    }
+//    Column column = new Column();
+//    List<Column> columns = inner.getList(typeId, 3, 0, column);   //（id，查询数据条数，开始查询位置）
+//    for( Column col : columns ) {
+//        infos.add(new ColumnInfo(col.getId(), 0, 5));
+//    }
 //    Result result = new Result( typeId, columns );
     //////////////////////////////////////////////////////////
 
     //获取当前栏目的详细信息
-//    Column column = new Column();
+    Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = "images/J20191120Bg.png";
+    String picture = "";
     if( column != null ) {
         picture = inner.pictureUrl(picture, column.getPosters(), "7");
     }
 
-    Integer playFlag = null,direct = null;
-    playFlag = inner.getInteger("playFlag", inner.getInteger("playFlag", 1));  //playFlag=0时放大图片，为1时播视频
+
+
 %>
 <html>
 <head>
@@ -53,8 +57,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script language="javascript" type="text/javascript" src="../player/common.js"></script>
 </head>
-<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200102Bg.png)" : " url('" + picture + "')" %> no-repeat;" onUnload="exit();">
-<div id="focus" style="position: absolute;width: 511px;height: 234px;left: 120px;top: 410px; overflow:hidden; background: url('images/J20191120Focus0.png') no-repeat;visibility: hidden;" ></div>
+<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent <%= isEmpty(picture) ? "url(images/J20200730Bg.jpg)":" url('" + picture + "')" %> no-repeat;" onUnload="exit();">
+<div id="focus0" style="position: absolute;width: 297px;height: 81px;left: 325px;top: 352px; overflow:hidden; background: url('images/J20200730Focus00.png') no-repeat;" ></div>
+<div id="focus1" style="position: absolute;width: 297px;height: 81px;left: 659px;top: 352px; overflow:hidden; background: url('images/J20200730Focus10.png') no-repeat;" ></div>
+<div id="data" style="position: absolute;width: 1096px;height: 214px;left: 90px;top: 420px; overflow:hidden; background: url('images/J20200109Data.png') no-repeat;visibility: hidden;" ></div>
 </body>
 <script language="javascript" type="text/javascript">
     <!--
@@ -78,12 +84,45 @@
                 cursor.focusable[i] = {};
                 cursor.focusable[i].typeId = o["id"];
                 cursor.focusable[i].focus = this.focused.length > i + 1 ? Number(this.focused[i + 1]) : 0;
-                cursor.focusable[i].items = [];
+                if(typeof o["data"] != 'undefined'){
+                    cursor.focusable[i].items = o["data"];
+                }else {
+                    cursor.focusable[i].items = [];
+                }
+
             }
             cursor.focusable[0].items[0] = {
                 'name':'查看图片',
-                'linkto':'/EPG/jsp/neirong/shang/J20200619List.jsp?typeId='+cursor.focusable[1].typeId+'&playFlag='+<%=playFlag%>
+                'linkto':'/EPG/jsp/neirong/shang/Jpicture.jsp?typeId=' + cursor.focusable[0].typeId+'&direct=1'
             }
+            cursor.focusable[1].items[0] = {
+                'name':'查看图片',
+                'linkto':'/EPG/jsp/neirong/shang/Jpicture.jsp?typeId=' + cursor.focusable[1].typeId+'&direct=1'
+            }
+            setTimeout(function(){
+                cursor.call('show');},150);
+        },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        var blocked = cursor.blocked;
+        var focus = cursor.focusable[blocked].focus;
+        var items = cursor.focusable[blocked].items;
+        cursor.call('loseFocus');
+        if( blocked < 1 && index === 1 ){
+            blocked++;
+        }else if ( blocked > 0 && index === -1 ) {
+            blocked--;
+        }
+        cursor.blocked = blocked;
+        cursor.call('show');
+        },
+        show : function(){
+            var blocked = cursor.blocked;
+            $("focus"+blocked).style.backgroundImage = "url(images/J20200730Focus"+blocked+"1.png)";
+        },
+        loseFocus:function () {
+            var blocked = cursor.blocked;
+            $("focus"+blocked).style.backgroundImage = "url(images/J20200730Focus"+blocked+"0.png)";
         }
     });
     -->

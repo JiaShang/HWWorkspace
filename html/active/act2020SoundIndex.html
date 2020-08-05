@@ -112,7 +112,7 @@
         };
         var __loadJS = function () {
             if( win.isP60 ){
-                document.cookie = 'JSESSIONID=' + sysmisc.getEnv('epgServer','') + '; expire=86400000';
+                document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
             }
             appendJS(fileJS);
         };
