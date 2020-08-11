@@ -75,7 +75,7 @@
     var tipFlag = -1;
     var picPos = 1;
     var codePic = [];
-    var startTime0 = new Date("2020-07-07 10:0:0").getTime();
+    var startTime0 = new Date("2020-08-07 10:0:0").getTime();
     var startTime1 = new Date("2020-08-08 10:0:0").getTime();
     var startTime2 = new Date("2020-08-09 10:0:0").getTime();
     var startTime3 = new Date("2020-08-10 10:0:0").getTime();
@@ -137,8 +137,9 @@
         select : function(){
             if (tipFlag == -1){
                 var currentTime = new Date().getTime();
-                if (currentTime < startTime0 || (endTime0 < currentTime && currentTime < startTime1) || (endTime1 < currentTime && currentTime < startTime2)
-                    || (endTime2 < currentTime && currentTime < startTime3) || (endTime3 < currentTime && currentTime < startTime4)) {
+                if (currentTime < startTime0 || ( endTime0 < currentTime  && currentTime < startTime1) ||
+                    ( endTime1 < currentTime  && currentTime < startTime2) || ( endTime2 < currentTime  && currentTime < startTime3)
+                || ( endTime3 < currentTime  && currentTime < startTime4)) {
                     cursor.call('showTip',0);   //还未到时间
                 }else if (currentTime > endTime4) {
                     cursor.call('showTip',3);   //已结束

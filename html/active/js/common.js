@@ -1098,10 +1098,10 @@
                             url += 'epgBackurl=' + that.href;
                         } else {
                             url +=  ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '';
-                            url += 'backURL=' + ( url.startWith(location.origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href) + 'backURL=' +  backUrl ) );
+                            url += 'backURL=' + ( url.startWith(location.origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href ) + ( backUrl.isEmpty() ? '' : ('backURL=' +  backUrl )) ) );
                         }
                     } else {
-                        url += encodeURIComponent( backUrl );
+                        url += 'backURL=' + encodeURIComponent( backUrl );
                     }
                 }
             }

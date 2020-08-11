@@ -22,6 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         .listName{
+            position: absolute;
             width: 500px;
             height: 55px;
             color: #000000;
@@ -32,8 +33,11 @@
             line-height: 55px;
         }
         img{
-            width: 0px;
-            height: 0px;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: -28px;
+            top: 20px;
         }
         .list{
             position: absolute;
@@ -151,9 +155,11 @@
         listBox = new showList(10, listData.length, focus, 127, window);
         listBox.showType = 0;
         listBox.haveData = function (List) {
+            $("listImg" + String(List.idPos)).src = "images/J20200803ListPoint.png";
             $("listName" + String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > maxTitleLen?subStr(listData[List.dataPos].name,maxTitleLen,"..."):listData[List.dataPos].name;
         }
         listBox.notData = function (List) {
+            $("listImg" + String(List.idPos)).src = "images/global_tm.gif";;
             $("listName" + List.idPos).innerText = "";
         };
         listBox.startShow();
@@ -165,7 +171,7 @@
 <body leftmargin="0" topmargin="0" style="overflow:hidden; background: transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
 <div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
 <div style="width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow:hidden; background:transparent <%= isEmpty(picture) ? "url(images/J20020310ListBg.jpg)" : (" url('" + picture + "')")%> no-repeat;"></div>
-<div id="point" style="position: absolute;width: 16px;height: 427px;left: 500px;top:155px;background:transparent url('images/J20200803ListPoint.png') no-repeat;overflow:hidden; visibility: visible;z-index: 1;"></div>
+<div id="point" style="position: absolute;width: 16px;height: 427px;left: 500px;top:155px;background:transparent url('images/J20200803ListPoint.png') no-repeat;overflow:hidden; visibility: visible;z-index: 1;visibility: hidden;"></div>
 <div id="focus" style="position: absolute;width: 567px;height: 47px;left: 490px;top:140px;background:transparent url('images/J20200803ListFocus.png') no-repeat;overflow:hidden; visibility: visible;"></div>
 <div id="scrollLower" style="position: absolute; left: 1120px; top: 140px; width: 5px; background-color: #ea0a03; visibility: hidden; height: 450px;">
     <div id="scrollUpper" style="position: absolute; top: 0px; height: 100px; background-color: #f1d02c; width: 5px;z-index: 1;"></div>

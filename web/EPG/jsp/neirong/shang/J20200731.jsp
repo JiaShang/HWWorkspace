@@ -112,7 +112,7 @@
             cursor.frequency = 2750000;
             cursor.channelId = '3792';
             cursor.program = '3';
-            cursor.trafficId = 	491 ;
+            cursor.trafficId = 	[491,493,494,495,496] ;
             for (var i = 0; i < 4 ; i++) {
                 var o = this.data[i];
                 cursor.focusable[i] = {};
@@ -132,27 +132,27 @@
             cursor.focusable[4].focus = 0;
             cursor.focusable[4].items = [];
             cursor.focusable[1].items[0] = {
-                'name':'秒杀',
+                'name':'安第斯秒杀',
                 'typeId':'',
                 'linkto':'/EPG/jsp/neirong/shang/J20200731List0.jsp?typeId='+cursor.focusable[1].typeId+'&direct=1'
             }
             cursor.focusable[2].items[0] = {
-                'name':'答题',
+                'name':'安第斯答题',
                 'typeId':'',
                 'linkto':'/EPG/jsp/neirong/shang/J20200731List1Rule.jsp?playFlag=1&typeId='+cursor.focusable[2].typeId
             }
             cursor.focusable[3].items[0] = {
-                'name':'云上',
+                'name':'安第斯云上',
                 'typeId':'',
                 'linkto':'/EPG/jsp/neirong/shang/J20200731List2.jsp?typeId='+cursor.focusable[3].typeId
             }
             cursor.focusable[4].items[0] = {
-                'name':'文创',
+                'name':'安第斯文创',
                 'typeId':'',
                 'linkto':'http://125.62.26.147:82/list/tour/special.html?classId=57&rank=2&urlType=TOPIC'
             }
             cursor.call('show');
-            cursor.call('trafficNum');
+            cursor.call('trafficNum',cursor.trafficId[0]);
             setTimeout(function(){cursor.call('prepareVideo');},200);
         },
         move: function (index) {
@@ -188,6 +188,13 @@
 
             // $("listName"+String(focus-1)).style.width = '212px';
             // $("listName"+String(focus-1)).style.height = '51px';
+        },
+        select : function(){
+            var blocked = cursor.blocked;
+            if (blocked != 0){
+                cursor.call('trafficNum',cursor.trafficId[blocked]);
+            }
+            cursor.call('selectAct');
         },
         loseFocus: function () {
             var blocked = cursor.blocked;
@@ -247,9 +254,12 @@
                 });
             }
         },
-        trafficNum      :function(){
-        var url="http://192.168.18.249:8080/voteNew/external/clickCount.ipanel?icid="+iPanel.cardId+"&classifyID="+cursor.trafficId+"&content=1";
-        ajax(url, function(rst){
+        trafficNum      :function(id){
+            var currentTime = new Date().getTime();
+            currentTime = new Date(currentTime+45000).Format("yyyy-MM-dd hh:mm:ss");
+            var content = encodeURIComponent(currentTime);
+            var url="http://192.168.18.249:8080/voteNew/external/clickCount.ipanel?icid="+iPanel.cardId+"&classifyID="+id+"&content="+content;
+            ajax(url, function(rst){
                 if( rst != "" && rst != 'undefined'&& rst.result ) {
                     //tooltip( decodeURIComponent('统计成功') );  //统计成功
                     return;

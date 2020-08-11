@@ -76,12 +76,8 @@
     var tipFlag = -1;
     var picPos = 1;
     var codePic = [];
-    var startTime0 = new Date("2020-07-11 10:0:0").getTime();
-    var startTime1 = new Date("2020-08-12 10:0:0").getTime();
-    var startTime2 = new Date("2020-08-13 10:0:0").getTime();
-    var endTime0 = new Date("2020-08-11 23:59:59").getTime();
-    var endTime1 = new Date("2020-08-12 23:59:59").getTime();
-    var endTime2 = new Date("2020-08-13 23:59:59").getTime();
+    var startTime = new Date("2020-08-11 0:0:0").getTime();
+    var endTime = new Date("2020-08-13 23:59:59").getTime();
     cursor.initialize({
         data: [<%
                 String html = "";
@@ -112,7 +108,7 @@
             }
             var column = <%= inner.writeObject(column)%>;
             var posters = column.posters['5'];
-            codePic = column.posters['11'];
+            codePic = column.posters['99'];
             // cursor.focusable[0] = {focus:0,typeId:'10000100000000090000000000116603',items:[]};
             for( var i = 0; i < posters.length; i ++ ){
                 cursor.focusable[0].items[i] = {
@@ -140,9 +136,9 @@
         select : function(){
             if (tipFlag == -1){
                 var currentTime = new Date().getTime();
-                if (currentTime < startTime0 || (endTime0 < currentTime && currentTime < startTime1) || (endTime1 < currentTime && currentTime < startTime2)) {
+                if (currentTime < startTime) {
                     cursor.call('showTip',0);   //还未到时间
-                }else if (currentTime > endTime2) {
+                }else if (currentTime > endTime) {
                     cursor.call('showTip',3);   //已结束
                 }else {
                     cursor.call('vote');  //判断是否是第一次
@@ -150,7 +146,6 @@
             } else {
                 cursor.call('loseTip');
             }
-
         },
         goBack : function(){
             if (tipFlag > 0 ){
@@ -187,8 +182,8 @@
             var blocked = cursor.blocked;
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
-            var currentTime = new Date().getTime();
-            var content = "开始答题";
+            var currentTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
+            var content = "开始答题时间："+currentTime;
             voteMsg = {
                 // icid:iPanel.cardId,
                 icid:iPanel.serialNumber,

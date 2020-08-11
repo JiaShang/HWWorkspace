@@ -3667,35 +3667,71 @@
       "url": "/EPG/jsp/neirong/shang/J20200803.jsp",
       "uptime": "2020-08-03"
     },
+    {
+      "id": 612,
+      "name": "暑期动画合集又来了",
+      "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116688&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+      "uptime": "2020-08-04"
+    },
+    {
+      "id": 613,
+      "name": "避暑降温切莫贪凉",
+      "url": "http://192.168.34.73/special/bishu/z.php",
+      "uptime": "2020-08-04"
+    },
+    {
+      "id": 614,
+      "name": "第27届东方风云榜音乐专题",
+      "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=33fbb48dda2d4e289dd9",
+      "uptime": "2020-08-04"
+    },
+    {
+      "id": 615,
+      "name": "立秋养生 阳台上的养生操",
+      "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=194&lcn=lq",
+      "uptime": "2020-08-04"
+    },
+    {
+      "id": 616,
+      "name": "热爱古偶的你 专属片单来了",
+      "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116689",
+      "uptime": "2020-08-04"
+    },
+    {
+      "id": 617,
+      "name": "重庆有线宠粉节",
+      "url": "/EPG/jsp/neirong/shang/J20200806.jsp",
+      "uptime": "2020-08-06"
+    },
               {
-                "id": 599,
-                "name": "暑期动画合集又来了",
-                "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116688&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
-                "uptime": "2020-08-04"
+                "id": 612,
+                "name": "舞力全开 盘点电影中的C位歌舞担当",
+                "url": "/EPG/jsp/neirong/shang/J20191226.jsp?typeId=10000100000000090000000000116861&row=2&ht=220&wh=160&ml=1&bc=ffb400&fc=ffb400&lft=165&tp=143",
+                "uptime": "2020-08-11"
               },
               {
-                "id": 600,
-                "name": "避暑降温切莫贪凉",
-                "url": "http://192.168.34.73/special/bishu/z.php",
-                "uptime": "2020-08-04"
+                "id": 613,
+                "name": "三十而已 get女人精致美",
+                "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=195&lcn=s",
+                "uptime": "2020-08-11"
               },
               {
-                "id": 601,
-                "name": "第27届东方风云榜音乐专题",
-                "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=33fbb48dda2d4e289dd9",
-                "uptime": "2020-08-04"
+                "id": 614,
+                "name": "张杰线上演唱会专题",
+                "url": "http://192.168.18.165/p60/tpl/wl/wl_s_1/qqmusic_wl.html?backNum=0&wlId=f115ba55ea084c22b777",
+                "uptime": "2020-08-11"
               },
               {
-                "id": 602,
-                "name": "立秋养生 阳台上的养生操",
-                "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=194&lcn=lq",
-                "uptime": "2020-08-04"
+                "id": 615,
+                "name": "小伶玩具带你一起玩转暑假",
+                "url": "http://192.168.89.21:8086/special/index?id=915&fromTitle=ztdl_ld",
+                "uptime": "2020-08-11"
               },
               {
-                "id": 603,
-                "name": "热爱古偶的你 专属片单来了",
-                "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116689",
-                "uptime": "2020-08-04"
+                "id": 616,
+                "name": "“宝藏姐夫”了解一下",
+                "url": "/EPG/jsp/neirong/STemplateOneRow.jsp?typeId=10000100000000090000000000116862",
+                "uptime": "2020-08-11"
               }
   ]
 }

@@ -90,7 +90,7 @@
     var isPhoneError = true;
     var isFirstVote = true;
     var startTime = new Date("2020-09-24 0:0:0").getTime();
-    var endTime = new Date("2020-08-12 10:0:0").getTime();
+    var endTime = new Date("2020-08-13 0:0:0").getTime();
 
     cursor.initialize({
         data: [<%
@@ -443,7 +443,7 @@
             //         cursor.call('loseTip');
             //     }
             // }, 5000);
-            if (tipFlag == 2){
+            if (tipFlag == 2 || tipFlag == 22 || tipFlag == 1 || tipFlag == 11){
                 setTimeout(function(){cursor.call('goBackAct');},4000);
             }
         },
@@ -512,21 +512,21 @@
             ajax(url, function(result){
                     if( result.recode != "002" || result.result == false ) {
                         //tooltip( decodeURIComponent('投票失败') );  //统计失败
-                        cursor.call('showTip', 2);
-                        if (currentTime > endTime){
-                            cursor.call('showTip', 2);  //投票成功
+                        // cursor.call('showTip', 2);
+                        var currentTime2 = new Date().getTime();
+                        if (currentTime2 > endTime){
+                            cursor.call('showTip', 22);  //投票失败
                         } else {
-                            cursor.call('showTip', 22);  //投票成功
+                            cursor.call('showTip', 2);  //投票失败
                         }
                         return;
                     }else{
                         // tooltip( decodeURIComponent('投票成功') );  //统计成功{"result":true,"recode":"002"}
-                        var currentTime = new Date().getTime();
-                        // cursor.call('showTip', 1);  //投票成功
-                        if (currentTime > endTime){
-                            cursor.call('showTip', 1);  //投票成功
-                        } else {
+                        var currentTime2 = new Date().getTime();
+                        if (currentTime2 > endTime){
                             cursor.call('showTip', 11);  //投票成功
+                        } else {
+                            cursor.call('showTip', 1);  //投票成功
                         }
 
                         // cursor.call('goBackAct');
