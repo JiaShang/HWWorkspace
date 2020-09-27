@@ -159,7 +159,10 @@
     var scrollWay = <%= sc[6]%>;
     var scrollData = <%= sc[7]%>;
     var totalBlocked = 1;
-    <%--var blocked = <%= blocked%>;--%>
+    var weekDay = getWeekday();
+    var isBetweenHour0 = betweenHour(11,0,13,0);
+    var isBetweenHour1 = betweenHour(17,0,22,0);
+        <%--var blocked = <%= blocked%>;--%>
     cursor.initialize({
         data : [<%
             String html = "";
@@ -279,34 +282,41 @@
             var items = cursor.focusable[0].items;
             player.exit();
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length);
-            if (items.length ==3 && !iPanel.HD30Adv) {
-                var VODflag = getStrParams("VODflag",items[2].name);
-                if (VODflag == 1){
+            if (weekDay != "Sunday" && (isBetweenHour0 || isBetweenHour1)) {
+                player.play({
+                    position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
+                    channelId: cursor.channelId,
+                    program: cursor.program
+                });
+            }else {
+                if (items.length ==3) {
+                    var VODflag = getStrParams("VODflag",items[2].name);
+                    if (VODflag == 1){
+                        player.play({
+                            position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
+                            channelId: cursor.channelId,
+                            program: cursor.program
+                        });
+                    } else if (VODflag == 2){
+                        player.play({'url':'rtsp://192.168.14.60/PLTV/88888888/224/3221227603/10000100000000060000000004489947_0.smil'});
+                    } else {
+                        player.play({
+                            position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
+                            serviceId: cursor.serviceId,
+                            frequency: cursor.frequency
+                        });
+                    }
+                }else {
                     player.play({
+                        vodId: item.id,
                         position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
-                        channelId: cursor.channelId,
-                        program: cursor.program
-                    });
-                } else if (VODflag == 2){
-                    player.play({'url':'rtsp://192.168.14.60/PLTV/88888888/224/3221227603/10000100000000060000000004489947_0.smil'});
-                } else {
-                    player.play({
-                        position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
-                        serviceId: cursor.serviceId,
-                        frequency: cursor.frequency
+                        callback: function () {
+                            // cursor.focusable[cursor.blocked].focus = cursor.playIndex;
+                            //cursor.call('show');
+                            //setTimeout(function(){cursor.call('lazyShow');},50);
+                        }
                     });
                 }
-
-            }else {
-                player.play({
-                    vodId: item.id,
-                    position: {width: pos[0], height: pos[1], left: pos[2], top: pos[3]},
-                    callback: function () {
-                        // cursor.focusable[cursor.blocked].focus = cursor.playIndex;
-                        //cursor.call('show');
-                        //setTimeout(function(){cursor.call('lazyShow');},50);
-                    }
-                });
             }
         },
         select : function(){
@@ -314,18 +324,22 @@
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
-            if(blocked == 0 && focus == 0 && items.length ==3 && !iPanel.HD30Adv ) {
-                var VODflag = getStrParams("VODflag",items[2].name);
-                if (VODflag == 1){ //时移播放
+            if(blocked == 0 && focus == 0 ) {
+                if (weekDay != "Sunday" && (isBetweenHour0 || isBetweenHour1)) {
                     var item = cursor.focusable[blocked].items[0];
                     item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?channelId=" + cursor.channelId + "&program=" + cursor.program + "&VODflag=1";
-                } else if (VODflag == 2) {  //直接链接地址播放
-                    var item = cursor.focusable[blocked].items[0];
-                    item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?VODflag=2";
-
-                } else {
-                    var item = cursor.focusable[blocked].items[0];
-                    item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId=" + cursor.serviceId + "&frequency=" + cursor.frequency;
+                }else if (items.length ==3) {
+                    var VODflag = getStrParams("VODflag", items[2].name);
+                    if (VODflag == 1) { //时移播放
+                        var item = cursor.focusable[blocked].items[0];
+                        item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?channelId=" + cursor.channelId + "&program=" + cursor.program + "&VODflag=1";
+                    } else if (VODflag == 2) {  //直接链接地址播放
+                        var item = cursor.focusable[blocked].items[0];
+                        item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?VODflag=2";
+                    } else {
+                        var item = cursor.focusable[blocked].items[0];
+                        item.linkto = "/EPG/jsp/neirong/shang/fullScreenVOD.jsp?serviceId=" + cursor.serviceId + "&frequency=" + cursor.frequency;
+                    }
                 }
             }
             cursor.call('selectAct');

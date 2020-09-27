@@ -314,7 +314,7 @@
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
             // alert("iPanel.HD30Adv==="+iPanel.HD30Adv+",,,,items.length =="+items.length+"blocked==="+blocked+",,,,focus =="+focus);
-            if(blocked == 0 && focus == 0 && items.length ==3 && !iPanel.HD30Adv ) {
+            if(blocked == 0 && focus == 0 && items.length ==3) {
                 var VODflag = getStrParams("VODflag",items[2].name);
                 if (VODflag == 1){ //时移播放
                     var item = cursor.focusable[blocked].items[0];

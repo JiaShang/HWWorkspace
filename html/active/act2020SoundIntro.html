@@ -9,11 +9,11 @@
         .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;}
 
         .mask {position: absolute;background: transparent url("images/mask-2020-Sounds-Intros.png") no-repeat left top; background-position: 0px 0px;}
-        .mask1{width:228px;height: 87px;left: 75px;top: 550px;background-position: 0px 0px;}
-        .mask2{width:224px;height: 87px;left: 304px;top: 550px;background-position: 0px -100px;}
-        .mask3{width:224px;height: 87px;left: 532px;top: 550px;background-position: 0px -200px;}
-        .mask4{width:224px;height: 87px;left: 755px;top: 550px;background-position: 0px -300px;}
-        .mask5{width:224px;height: 87px;left: 977px;top: 550px;background-position: 0px -400px;}
+        .mask1{width:228px;height: 90px;left: 75px;top: 550px;background-position: 0px 0px;}
+        .mask2{width:224px;height: 90px;left: 304px;top: 550px;background-position: 0px -100px;}
+        .mask3{width:224px;height: 90px;left: 532px;top: 550px;background-position: 0px -200px;}
+        .mask4{width:224px;height: 90px;left: 755px;top: 550px;background-position: 0px -300px;}
+        .mask5{width:224px;height: 90px;left: 977px;top: 550px;background-position: 0px -400px;}
     </style>
 </head>
 <body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
@@ -97,10 +97,10 @@
             init : function() {
                 var time = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
                 var index = 0;
-                if( time < '2020-06-18 00:00:00') index = 0;
-                else if( time < '2020-06-27 00:00:00') index = 1;
-                else if( time < '2020-07-10 00:00:00') index = 2;
-                else if( time < '2020-07-12 00:00:00') index = 3;
+                if( time < '2020-07-24 00:00:00') index = 0;
+                else if( time < '2020-07-30 00:00:00') index = 1;
+                else if( time < '2020-08-07 00:00:00') index = 2;
+                else if( time < '2020-08-09 00:00:00') index = 3;
                 else index = 4;
 
                 $("mask").className = "mask mask" + String( index + 1 );

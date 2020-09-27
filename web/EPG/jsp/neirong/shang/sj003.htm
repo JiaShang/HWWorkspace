@@ -1,0 +1,287 @@
+<%@ include file="../player/include.jsp" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%
+//首先获取参数中的栏目ID
+String typeId = inner.get("typeId");
+if( isEmpty(typeId ) ) typeId = "10000100000000090000000000113411";
+
+infos.add(new ColumnInfo(typeId, 0, 99));
+
+//获取当前栏目的详细信息
+Column column = new Column();
+column = inner.getDetail(typeId,column);
+String picture = column == null ? "" : inner.pictureUrl("",column.getPosters(),"7");
+%>
+<html>
+<head>
+    <title><%=column == null ? "一竖排的纯文字列表专题（模板）" : column.getName()%></title>
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .listName{
+            width: 300px;
+            height: 60px;
+            top: 210px;
+            color: #ffffff;
+            font-size:24px;
+            background-color: transparent;
+            overflow: hidden;
+            text-align: center;
+            line-height: 60px;
+        }
+        img{
+            width: 360px;
+            height: 215px;
+
+        }
+        .list{
+            position: absolute;
+            width: 360px;
+            height: 215px;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../player/common.js"></script>
+    <script language="javascript" type="application/javascript" src="js/showList.js"></script>
+    <script>
+        var listBox = null;
+        var listData = [];
+        var posters = [];
+        var bgImgs = [];
+        var scrollFlag = 1;
+        var scrollWay = 2;
+
+        document.onkeydown = grabEvent;
+        document.onirkeypress = grabEvent;
+        document.onsystemevent = grabEvent;
+
+        function grabEvent(){
+            var key_code = event.which;
+            switch(key_code){
+                case 1: //up
+                case 38:
+                case 28:
+                case 269:
+                    udMove(-1);
+                    return false;
+                    break;
+                case 2: //down
+                case 40:
+                case 31:
+                case 270:
+                    udMove(1);
+                    return false;
+                    break;
+                case 3: //left
+                case 37:
+                case 29:
+                case 271:
+                    lrMove(-1);
+                    return false;
+                    break;
+                case 4: //right
+                case 39:
+                case 30:
+                case 272:
+                    lrMove(1);
+                    return false;
+                    break;
+                case 13:
+                    doSelect();
+                    return false;
+                    break;
+                case 27:
+                case 339:
+                case 283:
+                case 340:
+                    doMenu();
+                    return false;
+                    break;
+            }
+        }
+        function init() {
+            initList();
+            show();
+        }
+        function udMove(index){
+            //上 -1，下 1
+            switch (index) {
+                case -1:    //上
+                    if( listBox.position > 2){
+                        listBox.changeList(-3);
+                    }
+                    break;
+                case 1:   //下
+                    if( listBox.position < listBox.dataSize-3){
+                        listBox.changeList(3);
+                    }
+                    break;
+            }
+            show();
+        }
+        function lrMove(index){
+            //左 -1，右 1
+            switch (index) {
+                case -1:    //左
+                    if( listBox.position > 0){
+                        listBox.changeList(-1);
+                    }
+                    break;
+                case 1:     //右
+                    if( listBox.position < listBox.dataSize-1){
+                        listBox.changeList(1);
+                    }
+                    break;
+            }
+            show();
+        }
+        function show(){
+            if(cursor.enlarged ==1){
+                $("enlargedPic1").src = bgImgs[listBox.position];
+                $("enlargedPic").style.visibility = "visible";
+            }else {
+                $("enlargedPic").style.visibility = "hidden";
+            }
+            //alert("listBox.currPage=="+listBox.currPage+",,,,listBox.listPage==="+listBox.listPage)
+            $("focus").style.left = String(48+(listBox.focusPos%3)*380)+"px";
+            $("focus").style.top = String(138+Math.floor(listBox.focusPos/3)*275)+"px";
+            // scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage)
+        }
+        function doSelect(){
+            if( cursor.enlarged ==1 ){
+                cursor.enlarged = 0;
+            }else{
+                cursor.enlarged = 1;
+            }
+            cursor.call('show');
+        }
+        function goBack(){
+            if( cursor.enlarged ==1 ) {
+                cursor.enlarged = 0;
+                cursor.call('show');
+            }else{
+                cursor.call('goBackAct');
+            }
+        }
+        function initList(){
+            listBox = new showList(6,bgImgs.length,0,127,window);
+            listBox.showType =0 ;
+            listBox.haveData = function(List){
+                $("listImg"+String(List.idPos)).src = bgImgs[List.dataPos];
+            }
+            listBox.notData = function(List){
+                $("listImg"+List.idPos).src = "images/global_tm.gif";
+            };
+            listBox.startShow();
+            initScroll(listBox.dataSize,6,listBox.listPage)
+        }
+        function initScroll(dataSize,pageCount,listPage){  //总数据长度，每页数据个数，总数据页数
+            if(scrollFlag && dataSize>pageCount){
+                $("scrollLower").style.visibility= "visible";
+                $("scrollUpper").style.visibility= "visible";
+                if (typeof scrollData != "undefined") {
+
+                    if (scrollData == 1 || scrollData == "1"){
+                        if(dataSize >= 10){
+                            $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />"+dataSize;
+                        }else{
+                            $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />&nbsp;"+dataSize;
+                        }
+                    }else if (scrollData == 2 || scrollData == "2"){
+                        if(listPage >= 10){
+                            $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />"+listPage;
+                        }else{
+                            $("scrollUpper").innerHTML = "&nbsp;1<br />&nbsp;/<br />&nbsp;"+listPage;
+                        }
+                    }
+                }
+
+                // if(scrollWay=="undefined" || scrollWay==1){
+                // 	var barLength=$("lists").offsetHeight-10;
+                // 	var barLeft=$("listName0").offsetLeft+$("listName0").offsetWidth+20;
+                // 	var scrollHeight=barLength/dataSize.toFixed(2);
+                // }else{
+                // 	var barLength=$("lists").offsetHeight-10;
+                // 	var barLeft=$("listName0").offsetLeft+$("listName0").offsetWidth+leftSpace*(row-1)+20;
+                // 	var scrollHeight=barLength/listPage.toFixed(2);
+                // }
+                // $("scrollLower").style.height=barLength+"px";
+                // $("scrollLower").style.left=barLeft+"px";
+                // $("scrollUpper").style.height=scrollHeight+"px";
+            }else{
+                $("scrollLower").style.visibility= "hidden";
+                $("scrollUpper").style.visibility= "hidden";
+            }
+        }
+        function scrollChange(dataSize,position,currPage,listPage){  //总数据长度，数据焦点，当前页数，数据总页数
+            var lowerBarLength=$("scrollLower").offsetHeight;
+            var upperBarLength=$("scrollUpper").offsetHeight;
+            if(typeof scrollWay=="undefined" || scrollWay==1 || scrollWay== "1"){
+                var percent = Number( (position/(dataSize-1)).toFixed(2));
+                $("scrollUpper").style.top=percent*(lowerBarLength-upperBarLength)+"px";
+            }else{
+                var percent = Number(((currPage-1)/(listPage-1)).toFixed(2));
+                $("scrollUpper").style.top=percent*(lowerBarLength-upperBarLength)+"px";
+            }
+            if (typeof scrollData != "undefined") {
+                if (scrollData == 1 || scrollData == "1"){
+                    if(listBox.dataSize >= 10){
+                        if(listBox.position+1 >= 10){
+                            $("scrollUpper").innerHTML = (position+1)+"<br />&nbsp;/<br />"+dataSize;
+                        }else{
+                            $("scrollUpper").innerHTML = "&nbsp;"+(position+1)+"<br />&nbsp;/<br />"+dataSize;
+                        }
+                    }else {
+                        $("scrollUpper").innerHTML = "&nbsp;"+(position+1)+"<br />&nbsp;/<br />&nbsp;"+dataSize;
+                    }
+                }else if (scrollData == 2 || scrollData == "2"){
+                    if(listBox.listPage >= 10){
+                        if(listBox.currPage+1 >= 10){
+                            $("scrollUpper").innerHTML = currPage+"<br />&nbsp;/<br />"+listPage;
+                        }else{
+                            $("scrollUpper").innerHTML = "&nbsp;"+currPage+"<br />&nbsp;/<br />"+listPage;
+                        }
+                    }else {
+                        $("scrollUpper").innerHTML = "&nbsp;"+currPage+"<br />&nbsp;/<br />&nbsp;"+listPage;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body leftmargin="0" topmargin="0" style="  overflow:hidden; background: transparent no-repeat;" onUnload="exit();">
+<div id="focus" style="position: absolute;width: 388px;height: 243px;left: 48px;top: 138px; overflow:hidden; background: url('images/J20191120ListFocus.png') no-repeat; visibility: visible; z-index: 1;" ></div>
+<div id="scrollLower" style="position: absolute;width: 7px;height: 490px;left: 1214px;top: 150px;background-color: #959ea5; visibility: visible;" >
+    <div id="scrollUpper" style="position: absolute;width: 24px;height: 92px;left: -8px;top: 0px; overflow:hidden; background: url('images/J20191120ListScroll.png') no-repeat;z-index: 1;" ></div>
+</div>
+<div  id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;">
+    <img id="enlargedPic1" style="width: 1280px;height: 720px;" src="">
+</div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+</div>
+</body>
+</html>

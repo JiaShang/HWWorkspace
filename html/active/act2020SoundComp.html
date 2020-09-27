@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
+<div class='bg' id="bg"><img src="images/bg-2020-Sounds-Comp.jpg" style="border:none; width:100%; height:100%"/> </div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:538,height:315,left:651,top:202};
+        win.isP60 = typeof sysmisc != 'undefined';
+        win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
+        win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
+        win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
+        win.HD30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 'undefined';
+        win.EPGUrl = typeof iPanel == 'undefined' ? ( ( win.isP60 ? win.address = sysmisc.getEnv('epg_address','')  : "http://117.59.202.67:8080" ) + '/EPG/jsp') : win.isGW ? iPanelGatewayHelper.getEPGServerUrl() + 'jsp' : iPanel.eventFrame.pre_epg_url;
+        var fileJS = win.isComputer ? "js/common.js"  : (win.EPGUrl + "/neirong/player/common.js");
+
+        var __loadJS = function () {};
+        win.appendJS = function(path){
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        };
+        win.exit = function(){};
+        var tooltipShow = function(message) {
+            message = message || decodeURIComponent('%E6%8E%88%E6%9D%83%E5%A4%B1%E8%B4%A5%2C%20%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%88%B0%E6%9C%BA%E9%A1%B6%E7%9B%92%E9%A6%96%E9%A1%B5%E5%90%8E%E9%87%8D%E8%AF%95%E6%88%96%E9%87%8D%E5%90%AF%E6%9C%BA%E9%A1%B6%E7%9B%92');
+            if( win.isP60 ) sysmisc.showToast(message);
+            else if( win.isGW ) iPanel.debug(message);
+            else alert(message);
+        };
+        var __evalJS = function(strJS){
+            try {
+                if(/^\s*\<html\>/g.test(strJS) ) { tooltipShow(); return ; }
+                eval( strJS );
+            } catch (e) { tooltipShow( e ); }
+        };
+        if( ! win.isP60 ) {
+            __loadJS = function(){
+                if( win.isGW ) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        var state = xhr.readyState, status = xhr.status;
+                        if (state === 4 && ( status == 200 || status == 204 )) __evalJS( xhr.responseText );
+                    };
+                    xhr.open('POST', fileJS, true);
+                    xhr.send(null);
+                } else { appendJS(fileJS); }
+            };
+        } else {
+            win.AndroidHtml5 = {
+                idCounter: 0,
+                OUTPUT_RESULTS: {},
+                CALLBACK_SUCCESS: {},
+                CALLBACK_FAIL: {},
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    AndroidHtml5.CALLBACK_SUCCESS[key] = typeof success != 'undefined'?  success : function (result) {};
+                    AndroidHtml5.CALLBACK_FAIL[key] = typeof fail != 'undefined'?  fail : function (result) {};
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        if (status == 200 && typeof this.CALLBACK_SUCCESS[key] != "undefined") {
+                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                        } else if( status != 200 && typeof this.CALLBACK_FAIL != "undefined"){
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "'](" + result.message + ")", 0);
+                        }
+                    }
+                },
+            };
+            __loadJS = function () {
+                var cookie = '[{"key": "cookie", "value":"' + "JSESSIONID=" + sysmisc.getEnv('sessionid', '') + '"}]';
+                var o = { "url": fileJS, "method": "post", "mediatype": "text/xml", "body": null, "header": cookie };
+                AndroidHtml5.callNative({ "service": "request","action": '' }, 'json',o, __evalJS ,function(e){});
+            };
+        }
+        var initialize = {
+            select:function () {
+                return;
+            }
+        };
+        __loadJS();
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

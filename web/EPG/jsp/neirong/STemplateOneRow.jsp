@@ -39,8 +39,6 @@
         picture = isEmpty( picture ) ? "none" : "images/" + picture;
     }
 
-
-
     String bo = null,bc = null,fc = null,cl = null;
     Integer tp = null,ct=null,lt=null,st=null,wh=null,ht=null,ml=null,mh = null,mt=null,bd = null, row = null, fs = null,pic=null;
     lt = inner.getInteger("lft", inner.getInteger("lt", 89));

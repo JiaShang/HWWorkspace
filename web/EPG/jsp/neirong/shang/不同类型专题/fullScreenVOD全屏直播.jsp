@@ -85,12 +85,15 @@
         },
         playMovie : function(){
             player.exit();
-            if (<%=VODflag %>) {
+            var VODflag = <%=VODflag %>;
+            if (VODflag == 1) {
                 player.play({
                     position: {width: 1280, height: 720, left: 0, top: 0},
                     channelId: <%=channelId %>,
                     program: <%=program %>
                 });
+            }else if (VODflag == 2) {
+                player.play({'url':'rtsp://192.168.14.60/PLTV/88888888/224/3221227603/10000100000000060000000004489947_0.smil'});
             }else {
                 player.play({
                     position: {width: 1280, height: 720, left: 0, top: 0},

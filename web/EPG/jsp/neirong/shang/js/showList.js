@@ -474,12 +474,6 @@ function getInputNum(_num,id){  ///输入的数字，手机号显示框id，焦�
     $(id).innerText = tmp;
 
 }
-//输入
-// function getInputNum(str,id){
-// 	var tmp = $(id).innerText;
-// 	tmp = tmp.substring(0,tmp.length-1)+str+"|";
-// 	$(id).innerText = tmp;
-// }
 //回滚手机号
 function rollBackInputNum(id){
 	var temp = 	$(id).innerText;
@@ -487,7 +481,6 @@ function rollBackInputNum(id){
 	var inputKey = temp.substring(0,temp.length-2)+"|";
 	$(id).innerText = inputKey;
 }
-
 //删除输入的数据
 function delInputNum(id){
 	var temp = 	$(id).innerText;
@@ -527,3 +520,66 @@ function getStrParams(_key, _str){
 	}
 	return "";
 }
+function timeCount(startTime,timeTable) {
+	var currentTime = new Date().getTime();
+	if (currentTime < startTime) {
+		$("time").style.visibility = "visible";
+		var dif = startTime - currentTime;
+		var day = Math.floor(dif / (24 * 60 * 60 * 1000));
+		var hour = Math.floor((dif / (60 * 60 * 1000) - day * 24));
+		var min = Math.floor(((dif / (60 * 1000)) - day * 24 * 60 - hour * 60));
+		var sec = Math.floor(((dif / 1000) - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60));
+		timeTable[0] = day;
+		timeTable[1] = hour;
+		timeTable[2] = min;
+		timeTable[3] = sec;
+	}
+	return timeTable;
+
+	// 	if (day == 0 && hour == 0){
+	// 		$("time").innerText = min + "分";
+	// 	} else if (day == 0 && hour != 0) {
+	// 		$("time").innerText = hour + "时" + min + "分";
+	// 	}else {
+	// 		$("time").innerText = day + "天" + hour + "时" + min + "分";
+	// 	}
+	// }else if (currentTime < endTime) {
+	// 	$("time").innerText = "直播进行中...";
+	// }else {
+	// 	$("time").style.visibility = "hidden";
+	// }
+//	<div id="time" style="position: absolute;width: 300px;height: 200px;left: 870px;top: 165px; overflow:hidden; background: transparent no-repeat; color: #ffbf5a;font-size: 50px;visibility: hidden;" ></div>
+}
+function getWeekday() {
+	var d=new Date()
+	var weekday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	return weekday[d.getDay()];
+}
+function betweenHour(startHour,startMin,endHour,endMin) {
+	var d=new Date();
+	if (d.getHours()<endHour && d.getHours()>startHour ) {
+		return true;
+	}else if (d.getHours() == endHour){
+		if (d.getMinutes()< endMin){
+			return true;
+		}
+	}else if (d.getHours() == startHour){
+		if (d.getMinutes()> startMin){
+			return true;
+		}
+	}
+	return false;
+}
+function betweenDay(startDay,endDay) {
+	var startTime = new Date(startDay).getTime();
+	var endTime = new Date(endDay).getTime();  //"2020-08-08 10:0:0"
+	var currentTime = new Date().getTime();
+	if (currentTime < endTime &&  startTime < currentTime){
+		return 0;
+	}if (currentTime > endTime){
+		return 1;
+	}if (startTime > currentTime){
+		return -1;
+	}
+}
+

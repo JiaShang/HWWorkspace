@@ -292,7 +292,7 @@
                                 } else {
                                     cursor.call('showTip', 4);   //首次投票，需要输入电话号
                                 }
-                            },300);
+                            },500);
                         }
                     }else {
                         if( tipFlag == 4 ){
@@ -513,7 +513,7 @@
                 if( rst != "" && rst != 'undefined') {
                     //tooltip( decodeURIComponent('获取投票结果成功') );  //成功
                     for (var j = 0;j < rst.length ;j++){
-                        // rst[j].name = decodeURIComponent(rst[j].name);
+                        rst[j].name = decodeURIComponent(rst[j].name);
                         if(iPanel.serialNumber == rst[j].name){
                             isFirstVote = false;
                             break;

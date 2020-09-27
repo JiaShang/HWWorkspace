@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .container,.bg{width:1280px;height:720px;left:0px;top:0px;position: absolute;}
+        .bg{background: transparent url("images/Bg2020GoldMarry.png") no-repeat left top;}
+        .listBody {width:340px;height:270px;position:absolute;left:170px;top:256px;overflow: hidden;}
+        .item {width:340px;height:45px;color:white;line-height:40px;font-size: 20px;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+        .mask {width:376px;height:33px;left: 152px;background:transparent url("images/Mask2020GoldMarry.png") no-repeat 0px 0px;position:absolute;}
+        .scrollBarBg {width:6px;height:260px;position:absolute;left:556px;background:white none no-repeat 0px 0px;top:260px;}
+        .scrollBar {width:6px;height:55px;position:absolute;left:556px;background:#b4a363 none no-repeat 0px 0px;}
+        .marqueeItem {line-height:40px;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-50px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div class="container" id="container">
+    <div class="bg" id="bg"></div>
+    <div id='mask'></div>
+    <div id="listBody" style="background:transparent none no-repeat 0px 0px;" class="listBody"></div>
+    <div class="scrollBarBg"></div>
+    <div id="scrollBar" class="scrollBar"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:582,height:366,left:636,top:228};
+        var initialize = {
+            init : function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000116863';
+                var that = this;
+
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=2&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        var success = rst.success;
+                        if( ! success ) {   //提示：请求栏目数据时，出现错误！
+                            tooltip( decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81') );
+                            return;
+                        }
+                        rst = rst.data;
+                        var list = rst.list;
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.focusable[0] = { items: list[1].data, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: list[1].id };
+                        if( ! isComputer ) {
+                            cursor.call('enterSmallMode');
+                            cursor.call('lazyShow');
+                        } else {
+                            cursor.call('show');
+                        }
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+            },
+            move : function(index){
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if( index == 1 || index == -1 || index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length ) return;
+                focus += index > 0 ? -1: 1;
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                $("container").style.visibility = 'hidden';
+                player.fullScreen();
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $("container").style.visibility = 'visible';
+            },
+            lazyShow : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String(blocked + 1) + String( focus + 1 );
+                if( cursor.played != id ) {
+                    cursor.playIndex = focus;
+                    cursor.call('prepareVideo');
+                    cursor.played = id;
+                }
+            },
+            prepareVideo : function(){
+                var playIndex = cursor.playIndex;
+                if( cursor.focusable[0].length <= 0 ) return;
+                var item = cursor.focusable[0].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id, callback : function(){
+                        if( cursor.fullmode ) return;
+                        cursor.call('show');
+                        var name = item.name;
+                        cursor.calcStringPixels(name, 20, function(width){
+                            if( width < 340 ) return;
+                            var focus = cursor.focusable[0].focus;
+                            $("item" + String( focus + 1 )).innerHTML = '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                        });
+                    }} );
+                } catch (e){ }
+            },
+            goBack : function(){
+                if( cursor.fullmode ) return cursor.call('enterSmallMode');
+                cursor.call("goBackAct");
+            },
+            select: function() {
+                if( !cursor.fullmode ) return cursor.call('enterFullMode');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            nextVideo : function ( ){
+                if( !cursor.moveTimer ) {
+                    var playIndex = cursor.focusable[0].focus;
+                    playIndex = playIndex + 1 < cursor.focusable[0].items.length ? playIndex + 1 : 0;
+                    cursor.focusable[0].focus = cursor.playIndex = playIndex;
+                    if( !cursor.fullmode ) {
+                        cursor.call( 'lazyShow');
+                    } else {
+                        cursor.played = "1" + String( playIndex + 1);
+                        cursor.call("playMovie", cursor.focusable[0].items[playIndex]);
+                    }
+                }
+            },
+            show: function(){
+                var blocked = 0;
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[blocked].items;
+                var pageCount = 6;
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                if( flowCursorIndex + pageCount >= items.length ) flowCursorIndex = items.length - pageCount;
+                if( flowCursorIndex < 0 ) flowCursorIndex = 0;
+                var html = "";
+                var showIndex = 0;
+                for( var i = flowCursorIndex; i < flowCursorIndex + pageCount && i < items.length; i ++ ){
+                    var item = items[i];
+                    var style = '';
+                    if( i === focus ) {
+                        showIndex = i - flowCursorIndex;
+                        style = 'style="color:#b4a363;"'
+                    };
+                    html += '<div class="item" id="item' + String( i + 1 ) + '" ' + style +  '>' + item.name + "</div>";
+                }
+                $("listBody").innerHTML = html;
+                $("mask").className = "mask";
+                $("mask").style.top = String( showIndex % pageCount * 45 + 260 ) + "px";
+
+                var scrollBarHeight = 250;
+                var h = 44;
+                $("scrollBar").style.top = Math.ceil( focus * 1.0 / (items.length - 1) * ( scrollBarHeight - h ) + 260) + "px";
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

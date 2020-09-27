@@ -158,3 +158,14 @@ iPanelGatewayHelper.launchApk("要启动应用的包名","要启动应用的类�
 
 //设置
 setprop persist.sys.epg.address "http://192.168.14.102:8082"
+
+
+
+IPTV(设置ADB，在工程菜单里面  上下左右音量+音量-)
+
+浏览器 Cookies 不能跨域
+chrome://flags/#same-site-by-default-cookies， 设置为 Disabled
+chrome://flags/#cookies-without-same-site-must-be-secure， 设置为 Disabled， 后重启浏览器
+
+
+

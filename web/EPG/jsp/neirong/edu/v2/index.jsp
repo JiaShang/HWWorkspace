@@ -26,6 +26,8 @@
     2、精读子栏目 10000100000000090000000000109314
     */
 
+    final int itemPovertyAlleviationHeight = 277;
+
     //经典影视元素的高度
     final int itemMovieHeight = 298;
     //带有子栏目的情况下,一般元素的高度
@@ -39,13 +41,13 @@
     final boolean isHd = ! isEmpty(inner.get("isHD"));
 
     //if( isHD ) infos.add(new ColumnInfo("3.0 首页推荐","10000100000000090000000000108859", 0, 99));
-    infos.add(new ColumnInfo("不忘初心 牢记使命","10000100000000090000000000111880", 0, 6));
+    infos.add(new ColumnInfo("决战决胜 脱贫攻坚","10000100000000090000000000117020", 0, 4));     //有子栏目
     infos.add(new ColumnInfo("学习时间","10000100000000090000000000108860", 0, 99));
     infos.add(new ColumnInfo("政论专题","10000100000000090000000000108867", 0, 99));
     infos.add(new ColumnInfo("基层党建","10000100000000090000000000108862", 0, 99));           //有子栏目
     infos.add(new ColumnInfo("身边榜样","10000100000000090000000000109304", 0, 99));
     infos.add(new ColumnInfo("培训课堂","10000100000000090000000000109306", 0, 99));           //由于培训课堂无内容,读取基层党建, 正确ID是:10000100000000090000000000109306, 备用:10000100000000090000000000108862
-    infos.add(new ColumnInfo("经典影视","10000100000000090000000000108875", 0, 99));           //读取重重温经典的内容,正确的应该是:10000100000000090000000000109311,备用:10000100000000090000000000108875
+    infos.add(new ColumnInfo("经典影视","10000100000000090000000000108875", 0, 100));           //读取重重温经典的内容,正确的应该是:10000100000000090000000000109311,备用:10000100000000090000000000108875
     //infos.add(new ColumnInfo("精读首页推荐","10000100000000090000000000109313", 0, 100));      //暂时未在首页显示
 
     // 党教首页有可能会有专题的情况出现, 下面设置允许查询专题
@@ -63,7 +65,12 @@
     int totalHeight = 0;
     crumb.append("<div class='crumbItem' id='crumbItem1'><div class='item' id='crumbMask1'><img src='images/indexIcon1").append(isHD ? "1" : "").append(".png' /></div></div>").append("\n");
     for ( int i = 0; i < infos.size(); i++) {
-        crumb.append("<div class='crumbItem'><div class='item' id='crumbMask").append( i + 2).append("'><img src='images/indexIcon").append(i + 2).append(".png' /></div></div>").append("\n");
+        if( i == 0 ) {
+            crumb.append("<div class='crumbItem' style='height:64px;position:relative;'><div class='item' style='position:absolute;height:40px;left:0px;top:19px;' id='crumbMask").append( i + 2).append("'></div>");
+            crumb.append("<div class='item' style='position:absolute;left:0px;top:0px;height:64px;'><img src='images/indexIcon").append(i + 2).append(".png' /></div></div>").append("\n");
+        } else {
+            crumb.append("<div class='crumbItem'><div class='item' id='crumbMask").append( i + 2).append("'><img src='images/indexIcon").append(i + 2).append(".png' /></div></div>").append("\n");
+        }
         ColumnInfo info = infos.get(i);
         Result result = i == 0 ? inner.getTypeList( info.getTypeId(), info.getStation(),info.getLength() ) : inner.getVodList( info.getTypeId(), info.getStation(),info.getLength() );
 
@@ -77,12 +84,14 @@
         if( info.name.equalsIgnoreCase("经典影视") ) clazzName = "blockMovie";
         else if( info.name.equalsIgnoreCase("基层党建") ||  info.name.equalsIgnoreCase("培训课堂") )
             clazzName = "blockedWithChildren";
+        else if( info.name.equalsIgnoreCase("决战决胜 脱贫攻坚") )
+            clazzName = "blockedAlleviation";
 
         inner.setWithId( with );
         List<Bean> vodList = (List<Bean>)result.getData();
 
         int blockSize = vodList == null ? 0 : vodList.size();
-        float rowSize = info.name.equalsIgnoreCase("经典影视") ? 5.0F : 3.0F;
+        float rowSize = info.name.equalsIgnoreCase("决战决胜 脱贫攻坚") ? 2.0F : (info.name.equalsIgnoreCase("经典影视") ? 5.0F : 3.0F);
         blockSize = (int)( Math.ceil( blockSize / rowSize ) * rowSize );
 
         //计算页面布局的高度
@@ -91,7 +100,7 @@
             if(info.name.equalsIgnoreCase("基层党建") ||  info.name.equalsIgnoreCase("培训课堂")){
                 marginTop = ((int)Math.ceil(vodList.size() / rowSize)) * itemWithColumnHeight + itemColumnHeight;
             } else {
-                marginTop = ((int)Math.ceil(vodList.size() / rowSize)) * ( info.name.equalsIgnoreCase("经典影视") ? itemMovieHeight : itemHeight );
+                marginTop = ((int)Math.ceil(vodList.size() / rowSize)) * (info.name.equalsIgnoreCase("决战决胜 脱贫攻坚") ? itemPovertyAlleviationHeight : ( info.name.equalsIgnoreCase("经典影视") ? itemMovieHeight : itemHeight ) );
             }
             marginTop = (int)Math.ceil(marginTop * 1.0 / visibleHeight) * visibleHeight;
         }
@@ -128,7 +137,7 @@
     <style>
         body{overflow:hidden;background:transparent url('images/indexBg.jpg') no-repeat;width:1280px;height: 720px;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;}
 
-        .crumb {width:223px;height:500px;position: absolute;left:0px;top:181px;overflow: hidden;}
+        .crumb {width:223px;height:500px;position: absolute;left:0px;top:100px;overflow: hidden;}
         .crumbItem {width:223px;height:54px;overflow: hidden;background: transparent no-repeat left top; float: left; position: relative;}
         .crumbItem .item,.crumbItem .mask {width:223px;height:42px;position:absolute;left:0px;top:0px;overflow: hidden;background:transparent none no-repeat;}
         .crumbItem .mask {background: #fc3333 none no-repeat;}
@@ -137,13 +146,20 @@
         .contentBorder {position:absolute;width:1000px;left:241px;top:99px;overflow: hidden;height:<%=visibleHeight%>px;}
         .content{position:absolute;width:1000px;left:0px;top:0px;overflow: hidden;}
 
-        .blocked,.blockedWithChildren,.blockMovie,.onlineTest {width:1000px;float: left;position:relative;overflow: hidden;}
+        .blocked,.blockedAlleviation,.blockedWithChildren,.blockMovie,.onlineTest {width:1000px;float: left;position:relative;overflow: hidden;}
         .blocked .item{width:331px;height:<%=itemHeight%>px;position:relative;float:left;overflow: hidden;}
-        .blocked .item .image,.blocked .item .image img,.blockedWithChildren .item .image,.blockedWithChildren .item .image img{width:317px;height:181px;left:3px;top:3px;position:absolute;overflow: hidden;border:none;}
-        .blocked .item .text,.blockedWithChildren .item .text {width:317px;top:184px;height:38px;left:3px;position:absolute;font-size: 20px;color:#242424;background-color:white;text-align: center;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;line-height: 38px;}
-        .blocked .item .mask,.blockedWithChildren .item .mask {width:<%= 321 - (browser ? 14 : 0) %>px;height:<%= 224 - (browser ? 14 : 0) %>px;position:absolute;left:1px;top:1px;overflow: hidden;background:transparent none no-repeat left top;border:#fff200 7px solid;}
-        .blocked .item .image img,.blockedWithChildren .item .image img{left:0px;top:0px;}
-        .blocked .item .mask marquee,.blockedWithChildren .item .mask marquee{width:211px;height:38px;line-height:38px;}
+        .blocked .item .image,.blocked .item .image img,.blockedWithChildren .item .image,.blockedWithChildren .item .image img,.blockedAlleviation .item .image,.blockedAlleviation .item .image img{width:317px;height:181px;left:3px;top:3px;position:absolute;overflow: hidden;border:none;}
+        .blocked .item .text,.blockedWithChildren .item .text ,.blockedAlleviation .item .text {width:317px;top:184px;height:38px;left:3px;position:absolute;font-size: 20px;color:#242424;background-color:white;text-align: center;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;line-height: 38px;}
+        .blocked .item .mask,.blockedWithChildren .item .mask,.blockedAlleviation .item .mask {width:<%= 321 - (browser ? 14 : 0) %>px;height:<%= 224 - (browser ? 14 : 0) %>px;position:absolute;left:1px;top:1px;overflow: hidden;background:transparent none no-repeat left top;border:#fff200 7px solid;}
+        .blocked .item .image img,.blockedWithChildren .item .image img,.blockedAlleviation .item .image img{left:0px;top:0px;}
+        .blocked .item .mask marquee,.blockedWithChildren .item .mask marquee,.blockedAlleviation .item .mask marquee{width:211px;height:38px;line-height:38px;}
+
+        .blockedAlleviation .item{width:470px;height:<%=itemPovertyAlleviationHeight%>px;position:relative;float:left;overflow: hidden;}
+        .blockedAlleviation .item .image,.blockedAlleviation .item .image img{width:430px;height:205px;left:3px;top:3px;position:absolute;overflow: hidden;border:none;}
+        .blockedAlleviation .item .text{width:430px;top:208px;height:43px;left:3px;position:absolute;font-size: 22px;color:#242424;background-color:white;text-align: center;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;line-height: 43px;}
+        .blockedAlleviation .item .mask{width:<%= 435 - (browser ? 14 : 0) %>px;height:<%= 253 - (browser ? 14 : 0) %>px;position:absolute;left:1px;top:1px;overflow: hidden;background:transparent none no-repeat left top;border:#fff200 7px solid;}
+        .blockedAlleviation .item .image img,.blockedWithChildren .item .image img{left:0px;top:0px;}
+        .blockedAlleviation .item .mask marquee{width:410px;height:43px;line-height:43px;}
 
         .blockedWithChildren .item {width:331px;height:<%=itemWithColumnHeight%>px;position:relative;float:left;overflow: hidden;}
         .blockedWithChildren .children {width:331px;height:<%=itemColumnHeight%>px;position:relative;float:left;overflow: hidden; text-align: center;}
@@ -157,9 +173,6 @@
         .blockMovie .item .image img {left:0px;top:0px;}
         .blockMovie .item .text {width:176px;top:242px;height:38px;left:3px;position:absolute;font-size: 20px;color:#242424;background-color:white;text-align: center;overflow:hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;line-height: 38px;}
         .blockMovie .item .mask {width:<%= 180 - (browser ? 14 : 0) %>px;height:<%= 274 - (browser ? 7 : 0) %>px; left:1px;top:1px; position:absolute;background:transparent none no-repeat left top;border:#fff200 7px solid;}
-
-        .searchBtn{width:36px;height:36px;left:46px;top:125px;position:absolute;background: transparent url("images/mask_list.png") no-repeat -130px -140px;}
-
     </style>
     <script language="javascript" type="text/javascript" src="../../player/common.js"></script>
 </head>
@@ -175,7 +188,6 @@
             <%= content.toString() %>
         </div>
     </div>
-    <div class="searchBtn" id="searchBtn" style="visibility: hidden;"></div>
     <div class="shade" id="shade"></div>
 </div>
 <%%>
@@ -183,6 +195,35 @@
 </body>
 <script language="javascript" type="text/javascript">
     <!--
+    //type == 0 或者为空时，返回，有多少行，
+    //type == 1 返回每行元素的高度
+    //type == 2 返回每行元素的宽度
+    var getRowSize = function(columnName, type){
+        var rowSize = undefined;
+        if( typeof type == "undefined" || type == 0 ) {
+            rowSize = 3;
+            if( columnName == '经典影视' ) {
+                rowSize = 5;
+            } else if( columnName == '决战决胜 脱贫攻坚') {
+                rowSize = 2;
+            }
+        } else if( type == 1 ) {
+            rowSize = <%=itemHeight%>;
+            if( columnName == '经典影视' ) {
+                rowSize = <%=itemMovieHeight%>;
+            } else if( columnName == '决战决胜 脱贫攻坚') {
+                rowSize = <%=itemPovertyAlleviationHeight%>;
+            }
+        } else if( type == 2 ) {
+            rowSize = 317
+            if( columnName == '经典影视' ) {
+                rowSize = 176;
+            } else if( columnName == '决战决胜 脱贫攻坚') {
+                rowSize = 470;
+            }
+        }
+        return rowSize;
+    }
     var initialize = {
         data        : [<%out.write(jsonBuilder.toString());%>],
         focused     :   [<%= inner.getPreFoucs() %>],
@@ -234,7 +275,7 @@
             for( var i = 0; i < cursor.focusable[1].items.length; i++ ) {
                 var item = cursor.focusable[1].items[i];
                 if( typeof item.linkto === 'undefined' ) {
-                    cursor.focusable[1].items[i].linkto = '/EPG/jsp/neirong/edu/v2/list.jsp?parentId=' + item.id + '&index=0&typeId=' + item.id;
+                    cursor.focusable[1].items[i].linkto = '/EPG/jsp/neirong/edu/v2/list.jsp?parentId=' + item.id + '&index=' + String(i) + '&typeId=10000100000000090000000000117020';
                 }
             }
             // 此为搜索按钮
@@ -248,8 +289,7 @@
             var focus = cursor.focusable[blocked].focus;
             var items = cursor.focusable[blocked].items;
 
-            var columnName = cursor.focusable[0].items[ cursor.focusable[0].focus ].name;
-            var rowSize = columnName === '经典影视' ? 5 : 3;
+            var rowSize = getRowSize(cursor.focusable[0].items[ cursor.focusable[0].focus ].name);
             if( blocked === 0 && ( index == -1 || index === -11 && focus + 1 >= items.length ) ||
                 (blocked >= 1 && blocked < cursor.focusable.length - 1 ) && index === 1 && ( focus % rowSize === (rowSize - 1) || focus + 1 >= items.length ) ||
                 blocked === cursor.focusable.length - 1 && (index === -1 || index === 11)
@@ -260,8 +300,10 @@
                 {
                     focus += index > 0 ? -1 : 1;
                     if( index === 11 && focus < 0 ) {
-                        blocked = cursor.focusable.length - 1;
-                        focus = 0;
+                        return;
+                        // 原来是搜索，现在不用
+                        //blocked = cursor.focusable.length - 1;
+                        //focus = 0;
                     } else {
                         //这句为新添加, 目的是为了每次移动左侧列表时,光标都在第一个, 段总提出:
                         if( focus > 0 && focus + 1 < items.length ){
@@ -271,8 +313,7 @@
                 } else {
                     if( focus === 0 ) blocked = 1;
                     else blocked = focus;
-                    columnName = cursor.focusable[0].items.length > blocked ? cursor.focusable[0].items[blocked].name : "";
-                    rowSize = columnName === '经典影视' ? 5 : 3;
+                    rowSize = getRowSize(cursor.focusable[0].items.length > blocked ? cursor.focusable[0].items[blocked].name : "");
                     focus = Math.floor(cursor.focusable[blocked].focus * 1.0 / rowSize) * rowSize;
                 }
             } else if( blocked === cursor.focusable.length - 1 ) { //如果焦点在搜索按钮上
@@ -298,8 +339,7 @@
                             current -= 1;
                             if( current <= 0 ) return;
                             nextFocus = rowSize + nextFocus;
-                            columnName = cursor.focusable[0].items[ current ].name;
-                            nextRowSize = columnName === '经典影视' ? 5 : 3;
+                            nextRowSize = getRowSize(cursor.focusable[0].items[ current ].name);
                             var nextItemCount = cursor.focusable[current].items.length;
                             //当光标向上移动,需要移动到上一区块时,一般移动到上一块最后一个条目.
                             if( nextItemCount === 0 ) {
@@ -317,8 +357,7 @@
                             } else {
                                 current += 1;
                                 if( current >= cursor.focusable[0].items.length ) return;
-                                columnName = cursor.focusable[0].items[ current ].name;
-                                nextRowSize = columnName === '经典影视' ? 5 : 3;
+                                nextRowSize = getRowSize(cursor.focusable[0].items[ current ].name);
                                 //当光标向下移动时,如果当前焦点超出当前区块长度,移动到下一个
                                 if( cursor.focusable[current].items.length === 0 ) {
                                     blocked = 0; focus = cursor.focusable[blocked].focus;
@@ -351,35 +390,34 @@
             var itemsCount = cursor.focusable[focus].items.length;
             focus = cursor.focusable[focus].focus;
             var invisible = 0, itemHeight = 0;
-            var rowSize = columnName === '经典影视' ? 5 : 3;
+            var rowSize = getRowSize(columnName);
             if( columnName === '基层党建' || columnName === '培训课堂' ) {
                 itemHeight = <%=itemWithColumnHeight%>;
                 invisible = Math.ceil((focus + 1.0) / rowSize) * itemHeight;
                 if( invisible >= 3 ) invisible -= ( <%=itemWithColumnHeight%> - <%=itemColumnHeight%> ); //减去前面语句多加的那一部份
             } else {
-                itemHeight = columnName === '经典影视' ? <%=itemMovieHeight%> : <%=itemHeight%>;
+                itemHeight = getRowSize(columnName, 1);
                 invisible = Math.ceil((focus + 1.0) / rowSize)  * itemHeight;
             }
-            //如果当前选中的元素超过可见区域, 把当前选中元素置于屏幕中间.
-            //此处代码修改,当移动光标时, 如果超出部份仅为当前的一半时, 原为是显示在屏幕当中
-            /*if( invisible > <%= visibleHeight%> ) {
-                var marginTop = Math.floor( invisible * 1.0 / <%= visibleHeight%>) * <%= visibleHeight%>;
-                var marginOffset = ( <%= visibleHeight%> - itemHeight ) / 2;
-                baseMargin += marginTop - marginOffset;
-            } 修改为以下代码, 以屏幕底部对齐:*/
             if( invisible > <%= visibleHeight%> ) {
                 var marginTop = Math.floor( invisible * 1.0 / <%= visibleHeight%>) * <%= visibleHeight%>;
                 var marginOffset = 0;
                 if( columnName !== '经典影视' || Math.ceil((focus + 1.0) / rowSize) % 2 === 1 && Math.ceil((focus + 1.0) / rowSize) < Math.ceil(itemsCount * 1.0 / rowSize )) {
-                    marginOffset = ( <%= visibleHeight%> - itemHeight ) / 2;
-                    baseMargin += marginTop - marginOffset;
+                    if( Math.ceil(( focus + 1.0  ) / rowSize) < Math.ceil( itemsCount * 1.0 / rowSize ) ) {
+                        if( Math.ceil(( focus + 1.0  ) / rowSize) > 2 ) {
+                            marginOffset = (Math.ceil(( focus + 1.0  ) / rowSize) - 2) * itemHeight + itemHeight / 2.0;
+                            baseMargin += marginOffset;
+                        }
+                    } else {
+                        baseMargin += invisible - 620;
+                    }
                 } else {
                     baseMargin += invisible - itemHeight * 2;
                 }
             }
             $("content").style.marginTop = "-" + baseMargin + "px";
 
-            var width = columnName === '经典影视' ? 176 : 317;
+            var width = getRowSize( columnName, 2);
             var blocked = cursor.blocked;
             var items = cursor.focusable[blocked].items;
             var focus = cursor.focusable[blocked].focus;
@@ -493,10 +531,7 @@
 
             if( blocked === cursor.focusable.length - 1 ) {
                 $("crumbMask1").className = 'item';
-                $("searchBtn").style.visibility =  "visible";
             } else {
-                $("searchBtn").style.visibility =  "hidden";
-
                 blocked = 0;
                 if(blocked === 0 || cursor.focusable[blocked].last != focus) {
                     last = cursor.focusable[blocked].last;

@@ -50,7 +50,7 @@
         builder.append("\"");
         if ( film.getIsSitcom() == 1 ){
             builder.append(",\"subvnumlist\":[");
-            List list = helper.getSitcomList(id,200, 0);
+            List list = helper.getSitcomList(id,999, 0);
             if (list != null && list.size() == 2 ) {
                 list = (List) list.get(1);
                 if( list != null && list.size() > 0 ) {

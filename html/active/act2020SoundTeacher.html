@@ -6,19 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <style>
-        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;background: transparent url("images/bg-2020-Sounds-Teacher.jpg") no-repeat left top;}
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;background: transparent url("images/bg-2020-Sounds-Teacher.png") no-repeat left top;}
         .row1 {width:300px;height:240px;position: absolute;top:215px;}
+        .mask11 {width:283px;height:100px;left:59px;top:339px;position:absolute;background:transparent url("images/focus-2020-Sounds-Teacher-1.png") no-repeat left top;}
+        .mask12 {width:282px;height:221px;left:352px;top:220px;position:absolute;background:transparent url("images/focus-2020-Sounds-Teacher-2.png") no-repeat left top;}
+        .mask13 {width:288px;height:223px;left:634px;top:218px;position:absolute;background:transparent url("images/focus-2020-Sounds-Teacher-3.png") no-repeat left top;}
+        .mask14 {width:291px;height:223px;left:922px;top:218px;position:absolute;background:transparent url("images/focus-2020-Sounds-Teacher-4.png") no-repeat left top;}
         .row2 {width:200px;height:158px;position: absolute;top:466px;}
-        .intro {width:1280px;height:720px;left:0px;top:0px;position: absolute;}
-        .mask{width:300px;height:220px;position:absolute;top:458px;background: transparent none no-repeat left top; background-image: none;}
+        .intro {width:811px;height:447px;left:215px;top:177px;position: absolute;}
+        .mask21{width:218px;height:175px;left:61px;top:458px;position:absolute;top:458px;background: transparent url("images/focus-2020-Sounds-Teacher.png") no-repeat left top;}
+        .mask22{width:218px;height:175px;left:294px;top:458px;position:absolute;top:458px;background: transparent url("images/focus-2020-Sounds-Teacher.png") no-repeat left top;}
+        .mask23{width:218px;height:175px;left:527px;top:458px;position:absolute;top:458px;background: transparent url("images/focus-2020-Sounds-Teacher.png") no-repeat left top;}
+        .mask24{width:218px;height:175px;left:762px;top:458px;position:absolute;top:458px;background: transparent url("images/focus-2020-Sounds-Teacher.png") no-repeat left top;}
+        .mask25{width:218px;height:175px;left:999px;top:458px;position:absolute;top:458px;background: transparent url("images/focus-2020-Sounds-Teacher.png") no-repeat left top;}
     </style>
 </head>
 <body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/translateBg.png') no-repeat;" onUnload="exit();">
 <div style="position:absolute;z-index:0;width:2500px;height:45px;top:0px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
     <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
 </div>
-<div id="listBody" style="position:absolute;width:1280px;height:720px;left:0px;top:0px;overflow: hidden;">
-</div>
+<div id="bg" class="bg" ></div>
+<div id="mask"></div>
 <div class="intro" id="popup" style="visibility:hidden"></div>
 <script typeof="javascript" type="text/javascript">
     (function(win){
@@ -108,47 +116,21 @@
                 var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=1' + enc;
                 var focused = win.link.query('currFoucs');
                 focused = focused != '' ? focused.split(',') : [];
-                ajax(url,
-                    function(rst){
-                        var success = rst.success;
-                        if( ! success ) {   //提示：请求栏目数据时，出现错误！
-                            tooltip( decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81') );
-                            return;
-                        }
-                        rst = rst.data;
-                        var data = [];
-                        var list = rst.list;
-                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
-                        for( var i = 0; i < 4; i ++ ) data[i] = list[i];
-                        cursor.focusable[0] = { items: data, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: typeId };
-                        data = [];
-                        for( var i = 4 ; i < list.length ; i ++ ) data[i - 4] = list[i];
-                        cursor.focusable[1] = { items: data, focus : focused.length > 2 ? Number(focused[2]) : 0};
-                        var html = '<div class="bg"></div>';
-                        var left = 0, picture = '';
-                        for( var i = 0; i < list.length; i ++ ){
-                            var item = list[i];
-                            picture = cursor.pictureUrl(item.posters, 3);
-                            if( i < 4 ) {
-                                left = i * 280 + 80;
-                                html += '<div class="row1" id="item1' + String( i + 1) + '" style="left:' + String( left )  + 'px;background:transparent url(\'' + picture + '\') no-repeat left top;"></div>';
-                            } else {
-                                left = ( i - 4 ) * 230 + 90;
-                                html += '<div class="row2" id="item2' + String( i - 3) + '" style="left:' + String( left ) + 'px;background:transparent url(\'' + picture + '\') no-repeat left top;"></div>';
-                            }
-                        }
-                        html += '<div class="mask" id="mask"></div>';
-                        $("listBody").innerHTML = html;
-                        setTimeout( function() {cursor.call('show');}, 500);
-                    },
-                    {
-                        fail:function( meg )
-                        {
-                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
-                            return;
-                        }
-                    }
-                );
+                cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                cursor.focusable[0] = { items: [
+                    {name:'犀牛', index: 1},
+                    {name:'向雪怀', index: 2},
+                    {name:'吴健培', index: 3},
+                    {name:'老虎', index: 4}
+                ], focus : focused.length > 1 ? Number(focused[1]) : 0};
+                cursor.focusable[1] = { items: [
+                    {name:'杜超之', index: 5},
+                    {name:'将克难', index: 6},
+                    {name:'李白', index: 7},
+                    {name:'许科', index: 8},
+                    {name:'农俊瑜', index: 9}
+                ], focus : focused.length > 2 ? Number(focused[2]) : 0};
+                cursor.call('show');
             },
             goBack : function(){
                 if( cursor.popup ) { return cursor.call('hiddenPop');}
@@ -159,7 +141,7 @@
                 var blocked = cursor.blocked;
                 var focus = cursor.focusable[blocked].focus;
                 var item = cursor.focusable[blocked].items[focus];
-                $("popup").style.backgroundImage = 'url("' + cursor.pictureUrl(item.posters, "7") + '")';
+                $("popup").style.backgroundImage = 'url("images/item-2020-Sounds-Teacher-Pop-' + item.index + '.png")';
                 $("popup").style.visibility = 'visible';
             },
             hiddenPop:function(){
@@ -191,16 +173,7 @@
             show: function(){
                 var blocked = cursor.blocked;
                 var focus = cursor.focusable[blocked].focus;
-                if( blocked == 0 ) {
-                    var item = cursor.focusable[blocked].items[focus];
-                    $("mask").style.top = '215px';
-                    $("mask").style.left = String( focus * 280 + 80 ) + 'px';
-                    $("mask").style.backgroundImage = 'url("' + cursor.pictureUrl(item.posters, "4") + '")';
-                } else {
-                    $("mask").style.top = '457px';
-                    $("mask").style.left = String( focus * 230 + 81 ) + 'px';
-                    $("mask").style.backgroundImage = 'url("images/mask-2020-Sounds-Teacher.png")';
-                }
+                $("mask").className = 'mask' + String(blocked + 1) + String(focus + 1);
             }
         };
         __loadJS();

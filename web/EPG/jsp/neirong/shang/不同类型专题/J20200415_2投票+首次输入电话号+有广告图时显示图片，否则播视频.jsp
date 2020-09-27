@@ -292,7 +292,7 @@
                                     } else {
                                         cursor.call('showTip', 4);   //首次投票，需要输入电话号
                                     }
-                                },300);
+                                },1000);
                             }
                         }else {
                             if( tipFlag == 4 ){

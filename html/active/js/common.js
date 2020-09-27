@@ -92,43 +92,73 @@
 
     win.isP60 = typeof sysmisc != 'undefined';
     win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
-
-    win.HD30 = typeof iPanel != 'undefined' && typeof iPanel.eventFrame.systemId == 'undefined';
+    win.IPTV = typeof iPanelJavaInspector != 'undefined';
+    win.HD30 = typeof iPanel != 'undefined' && typeof iPanel.eventFrame.systemId == 'undefined' && typeof iPanelJavaInspector == 'undefined';
     win.isGW = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 2;
     win.isP30 = typeof iPanel != 'undefined' && iPanel.eventFrame.systemId == 1;
-
-    if (typeof iPanel === 'undefined') {
-        document.onkeydown = function (event) {
-            win.debug('=======>>>>> OnKeydown :', event.keyCode, ' <<<<<=======');
-            switch (event.keyCode) {
-                case 19:                                    //P60 中的 上
-                case 38: cursor.call('onMoveUp'); break;    //上光标键
-                case 20:                                    //P60 中的 下
-                case 40: cursor.call('onMoveDown'); break;  //下光标键
-                case 21:                                    //P60 中的 左
-                case 37: cursor.call('onMoveLeft'); break;  //左光标键
-                case 22:                                    //P60 中的 右
-                case 39: cursor.call('onMoveRight'); break; //右光标键
-                case 33: cursor.call('onPageUp'); break;    //PageUp
-                case 34: cursor.call('onPageDown'); break;  //PageDown
-                case 66:                                    //P60 中的 OK
-                case 13: cursor.call('select'); break;      //选择回车键
-                case 4:                                     //P60 中的返回
-                case 8:                                     // Backspace 键执行返回
-                case 46: cursor.call('goBack'); break;      //DEL 键退出
-                case 36:
-                case 458: cursor.call('goHome'); break;     //HOME 键执行 HOME 功能
-                default:
-                    var code = event.keyCode;
-                    if (code >= 48 && code <= 57) {    //如果按数字键,执行输入功能.
-                        var ch = String.fromCharCode(code);
-                        cursor.call("input", ch);
-                    }
-                    break;
+    win.debug = function(){
+        var message = 'COMMONJS :';
+        for( var i = 0; i < arguments.length ; i ++ ) message += String( arguments[i] );
+        if( link.query('debug') != '' ){
+            if ( win.isP60 ){
+                sysmisc.showToast(message);
+            } else if( win.isComputer || win.IPTV ){
+                console.log(message);
+            } else {
+                alert(message);
             }
-            event.preventDefault();
-            return false;
-        };
+        } else {
+            if( typeof console != 'undefined' ) {
+                console.log ( message );
+            } else {
+                iPanel.debug( message );
+            }
+        }
+    };
+    win.handlers = function (event) {
+        win.debug('=======>>>>> OnKeydown :', event.keyCode, ' <<<<<=======');
+        switch (event.keyCode) {
+            case 19:                                    //P60 中的 上
+            case 38: cursor.call('onMoveUp'); break;    //上光标键
+            case 20:                                    //P60 中的 下
+            case 40: cursor.call('onMoveDown'); break;  //下光标键
+            case 21:                                    //P60 中的 左
+            case 37: cursor.call('onMoveLeft'); break;  //左光标键
+            case 22:                                    //P60 中的 右
+            case 39: cursor.call('onMoveRight'); break; //右光标键
+            case 33: cursor.call('onPageUp'); break;    //PageUp
+            case 34: cursor.call('onPageDown'); break;  //PageDown
+            case 66:                                    //P60 中的 OK
+            case 13: cursor.call('select'); break;      //选择回车键
+            case 4:                                     //P60 中的返回
+            case 8:                                     // Backspace 键执行返回
+            case 46: cursor.call('goBack'); break;      //DEL 键退出
+            case 36:
+            case 458: cursor.call('goHome'); break;     //HOME 键执行 HOME 功能
+            case 13001:                                 //IPTV, ready，设置播放地址后等消息播放
+                if( typeof player.instance != 'undefined' )
+                    player.instance.play( 2 );
+                break;
+            case 13003:                                 //播放成功
+                cursor.call('play');
+                break;
+            case 13015:                                 //播完完毕
+                player.exit();
+                cursor.call('nextVideo');
+                break;
+            default:
+                var code = event.keyCode;
+                if (code >= 48 && code <= 57) {    //如果按数字键,执行输入功能.
+                    var ch = String.fromCharCode(code);
+                    cursor.call("input", ch);
+                }
+                break;
+        }
+        event.preventDefault();
+        return false;
+    };
+    if (typeof iPanel === 'undefined') {
+        document.onkeydown = win.handlers;
         //下列事件,模拟机顶盒播放操作.
         document.addEventListener('iPanelEvent', function (e) {
             //参数通过 e.detail 传递过来.
@@ -274,32 +304,122 @@
         };
         win.E = {is_HD_vod: true};
     };
-    win.link = win.link || location.href;
-    win.debug = function(){
-        var message = 'COMMONJS :';
-        for( var i = 0; i < arguments.length ; i ++ ) message += String( arguments[i] );
-        if( link.query('debug') != '' ){
-            if ( win.isP60 ){
-                sysmisc.showToast(message);
-            } else if( win.isComputer ){
-                console.log(message);
-            } else {
-                alert(message);
-            }
-        } else {
-            if( typeof console != 'undefined' ) {
-                console.log ( message );
-            } else {
-                iPanel.debug( message );
+    if(typeof iPanelJavaInspector === 'undefined' ) {
+        win.iPanelJavaInspector = {};
+        if( typeof hardware === 'undefined' ) {
+            hardware = {
+                STB: {
+                    serialNumber : '9950000001424641',
+                    sVersion : '',                      //软件版本
+                    hVersion : '',                      //硬件版本
+                }
             }
         }
-    };
+        if( typeof network === 'undefined') {
+            network = {
+                IPAddress : '',
+                MACAddress : ''
+            }
+        }
+        if( typeof iPanel.getVSP === 'undefined' ) {
+            iPanel.getVSP = function(){};
+            iPanel.getVodAuthObject = function(){
+                //获取区县四级地址
+                //var region_code = tmpObj.region_code;  //区县地址
+                //var region_name = tmpObj.region_name;  //区县名称
+                //var street_code = tmpObj.street_code;  //街镇地址
+                //var street_name = tmpObj.street_name;  //街镇名称
+                //var community_code = tmpObj.community_code;  //社区地址
+                //var community_name = tmpObj.community_name;  //社区名称
+                //var village_code = tmpObj.village_code;      //小区地址
+                //var village_name = tmpObj.village_name;      //小区名称
+            };
+            iPanel.openMediaDetail = function(id,column_id){}  //媒资id根据规定只接收华为外部 id,  栏目id，如不传默认“-1”
+            iPanel.openMediaPlay = function(id, column_id, extras,extrasType){
+                //影片跳转统一播放器，内置点播鉴权，试看功能。
+                //flagType     0：使用AAA 鉴权,  1：使用 VOD 鉴权
+                //playType     1：电影，2：剧集
+                //isOutId      true：外部id，false： 内部 id
+                //baseFlag     0：包月，1：按次点播；2：按次点+包月（为0是走统一播放器流程，为1和 2时走原按次点播播放流程）；3：免费；4：体验券（体 验券不鉴权）
+                //items        开始播放的集数；电影默认为1
+                //initSeek     开始播放的毫秒数，比如30000
+                //isPush       当有传initSeek 时，固定为true
+                //previewFlag  是否支持预览。0不支持，1支持
+                //previewTime  当playType 为1单视频时根据 previewtime 处理预览时长
+                //previewItem  可预览的集数（当playType 为2 剧集时 根据 previewitem处理可预览的集数；例如支持预 览1~5集，则填写5，播放大于该集数时则根 据鉴权结果引导订购或继续正常播放）
+                //orderProduct 需要订购的产品ID（统一订购页面用）
+                //authProduct  需要鉴权的产品ID（AAA 鉴权用）
+                //spCode       AAA 鉴权用
+                //appCode      AAA 鉴权用
+                //appKey       AAA 登录用，signature= （spCode+appCode+userNo+password+ appKey）,按说明参数顺序32位 MD5加密
+                //appId        统一订购页面用
+                //sessionId    spCode+{卡号后4 位}+{yymmddHHmiss}+{3 位随机数}
+            }
+            iPanel.openLivePlay = function (type, channel) {
+                //type     6：频道 id（华为频道id）；2：频道号；3：频道名称
+                //channel  频道参数
+                //iPanel.openLivePlay(6, "10058");
+                //iPanel.openLivePlay(2, "1");
+                //iPanel.openLivePlay(3, "浙江高清");
+            }
+            iPanel.openTimeShift = function(type, channel){
+                //type     6：频道 id（华为频道id）；2：频道号；3：频道名称
+                //channel  频道参数
+                //iPanel.openLivePlay(6, "10058");
+                //iPanel.openLivePlay(2, "1");
+                //iPanel.openLivePlay(3, "浙江高清");
+            }
+            iPanel.misc = {
+                goBackApp : function () { },                     //关闭浏览器返回上级apk
+                startOtherApp : function (name, extras) {
+                    //name  支持"包名"，"包名/类名"格式
+                    //name  扩展参数，json对象(值支持字符串，整型，boolean值)
+                    //iPanel.misc.startOtherApp("com.ipanel.test/com.ipanel.test.TestActivity",{"startMo de":"background","duration":100});
+                }
+            }
+        }
+        if( typeof win.MediaPlayer === 'undefined' ) {
+            win.MediaPlayer = {
+                getPlayerInstanceID : function() { },
+                unbindPlayerInstance: function(instanceId){ },                  //退出播放页面时停止，解绑
+                bindPlayerInstance : function(instanceId){ },
+                setVideoDisplayMode : function( mode ){ },                      //0:使用设置窗口参数；1:使用默认全屏大小
+                setVideoDisplayArea : function ( left,top,width,height ) { },
+                refresh : function () { },                                      //使设置参数生效
+                setMediaSource : function ( playUrl ) { },                      //播放地址
+                stop : function(){ },
+                play : function(){ },
+                pause : function(){ }
+
+                /*
+                var mp = new MediaPlayer();
+                var instanceId = mp.getPlayerInstanceID();
+                mp.bindPlayerInstance(instanceId);
+                mp.setVideoDisplayMode(0);
+                mp.setVideoDisplayArea(0, 0, 700, 500);//left,top,width,height
+                mp.refresh();//使设置参数生效
+                var playUrl = 'igmp://234.5.1.6:12345';//获取方法见下节获取华为点播地址方法
+                mp.setMediaSource(playUrl);
+                */
+            }
+
+            //华为点播鉴权获取播放地址方法
+            //epgUrl +"/VSP/V3/PlayVOD";
+            //获取华为媒资 id，华为鉴权接口需要使用
+            //epgUrl +"/VSP/V3/QueryVOD";
+
+        }
+    } else {
+        document.onkeydown = document.onirkeypress = document.onsystemevent = win.handlers;
+    }
+    win.link = win.link || location.href;
     /*机顶盒的MAC地址*/
     win.iPanel.MAC = (function() {
         var defaultMac = '00:00:00:00:00:00';
         if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("NTID") || network.ethernets[0].MACAddress;
         if ( win.isP60 )  return sysmisc.getMac();              //P60盒子
-        if ( win.isGW ) return defaultMac; //网关
+        if ( win.isGW ) return defaultMac;                      //网关
+        if ( win.IPTV ) return network.MACAddress;              //IPTV
         return defaultMac;
     })();
     /*机顶盒的IP地址*/
@@ -307,14 +427,16 @@
         var defaultIp = '0.0.0.0';
         if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("IP") || network.ethernets[0].IPs[0].address;
         if ( win.isP60 )  return sysmisc.getEnv("dhcp.eth0.ipaddress",defaultIp);       //P60盒子
-        if ( win.isGW ) return defaultIp; //网关
+        if ( win.isGW ) return defaultIp;                                                   //网关
+        if ( win.IPTV ) return  network.IPAddress;                                          //IPTV
         return defaultIp;
     })();
     /*机顶盒的序列号*/
     win.iPanel.cardId = (function() {
         if ( win.HD30 || win.isP30 ) return iPanel.ioctlRead("ICID") || CA.card.cardId;
         if ( win.isP60 )  return sysmisc.getSn();               //P60盒子
-        if ( win.isGW ) return ''; //网关
+        if ( win.isGW ) return '';                              //网关
+        if ( win.IPTV ) return hardware.STB.serialNumber;       //IPTV机顶盒没有单独获取序列号的接口，所以直接用机顶盒卡号代替。
         return "";
     })();
     /*机顶盒的卡号*/
@@ -322,6 +444,7 @@
         if ( win.HD30 || win.isP30 ) return CA.card.serialNumber;
         if ( win.isP60 )  return sysmisc.getEnv('persist.sys.CARDID', sysmisc.getChipId());//P60盒子
         if ( win.isGW ) return iPanelGatewayHelper.getCaCard(); //网关
+        if ( win.IPTV ) return hardware.STB.serialNumber;       //IPTV机顶盒
         return "9950000001424641";
     })();
     /*机顶盒卡号的GroupId*/
@@ -330,6 +453,7 @@
         if ( win.HD30 || win.isP30 ) return iPanel.eventFrame.ServiceGroupID;
         if ( win.isP60 )  return sysmisc.getEnv('service.group.id', defaultGroupId );//P60盒子
         if ( win.isGW ) return defaultGroupId; //网关
+        if ( win.IPTV ) return '';
         return defaultGroupId;
     })();
     /*机顶盒的netType*/
@@ -337,7 +461,8 @@
         var defaultNetType = 'Cable';
         if ( win.HD30 || win.isP30 ) return iPanel.eventFrame.netType;
         if ( win.isP60 )  return defaultNetType;//P60盒子
-        if ( win.isGW ) return defaultNetType; //网关
+        if ( win.isGW ) return defaultNetType;  //网关
+        if ( win.IPTV ) return '';
         return defaultNetType;
     })();
     win.iPanel.HD30Adv = typeof navigator != 'undefined' && typeof navigator.userAgent == 'string' && navigator.userAgent.indexOf('3.0 Advanced') > 0;
@@ -346,6 +471,7 @@
         if( win.isP30 ) return 'P30';
         if( win.isGW ) return 'GW';
         if( win.isP60 ) return 'P60';
+        if( win.IPTV ) return 'IPTV';
         if( win.isComputer ) return 'PC';
         return 'HD30';
     })();
@@ -367,7 +493,7 @@
         if( typeof isJSON == 'undefined' || isJSON == true ) {
             if( /^\s*\<html\>/g.test(strJS) ) { if( option.fail != 'function' ) { tooltip( SYSTEM_BUSY_RETRY_LATER ); return ;} return option.fail( { msg: err }); }
             try {
-                debug('AJAX =======>>>>>> [[[ >>>>', win.isComputer ? strJS : ' BEGIN RUNNING evalJS(...)', ' ]]]');
+                debug('AJAX =======>>>>>> [[[ >>>>', ( win.isComputer || win.IPTV ? strJS : ' BEGIN RUNNING evalJS(...)' ), ' ]]]');
                 if( strJS.substr(0,1) != '('  || strJS.substr(strJS.length - 1, 1) != ')' ) strJS = "(" + strJS + ")";
                 func( eval( strJS ) );
             } catch (e) {
@@ -472,14 +598,34 @@
         var lisp = function(){ var msg = '';for( var i = 0; i < args.length ; i ++ ) msg += String( args[i] ); return msg; };
         var message = typeof args == 'undefined' || args.length == 0 ? decodeURIComponent(GET_VOD_RTSP_ADDR_ERROR) : lisp();
         if( win.isP60 ) sysmisc.showToast(message);
-        else if( win.isGW ) iPanel.debug(message);
+        else if( win.IPTV || iPanel.HD30Adv ) {
+            var element = $("tooltipDivId");
+            if(!element) {
+                element = document.createElement("div");// 设置不可见, 如果是display:none则无法取长度
+                element.style.width = "640px";
+                element.style.height = "360px";
+                element.style.left = "320px";
+                element.style.top = "180px";
+                element.style.position = "absolute";
+                element.style.zIndex = "9999";
+                element.style.visibility = element.style.overflow = "hidden";
+                element.style.backgroundColor = "black";
+                element.style.color = "white";
+                element.style.fontSize = '22px';
+                element.innerHTML = message;
+                document.body.appendChild( element )
+            } else {
+                element.style.visibility = 'visible';
+                element.innerHTML = message;
+            }
+        } else if( win.isGW ) iPanel.debug(message);
         else setTimeout(function(){alert(message);},500);
     };
     //如果是3.0 或者来点终端此参数一定存在, 如果网关或P60或者电脑则不存在此参数
     //如果是电脑或者P60, 则前面已初始化iPanel
     win.EPGUrl = win.EPGUrl || iPanel.eventFrame.pre_epg_url || (( win.isP60 ? ( ( win.address = ( win.address || sysmisc.getEnv('epg_address','') ) ) + '/EPG/' ) : ( iPanel.isComputer || iPanel.eventFrame.systemId !== 2 ? "http://192.168.14.102:8082/EPG/" : iPanelGatewayHelper.getEPGServerUrl() ) ) + 'jsp');
     win.debug( "media Type:" , iPanel.mediaType,", EPGUrl ====>>> ", win.EPGUrl );
-    if( win.isP60 || win.isComputer ) {
+    if( win.isP60 || win.isComputer || win.IPTV ) {
         var Base64 = function(){
             var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
             var _utf8_encode = function (str) {
@@ -569,272 +715,274 @@
             };
         };
         win.base64 = new Base64();
-        var AndroidHtml5 = {
-            idCounter: 0, // 参数序列计数器
-            OUTPUT_RESULTS: {}, // 输出的结果
-            CALLBACK_SUCCESS: {}, // 输出的结果成功时调用的方法
-            CALLBACK_FAIL: {}, // 输出的结果失败时调用的方法
-            callNative: function (cmd, type,args, success, fail) {
-                var key = "ID_" + (++this.idCounter);
-                win.debug("cmd:" + JSON.stringify(cmd));
+        if( !win.IPTV ){
+            var AndroidHtml5 = {
+                idCounter: 0, // 参数序列计数器
+                OUTPUT_RESULTS: {}, // 输出的结果
+                CALLBACK_SUCCESS: {}, // 输出的结果成功时调用的方法
+                CALLBACK_FAIL: {}, // 输出的结果失败时调用的方法
+                callNative: function (cmd, type,args, success, fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    win.debug("cmd:" + JSON.stringify(cmd));
 
-                if (typeof success != 'undefined') {
-                    AndroidHtml5.CALLBACK_SUCCESS[key] = success;
-                } else {
-                    AndroidHtml5.CALLBACK_SUCCESS[key] = function (result) {};
-                }
+                    if (typeof success != 'undefined') {
+                        AndroidHtml5.CALLBACK_SUCCESS[key] = success;
+                    } else {
+                        AndroidHtml5.CALLBACK_SUCCESS[key] = function (result) {};
+                    }
 
-                if (typeof fail != 'undefined') {
-                    AndroidHtml5.CALLBACK_FAIL[key] = function(e){ fail({error: e, stack : 'FAIL: ON callNative'}); };
-                } else {
-                    AndroidHtml5.CALLBACK_FAIL[key] = function (result) {};
-                }
-                sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
-                return this.OUTPUT_RESULTS[key];
-            },
-            callWebService: function (url, nameSpace, methodName, serviceName, property,success,fail) {
-                var key = "ID_" + (++this.idCounter);
-                if (typeof success != 'undefined') {
-                    AndroidHtml5.CALLBACK_SUCCESS[key] = success;
-                } else {
-                    AndroidHtml5.CALLBACK_SUCCESS[key] = function (result) {};
-                }
+                    if (typeof fail != 'undefined') {
+                        AndroidHtml5.CALLBACK_FAIL[key] = function(e){ fail({error: e, stack : 'FAIL: ON callNative'}); };
+                    } else {
+                        AndroidHtml5.CALLBACK_FAIL[key] = function (result) {};
+                    }
+                    sysmisc.async(JSON.stringify(cmd), type,JSON.stringify(args),key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callWebService: function (url, nameSpace, methodName, serviceName, property,success,fail) {
+                    var key = "ID_" + (++this.idCounter);
+                    if (typeof success != 'undefined') {
+                        AndroidHtml5.CALLBACK_SUCCESS[key] = success;
+                    } else {
+                        AndroidHtml5.CALLBACK_SUCCESS[key] = function (result) {};
+                    }
 
-                if (typeof fail != 'undefined') {
-                    AndroidHtml5.CALLBACK_FAIL[key] = function(e){ fail({error: e, stack : 'FAIL: ON callWebService'}); };
-                } else {
-                    AndroidHtml5.CALLBACK_FAIL[key] = function (result) {};
-                }
-                var property_string = JSON.stringify(property);
-                sysmisc.asyncWebService(url, nameSpace, methodName, serviceName, property_string,key);
-                return this.OUTPUT_RESULTS[key];
-            },
-            callBackJs: function (result, type,key) {
-                if(type == "json"){
+                    if (typeof fail != 'undefined') {
+                        AndroidHtml5.CALLBACK_FAIL[key] = function(e){ fail({error: e, stack : 'FAIL: ON callWebService'}); };
+                    } else {
+                        AndroidHtml5.CALLBACK_FAIL[key] = function (result) {};
+                    }
+                    var property_string = JSON.stringify(property);
+                    sysmisc.asyncWebService(url, nameSpace, methodName, serviceName, property_string,key);
+                    return this.OUTPUT_RESULTS[key];
+                },
+                callBackJs: function (result, type,key) {
+                    if(type == "json"){
+                        this.OUTPUT_RESULTS[key] = result;
+                        var status = result.status;
+                        win.debug(status);
+                        if (status == 200) {
+                            win.debug(typeof this.CALLBACK_SUCCESS[key]);
+                            if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
+                                //setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']("+result.message+")", 0);
+                                AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                            }
+                        } else {
+                            if (typeof this.CALLBACK_FAIL != 'undefined') {
+                                setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']("+result.message+")", 0);
+                            }
+                        }
+                    }
+                    else{
+                        win.debug('result key:' + key);
+                        this.OUTPUT_RESULTS[key] = result;
+                        var obj = JSON.parse(result);
+                        var message = base64.decode(obj.message);
+                        win.debug('result message:' + message);
+                        var status = obj.status;
+                        if (status == 200) {
+                            if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
+                                setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + message + "')", 0);
+                            }
+                        } else {
+                            if (typeof this.CALLBACK_FAIL != 'undefined') {
+                                setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + message + "')", 0);
+                            }
+                        }
+                    }
+                },
+                callWebServiceBackJs: function (result,key) {
                     this.OUTPUT_RESULTS[key] = result;
-                    var status = result.status;
+                    win.debug(key);
+                    win.debug(typeof(result));
+                    var obj = JSON.parse(result);
+                    var status = obj.code;
                     win.debug(status);
                     if (status == 200) {
                         win.debug(typeof this.CALLBACK_SUCCESS[key]);
                         if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
-                            //setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']("+result.message+")", 0);
-                            AndroidHtml5.CALLBACK_SUCCESS[key](result.message);
+                            win.debug(typeof("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')"));
+                            setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')",0);
                         }
                     } else {
                         if (typeof this.CALLBACK_FAIL != 'undefined') {
-                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']("+result.message+")", 0);
+                            win.debug("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')");
+                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')",0);
                         }
                     }
                 }
-                else{
-                    win.debug('result key:' + key);
-                    this.OUTPUT_RESULTS[key] = result;
-                    var obj = JSON.parse(result);
-                    var message = base64.decode(obj.message);
-                    win.debug('result message:' + message);
-                    var status = obj.status;
-                    if (status == 200) {
-                        if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
-                            setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + message + "')", 0);
-                        }
-                    } else {
-                        if (typeof this.CALLBACK_FAIL != 'undefined') {
-                            setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + message + "')", 0);
-                        }
+            };
+            //var exec_asyn = function exec_asyn(service, action,type, args, success, fail) {
+            var exec_asyn = function (service, action,type, args, success, fail) {
+                var json = {
+                    "service": service,
+                    "action": action
+                };
+                var result = AndroidHtml5.callNative(json, type,args, success, fail);
+            };
+            var bridge = {};
+            bridge.getwebservice = function(url, nameSpace, methodName, serviceName, property,success,fail){
+                AndroidHtml5.callWebService(url, nameSpace, methodName, serviceName, property,success,fail);
+            };
+            bridge.get = function (url, mediatype, header, success, fail) {
+                exec_asyn("request", "", "json",{
+                        "url": url,
+                        "method": "get",
+                        "mediatype": mediatype
+                    },
+                    success, function(){
+                        sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
+                    });
+            };
+            bridge.post = function (url, mediatype, header, body, success, fail) {
+                exec_asyn("request", "","json", {
+                        "url": url,
+                        "method": "post",
+                        "mediatype": mediatype,
+                        "body": body,
+                        "header": header
+                    },
+                    success, function(){
+                        sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
+                    });
+            };
+            bridge.ajax = function (method,url,mediatype,header,body,success,fail) {
+                if(arguments.length < 4){/*兼容旧传参格式url,success,body*/
+                    bridge.ajax('post',method,'text/xml',null,mediatype,url,null);
+                    return;
+                };
+                var o = {
+                    "url": url,
+                    "method": method.toLowerCase(),
+                    "mediatype": mediatype || "application/json",
+                    "body": body || null,
+                    "header": header || null
+                };
+                if (method != 'post') {
+                    delete o.body;
+                    delete o.header;
+                };
+                exec_asyn("request","","json",o,
+                    success || function(){ sysmisc.showToast("success"); },
+                    fail || function(){ sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER); }
+                );
+            };
+            bridge.getstring = function (url, mediatype, header, success, fail) {
+                exec_asyn("request", "", "string",{
+                        "url": url,
+                        "method": "get",
+                        "mediatype": mediatype
+                    },
+                    success, function(){
+                        sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
+                    });
+            };
+            bridge.poststring = function (url, mediatype, header, body, success, fail) {
+                exec_asyn("request", "", "string",{
+                        "url": url,
+                        "method": "post",
+                        "mediatype": mediatype,
+                        "body": body,
+                        "header": header
+                    },
+                    success,function(){
+                        sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
+                    });
+            };
+            bridge.ajaxstring = function (method,url,mediatype,header,body,success,fail) {
+                if(arguments.length < 4){/*兼容旧传参格式url,success,body*/
+                    bridge.ajax('post',method,'text/xml',null,mediatype,url,null);
+                    return;
+                };
+                var o = {
+                    "url": url,
+                    "method": method.toLowerCase(),
+                    "mediatype": mediatype || "application/json",
+                    "body": body || null,
+                    "header": header || null
+                };
+                if (method!='post') {
+                    delete o.body;
+                    delete o.header;
+                };
+                exec_asyn("request","","string",o, success || function(){
+                    sysmisc.showToast("success");
+                },
+                    fail || function(){
+                        sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
                     }
-                }
-            },
-            callWebServiceBackJs: function (result,key) {
-                this.OUTPUT_RESULTS[key] = result;
-                win.debug(key);
-                win.debug(typeof(result));
-                var obj = JSON.parse(result);
-                var status = obj.code;
-                win.debug(status);
-                if (status == 200) {
-                    win.debug(typeof this.CALLBACK_SUCCESS[key]);
-                    if (typeof this.CALLBACK_SUCCESS[key] != 'undefined') {
-                        win.debug(typeof("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')"));
-                        setTimeout("AndroidHtml5.CALLBACK_SUCCESS['" + key + "']('" + result + "')",0);
-                    }
-                } else {
-                    if (typeof this.CALLBACK_FAIL != 'undefined') {
-                        win.debug("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')");
-                        setTimeout("AndroidHtml5.CALLBACK_FAIL['" + key + "']('" + result + "')",0);
-                    }
-                }
-            }
-        };
-        //var exec_asyn = function exec_asyn(service, action,type, args, success, fail) {
-        var exec_asyn = function (service, action,type, args, success, fail) {
-            var json = {
-                "service": service,
-                "action": action
+                );
             };
-            var result = AndroidHtml5.callNative(json, type,args, success, fail);
-        };
-        var bridge = {};
-        bridge.getwebservice = function(url, nameSpace, methodName, serviceName, property,success,fail){
-            AndroidHtml5.callWebService(url, nameSpace, methodName, serviceName, property,success,fail);
-        };
-        bridge.get = function (url, mediatype, header, success, fail) {
-            exec_asyn("request", "", "json",{
-                    "url": url,
-                    "method": "get",
-                    "mediatype": mediatype
-                },
-                success, function(){
-                    sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
-                });
-        };
-        bridge.post = function (url, mediatype, header, body, success, fail) {
-            exec_asyn("request", "","json", {
-                    "url": url,
-                    "method": "post",
-                    "mediatype": mediatype,
-                    "body": body,
-                    "header": header
-                },
-                success, function(){
-                    sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
-                });
-        };
-        bridge.ajax = function (method,url,mediatype,header,body,success,fail) {
-            if(arguments.length < 4){/*兼容旧传参格式url,success,body*/
-                bridge.ajax('post',method,'text/xml',null,mediatype,url,null);
-                return;
-            };
-            var o = {
-                "url": url,
-                "method": method.toLowerCase(),
-                "mediatype": mediatype || "application/json",
-                "body": body || null,
-                "header": header || null
-            };
-            if (method != 'post') {
-                delete o.body;
-                delete o.header;
-            };
-            exec_asyn("request","","json",o,
-                success || function(){ sysmisc.showToast("success"); },
-                fail || function(){ sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER); }
-            );
-        };
-        bridge.getstring = function (url, mediatype, header, success, fail) {
-            exec_asyn("request", "", "string",{
-                    "url": url,
-                    "method": "get",
-                    "mediatype": mediatype
-                },
-                success, function(){
-                    sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
-                });
-        };
-        bridge.poststring = function (url, mediatype, header, body, success, fail) {
-            exec_asyn("request", "", "string",{
-                    "url": url,
-                    "method": "post",
-                    "mediatype": mediatype,
-                    "body": body,
-                    "header": header
-                },
-                success,function(){
-                    sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
-                });
-        };
-        bridge.ajaxstring = function (method,url,mediatype,header,body,success,fail) {
-            if(arguments.length < 4){/*兼容旧传参格式url,success,body*/
-                bridge.ajax('post',method,'text/xml',null,mediatype,url,null);
-                return;
-            };
-            var o = {
-                "url": url,
-                "method": method.toLowerCase(),
-                "mediatype": mediatype || "application/json",
-                "body": body || null,
-                "header": header || null
-            };
-            if (method!='post') {
-                delete o.body;
-                delete o.header;
-            };
-            exec_asyn("request","","string",o, success || function(){
-                sysmisc.showToast("success");
-            },
-                fail || function(){
-                    sysmisc.showToast(SYSTEM_BUSY_RETRY_LATER);
-                }
-            );
-        };
-        bridge.version=2;
-        win.bridge = bridge;
-        win.AndroidHtml5 = AndroidHtml5;
+            bridge.version=2;
+            win.bridge = bridge;
+            win.AndroidHtml5 = AndroidHtml5;
 
-        if( typeof win.mixplayer === 'undefined' ){
-            win.mixplayer = win.dvbplayer = {
+            if( typeof win.mixplayer === 'undefined' ){
+                win.mixplayer = win.dvbplayer = {
+                    /**
+                     *
+                     * @param x 播放器左上角的x坐标，该值为坐标相对于屏幕宽度的百分比，精确度小数 点后3位
+                     * @param y
+                     * @param width 播放器的宽度，该值为坐标相对于屏幕宽度的百分比，精确度小数点后3位
+                     * @param heigh
+                     */
+                    create: function(x, y, width, heigh) {return 1;},
+                    stop: function( playerId ){},
+                    destroy : function (playerId) {},
+                    /**
+                     * 0 播放器尚未创建或释放
+                     * 1 播放器已创建
+                     * 2 播放器开始播放
+                     * 3 播放器暂停
+                     * 4 播放器错误
+                     * 5 播放器停止
+                     * 6 播放器快进
+                     * 7 播放器快退
+                     * @param playerId
+                     */
+                    getState: function (playerId) {},
+                    resize: function (playerId,x, y, width, heigh) {}
+                };
                 /**
-                 *
-                 * @param x 播放器左上角的x坐标，该值为坐标相对于屏幕宽度的百分比，精确度小数 点后3位
-                 * @param y
-                 * @param width 播放器的宽度，该值为坐标相对于屏幕宽度的百分比，精确度小数点后3位
-                 * @param heigh
-                 */
-                create: function(x, y, width, heigh) {return 1;},
-                stop: function( playerId ){},
-                destroy : function (playerId) {},
-                /**
-                 * 0 播放器尚未创建或释放
-                 * 1 播放器已创建
-                 * 2 播放器开始播放
-                 * 3 播放器暂停
-                 * 4 播放器错误
-                 * 5 播放器停止
-                 * 6 播放器快进
-                 * 7 播放器快退
                  * @param playerId
+                 * @param url 播放串
+                 * @param seekTime 影片播放的起始位置，单位为秒，最小从影片初始位置0开始播放,时 移以及通用起播请传"0"
                  */
-                getState: function (playerId) {},
-                resize: function (playerId,x, y, width, heigh) {}
-            };
-            /**
-             * @param playerId
-             * @param url 播放串
-             * @param seekTime 影片播放的起始位置，单位为秒，最小从影片初始位置0开始播放,时 移以及通用起播请传"0"
-             */
-            win.mixplayer.playUrl = function(playerId, url,seekTime) {};
-            win.mixplayer.pause = function(playerId){}; //0 成功，-1 失败
-            win.mixplayer.getCurrent = function(playerId){return 0;}; //获取当前播放位置，以秒为单位
-            win.mixplayer.seekTo = function(playerId,seconds){return 0;}; //跳转指定播放位置进行播放,以秒为单位。0 成功, -1 失败
-            win.mixplayer.resume = function(playerId){return 0;}; //恢复播放 0 成功, -1 失败
-            win.mixplayer.scale = function(playerId,scale){return 0;}; //按照指定倍速播放, 整数：成功， -1：失败
-            win.mixplayer.getDuration = function(playerId){return 0;}; //得到当前播放片源总时长
-            win.mixplayer.voiceDown = function(){}; //降低音量
-            win.mixplayer.voiceUp = function(){}; //增大音量
-            win.mixplayer.getMaxVoice = function(){return 100;}; //获取系统最大音量值
-            win.mixplayer.getCurrentVoice = function(){return 30;}; //获取系统当前音量值
-            win.mixplayer.getAutoMode = function(){}; //获取当前系统声道模式 0 立体声；1 左声道；2 右声道；3 混合音
-            win.mixplayer.setAutoMode = function(mode){}; //设置当前系统声道模式 0 立体声；1 左声道；2 右声道；3 混合音
-            win.mixplayer.setStopMode = function(mode){};
-            /**
-             * @returns 0 成功, -1 失败
-             */
-            win.dvbplayer.playElements = function(playerId, transportId, serviceId, networkId){return 0;};
-            /**
-             * @param dvbUrl dvbelement://706000.6875.64.8.0.0.0.0.0.0
-             * 详细说明:"dvbelement://" +Frequency + "." + SymbolRate + "." + Modulation + "." + serviceid+ "." + pmtpid + "." +pcrpid + ". " + VideoType" + "." + "VideoPID" + "." + "AudioType" + "." + "AudioPID"
-             * Frequency 为频 点频率，单位为MHz;  不是 KHz
-             * SymbolRate 为符号率，单位为K, Symbol/s, 可填0，系统取默认值为6875;
-             * Modulation 为 调制方式，可填0，系统取默认值64QAM;
-             * serviceid 为业务ID号;
-             * pmtpid 为 PMT PID ,可填0，默认对应serviceid 的PMT PID;
-             * pcrpid为 PCR PID ,可填0，默认对应serviceid的PCR PID;
-             * VideoType 为视频类型，可填0，系统默认取该业务下PID值最小的视频流类型。如果该业务为纯音频业务，该值为-1;
-             * VideoPID 为视频PID,可填0，系统默认 取该业务下PID值最小的视频流。如果该业务为纯音频业务，该值为-1;
-             * AudioType 为音频类型，可填0，系统默认 取该业务下PID值最小的音频类型
-             * AudioPID 为音频PID，可填0，系统默认取该业务下PID值最小的音频流。
-             * @returns 0 成功, -1 失败
-             */
-            win.dvbplayer.playFrequency = function(dvbUrl){return 0;};
+                win.mixplayer.playUrl = function(playerId, url,seekTime) {};
+                win.mixplayer.pause = function(playerId){}; //0 成功，-1 失败
+                win.mixplayer.getCurrent = function(playerId){return 0;}; //获取当前播放位置，以秒为单位
+                win.mixplayer.seekTo = function(playerId,seconds){return 0;}; //跳转指定播放位置进行播放,以秒为单位。0 成功, -1 失败
+                win.mixplayer.resume = function(playerId){return 0;}; //恢复播放 0 成功, -1 失败
+                win.mixplayer.scale = function(playerId,scale){return 0;}; //按照指定倍速播放, 整数：成功， -1：失败
+                win.mixplayer.getDuration = function(playerId){return 0;}; //得到当前播放片源总时长
+                win.mixplayer.voiceDown = function(){}; //降低音量
+                win.mixplayer.voiceUp = function(){}; //增大音量
+                win.mixplayer.getMaxVoice = function(){return 100;}; //获取系统最大音量值
+                win.mixplayer.getCurrentVoice = function(){return 30;}; //获取系统当前音量值
+                win.mixplayer.getAutoMode = function(){}; //获取当前系统声道模式 0 立体声；1 左声道；2 右声道；3 混合音
+                win.mixplayer.setAutoMode = function(mode){}; //设置当前系统声道模式 0 立体声；1 左声道；2 右声道；3 混合音
+                win.mixplayer.setStopMode = function(mode){};
+                /**
+                 * @returns 0 成功, -1 失败
+                 */
+                win.dvbplayer.playElements = function(playerId, transportId, serviceId, networkId){return 0;};
+                /**
+                 * @param dvbUrl dvbelement://706000.6875.64.8.0.0.0.0.0.0
+                 * 详细说明:"dvbelement://" +Frequency + "." + SymbolRate + "." + Modulation + "." + serviceid+ "." + pmtpid + "." +pcrpid + ". " + VideoType" + "." + "VideoPID" + "." + "AudioType" + "." + "AudioPID"
+                 * Frequency 为频 点频率，单位为MHz;  不是 KHz
+                 * SymbolRate 为符号率，单位为K, Symbol/s, 可填0，系统取默认值为6875;
+                 * Modulation 为 调制方式，可填0，系统取默认值64QAM;
+                 * serviceid 为业务ID号;
+                 * pmtpid 为 PMT PID ,可填0，默认对应serviceid 的PMT PID;
+                 * pcrpid为 PCR PID ,可填0，默认对应serviceid的PCR PID;
+                 * VideoType 为视频类型，可填0，系统默认取该业务下PID值最小的视频流类型。如果该业务为纯音频业务，该值为-1;
+                 * VideoPID 为视频PID,可填0，系统默认 取该业务下PID值最小的视频流。如果该业务为纯音频业务，该值为-1;
+                 * AudioType 为音频类型，可填0，系统默认 取该业务下PID值最小的音频类型
+                 * AudioPID 为音频PID，可填0，系统默认取该业务下PID值最小的音频流。
+                 * @returns 0 成功, -1 失败
+                 */
+                win.dvbplayer.playFrequency = function(dvbUrl){return 0;};
+            }
         }
     }
     if( typeof sysmisc == 'undefined' ) {
@@ -1116,7 +1264,7 @@
             var idType = undefined;
             if( id.length > 8 ) idType = "FSN";
             if( typeof saveUrl == 'undefined' && !link.startWith( win.EPGUrl ) ) saveUrl = buildSaveHref();
-            var buildUrl = (function(){
+            var buildUrl = iPanel.mediaType == 'IPTV' ? "" : (function(){
                 var url = '';
                 if( typeof saveUrl == 'undefined' || iPanel.mediaType == 'P60') {
                     url = win.EPGUrl + '/defaultHD/en/' + ( iPanel.mediaType == 'P60' ? 'go_a' : 'A' ) + 'uthorization.jsp?typeId=' + String( typeId ) +'&playType=1';
@@ -1132,8 +1280,46 @@
                 }
                 return url;
             })();
-            if( iPanel.mediaType == 'P60' ){
-                win.debug("P60 Play Item -> Before Ajax Invoke!");
+            if( iPanel.mediaType != 'P60' && iPanel.mediaType != 'GW' && iPanel.mediaType != 'IPTV' ) {
+                win.debug("P30 OR HD30 Play Item -> Before play invoke!");
+                var url = that.current() + buildUrl;
+                if( typeof widget != 'undefined' ) {
+                    $(widget).src = url;
+                } else {
+                    window.location.href = url;
+                }
+            } else if ( iPanel.mediaType == 'GW' ) {
+                var open = function( vodId ){
+                    win.debug("iPanelGatewayHelper.play('" + vodId + "');");
+                    iPanelGatewayHelper.play( String( vodId ) );
+                };
+                if( idType != 'FSN' ){ open( id ); return true; }
+                convertVodId( id , function( rst ){ open( rst.id ); } );
+            } else if( iPanel.mediaType == 'IPTV' ){
+                win.debug("IPTV Play Item -> Before MediaPlay invoke, Id:", id,", typeId: ", typeId );
+                var extrasType = {"initSeek":"long"};
+                var extras = {"flagType":"1"};              //1, 使用VOD鉴权
+                extras['playType'] = parentId == undefined ? '1' : '2';
+                extras['isOutId'] = idType != 'FSN' ? false : true;
+                extras['baseFlag'] = 0;//0：包月；1：按次点播；2：按次点+包月（当 为0是走统一播放器流程，为1和 2时走原按 次点播播放流程）；3：免费；4：体验券（体 验券不鉴权）
+                extras['items'] = '1'; //开始播放的集数；电影默认为1
+                extras['initSeek'] = buildPlayStartTime(item); //开始播放的毫秒数，比如30000, buildPlayStartTime 函数返回单位为秒
+                if( extras['initSeek'] != 0  ) {
+                    extras['initSeek'] = extras['initSeek'] * 1000;
+                    extras['isPush'] = true;
+                }
+                extras['previewFlag'] = 0;  // 是否支持预览。0不支持，1支持, 由于使用原流程授权，所以不支持预览
+                extras['previewTime'] = 0;  // 单位秒（当playType 为1单视频时根据 previewtime 处理预览时长）
+                extras['orderProduct'] = 0;  //  是 String 需要订购的产品ID（统一订购页面用）
+                extras['authProduct'] = 0;  // 是 String 需要鉴权的产品ID（AAA 鉴权用）
+                extras['spCode'] = 0;  // 是 String AAA 鉴权用
+                extras['appCode'] = 0;  // 是 String AAA 鉴权用
+                extras['appKey'] = 0;  //  是 String AAA 登录用，signature= （spCode+appCode+userNo+password+ appKey）,按说明参数顺序32位 MD5加密 appId 是 String 统一订购页面用
+                extras['sessionId'] = 0;  // 是 String
+                extras['spCode'] = 0;  // spCode+{卡号后4 位}+{yymmddHHmiss}+{3 位随机数}
+                iPanel.openMediaPlay(String(id), String(typeId), extras);
+            } else if( iPanel.mediaType == 'P60' ){
+                win.debug("P60 Play Item -> Before ajax invoke!");
                 ajax( buildUrl , function(rst){
                     if( rst.playFlag === "1") {
                         var name = rst.playUrl.split("^")[7];
@@ -1144,22 +1330,7 @@
                     } else {
                         tooltip(GET_VOD_RTSP_ADDR_ERROR , typeof rst.message == 'string' ? rst.message : TECH_SERVE_STR);
                     }
-                }); return true;
-            } else if ( iPanel.mediaType == 'GW' ) {
-                var open = function( vodId ){
-                    win.debug("iPanelGatewayHelper.play('" + vodId + "');");
-                    iPanelGatewayHelper.play( String( vodId ) );
-                };
-                if( idType != 'FSN' ){ open( id ); return true; }
-                convertVodId( id , function( rst ){ open( rst.id ); } );
-            } else {
-                win.debug("P30 OR HD30 Play Item -> Before Ajax Invoke!");
-                var url = that.current() + buildUrl;
-                if( typeof widget != 'undefined' ) {
-                    $(widget).src = url;
-                } else {
-                    window.location.href = url;
-                }
+                });
             }
             return true;
         };
@@ -1227,6 +1398,8 @@
                             if (that.isKorean) detailPage = 'hjzq/hj_tvDetail.jsp';
                             else if (that.isWestern) detailPage = 'western/eu_tvDetail.jsp';
                             url = that.current() + '/EPG/jsp/defaultHD/en/hddb/' + detailPage + "?vodId=" + item.id + "&typeId=" + typeId;
+                        } else if( iPanel.mediaType == 'IPTV' ) { //IPTV 跳影片详细页
+                            iPanel.openMediaDetail(item.id,typeId);  // 如果typeId不传，默认为-1,所以不用对typeId进行校验
                         }
                     }
                 }
@@ -1257,16 +1430,16 @@
             },
             goBackAct: function () {
                 win.debug('=======>>>>> GO BACK (MediaType:',iPanel.mediaType,',EPGFlag:"', that.EPGflag, '",backURL:"', that.backUrl ,'") <<<<<=======');
+                var element = $("tooltipDivId");
+                if( element && element.style.visibility != 'hidden' ) { element.style.visibility = 'hidden'; return ; }
                 var rmCache = link.query('HWSCache');
                 if( !rmCache.isEmpty() ) { ajax( win.EPGUrl + '/neirong/player/include.jsp?RMCache=1'); }
                 if (!that.EPGflag.isEmpty() || typeof that.backUrl === 'undefined' || that.backUrl.isEmpty() || that.backUrl.indexOf('Category.jsp') >= 0 && that.backUrl.indexOf("Category.jsp?url=") < 0) {
-                    if ( iPanel.mediaType == 'P60' ){
-                        sysmisc.finish();
-                        //如果是来点盒子，或者家庭网关，使用此方法退出到首页
-                    } else if ( iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') {
-                        iPanel.eventFrame.exitToHomePage();
-                    } else
-                        window.location.href = iPanel.eventFrame.portal_url;
+                    if ( iPanel.mediaType == 'P60' ) return sysmisc.finish();
+                    //如果是来点盒子，或者家庭网关，使用此方法退出到首页
+                    if ( iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') return iPanel.eventFrame.exitToHomePage();
+                    if( iPanel.mediaType == 'IPTV' )  return iPanel.misc.goBackApp();
+                    window.location.href = iPanel.eventFrame.portal_url;
                     return;
                 }
                 var url = that.backUrl;
@@ -1498,6 +1671,7 @@
         this.FORWARD = decodeURIComponent('%E5%BF%AB%E8%BF%9B');
         this.BACKWARD = decodeURIComponent('%E5%BF%AB%E9%80%80');
 
+        this.instance = undefined;
         this.playerId = undefined;  //PlayId, P60使用，
         this.playType = "VOD";      //如果是直播不使用快进快退暂停功能
         this.status = this.STOP;    //播放，暂停，停止，快进，快退，错误
@@ -1523,6 +1697,9 @@
             if( iPanel.mediaType != 'P60' ) {
                 if( iPanel.mediaType == 'HD30' || iPanel.mediaType == 'NEW30' || iPanel.mediaType == 'P30' || iPanel.mediaType == 'GW') {
                     media.video.fullScreen();
+                } else if( iPanel.mediaType == 'IPTV' ) {
+                    that.instance.setVideoDisplayMode( 1 );
+                    that.instance.refresh();
                 }
             } else if( iPanel.mediaType == 'P60' ){
                 if( typeof that.playerId === 'undefined' ) {  return; }
@@ -1534,10 +1711,22 @@
         this.setPosition = function(left,top,width,height){
             win.debug('CALL [setPosition] => media position : (x:', left, ',y:', top, ',width:', width, ',height:' , height,")");
             that.fullmode = false;
-            this.position = {left:left, top:top, width:width, height:height};
+            that.position = {left:left, top:top, width:width, height:height};
             if ( iPanel.mediaType != 'P60' ) {
-                if( left == top && top == 0 && width == 1280 && height == 720 ) media.video.fullScreen();
-                else  media.video.setPosition(left,top,width,height);
+                if( iPanel.mediaType == 'IPTV' ) {
+                    if( that.instance != undefined ) {
+                        if( left == top && top == 0 && width == 1280 && height == 720 ){
+                            that.instance.setVideoDisplayMode( 1 );
+                        } else {
+                            that.instance.setVideoDisplayMode( 0 );
+                            that.instance.setVideoDisplayArea( left, top, width, height );
+                        }
+                        that.instance.refresh();
+                    }
+                } else {
+                    if( left == top && top == 0 && width == 1280 && height == 720 ) media.video.fullScreen();
+                    else  media.video.setPosition(left,top,width,height);
+                }
             } else {
                 if( typeof that.playerId === 'undefined' ) return;
                 var p = convertPos(left,top,width,height);
@@ -1547,7 +1736,11 @@
         that.seekTo = function(seconds) {
             if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
             if ( iPanel.mediaType !== 'P60' ) {
-                media.AV.seek(cursor.secondsToTime( seconds ));
+                if( iPanel.mediaType == 'IPTV' ) {
+                    //TODO:
+                } else {
+                    media.AV.seek(cursor.secondsToTime( seconds ));
+                }
             } else {
                 mixplayer.seekTo(that.playerId, seconds);
             }
@@ -1559,7 +1752,11 @@
             if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
             that.speed = speed;
             if ( iPanel.mediaType !== 'P60' ) {
-                media.AV.backward(speed);
+                if( iPanel.mediaType == 'IPTV' ) {
+                    //TODO:
+                } else {
+                    media.AV.backward(speed);
+                }
             } else {
                 mixplayer.scale(that.playerId, speed);
             }
@@ -1570,7 +1767,11 @@
             if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
             that.speed = speed;
             if ( iPanel.mediaType !== 'P60' ) {
-                media.AV.forward(speed);
+                if( iPanel.mediaType == 'IPTV' ) {
+                    //TODO:
+                } else {
+                    media.AV.forward(speed);
+                }
             } else {
                 mixplayer.scale(that.playerId, speed);
             }
@@ -1591,7 +1792,11 @@
         };
         this.voiceUp = function(){
             if ( iPanel.mediaType !== 'P60' ) {
-                media.sound.up();
+                if( iPanel.mediaType == 'IPTV' ) {
+                    //TODO:
+                } else {
+                    media.sound.up();
+                }
             } else {
                 if( that.playType == 'LIVE' || that.playerId == undefined ) return;
                 mixplayer.voiceUp();
@@ -1599,7 +1804,11 @@
         };
         this.voiceDown = function(){
             if ( iPanel.mediaType !== 'P60' ) {
-                media.sound.down();
+                if( iPanel.mediaType == 'IPTV' ) {
+                    //TODO:
+                } else {
+                    media.sound.down();
+                }
             } else {
                 if( that.playType == 'LIVE' || that.playerId == undefined ) return;
                 mixplayer.voiceDown();
@@ -1608,7 +1817,11 @@
         this.resume = function(){
             if( that.playType == 'LIVE' || that.status == that.PLAY ) return;
             if ( iPanel.mediaType !== 'P60' ) {
-                media.AV.play();
+                if( iPanel.mediaType == 'IPTV' ) {
+                    that.instance.play(2);
+                } else {
+                    media.AV.play();
+                }
             } else if( iPanel.mediaType == 'P60' ) {
                 sysmisc.bringToForeground('web');
                 if( that.playerId != undefined ) {
@@ -1622,7 +1835,11 @@
         this.pause = function() {
             if( that.playType == 'LIVE' ) return;
             if ( iPanel.mediaType !== 'P60' ) {
-                media.AV.pause();
+                if( iPanel.mediaType == 'IPTV' ) {
+                    that.instance.pause();
+                } else {
+                    media.AV.pause();
+                }
             } else {
                 if( that.playerId != undefined ) mixplayer.pause(that.playerId);
             }
@@ -1631,10 +1848,17 @@
         };
         this.close = function(){
             if ( iPanel.mediaType !== 'P60' ) {
-                if( that.playType == 'LIVE' ) {
-                    DVB.stopAV();
+                if( iPanel.mediaType == 'IPTV' ) {
+                    if( that.instance != undefined ) {
+                        that.instance.stop();
+                        that.playerId = that.instance = undefined;
+                    }
+                } else {
+                    if( that.playType == 'LIVE' ) {
+                        DVB.stopAV();
+                    }
+                    media.AV.close();
                 }
-                media.AV.close();
             } else {
                 if( that.playerId != undefined ) {
                     if( that.playType == 'LIVE' ) {
@@ -1668,10 +1892,10 @@
             var openUrl = function(url){
                 url = url || '';
                 if( url.isEmpty() || ! ( url.startWith('rtsp') || url.startWith('http') ) ) return;
-                if( iPanel.mediaType !== 'P60' ){
+                if( iPanel.mediaType !== 'P60' && iPanel.mediaType != 'IPTV'){
                     var mode = url.startWith('rtsp') ? 'VOD' : 'HTTP';
                     media.AV.open(url, mode );
-                } else {
+                } else if( iPanel.mediaType == 'P60') {
                     that.rtsp = url;
                     if( that.playerId === undefined ) {
                         var p = convertPos();
@@ -1679,6 +1903,20 @@
                     } else {
                         mixplayer.playUrl(that.playerId, url, o.startTime );
                     }
+                } else if( iPanel.mediaType == 'IPTV' ){
+                    if( that.instance === undefined ) {
+                        that.instance = new MediaPlayer();
+                        that.playerId = that.instance.getPlayerInstanceID();
+                        that.instance.bindPlayerInstance( that.playerId );
+                    }
+                    if( that.position.width == 1280 && that.position.height == 720 ){
+                        that.instance.setVideoDisplayMode( 1 );
+                    } else {
+                        that.instance.setVideoDisplayMode( 0 );
+                        that.instance.setVideoDisplayArea( that.position.left, that.position.top, that.position.width, that.position.height );
+                    }
+                    that.instance.refresh();
+                    that.instance.setMediaSource( that.rtsp = url );
                 }
             };
             //如果vodId存在，那么播放点播
@@ -1688,8 +1926,8 @@
                     return delegate( o );
                 }
                 var isVodPlay = typeof o.vodId !== 'undefined';
-                if( iPanel.mediaType !== 'GW' ) {
-                    var url = '';
+                var url = '';
+                if( iPanel.mediaType !== 'GW' && iPanel.mediaType != 'IPTV' ) {
                     if( isVodPlay ){
                         o.typeId = o.typeId || -1;
                         url = win.EPGUrl + '/defaultHD/en/go_authorization.jsp?typeId=' + o.typeId;
@@ -1722,18 +1960,50 @@
                         }
                         delegate(rst);
                     }, { eval:isVodPlay } ); return;
-                } else {
+                } else if( iPanel.mediaType == 'GW' || iPanel.mediaType == 'IPTV' ) {
                     if( isVodPlay ){
-                        var open = function(id){
-                            var http = iPanelGatewayHelper.getPlayUrl(id);
-                            openUrl( http );
-                            delegate( http );
-                            win.debug('GW PLAY ID: ', id, ' ==> URL: ', http);
-                        };
-                        if( o.idType !== 'FSN' && String(o.vodId).length <= 8 ){
-                            open(o.vodId); return;
-                        };
-                        convertVodId(o.vodId, function( rst ){ open( rst.id ); } );
+                        if( iPanel.mediaType == 'GW' ) {
+                            var open = function(id){
+                                var http = iPanelGatewayHelper.getPlayUrl(id);
+                                openUrl( http );
+                                delegate( http );
+                                win.debug('GW PLAY ID: ', id, ' ==> URL: ', http);
+                            };
+                            if( o.idType !== 'FSN' && String(o.vodId).length <= 8 ){
+                                open(o.vodId); return;
+                            };
+                            convertVodId(o.vodId, function( rst ){ open( rst.id ); } );
+                        } else {
+                            url = iPanel.getVSP() + '/VSP/V3/QueryVOD';
+                            //内部ID 为0， 外部ID为１;
+                            var idType = o.idType !== 'FSN' && String(o.vodId).length <= 8 ? 0 : 1;
+                            ajax(url, function( ret ){
+                                if(ret.result.retCode == '000000000')
+                                {
+                                    var vodId = ret.VODDetail.code;
+                                    var mediaID = ret.VODDetail.mediaFiles[0].code;
+                                    debug(decodeURIComponent('IPTV %E7%BB%88%E7%AB%AF%E8%AF%B7%E6%B1%82%E5%AA%92%E8%B5%84%E4%BF%A1%E6%81%AF%E6%97%B6%E8%BF%94%E5%9B%9E%EF%BC%8CVODID%EF%BC%9A'), vodId, "，%E5%AA%92%E8%B5%84%20Id%EF%BC%9A", mediaID);
+                                    url = iPanel.getVSP() + '/VSP/V3/PlayVOD';
+                                    ajax(url, function( rst ){
+                                        if(rst.result.retCode == '000000000') {
+                                            openUrl( rst.playURL );
+                                            return delegate( rst );
+                                        } else {
+                                            debug(decodeURIComponent('IPTV %E8%AF%B7%E6%B1%82%E6%92%AD%E6%94%BE%E8%B0%83%E7%94%A8%E6%97%B6%E8%BF%94%E5%9B%9E%E5%A4%B1%E8%B4%A5%EF%BC%9A'), rst.result.retMsg );
+                                        }
+                                    }, {
+                                        method : 'post',
+                                        data : '{"VODID":"' + vodId + '","mediaID":"' + mediaID + '","IDType":' + idType + '}'
+                                    })
+                                } else {
+                                    debug(decodeURIComponent('IPTV %E7%BB%88%E7%AB%AF%E5%9C%A8%E8%AF%B7%E6%B1%82%E5%AA%92%E8%B5%84%E4%BF%A1%E6%81%AF%E6%97%B6%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%9A'), ret.result.retMsg );
+                                    return delegate( ret );
+                                }
+                            }, {
+                                method : 'post',
+                                data : '{"VODID":"' + o.vodId + '","IDType":' + idType + '}'
+                            });
+                        }
                     } else {
                         tooltip(decodeURIComponent('GW%E6%9A%82%E4%B8%8D%E6%94%AF%E6%8C%81%E6%97%B6%E7%A7%BB%E6%92%AD%E6%94%BE'));
                     }
@@ -1771,8 +2041,6 @@
         //退出页面时执行此代码
         this.exit = function(){
             try {
-                DVB.stopAV(0);
-                media.AV.close();
                 if ( iPanel.mediaType == 'P60' && that.playerId != undefined) {         //如果是P60执行清理
                     if ( that.playType == 'LIVE' ){       // 小窗口打开了直播窗口
                         dvbplayer.stop(that.playerId);
@@ -1781,7 +2049,16 @@
                         mixplayer.stop(that.playerId);         // 停止
                         mixplayer.destroy(that.playerId);      // 销毁
                     }
-                    that.P60PlayerCreated = that.playerId = undefined;
+                    that.instance = that.playerId = undefined;
+                } else if( iPanel.mediaType == 'IPTV' ){
+                    if( that.instance != undefined ) {
+                        that.instance.stop();
+                        that.instance.unbindPlayerInstance( that.playerId );
+                        that.instance = that.playerId = undefined;
+                    }
+                } else {
+                    DVB.stopAV(0);
+                    media.AV.close();
                 }
             } catch (e) {
                 win.debug('=======>>>>> EXIT PLAY ERROR ( ' , e , ' ) <<<<<=======' );
@@ -1794,8 +2071,8 @@
             if( type == 0 ) {
                 switch (subtype) {
                     case 0 :
-                        if( typeof player.P60PlayerCreated == 'undefined') {
-                            player.P60PlayerCreated = true;
+                        if( typeof player.instance == 'undefined') {
+                            player.instance = true;
                             var plst = -1;
                             if( player.playType  == 'VOD' ) {
                                 win.debug(decodeURIComponent('P60%E7%82%B9%E6%92%AD%E6%92%AD%E6%94%BE%E5%99%A8%E8%B0%83%E7%94%A8%20 mixplayer.playUrl( playerId:'), that.playerId ,", Uri:", that.rtsp , ", startTime:" ,that.startTime , ' ) ====>>>> ', decodeURIComponent('%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%9A'), plst = mixplayer.playUrl(that.playerId, that.rtsp, that.startTime ) , ',' , plst == 0 ? STATIC_SUCCESS_STR : STATIC_FAIL_STR);

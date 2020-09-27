@@ -21,7 +21,7 @@
 <%
     //首先获取参数中的栏目ID
     String typeId = inner.get("typeId");
-    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000114684";
+    if( isEmpty(typeId ) ) typeId = "10000100000000090000000000116933";
 
     Integer blocked = null;
     blocked = !isNumber( inner.get("blocked") ) ? 1 : Integer.valueOf(inner.get("blocked"));
@@ -37,7 +37,7 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "" : inner.pictureUrl("images/J20200515Bg.png",column.getPosters(),"7");
+    String picture = column == null ? "" : inner.pictureUrl("images/J20200817_2Bg.png",column.getPosters(),"7");
     String[] sc = {};
     String[] titlePic = {};
     String[] focusPic = {};
@@ -69,7 +69,7 @@
     titleTop = !isNumber( inner.get("titleTop") ) ? 100 : Integer.valueOf(inner.get("titleTop"));
     titleLeft = !isNumber( inner.get("titleLeft") ) ? 200 : Integer.valueOf(inner.get("titleLeft"));
     cat = !isNumber( inner.get("cat") ) ? 0 : Integer.valueOf(inner.get("cat"));
-    maxTitleLen = !isNumber( inner.get("maxTitleLen") ) ? 17 : Integer.valueOf(inner.get("maxTitleLen"));
+    maxTitleLen = !isNumber( inner.get("maxTitleLen") ) ? 20 : Integer.valueOf(inner.get("maxTitleLen"));
 
 
 
@@ -182,10 +182,14 @@
                 if( <%=cat %> ){
                     for( var j = 0; j < cursor.focusable[i].items.length; j ++){
                         var name = cursor.focusable[i].items[j].name;
-                        var star = name.indexOf("：");  //不存在返回-1
-                        star++;
+                        var star = name.indexOf("生活");  //不存在返回-1
+                        if (star>0){
+                            star = star+2;
+                        }else {
+                            star++;
+                        }
                         var end = name.indexOf("（") <=0 ? name.length : name.indexOf("（");
-                        cursor.focusable[i].items[j].name = name.substring(0,end);  //substring取前不取后
+                        cursor.focusable[i].items[j].name = name.substring(star,end);  //substring取前不取后
                     }
                 }
             }
