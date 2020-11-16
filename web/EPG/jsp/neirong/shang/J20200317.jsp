@@ -28,7 +28,7 @@
     Column column = new Column();
     column = inner.getDetail(typeId,column);
     String picture = column == null ? "" : inner.pictureUrl("",column.getPosters(),"7");
-
+//    picture = "images/J20201106Bg.png";
     String[] sc = {};
     Integer w = null, h = null, ih = null, fs = null, lt = null,tp = null,   pg = null, mr = null;
     String cl = null, bc = null,fc = null,bg=null,al=null;

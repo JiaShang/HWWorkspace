@@ -128,7 +128,7 @@
                         }
 
                         cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
-                        var url = location.origin + "/active/eduDemo/eduDemoList.html?typeId=";
+                        var url = origin + "/active/eduDemo/eduDemoList.html?typeId=";
                         for( var j = 0 ; j < list.length ; j ++) list[j].linkto = url + list[j].id;
                         cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: list[0].id };
                         cursor.call('show');

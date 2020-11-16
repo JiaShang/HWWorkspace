@@ -164,7 +164,7 @@
     var endHour = 22;
     var endMin = 0;
     var startDay = "2020-09-25 0:0:0";
-    var endDay = "2020-09-29 0:0:0";
+    var endDay = "2020-09-30 0:0:0";
     <%--var blocked = <%= blocked%>;--%>
     cursor.initialize({
         data : [<%
@@ -424,16 +424,16 @@
                     } else if (betweenDay(startDay, endDay) == 1) {
                         cursor.call('showTip', 3);   //已结束
                     } else {
-                        cursor.call('isFirstVote', cursor.voteId);
-
-                        setTimeout(function () {
-                            // alert("isFirstVote==="+isFirstVote);
-                            if (!isFirstVote) {
-                                cursor.call('vote');  //投票
-                            } else {
-                                cursor.call('showTip', 4);   //首次投票，需要输入电话号
-                            }
-                        }, 1000);
+                        cursor.call('showTip', 4);
+                        // cursor.call('isFirstVote', cursor.voteId);
+                        // setTimeout(function () {
+                        //     // alert("isFirstVote==="+isFirstVote);
+                        //     if (!isFirstVote) {
+                        //         cursor.call('vote');  //投票
+                        //     } else {
+                        //         cursor.call('showTip', 4);   //首次投票，需要输入电话号
+                        //     }
+                        // }, 500);
                     }
                 } else {
                     if (tipFlag == 4) {
@@ -540,9 +540,9 @@
                 total:"false",  //是否返回最新票数总数（可选）
                 classifyID:cursor.voteId,  //投票id
                 content:encodeURIComponent(content),     //投票内容，中文请通过encodeURIComponent编码（可选）
-                voteCount:1,     //总投票数
+                voteCount:10,     //总投票数
                 compare:"ture",   //比较值（可选，用于实现如指定用户可投票功能）
-                contentNum:1,      //对同一内容投票数
+                contentNum:10,      //对同一内容投票数
                 msgContent:""    //(可选，当存在这个值则向当前phone推送一条短信，中文请通过encodeURIComponent编码)
             };
             var url="http://192.168.18.249:8080/voteNew/external/addVote6.ipanel?icid="+voteMsg.icid+"&phone="+voteMsg.phone+"&classifyID="+voteMsg.classifyID+"&content="+voteMsg.content+"&voteCount="+voteMsg.voteCount+"&contentNum="+voteMsg.contentNum;

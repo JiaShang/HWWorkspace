@@ -37,10 +37,11 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = "images/J20200902Bg.jpg";
+    String picture = "images/J20201104_2Bg.jpg";
     if( column != null ) {
         picture = inner.pictureUrl(picture, column.getPosters(), "7");
     }
+//    picture = "images/J20201104_2Bg.jpg";
     Integer direct=null;
     String[] focusPic = {};
     direct = !isNumber( inner.get("direct") ) ? 1 : Integer.valueOf(inner.get("direct"));  //默认上下移动

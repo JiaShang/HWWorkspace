@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #bg {
+            width: 1280px;
+            height:720px;
+            left:0px;
+            top:0px;
+            position:absolute;
+            background: transparent no-repeat;
+        }
+        #list{
+            position: absolute;
+            width: 600px;
+            height: 280px;
+            left:237px;
+            top: 230px;
+            background:transparent;
+            font-size: 24px;
+            color: #000000;
+            line-height: 38px;
+        }
+        .listName{
+            position: absolute;
+            width: 300px;
+            height: 38px;
+            overflow:hidden;
+        }
+        #title{
+            position: absolute;
+            width: 600px;
+            height: 280px;
+            left:73px;
+            top: 225px;
+            background:transparent;
+            font-size: 16px;
+            color: #c60003;
+            line-height: 51px;
+            text-align: center;
+        }
+        .titleName{
+            position: absolute;
+            width: 130px;
+            height: 51px;
+            overflow:hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/showList.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container"></div>
+<div id="focus0" style="position: absolute;width: 522px;height: 100px;left: 68px;top:223px;background:transparent url('../images/J20201109Title0.png') no-repeat;overflow:hidden; visibility: visible;"></div>
+<div id="focus1" style="position: absolute;width: 499px;height: 167px;left: 218px;top: 228px;background:transparent url('../images/J20201109Focus.png') no-repeat;overflow:hidden; visibility: hidden;"></div>
+<div id="title">
+    <div id="titleName0" class="titleName" style="top: 10px;"></div>
+    <div id="titleName1" class="titleName" style="top: 102px;"></div>
+    <div id="titleName2" class="titleName" style="top: 194px;"></div>
+    <div id="titleName3" class="titleName" style="top: 285px;"></div>
+    <div id="titleName4" class="titleName" style="top: 394px;"></div>
+</div>
+<div id="list">
+    <div id="listName0" class="listName" style="top: 6px;"></div>
+    <div id="listName1" class="listName" style="top: 55px;"></div>
+    <div id="listName2" class="listName" style="top: 104px;"></div>
+    <div id="listName3" class="listName" style="top: 153px;"></div>
+    <div id="listName4" class="listName" style="top: 202px;"></div>
+    <div id="listName5" class="listName" style="top: 251px;"></div>
+    <div id="listName6" class="listName" style="top: 300px;"></div>
+    <div id="listName7" class="listName" style="top: 356px;"></div>
+</div>
+</body>
+<script typeof="javascript" type="text/javascript">
+    var listBox = null;
+    var listData = [];
+    var titleBox = null;
+    var titleData = [];
+    var focusArea = 1;
+    var maxTitleLen = 25;
+    var maxListLen = 13;
+
+    var bgImg = "";
+    var imgData = [];
+
+    var cutFlag = 0 ; //等于1时，截取
+    var startStr = "";
+    var endStr = "";
+    (function(win){
+        win.moviePos = {width:640,height:360,left:567,top:218};
+        var initialize = {
+        init        :   function(){
+            //取参数 typeId
+            var typeId = query("typeId");
+            //提示：当前typeId参数为空
+            // var typeId = "";
+            if( typeId.isEmpty() ) typeId = '10000100000000090000000000119520';
+            var that = this;
+            var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2&fn=199';
+            var focused = win.link.query('currFoucs');
+            focused = focused != '' ? focused.split(',') : [];
+            ajax(url,
+                function(rst){
+                    rst = rst['data'];
+                    if (typeof rst['column']['posters'] != 'undefined' ) {
+                        imgData = rst['column']['posters'];
+                    }
+                    var list = rst['list'];
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    cursor.lastBlocked = cursor.blocked;
+                    cursor.playBlocked = cursor.blocked;
+                    cursor.playIndex = 0;
+                    for (var i = 0 ;i < list.length ; i++){
+                        cursor.focusable[i] = {};
+                        cursor.focusable[i].typeId = list[i].id;
+                        cursor.focusable[i].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        cursor.focusable[i].items = list[i].data;
+                        cut(cursor.focusable[i].items,startStr,endStr,cutFlag);
+                    }
+                    if (typeof imgData['7'] != 'undefined'){
+                        bgImg = imgData['7'][0];
+                    }
+                    $("bg").style.backgroundImage = "url("+bgImg+")";
+                    cursor.call('initTitle');
+                    cursor.call('initList');
+                    setTimeout(function(){ cursor.call('show');cursor.call('lazyShow');cursor.call('prepareVideo');},100);
+                },
+                {
+                    fail:function( meg )
+                    {
+                        tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                        return;
+                    }
+                }
+            );
+
+        },
+        move        :   function(index){
+            //上 11，下 -11，左 -1，右 1
+            var blocked = cursor.blocked;
+            cursor.call('loseFocus');
+            if(index == -11){  //下
+                if(focusArea == 0){
+                    if(titleBox.position < titleBox.dataSize-1){
+                        titleBox.changeList(1);
+                        cursor.blocked = titleBox.position+1;
+                        cursor.lastBlocked = titleBox.position+1;
+                        cursor.call('initList');
+                    }
+                }else if(focusArea == 1){
+                    if(listBox.position < listBox.dataSize-1){
+                        listBox.changeList(1);
+                    }
+                }
+            }else if(index == 11){  //上
+                if(focusArea == 0) {
+                    if (titleBox.position > 0) {
+                        titleBox.changeList(-1);
+                        cursor.blocked = titleBox.position+1;
+                        cursor.lastBlocked = titleBox.position+1;
+                        cursor.call('initList');
+                    }
+                }else if (focusArea == 1) {
+                    if (listBox.position > 0) {
+                        listBox.changeList(-1);
+                    }
+                }
+            }else if(index == 1) {  //右
+                if (focusArea == 0) {
+                    focusArea = 1;
+                }
+            }else if(index == -1) {  //左
+                if (focusArea == 1) {
+                    focusArea = 0;
+                }
+            }
+            cursor.focusable[0].focus = titleBox.position;
+            cursor.focusable[titleBox.position+1].focus = listBox.position;
+            cursor.call('show');
+            cursor.call('lazyShow');
+            if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+            if(focusArea == 1){
+                cursor.moveTimer = setTimeout(function(){
+                    clearTimeout(cursor.moveTimer);
+                    cursor.moveTimer = undefined;
+                    var focus = cursor.focusable[cursor.blocked].focus;
+                    if(cursor.blocked != cursor.playBlocked || cursor.playIndex != focus){
+                        cursor.playIndex = focus ;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.call('prepareVideo');
+                    }
+                }, 800);
+            }
+        },
+        lazyShow    :   function(){
+            var blocked = cursor.lastBlocked;
+            var focus = cursor.focusable[blocked].focus;
+            if( focusArea == 1 ) {
+                var id = String(listBox.focusPos);
+                var text = $('listName' + id).innerText;
+                if (text.indexOf("...") != -1) {
+                    $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + listData[listBox.position].name + '</marquee>';
+                }
+            }else if (focusArea == 0) {
+                var id = String(titleBox.focusPos);
+                var text = $('titleName' + id).innerText;
+                if ( text.indexOf("...") != -1 ) {
+                    $('titleName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + titleData[titleBox.position].name + '</marquee>';
+                }
+            }
+        },
+        nextVideo   :   function () {
+            var blocked = cursor.playBlocked;
+            var focus = cursor.focusable[blocked].focus;
+            var items = cursor.focusable[blocked].items;
+            cursor.call('loseFocus');
+            if( focus == items.length-1 ){
+                listBox.changeList(1-items.length);
+            }else{
+                listBox.changeList(1);
+            }
+            cursor.focusable[blocked].focus = listBox.position;
+            cursor.playIndex = listBox.position ;
+            cursor.call('show');
+            cursor.call('lazyShow');
+            cursor.call('prepareVideo');
+
+        },
+        prepareVideo : function(){
+            var blocked = cursor.playBlocked;
+            var focus = cursor.focusable[blocked].focus;
+            cursor.playIndex = focus;
+            var item = cursor.focusable[blocked].items[ cursor.playIndex ];
+            player.exit();
+            player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+            player.play( {vodId: item.id} );
+        },
+        initTitle      :   function(){
+            var focus = cursor.focusable[0].focus;
+            titleData = cursor.focusable[0].items;
+            var titleCount = 4;
+            titleBox = new showList(titleCount, titleData.length, focus, 127, window);
+            titleBox.showType = 0;
+            titleBox.haveData = function (List) {
+                $("titleName" + String(List.idPos)).innerText = getStrChineseLength(titleData[List.dataPos].name) > maxTitleLen?subStr(titleData[List.dataPos].name,maxTitleLen,"..."):titleData[List.dataPos].name;
+            }
+            titleBox.notData = function (List) {
+                $("titleName" + List.idPos).innerText = "";
+            };
+            titleBox.startShow();
+        },
+        initList      :   function(){
+            var blocked = cursor.blocked;
+            var focus = cursor.focusable[blocked].focus;
+            listData = cursor.focusable[blocked].items;
+            var listCount = 7;
+            listBox = new showList(listCount, listData.length, focus, 127, window);
+            listBox.showType = 0;
+            listBox.haveData = function (List) {
+                $("listName" + String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > maxListLen?subStr(listData[List.dataPos].name,maxListLen,"..."):listData[List.dataPos].name;
+            }
+            listBox.notData = function (List) {
+                $("listName" + List.idPos).innerText = "";
+            };
+            listBox.startShow();
+        },
+        show        :   function(){
+            var blocked = cursor.blocked;
+            var focus = cursor.focusable[blocked].focus;
+            if( focusArea == 0 ){
+                $("focus0").style.top = String((titleBox.focusPos)*92+223)+"px";
+                $("titleName"+String(titleBox.focusPos)).style.color = "#c60003";
+                $("focus0").style.backgroundImage = "url(../images/J20201109Title1.png)";
+                $("focus1").style.visibility = "hidden";
+            }else if( focusArea == 1 ){
+                $("focus0").style.top = String((titleBox.focusPos)*92+223)+"px";
+                $("focus0").style.backgroundImage = "url(../images/J20201109Title0.png)";
+                $("focus1").style.top = String((listBox.focusPos)*49+228)+"px";
+                $("focus1").style.visibility = "visible";
+                $("titleName"+String(titleBox.focusPos)).style.color = "#c60003";
+                // $("titleName"+String(titleBox.focusPos)).style.backgroundImage = "url(images/J20201109Title0.png)";
+            }
+        },
+        loseFocus        :   function(){
+            var items = cursor.focusable[titleBox.position+1].items;
+            var focus = cursor.focusable[titleBox.position+1].focus;
+            if( focusArea == 0 ){
+                // $("titleName"+String(titleBox.focusPos)).style.backgroundImage = "url(images/global_tm.gif)";
+                $("titleName"+String(titleBox.focusPos)).style.color = "#c60003";
+                $('titleName' + String(titleBox.focusPos)).innerText = getStrChineseLength(titleData[titleBox.position].name) > maxTitleLen?subStr(titleData[titleBox.position].name,maxTitleLen,"..."):titleData[titleBox.position].name;
+            }else if( focusArea == 1 ){
+                $('listName' + String(listBox.focusPos)).innerText = getStrChineseLength(listData[listBox.position].name) > maxListLen?subStr(listData[listBox.position].name,maxListLen,"..."):listData[listBox.position].name;
+                // $("focus0").style.backgroundImage = "url(images/J20201109Title0.png)";
+            }
+        }
+    };
+    var lazied = function(){
+        if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+        cursor.initialize(initialize);
+    };
+    lazied();
+    })(window);
+</script>
+
+</html>

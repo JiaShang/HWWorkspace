@@ -63,7 +63,10 @@
                 map.put("column", column);
                 result.setSuccess(true);
                 if( action.equalsIgnoreCase("0") ) { /*如果 act == 0 取绑定的VOD内容*/
-                    list = inner.getList(id, fn ,0,new Vod());
+                    List<Vod> vods = inner.getList(id, fn, 0, new Vod());
+                    if( vods != null ){
+                        for (Vod vod : vods)  list.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
+                    }
                 } else if(action.equalsIgnoreCase("1")) { /*如果act=1,仅取子栏目内容*/
                     list = inner.getList(id, cn ,0, new Column());
                 } else if( action.equalsIgnoreCase("2")){ /*如果act=2,仅取子栏目内容*/
@@ -71,9 +74,12 @@
                     list.add(new Result(id, columns));
                     for( Column col : columns ) {
                         try {
-                            List<Vod> films = inner.getList(col.getId(), fn , 0, new Vod());
-                            if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                            List<Vod> vods = inner.getList(col.getId(), fn, 0, new Vod());
+                            List<Film> films = new ArrayList<Film>();
+                            if( vods != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                            	for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
                                 list.add(new Result(col.getId(), films));
+                                vods = null;
                             } else {
                                 List<Column> children = inner.getList(col.getId(), fn, 0, new Column());
                                 list.add(new Result( col.getId(), children ));
@@ -98,9 +104,12 @@
                         column = inner.getDetail( str , new Column());
                         columns.add( column );
                         try {
-                            List<Vod> films = inner.getList( str , fn , 0, new Vod());
-                            if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                                list.add(new Result(str, films));
+                            List<Vod> vods = inner.getList( str, fn, 0, new Vod() );
+                            List<Film> films = new ArrayList<Film>();
+                            if( vods != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                                for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
+                                list.add( new Result(str, films) );
+                                vods = null;
                             } else {
                                 List<Column> children = inner.getList(str, fn, 0, new Column());
                                 list.add(new Result( str, children ));
@@ -126,7 +135,11 @@
                                 try {
                                     children = inner.getList(col.getId(), fn , 0, new Vod());
                                     if( children != null && children.size() > 0 ){
-                                        lst.add(new Result(col.getId(), children));
+                                        {
+                                            List<Film> films = new ArrayList<Film>();
+                                            for (Vod vod : (List<Vod>)children )  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film()));
+                                            lst.add(new Result( col.getId(), films ));
+                                        }
                                         continue;
                                     }
                                 } catch (Throwable t){}
@@ -140,7 +153,15 @@
                             list.add(new Result( str, lst));
                         } catch (Throwable t){
                             try{
-                                list.add(new Result( str, inner.getList(str, cn , 0, new Vod())));
+                                List<Vod> vods = inner.getList(str, cn, 0, new Vod());
+                                List<Film> films = new ArrayList<Film>();
+                                if( vods != null && vods.size() > 0 ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                                    for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
+                                    list.add(new Result(str, films));
+                                    vods = null;
+                                } else {
+                                    list.add( new Result( str, null ) );
+                                }
                             } catch (Throwable e){
                                 list.add(new Result( str, t.getMessage() + ":::" + e.getMessage()));
                             }

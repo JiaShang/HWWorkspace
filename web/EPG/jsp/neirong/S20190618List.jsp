@@ -8,6 +8,8 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
+    String body = "images/bg-2019-06-18-list.png";
+    if( column != null ) body = inner.pictureUrl(body, column.getPosters(), "7",0 );
 %>
 <html>
 <meta name="page-view-size" content="1280*720">
@@ -20,14 +22,16 @@
         .item .text{width: 385px;height: 58px;float:left;line-height: 65px;color:white;font-size:20px;text-align: left; word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
 
         .count,.page {width:29px;height:15px;position:absolute;left:1131px;top:320px;color:white;font-size:14px;line-height: 14px;overflow: hidden;text-align: center;}
-        .count {top:346px;}
+        .page1 {width:29px;height:15px;position:absolute;left:1131px;top:340px;color:white;font-size:14px;line-height: 14px;overflow: hidden;text-align: center;}
+        .count {top:362px;}
     </style>
     <script language="javascript" type="text/javascript" src="player/common.js"></script>
 </head>
-<body leftmargin="0" topmargin="0" style="overflow:hidden; background:black url('images/bg-2019-06-18-list.jpg') no-repeat;" onUnload="exit();">
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:black url('<%=body%>') no-repeat;" onUnload="exit();">
 <div id="mask"></div>
 <div id="after" class="after"></div>
 <div id="page" class="page"></div>
+<div id="page1" class="page1">/</div>
 <div id="count" class="count"></div>
 </body>
 <script language="javascript" type="text/javascript">

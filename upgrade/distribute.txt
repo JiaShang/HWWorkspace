@@ -1,14 +1,6 @@
-#《疯狂马戏城·极限快乐秀》
+#《跟着双晒游区县》
 # 重庆视讯传媒有限公司
 # 深圳市茁壮网络股份有限公司
-
-
-
-neirong/shang/J20200922.jsp
-neirong/shang/J20200927.jsp
-neirong/shang/images/J20200927Focus.png
-neirong/shang/images/J20200927Title.png
-
 
 defaultHD/en/hddb/hddb_topic_ztandr.txt
 defaultHD/en/hddb/hddb_topic_andr.txt

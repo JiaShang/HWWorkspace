@@ -31,11 +31,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        .mask {width:490px;height:57px;left:682px;position:absolute;background:transparent url('images/mask-2019-06-18.png') no-repeat;background-position: 0px 0px;}
+        .mask {width:490px;height:60px;left:682px;position:absolute;background:transparent url('images/mask-2020-11-06.png') no-repeat;background-position: 0px 0px;}
         .mask1 {top:270px;background-position: 0px 0px;}
-        .mask2 {top:343px;background-position: 0px -80px;}
-        .mask3 {top:420px;background-position: 0px -160px;}
-        .mask4 {top:498px;background-position: 0px -240px;}
+        .mask2 {top:343px;background-position: 0px -77px;}
+        .mask3 {top:420px;background-position: 0px -150px;}
+        .mask4 {top:498px;background-position: 0px -230px;}
     </style>
     <script language="javascript" type="text/javascript" src="player/common.js"></script>
 </head>

@@ -520,6 +520,24 @@ function getStrParams(_key, _str){
 	}
 	return "";
 }
+var list = [];   //left top wdith height 行高 行数 字体大小 背景色 焦点色
+var title = [];   //left top wdith height 行高 行数 字体大小 背景色 焦点色
+var titlePic = [];  //left top wdith height 移动距离 pic 是否显示
+var focusPic = [];  //left top wdith height 移动距离 pic 是否显示
+var sc = [];       //left top wdith height 背景色 焦点色 是否显示  显示类型 是否显示具体数据
+var video = [];   //left top wdith height
+function getParams() {
+	list = getUrlParams(list, "");
+	title = getUrlParams(title, "");
+	titlePic = getUrlParams(titlePic, "");
+	focusPic = getUrlParams(focusPic, "");
+	sc = getUrlParams(sc, "");
+	video = getUrlParams(video, "");
+}
+
+
+
+
 function timeCount(startTime,timeTable) {
 	var currentTime = new Date().getTime();
 	if (currentTime < startTime) {

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK">
+    <title>Read Me</title>
+    <style type="text/css">
+        body { position: absolute; width: 75%; background: #FFFFFF; color: #000000; margin-left: 12.5%; padding-top: 5px; box-sizing: border-box; font-size: 18px; word-break: break-all; word-wrap: break-word; }
+        p , .text-indent{ text-indent: 36px; box-sizing: border-box; }
+        .text-indent-2 { text-indent: 72px; box-sizing: border-box; }
+        pre { border: 1px solid #090; padding-left: 20px; background: #F0F0F0; text-indent: 0px; width: 80%; word-break: break-all;word-wrap: break-word; overflow-x: hidden;}
+        pre, .margin-left-2 { margin-left: 72px; }
+        table { border-collapse: collapse; border-spacing: 0; width: 82%; }
+        table, th, td { border: 1px solid #999999; }
+        table th { text-align: left; color:#333; background-color: #b5cfd2; padding-left: 5px; }
+        table td { padding-left: 5px; }
+        table tr { background-color: #fefefe; color: #686868; width: 100%; }
+        table tr:nth-child(even) { background-color: #f2f2f2; }
+
+    </style>
+    <script type="text/javascript" src="js/hwUtils.js"></script>
+</head>
+<body>
+    <h4>使用说明:</h4>
+    <p>
+        hwUtils用作请求华为推流的接口数据，跳转详情页面，跳转播放页面。工具兼容重庆有线P30，P60，iPanel 3.0, iPanel 3.0 advanced机顶盒。工具依赖hwUtils依赖hwUtils.js和bridge.js, 项目中需要引入这两个js，才能正常使用。
+    </p>
+    <div class="text-indent">1、工具有两种引入方式，静态加载bridge.js和动态加载bridge.js</div>
+    <div class="text-indent-2">
+        静态加载：
+        <pre>&lt;script type="text/javascript" src="js/hwUtils.js"&gt;&lt;/script&gt;<br/>&lt;script type="text/javascript" src="js/bridge.js"&gt;&lt;/script&gt;</pre>
+    </div>
+    <div class="text-indent-2">
+        动态加载：
+        <pre>&lt;script type="text/javascript" src="js/hwUtils.js"&gt;&lt;/script&gt;<br/>&lt;script type="text/javascript"&gt;<br/>    hwUtils.setAjaxJsPath({p60: "js/bridge.js"});//设置P60 ajax工具路径，P60请求数据时动态加载js<br/>&lt;/script&gt;</pre>
+    </div>
+    <div class="text-indent">2、根据华为vodId获取播放地址 </div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/en/go_authorization.jsp </div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>progId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目id，如果不知道传值-1</td>
+            </tr>
+            <tr>
+                <td>playType</td><td>是</td><td>播放类型，传值1。1为电影，11为电视剧</td>
+            </tr>
+            <tr>
+                <td>contentType</td><td>是</td><td>传值0</td>
+            </tr>
+            <tr>
+                <td>business</td><td>是</td><td>传值1</td>
+            </tr>
+            <tr>
+                <td>parentVodId</td><td>否</td><td>当为电视剧时，须加上参数父vodid</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回结果：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>playFlag</td><td>是</td><td>是否可以播放。0不可播，1可以播放</td>
+            </tr>
+            <tr>
+                <td>anCiFlag</td><td>是</td><td>值为0</td>
+            </tr>
+            <tr>
+                <td>playUrl</td><td>是</td><td>RTSP地址</td>
+            </tr>
+            <tr>
+                <td>reportUrl</td><td>是</td><td>华为EPG心跳地址</td>
+            </tr>
+            <tr>
+                <td>message</td><td>否</td><td>消息，不可播时返回</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">RTSP地址组成说明：</div>
+    <pre>华为vodid^播放类型^0^180^播放地址^0^-1^影片名^总时长^1^1</pre>
+    <div class="text-indent-2">返回数据示例:</div>
+    <pre>
+{
+  playFlag:"1",
+  anCiFlag:"0",
+  playUrl:"6555532^1^0^180^rtsp://192.168.14.60/88888888/16/20190315/273448524/273448524.ts?rrsip=192.168.14.60&SRMSessionID=3778!706.000!1545!9950000002214840!9950000002214840!10.249.27.38&PurchaseToken=3302098&NetType=Cable&IPQAMResRoute=192.168.115.47:8082&accountinfo=,9950000002214840,10.249.27.38,&SRMSIP=192.168.13.92&SRMSPORT=33700?/192.168.115.47:8082/9/706000/6875/64/H.264^0^-1^乌杨宣传片[最终][0]^707^1^1",
+  reportUrl:"http://192.168.115.47:8082/EPG/jsp/STBStateReport.jsp?sessID=3778!706.000!1545!9950000002214840!9950000002214840!10.249.27.38"
+}
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//vodId , playType, parentVodId, successCallback, failureCallback
+hwUtils.getGoAuthorization(4810057, 1, "", function(dataStr) {
+    console.log(dataStr);//成功
+}, function(dataStr) {
+    console.log(dataStr);//失败
+});
+
+// 或者
+hwUtils.getGoAuthorization({
+    vodId: 4810057,
+    playType: 1,
+    success: function(dataStr) {
+        console.log(dataStr)
+    },
+    error: function(dataStr) {
+        console.log(dataStr)
+    }
+});
+    </pre>
+    <div class="text-indent">3、获取影片列表</div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/android_getVodList_data.jsp</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>centerTypeId</td><td>是</td><td>栏目ID</td>
+            </tr>
+            <tr>
+                <td>pageNo</td><td>是</td><td>页数</td>
+            </tr>
+            <tr>
+                <td>imgType</td><td>否</td><td>影片图片类型(默认为1，可不传) 0: 缩略图,1: 海报,2: 剧照,3: 图标,7: 背景图</td>
+            </tr>
+            <tr>
+                <td>showNums</td><td>是</td><td>每页返回条目数</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回结果：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>totalNums</td><td>是</td><td>影片总数</td>
+            </tr>
+            <tr>
+                <td>bgImage</td><td>是</td><td>栏目背景图</td>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>影片ID</td>
+            </tr>
+            <tr>
+                <td>vodName</td><td>是</td><td>影片名</td>
+            </tr>
+            <tr>
+                <td>playType</td><td>是</td><td>影片类型</td>
+            </tr>
+            <tr>
+                <td>isHd</td><td>是</td><td>是否是高清，1:高清、2:标清</td>
+            </tr>
+            <tr>
+                <td>tagType</td><td>是</td><td>标签</td>
+            </tr>
+            <tr>
+                <td>icon</td><td>是</td><td>图标</td>
+            </tr>
+            <tr>
+                <td>img</td><td>是</td><td>默认海报</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回数据示例:</div>
+    <pre>
+{
+    totalNums: 438,
+    bgImage: "",
+    array: [{
+        vodId: 6578949,
+        vodName: "重庆公积金终稿5",
+        picPath:"http://192.168.115.47:8082/EPG/jsp/images/universal/film/poster/iptvcms/webapps/cms/upload/poster/201903/IMG2019032910314497353.jpg",
+        playType: "0",
+        isHd: "1",
+        tagType: "智慧社区2.0",
+        icon: "/EPG/jsp/defaultHD/en/images/icatch/global_tm.gif"
+    }],
+    img: "../../images/universal/default/defaultPic07.gif"
+}
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//centerTypeId, pageNo, showNums, imgType, successCallback, failureCallback
+hwUtils.getVodListData("10000100000000090000000000111345", 1, 20, null, function (dataStr) {
+    console.log(dataStr);//成功
+}, function (dataStr) {
+    console.log(dataStr);//失败
+});
+
+//或者
+hwUtils.getVodListData({
+    centerTypeId: "10000100000000090000000000111345",
+    pageNo: 1,
+    showNums: 20,
+    success: function (dataStr) {
+        console.log(dataStr);
+    },
+    error: function (dataStr) {
+        console.log(dataStr)
+    }
+});
+    </pre>
+    <div class="text-indent">4、获取vodId获取详情</div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/en/datajspHD/android_getTvDetail_data.jsp</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目id，如果不知道传值-1</td>
+            </tr>
+            <tr>
+                <td>imgType</td><td>否</td><td>影片图片类型(默认为1，可不传) 0: 缩略图,1: 海报,2: 剧照,3: 图标,7: 背景图</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回结果：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目Id</td>
+            </tr>
+            <tr>
+                <td>vodName</td><td>是</td><td>影片名</td>
+            </tr>
+            <tr>
+                <td>playType</td><td>是</td><td>影片类型</td>
+            </tr>
+            <tr>
+                <td>director</td><td>是</td><td>导演</td>
+            </tr>
+            <tr>
+                <td>actor</td><td>是</td><td>演员</td>
+            </tr>
+            <tr>
+                <td>picPath</td><td>是</td><td>海报地址</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回数据示例:</div>
+    <pre>
+单集或者电影：
+{
+    vodId: "5691231",
+    typeId: "-1",
+    vodName: "伪装者01",
+    director: "佚名",
+    actor: "佚名",
+    intr: "该剧以抗日战争中汪伪政权成立时期为背景，通过上海明氏三姐弟的失焦，讲述了抗战时期上海滩隐秘战线上国、共、日三方你中有我，我中有你的殊死较量。",
+    picPath: "/EPG/jsp/images/universal/default/defaultpic.gif",
+    playType: "0"
+}
+全集:
+{
+    vodId: "4829396",
+    typeId: "-1",
+    vodName: "伪装者",
+    director: "佚名",
+    actor: "佚名",
+    intr: "该剧以抗日战争中汪伪政权成立时期为背景，通过上海明氏三姐弟的失焦，讲述了抗战时期上海滩隐秘战线上国、共、日三方你中有我，我中有你的殊死较量。",
+    picPath: "/EPG/jsp/images/universal/default/defaultpic.gif",
+    playType: "1",
+    totalNum: "48",
+    vodIdList: ["5691231", "5691186", "5691210", "5691229", "5691199", "5691213", "5691236", "5691207", "5691193", "5691232", "5691197", "5691222", "5691224", "5691235", "5691214", "5691226", "5691200", "5691217", "5691237", "5691227", "5691185", "5691203", "5691215", "5691188", "5691211", "5691194", "5691225", "5691221", "5691223", "5691204", "5691201", "5691212", "5691234", "5691233", "5691206", "5691196", "5691230", "5691198", "5691216", "5691195", "5691205", "5691220", "5691218", "5691187", "5691219", "5691202", "5691209", "5691228"]
+}
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//vodId, typeId, imgType, successCallback, failureCallback
+hwUtils.getTvDetailData("4829396", "-1", null, function (dataStr) {
+    console.log(dataStr);
+}, function (dataStr) {
+    console.log(dataStr);
+});
+//或者
+hwUtils.getTvDetailData({
+    vodId: "4829396",
+    typeId: "-1",
+    success: function (dataStr) {
+        console.log(dataStr);
+    },
+    error: function (dataStr) {
+        console.log(dataStr);
+    }
+});
+    </pre>
+    <div class="text-indent">5、hidden_detail.jsp播放</div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/en/hidden_detail.jsp</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目id，如果不知道传值-1</td>
+            </tr>
+            <tr>
+                <td>playType</td><td>是</td><td>播放类型，传值1。1为电影，11为电视剧</td>
+            </tr>
+            <tr>
+                <td>baseFlag</td><td>否</td><td>2：按次点播；0：包月（基本包则不用传）</td>
+            </tr>
+            <tr>
+                <td>duration</td><td>否</td><td>播放开始和结束时间段00:09:56-00:14:14</td>
+            </tr>
+            <tr>
+                <td>idType</td><td>否</td><td>影片ID类型(如是外部ID需要把值设成FSN)</td>
+            </tr>
+            <tr>
+                <td>appBackUrl</td><td>是</td><td>返回地址</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">跳转示例:</div>
+    <pre>
+//电视剧
+/EPG/jsp/defaultHD/en/hddb/vod/hidden_detail.jsp?vodId=4829396&typeId=-1&playType=11&baseFlag=0&appBackUrl=http%3A%2F%2F192.168.18.251%3A81%2F201905271645%2Ftemplate%2Findex_stb.html%3FsubjectId%3D1300000128%26dataPos%3D5
+//电影
+/EPG/jsp/defaultHD/en/hddb/vod/hidden_detail.jsp?vodId=4810057&typeId=-1&playType=1&baseFlag=0&appBackUrl=http%3A%2F%2F192.168.18.251%3A81%2F201905271645%2Ftemplate%2Findex_stb.html%3FsubjectId%3D1300000128%26dataPos%3D5
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//电影
+//vodId, typeId, playType, baseFlag, duration, backUrl, failureCallback
+hwUtils.jumpP30Player("4810057", -1, "1", "0");
+//或者
+hwUtils.jumpP30Player({
+    vodId: "4810057",
+    typeId: -1,
+    playType: "1",
+    baseFlag: "0",
+    error: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+//电视剧
+//vodId, typeId, playType, baseFlag, duration, backUrl, failureCallback
+hwUtils.jumpP30Player("5691231", -1, "11", "0");
+//或者
+hwUtils.jumpP30Player({
+    vodId: "5691231",
+    typeId: -1,
+    playType: "11",
+    baseFlag: "0",
+    error: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+    </pre>
+    <div class="text-indent">6、p30机顶盒进入详情页</div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/en/[tv_detail|film_detail].jsp</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目id，如果不知道传值-1</td>
+            </tr>
+            <tr>
+                <td>appBackUrl</td><td>是</td><td>返回地址</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">跳转示例:</div>
+    <pre>
+//电视剧
+/EPG/jsp/defaultHD/en/hddb/vod/tv_detail.jsp?vodId=4829396&typeId=-1&appBackUrl=http%3A%2F%2F192.168.18.251%3A81%2F201905271645%2Ftemplate%2Findex_stb.html%3FsubjectId%3D1300000128%26dataPos%3D5
+//电影
+/EPG/jsp/defaultHD/en/hddb/vod/film_detail.jsp?vodId=4810057&typeId=-1&appBackUrl=http%3A%2F%2F192.168.18.251%3A81%2F201905271645%2Ftemplate%2Findex_stb.html%3FsubjectId%3D1300000128%26dataPos%3D5
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//电影
+//vodId, typeId, playType, backUrl, failureCallback
+//playType 播放类型，传值1。1为电影，11为电视剧
+hwUtils.jumpP30Detail({
+    vodId: "4810057",
+    typeId: -1,
+    playType: "1",
+    error: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+//电视剧
+//playType 播放类型，传值1。1为电影，11为电视剧
+hwUtils.jumpP30Detail({
+    vodId: "4829396",
+    typeId: -1,
+    playType: "11",
+    error: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+    </pre>
+    <div class="text-indent">7、P60跳转详情页</div>
+    <div class="text-indent-2">接口地址：http://aoh5.cqccn.com/h5_vod/vod/detail.html</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>vod_id</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>variety</td><td>是</td><td>电影传值movie，电视剧传值teleplay</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//vodId, playType, _parentVodId, backUrl, failureCallback
+//电影
+//playType 播放类型，传值1。1为电影，11为电视剧
+hwUtils.jumpP60Detail({
+    vodId: "4810057",
+    playType: "1",
+    error: function(dataStr) {}
+});
+//电视剧
+hwUtils.jumpP60Detail({
+    vodId: "5691231",
+    playType: "11",
+    parentVodId: "4829396",
+    error: function(dataStr) {}
+});
+    </pre>
+    <div class="text-indent">8、P60跳转播放页</div>
+    <div class="text-indent-2">接口地址：http://aoh5.cqccn.com/h5_vod/player/index.html</div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>name</td><td>是</td><td>视频名称</td>
+            </tr>
+            <tr>
+                <td>rtsp</td><td>是</td><td>播放地址，需要进行base64加密后传参</td>
+            </tr>
+            <tr>
+                <td>reportUrl</td><td>是</td><td>华为心跳地址，需要进行base64加密后传参</td>
+            </tr>
+            <tr>
+                <td>vodId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>flag</td><td>是</td><td>0：电视剧 1：电影 2：综艺 3：其他</td>
+            </tr>
+            <tr>
+                <td>time</td><td>是</td><td>开始时间</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//电影
+//playType 播放类型，传值1。1为电影，11为电视剧
+//name, vodId, playType, time, _parentVodId, backUrl, failureCallback
+hwUtils.jumpP60Player({
+    name: "测试",
+    vodId: "4810057",
+    playType: "1",
+    time: 0,
+});
+//电视剧
+hwUtils.jumpP60Player({
+    name: "伪装者01",
+    vodId: "5691231",
+    playType: "11",
+    time: 0
+});
+    </pre>
+    <div class="text-indent">9、go_auth.jsp</div>
+    <pre>接口参数参考go_authorization.jsp</pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+//电影
+//playType 播放类型，传值1。1为电影，11为电视剧
+//vodId, playType, parentVodId, successCallback, failureCallback
+hwUtils.getGoAuth({
+    vodId: "4810057",
+    playType: "1",
+    success: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+//电视剧
+hwUtils.getGoAuth({
+    vodId: "5691231",
+    playType: "11",
+    parentVodId: "4829396",
+    success: function (dataStr) {
+        iDebug(dataStr);
+    }
+});
+    </pre>
+    <div class="text-indent">10、动态接口调用</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>url</td><td>是</td><td>接口地址，用{HWEPGURL}替换iPanel.eventFrame.pre_epg_url</td>
+            </tr>
+            <tr>
+                <td>params</td><td>是</td><td>接口需要的参数对象</td>
+            </tr>
+            <tr>
+                <td>success</td><td>是</td><td>接口调用成功后的回调函数</td>
+            </tr>
+            <tr>
+                <td>error</td><td>是</td><td>接口调用失败或者异常的回调函数</td>
+            </tr>
+            <tr>
+                <td>type</td><td>否</td><td>接口请求方法，也可以使用method</td>
+            </tr>
+            <tr>
+                <td>p60Type</td><td>否</td><td>p60接口请求方法,P60机顶盒，如果有配置会覆盖type|method的值</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+hwUtils.dynamicsAjax({
+    url: "{HWEPGURL}/defaultHD/en/go_authorization.jsp",
+    params: {
+        playType: "1", // 1为电影 11为剧集
+        progId: "4810057",
+        contentType: 0,
+        business: 1,
+        typeId: '-1'
+    },
+    success: function (dataStr) {
+        iDebug("success = " + dataStr)
+    },
+    error: function (dataStr) {
+        iDebug("error = " + dataStr)
+    }
+});
+    </pre>
+    <div class="text-indent">11、播放地址获取</div>
+    <div class="text-indent-2">接口地址：/EPG/jsp/defaultHD/en/go_authorization.jsp </div>
+    <div class="text-indent-2">请求方法：get</div>
+    <div class="text-indent-2">参数列表：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>progId</td><td>是</td><td>华为vodId</td>
+            </tr>
+            <tr>
+                <td>typeId</td><td>是</td><td>栏目id，如果不知道传值-1</td>
+            </tr>
+            <tr>
+                <td>playType</td><td>是</td><td>播放类型，传值1。1为电影，11为电视剧</td>
+            </tr>
+            <tr>
+                <td>contentType</td><td>是</td><td>传值0</td>
+            </tr>
+            <tr>
+                <td>business</td><td>是</td><td>传值1</td>
+            </tr>
+            <tr>
+                <td>parentVodId</td><td>否</td><td>当为电视剧时，须加上参数父vodid</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">返回结果：</div>
+    <div>
+        <table class="margin-left-2">
+            <tr>
+                <th width="25%">参数名</th><th width="15%">是否必须</th><th width="60%">说明</th>
+            </tr>
+            <tr>
+                <td>playFlag</td><td>是</td><td>是否可以播放。0不可播，1可以播放</td>
+            </tr>
+            <tr>
+                <td>anCiFlag</td><td>是</td><td>值为0</td>
+            </tr>
+            <tr>
+                <td>playUrl</td><td>是</td><td>RTSP地址</td>
+            </tr>
+            <tr>
+                <td>reportUrl</td><td>是</td><td>华为EPG心跳地址</td>
+            </tr>
+            <tr>
+                <td>message</td><td>否</td><td>消息，不可播时返回</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-indent-2">RTSP地址组成说明：</div>
+    <pre>华为vodid^播放类型^0^180^播放地址^0^-1^影片名^总时长^1^1</pre>
+    <div class="text-indent-2">返回数据示例:</div>
+    <pre>
+playParams:
+{
+  vodId: "6555532",
+  playType: "1",
+  playUrl: "rtsp://192.168.14.60/88888888/16/20190315/273448524/273448524.ts?rrsip=192.168.14.60&SRMSessionID=3778!706.000!1545!9950000002214840!9950000002214840!10.249.27.38&PurchaseToken=3302098&NetType=Cable&IPQAMResRoute=192.168.115.47:8082&accountinfo=,9950000002214840,10.249.27.38,&SRMSIP=192.168.13.92&SRMSPORT=33700?/192.168.115.47:8082/9/706000/6875/64/H.264",
+  videoName: "乌杨宣传片[最终][0]",
+  duration: "707"
+}
+respObj:
+{
+  playFlag:"1",
+  anCiFlag:"0",
+  playUrl:"6555532^1^0^180^rtsp://192.168.14.60/88888888/16/20190315/273448524/273448524.ts?rrsip=192.168.14.60&SRMSessionID=3778!706.000!1545!9950000002214840!9950000002214840!10.249.27.38&PurchaseToken=3302098&NetType=Cable&IPQAMResRoute=192.168.115.47:8082&accountinfo=,9950000002214840,10.249.27.38,&SRMSIP=192.168.13.92&SRMSPORT=33700?/192.168.115.47:8082/9/706000/6875/64/H.264^0^-1^乌杨宣传片[最终][0]^707^1^1",
+  reportUrl:"http://192.168.115.47:8082/EPG/jsp/STBStateReport.jsp?sessID=3778!706.000!1545!9950000002214840!9950000002214840!10.249.27.38"
+}
+    </pre>
+    <div class="text-indent-2">工具调用:</div>
+    <pre>
+hwUtils.getGoAuthorizationWithPlayParamsObj({
+    vodId: "6555532",
+    playType: "1",
+    parentVodId: "",
+    success: function (playParams, respObj) {
+        iDebug("params = " + JSON.stringify(playParams));
+        iDebug("url = " + playParams.playUrl)
+        iDebug("jsonObj = " + JSON.stringify(respObj));
+    },
+    error: function (data) {
+        iDebug(data);
+    }
+});
+    </pre>
+</body>
+</html>

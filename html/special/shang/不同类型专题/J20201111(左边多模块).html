@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #bg {
+            width: 1280px;
+            height:720px;
+            left:0px;
+            top:0px;
+            position:absolute;
+            background: transparent no-repeat;
+        }
+        .focus{
+            position: absolute;
+            width: 600px;height: 300px;
+            overflow:hidden;
+            background: none no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/showList.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container"></div>
+<div id="focus0" class="focus" style="left: 60px;top: 440px;" ></div>
+<div id="focus1" class="focus" style="left: 480px;top: 440px;" ></div>
+<div id="focus2" class="focus" style="left: 860px;top: 440px;" ></div>
+<div id="focus3" class="focus" style="left: 300px;top: 530px;" ></div>
+<div id="focus4" class="focus" style="left: 690px;top: 530px;" ></div>
+<div id="focus5" class="focus" style="left: 690px;top: 530px;" ></div>
+</body>
+<script language="javascript" type="text/javascript">
+
+    var subColumns = [];
+    var focusPics = [];
+
+    var listBox = null;
+    var listData = [];
+    var titleBox = null;
+    var titleData = [];
+    var focusArea = 1;
+    var maxTitleLen = 25;
+    var maxListLen = 13;
+    var bgImg = "";
+    var imgData = [];
+    var cutFlag = 0 ; //等于1时，截取
+    var startStr = "";
+    var endStr = "";
+    var defaultImg = "../images/defaultImg.png";
+    (function(win){
+        win.moviePos = {width:640,height:360,left:567,top:218};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000119660';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst) {
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined') {
+                            imgData = rst['column']['posters'];
+                        }
+                        var list = rst['list'];
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        cursor.focusable[0] = {};
+                        cursor.focusable[0].typeId = rst['column'].id;
+                        cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        cursor.focusable[0].items = list;  //无子栏目时：list[i]  有子栏目时：list[i].data
+                        for (var i = 0; i < cursor.focusable[0].items.length; i++) {
+                            if (typeof cursor.focusable[0].items[i].posters == 'undefined') {
+                                cursor.focusable[0].items[i].posters = [];
+                            }
+                            initPosters(cursor.focusable[0].items[i].posters, "3", 2, defaultImg);
+                        }
+                        cut(cursor.focusable[0].items, startStr, endStr, cutFlag);
+                        if (typeof imgData['7'] != 'undefined'){
+                            bgImg = imgData['7'][0];
+                        }
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+                        for (var i = 0; i < cursor.focusable[0].items.length; i++) {
+                            var focus = cursor.focusable[0].focus;
+                            var items = cursor.focusable[0].items;
+                            $("focus" + String(i)).style.backgroundImage = "url(" + items[i].posters['3'][0] + ")";
+                            $("focus" + String(focus)).style.backgroundImage = "url(" + items[focus].posters['3'][1] + ")";
+                        }
+                setTimeout(function(){ cursor.call('show');},150);
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+
+            },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+            var focus = cursor.focusable[0].focus;
+                cursor.call('loseFocus');
+            if( focus != 2 && focus != 4 && index === 1 ) {
+                focus++;
+            } else if( focus != 0 && index == -1 && focus != 3) {
+                focus--;
+            }else if(focus < 2 && index == -11){
+                focus = 3;
+            }else if(focus == 2 && index == -11){
+                focus = 4;
+            }else if(focus == 4 && index == 11){
+                focus = 2;
+            }else if(focus > 2 && index == 11){
+                focus = 0;
+            }
+            cursor.focusable[0].focus = focus;
+            cursor.call('show');
+        },
+        show : function(){
+            var focus = cursor.focusable[0].focus;
+            var items = cursor.focusable[0].items;
+            $("focus"+String(focus)).style.backgroundImage = "url("+items[focus].posters['3'][1]+")";
+        },
+        loseFocus : function(){
+            var focus = cursor.focusable[0].focus;
+            var items = cursor.focusable[0].items;
+            $("focus"+String(focus)).style.backgroundImage = "url("+items[focus].posters['3'][0]+")";
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

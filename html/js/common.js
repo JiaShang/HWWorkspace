@@ -81,7 +81,6 @@
         var index = this.indexOf(o);
         if (index >= 0) this.removeAt(index);
     };
-
     var SYSTEM_BUSY_RETRY_LATER = decodeURIComponent('%E7%B3%BB%E7%BB%9F%E5%BF%99%2C%E8%AF%B7%E7%A8%8D%E5%80%99%E9%87%8D%E8%AF%95%E3%80%82');
     var GET_VOD_RTSP_ADDR_ERROR = decodeURIComponent('%E8%8E%B7%E5%8F%96%E7%82%B9%E6%92%AD%E5%9C%B0%E5%9D%80%E5%A4%B1%E8%B4%A5%EF%BC%9A');
     var STATIC_SUCCESS_STR = decodeURIComponent('%E6%88%90%E5%8A%9F');
@@ -89,7 +88,6 @@
     var TECH_SERVE_STR = decodeURIComponent('%E8%AF%B7%E4%B8%8E%E6%8A%80%E6%9C%AF%E4%BA%BA%E5%91%98%E8%81%94%E7%B3%BB%EF%BC%81');
     win.navigator = win.navigator || {};
     win.navigator.appName = win.navigator.appName || 'computer';
-
     win.isP60 = typeof sysmisc != 'undefined';
     win.isComputer = typeof sysmisc == 'undefined' && typeof iPanel == 'undefined';
     win.IPTV = typeof iPanelJavaInspector != 'undefined';
@@ -261,7 +259,7 @@
                 duration: 100,                    //总时长
                 backward: function (speed) {},    //快退
                 forward: function (speed) {},     //快进
-                seek: function(time){}            //时间格式为HH:mm:ss格式
+                seek: function(time){}            //秒为单位
             },
             picture: {alpha: 80},
             video: {
@@ -413,6 +411,7 @@
         document.onkeydown = document.onirkeypress = document.onsystemevent = win.handlers;
     }
     win.link = win.link || location.href;
+    win.origin = location.protocol + '//' + location.hostname + ':' + location.port;
     /*机顶盒的MAC地址*/
     win.iPanel.MAC = (function() {
         var defaultMac = '00:00:00:00:00:00';
@@ -476,6 +475,12 @@
         return 'HD30';
     })();
     win.debug('location.href =======>>>>>> (', win.link, ', serialNumber :', win.iPanel.serialNumber , ')  <<<<<=======' );
+    win.appendJS = function(path){
+        var script = document.createElement('script');
+        script.src = path;
+        script.type = 'text/javascript';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    };
     win.query = function(key){return win.link.query(key);};
     win.$ = function (objectId) {
         if (document.getElementById && document.getElementById(objectId)) {
@@ -574,7 +579,7 @@
         };
         if( win.isComputer ) {
             request.withCredentials = true;
-            url = buildUrlMark(url) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(location.origin);
+            url = buildUrlMark(url) + 'ISPCDBG=1&DBGHOST=' + encodeURIComponent(origin);
         }
         request.open(option.method, url, option.sync, typeof option.username !== 'undefined' ? option.username : null, typeof  option.password !== 'undefined' ? option.password : null);
         request.timeout = option.timeout;
@@ -599,19 +604,9 @@
         var message = typeof args == 'undefined' || args.length == 0 ? decodeURIComponent(GET_VOD_RTSP_ADDR_ERROR) : lisp();
         if( win.isP60 ) sysmisc.showToast(message);
         else if( win.IPTV || iPanel.HD30Adv ) {
-            var element = $("tooltipDivId");
+            var element = $("tooltipDialogModel");
             if(!element) {
-                element = document.createElement("div");// 设置不可见, 如果是display:none则无法取长度
-                element.style.width = "640px";
-                element.style.height = "360px";
-                element.style.left = "320px";
-                element.style.top = "180px";
-                element.style.position = "absolute";
-                element.style.zIndex = "9999";
-                element.style.visibility = element.style.overflow = "hidden";
-                element.style.backgroundColor = "black";
-                element.style.color = "white";
-                element.style.fontSize = '22px';
+                element = document.createElement("div"); element.style.width = "640px"; element.style.height = "360px"; element.style.left = "320px"; element.style.top = "180px"; element.style.position = "absolute"; element.style.zIndex = "9999"; element.style.visibility = element.style.overflow = "hidden"; element.style.backgroundColor = "black"; element.style.color = "white"; element.style.fontSize = '22px';
                 element.innerHTML = message;
                 document.body.appendChild( element )
             } else {
@@ -619,7 +614,7 @@
                 element.innerHTML = message;
             }
         } else if( win.isGW ) iPanel.debug(message);
-        else setTimeout(function(){alert(message);},500);
+            else setTimeout(function(){alert(message);},500);
     };
     //如果是3.0 或者来点终端此参数一定存在, 如果网关或P60或者电脑则不存在此参数
     //如果是电脑或者P60, 则前面已初始化iPanel
@@ -1036,40 +1031,6 @@
             if( typeof option.fail != 'undefined' ) option.fail( { error: e,  stack:'THROW ON ERROR！' } );
         }
     };
-    /*此函数很重要，采用不同方式加载数据，返回结果为window.lazyLoadData*/
-    win.loadData = function(url, callback, option){
-        if( typeof url != 'string' ) return;
-        option = option || { isScript : false};
-        win.lazyLoadData = undefined;
-        if( url.startWith(win.EPGUrl + '/neirong/player/detail.jsp') || option.isScript ){
-            rst = { code: -1, success: false };
-            var lazy = function (t) {
-                if (typeof win.lazyLoadData === 'undefined') {
-                    if ( t >= 5000 ) { // 超时时间5秒钟
-                        rst.msg =  decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE%E5%87%BA%E9%94%99%EF%BC%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%AA%E5%9C%A8%E8%A7%84%E5%AE%9A%E7%9A%84%E6%97%B6%E9%97%B4%E5%86%85%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%EF%BC%8C%E8%AF%B7%E8%BF%94%E5%9B%9E%E5%90%8E%E5%86%8D%E8%AF%95%EF%BC%81');
-                        if( typeof option.fail === 'function') return option.fail(rst);
-                        if( typeof callback === 'function' ) return callback( rst );
-                        return;
-                    }
-                    return setTimeout(function () { lazy( t + 50 ); }, 50);
-                }
-                if( typeof callback != 'function' ) return ;
-                rst.success = typeof win.lazyLoadData['success'] != 'undefined' ? win.lazyLoadData['success'] : true; rst.code = 200;
-                rst.code = typeof win.lazyLoadData['code'] != 'undefined' ? win.lazyLoadData['code'] : 200;
-                rst.data = typeof win.lazyLoadData['data'] != 'undefined' ? win.lazyLoadData['data'] : win.lazyLoadData;
-                callback( rst );
-                win.lazyLoadData = undefined;
-            };
-            if( win.isP30 || win.HD30 ) {
-                url += '&script=1';  win.appendJS(url);
-            } else {
-                win.ajax(url, function(rst){ win.lazyLoadData = rst; }, option);
-            }
-            setTimeout(function(){ lazy(0); }, 50);
-            return;
-        }
-        win.ajax(url, callback, option );
-    };
     win.buildUrlMark = function( str , refer ) {
         refer = refer || str;
         return str += refer.indexOf('?') > 0 ? '&' : '?';
@@ -1246,7 +1207,7 @@
                             url += 'epgBackurl=' + that.href;
                         } else {
                             url +=  ( url.startWith( win.EPGUrl ) || link.startWith( win.EPGUrl ) ) && that.href.query('HWSCache') == '' ? 'HWSCache=0&' : '';
-                            url += 'backURL=' + ( url.startWith(location.origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href ) + ( backUrl.isEmpty() ? '' : ('backURL=' +  backUrl )) ) );
+                            url += 'backURL=' + ( url.startWith(origin) ? (encodeURIComponent( that.href ) +  ( ! backUrl.isEmpty() ? ('#|#' + backUrl ) : '') ) : encodeURIComponent( buildUrlMark( that.href ) + ( backUrl.isEmpty() ? '' : ('backURL=' +  backUrl )) ) );
                         }
                     } else {
                         url += 'backURL=' + encodeURIComponent( backUrl );
@@ -1337,6 +1298,9 @@
         this.functions = {
             play: function () {
                 media.AV.play();
+                if( typeof cursor['seekTime'] == 'number' && cursor['seekTime'] != 0 ) {
+                    setTimeout(function(){ try {player.seekTo( cursor['seekTime'] );} catch (e) {}; cursor['seekTime'] = undefined; },100);
+                }
             },
             phoneValidate: function () {
                 var reg = /^1[3|4|5|7|8][0-9]\d{8}$/gi;
@@ -1556,10 +1520,10 @@
                     '&classifyID=' + that.voteId +
                     '&voteCount=' + vote.limit +
                     '&contentNum=' + vote.limitPer + '&content=' + encodeURIComponent(vote.target)) :
-                    ('/voteNew/external/addVote.ipanel?icid=' + win.iPanel.serialNumber +
-                        '&repeat=false&phone=' + that.phoneNumber +
-                        '&classifyID=' + that.voteId +
-                        '&content=' + encodeURIComponent(vote.target))
+                ('/voteNew/external/addVote.ipanel?icid=' + win.iPanel.serialNumber +
+                    '&repeat=false&phone=' + that.phoneNumber +
+                    '&classifyID=' + that.voteId +
+                    '&content=' + encodeURIComponent(vote.target))
             );
             ajax(url, function (result) {
                 that.commiting = false;
@@ -1574,30 +1538,37 @@
                 o = o || {};
                 var block = o.block || 0;
                 var callback = o.callback || null;
+                var sortResult = typeof o.sort != 'undefined' && o.sort;
+                var showResult = typeof o.show == 'undefined' || o.show;
                 var url = 'http://' + (typeof iPanel.isComputer === 'undefined' ? "ivote.vod.cqcnt.com:8989" : "192.168.18.249:8989") + '/VoteStatistics/getVoteInfo?classifyID=' + that.voteId;
                 ajax( url, function (results) {
                     if (typeof results != 'undefined') {
-                        results.sort(function () {
-                            function sort(a, b) {
-                                var compare = function (a, b) {
-                                    if (a > b) return 1;
-                                    if (a < b) return -1;
-                                    return 0;
-                                };
-                                return compare(a.num, b.num);
-                            }
-                        });
-                        for (var j = 0; j < results.length; j++) {
-                            var name = results[j].name;
-                            for (var i = 0; i < that.focusable[block].items.length; i++) {
-                                if (name != that.focusable[block].items[i].name) continue;
-                                that.focusable[block].items[i].voteCount = results[j].num;
-                                break;
-                            }
+                        if( sortResult ) {
+                            results.sort(function () {
+                                function sort(a, b) {
+                                    var compare = function (a, b) {
+                                        if (a > b) return 1;
+                                        if (a < b) return -1;
+                                        return 0;
+                                    };
+                                    return compare(a.num, b.num);
+                                }
+                            });
                         }
-                        if (callback == null) { that.call("show"); } else { callback(results); }
+                        if( showResult ){
+                            for (var j = 0; j < results.length; j++) {
+                                var name = results[j].name;
+                                for (var i = 0; i < that.focusable[block].items.length; i++) {
+                                    if (name != that.focusable[block].items[i].name) continue;
+                                    that.focusable[block].items[i].voteCount = results[j].num;
+                                    break;
+                                }
+                            }
+                            if( typeof callback != 'function' ) return that.call("show");
+                        }
+                        if( typeof callback == 'function' ) return callback(results);
                     }
-                });
+                }, {charset: "utf-8"});
             } catch (e) {}
         };
         this.saveCurr = function () { //此函数可重载
@@ -1734,140 +1705,104 @@
             }
         };
         that.seekTo = function(seconds) {
-            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    //TODO:
-                } else {
-                    media.AV.seek(cursor.secondsToTime( seconds ));
-                }
-            } else {
-                mixplayer.seekTo(that.playerId, seconds);
-            }
-        };
-        this.getStatus = function(){
-            return that.status;
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined || iPanel.mediaType == 'IPTV' && that.instance == undefined ) return;
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType != 'IPTV' ) { media.AV.seek( seconds ); } else { that.instance.seek( seconds ); }
+                } else { mixplayer.seekTo(that.playerId, seconds); }
+            } catch (e){}
         };
         this.backward = function(speed){
-            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
-            that.speed = speed;
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    //TODO:
-                } else {
-                    media.AV.backward(speed);
-                }
-            } else {
-                mixplayer.scale(that.playerId, speed);
-            }
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined || iPanel.mediaType == 'IPTV' && that.instance == undefined ) return;
+            try {
+                that.speed = speed;
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType != 'IPTV' ) { media.AV.backward(speed); } else {/* IPTV */}
+                } else { mixplayer.scale(that.playerId, speed); }
+            } catch (e){}
             that.status = that.BACKWARD;
             win.debug( "=======>>>>> CALL backward() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.forward = function(speed){
-            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return;
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined || iPanel.mediaType == 'IPTV' && that.instance == undefined  ) return;
             that.speed = speed;
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    //TODO:
-                } else {
-                    media.AV.forward(speed);
-                }
-            } else {
-                mixplayer.scale(that.playerId, speed);
-            }
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType !== 'IPTV' ) { media.AV.forward(speed); } else { /* IPTV */ }
+                } else {  mixplayer.scale(that.playerId, speed); }
+            } catch ( e ) {}
             that.status = that.FORWARD;
             win.debug( '=======>>>>> CALL forward() PLAYER STATUS: (', that.status, ') <<<<<=======');
         };
         this.elapsed = function(){
             var ela = 0;
-            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return ela;
-            debug("VOD ELAPSED : " ,ela = ( iPanel.mediaType !== 'P60' ? media.AV.elapsed : mixplayer.getCurrent(that.playerId) ) || ela);
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined || iPanel.mediaType == 'IPTV' && that.instance == undefined  ) return ela;
+            debug("VOD ELAPSED : " ,ela = ( iPanel.mediaType !== 'P60' ? ( iPanel.mediaType != 'IPTV' ? media.AV.elapsed :  0/*IPTV*/ ) : mixplayer.getCurrent(that.playerId) ) || ela);
             return ela;
         };
         this.duration  = function(){
             var dur = 0;
-            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined ) return dur;
-            debug("VOD DURATION : " ,dur = ( iPanel.mediaType !== 'P60' ? media.AV.duration : mixplayer.getDuration(that.playerId) ) || dur);
+            if( that.playType == 'LIVE' || iPanel.mediaType == 'P60' && that.playerId == undefined || iPanel.mediaType == 'IPTV' && that.instance == undefined  ) return dur;
+            debug("VOD DURATION : " ,dur = ( iPanel.mediaType !== 'P60' ? ( iPanel.mediaType != 'IPTV' ? media.AV.duration :  0/*IPTV*/ ) : mixplayer.getDuration(that.playerId) ) || dur);
             return dur;
         };
         this.voiceUp = function(){
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    //TODO:
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType != 'IPTV' ) { media.sound.up(); } else { /* IPTV */ }
                 } else {
-                    media.sound.up();
+                    if( that.playType != 'LIVE' && that.playerId != undefined ) mixplayer.voiceUp();
                 }
-            } else {
-                if( that.playType == 'LIVE' || that.playerId == undefined ) return;
-                mixplayer.voiceUp();
-            }
+            } catch ( e ) {}
         };
         this.voiceDown = function(){
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    //TODO:
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType != 'IPTV' ) { media.sound.down(); } else { /* IPTV */ }
                 } else {
-                    media.sound.down();
+                    if( that.playType == 'LIVE' || that.playerId == undefined ) return;
+                    mixplayer.voiceDown();
                 }
-            } else {
-                if( that.playType == 'LIVE' || that.playerId == undefined ) return;
-                mixplayer.voiceDown();
-            }
+            } catch ( e ) {}
         };
         this.resume = function(){
             if( that.playType == 'LIVE' || that.status == that.PLAY ) return;
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    that.instance.play(2);
-                } else {
-                    media.AV.play();
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType == 'IPTV' ) { that.instance.play(2); } else {  media.AV.play(); }
+                } else if( iPanel.mediaType == 'P60' ) {
+                    sysmisc.bringToForeground('web');
+                    if( that.playerId != undefined ) { mixplayer.resume(that.playerId); mixplayer.scale(that.playerId, 1); }
                 }
-            } else if( iPanel.mediaType == 'P60' ) {
-                sysmisc.bringToForeground('web');
-                if( that.playerId != undefined ) {
-                    mixplayer.resume(that.playerId);
-                    mixplayer.scale(that.playerId, 1);
-                }
-            }
+            } catch ( e ) {}
             that.status = that.PLAY;
             win.debug( "=======>>>>> CALL resume() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.pause = function() {
             if( that.playType == 'LIVE' ) return;
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    that.instance.pause();
-                } else {
-                    media.AV.pause();
-                }
-            } else {
-                if( that.playerId != undefined ) mixplayer.pause(that.playerId);
-            }
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType == 'IPTV' ) { that.instance.pause(); } else { media.AV.pause(); }
+                } else { if( that.playerId != undefined ) mixplayer.pause(that.playerId); }
+            } catch (e) {};
             that.status = that.PAUSE;
             win.debug( "=======>>>>> CALL pause() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
         this.close = function(){
-            if ( iPanel.mediaType !== 'P60' ) {
-                if( iPanel.mediaType == 'IPTV' ) {
-                    if( that.instance != undefined ) {
-                        that.instance.stop();
-                        that.playerId = that.instance = undefined;
+            try {
+                if ( iPanel.mediaType !== 'P60' ) {
+                    if( iPanel.mediaType == 'IPTV' ) {
+                        if( that.instance != undefined ) { that.instance.stop(); that.playerId = that.instance = undefined; }
+                    } else {
+                        if( that.playType == 'LIVE' ) { DVB.stopAV(); }
+                        media.AV.close();
                     }
                 } else {
-                    if( that.playType == 'LIVE' ) {
-                        DVB.stopAV();
-                    }
-                    media.AV.close();
-                }
-            } else {
-                if( that.playerId != undefined ) {
-                    if( that.playType == 'LIVE' ) {
-                        dvbplayer.stop(that.playerId);
-                    } else {
-                        mixplayer.stop(that.playerId);
+                    if( that.playerId != undefined ) {
+                        if( that.playType == 'LIVE' ) { dvbplayer.stop(that.playerId); } else { mixplayer.stop(that.playerId); }
                     }
                 }
-            }
+            } catch (e){}
             that.status = that.STOP;
             win.debug( "=======>>>>> CALL close() PLAYER STATUS: (", that.status, ') <<<<<=======');
         };
@@ -1895,6 +1830,7 @@
                 if( iPanel.mediaType !== 'P60' && iPanel.mediaType != 'IPTV'){
                     var mode = url.startWith('rtsp') ? 'VOD' : 'HTTP';
                     media.AV.open(url, mode );
+                    if( mode == 'VOD' && !isNaN( that.startTime ) && that.startTime != 0 ) cursor.seekTime = that.startTime;
                 } else if( iPanel.mediaType == 'P60') {
                     that.rtsp = url;
                     if( that.playerId === undefined ) {
@@ -1934,7 +1870,6 @@
                         url += typeof o.parentId != 'undefined' ? ( '&playType=11&parentVodId=' + String( o.parentId ) ) : ('&playType=1');
                         url += '&progId=' + o.vodId + "&contentType=0&business=1&baseFlag=0";
                         url += ( String(o.vodId).length > 8 || typeof o.idType != 'undefined' ? '&idType=FSN' : '');
-                        url += "&startTime=" + o.startTime;
                     } else {
                         url = win.EPGUrl + '/tstvindex.jsp?User=&pwd=&ip=' + iPanel.IpAddress;
                         url += '&NTID=' + iPanel.MAC + "&CARDID=" + iPanel.serialNumber;
@@ -2053,8 +1988,8 @@
                 } else if( iPanel.mediaType == 'IPTV' ){
                     if( that.instance != undefined ) {
                         that.instance.stop();
-                        that.instance.unbindPlayerInstance( that.playerId );
-                        that.instance = that.playerId = undefined;
+                        //下面代码不需要使用.
+                        //that.instance.unbindPlayerInstance( that.playerId ); that.instance = that.playerId = undefined;
                     }
                 } else {
                     DVB.stopAV(0);

@@ -217,7 +217,7 @@
                 if( iPanel.HD30Adv ) enc = '';
                 var typeId = '10000100000000090000000000113783,10000100000000090000000000113784,10000100000000090000000000113791';
                 var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=2' + enc + '&fn=6&spec=1';
-                loadData(url, function(rst){
+                ajax(url, function(rst){
                     var list = rst['data'];
                     var interrupt = function( condition ){
                         if( !condition ) return false;
@@ -239,7 +239,7 @@
                         cursor.call('showFlowedList');
 
                         //左侧两个稍大点的图片
-                        var url = location.origin + '/active/';
+                        var url = origin + '/active/';
                         html = '<div style="width:1280px;height:620px;position:absolute;left:0px;top:0px;"><img src="images/bg-2020-Sounds-Index-1.png"/> </div>' +
                             '<div style="width:1280px;height:622px;position:absolute;left:0px;top:619px;"><img src="images/bg-2020-Sounds-Index-2.png"/> </div>';
 

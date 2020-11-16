@@ -2,6 +2,9 @@ sudo lsof -nP -iTCP:5037 -sTCP:LISTEN
 爱看策划 10000100000000090000000000103261
 
 
+"(/EPG/jsp|http://125.62.26.152|http://192.168.89.23)[\s\S]*?2020-10-.*?"
+
+
 //这条命令相当于按了设备的Backkey键
 adb shell input keyevent 4
 adb shell screenrecord /sdcard/aa.mp4  (屏幕录相)

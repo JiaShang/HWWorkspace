@@ -37,7 +37,8 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    String picture = column == null ? "" : inner.pictureUrl("images/J20200515Bg.png",column.getPosters(),"7");
+    String picture = column == null ? "" : inner.pictureUrl("images/J20201028Bg.jpg",column.getPosters(),"7");
+//    picture = "images/J20201104Bg.png";
     String[] sc = {};
     String[] titlePic = {};
     String[] focusPic = {};
@@ -205,10 +206,10 @@
                     $("title").style.visibility = "hidden";
                 }else if (titleFlag==1){
                     $("title").style.visibility = "visible";
-                    $("title").style.backgroundImage = " url(images/J<%=titlePic[4]%>Title0.png)";
+                    $("title").style.backgroundImage = "url(images/J<%=titlePic[4]%>Title"+cursor.blocked+".png)";
                 }else {
                     $("title").style.visibility = "visible";
-                    $("title").style.backgroundImage = " url(images/J<%=titlePic[4]%>Title.png)";
+                    $("title").style.backgroundImage = "url(images/J<%=titlePic[4]%>Title.png)";
                 }
 
                 cursor.call('show');

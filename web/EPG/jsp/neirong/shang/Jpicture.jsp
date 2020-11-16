@@ -19,7 +19,7 @@
     //获取当前栏目的详细信息
     Column column = new Column();
     column = inner.getDetail(typeId,column);
-    int type = inner.getInteger("type", 1);  //默认所有图片绑到成栏目背景图下
+    int type = inner.getInteger("type", 1);  //默认所有图片绑到成栏目背景图下  //为空时，上下移动，不为空时，左右移动
 %>
 <html>
 <head>
