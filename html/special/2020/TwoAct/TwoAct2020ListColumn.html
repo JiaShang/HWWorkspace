@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .listBody {width:900px;height:360px;position:absolute;left:183px;top:254px;overflow: hidden;}
+        .item {width:900px;height:61px;color:white;line-height:50px;font-size: 22px;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+        .mask {width:983px;height:89px;left: 147px;background:transparent url("images/TwoAct2020ListColumnFocus.png") no-repeat 0px 0px;position:absolute;}
+        .scrollBar {width:9px;height:55px;position:absolute;left:1136px;background:transparent url("images/TwoAct2020ListColumnSplit.png") no-repeat 0px 0px;}
+        .marqueeItem {line-height:70px;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/TwoAct2020ListColumnBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:0px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div id='mask'></div>
+<div id="listBody" style="background:transparent none no-repeat 0px 0px;" class="listBody"></div>
+<div id="scrollBar" class="scrollBar"></div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                if( typeId.isEmpty() ) { tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') ); return; }
+                var that = this;
+
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        var column = rst['column'];
+                        var list = rst['list'];
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: typeId };
+                        cursor.call('show');
+                        cursor.call('lazyShow');
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+            },
+            move : function(index){
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if( index == 1 || index == -1 || index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length ) return;
+                focus += index > 0 ? -1: 1;
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            lazyShow : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var item = cursor.focusable[blocked].items[focus];
+                var name = item.name;
+                cursor.calcStringPixels(name, 22, function(width){
+                    if( width < 900 ) return;
+                    $("item" + String( focus + 1 )).innerHTML = '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                });
+            },
+            show: function(){
+                var blocked = 0;
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[blocked].items;
+                var pageCount = 6;
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                if( flowCursorIndex + pageCount >= items.length ) flowCursorIndex = items.length - pageCount;
+                if( flowCursorIndex < 0 ) flowCursorIndex = 0;
+                var html = "";
+                var showIndex = 0;
+                for( var i = flowCursorIndex; i < flowCursorIndex + pageCount && i < items.length; i ++ ){
+                    var item = items[i];
+                    var style = '';
+                    if( i === focus ) {
+                        showIndex = i - flowCursorIndex;
+                        style = 'style="color:white;"'
+                    };
+                    html += '<div class="item" id="item' + String( i + 1 ) + '" ' + style +  '>' + item.name + "</div>";
+                }
+                $("listBody").innerHTML = html;
+                $("mask").className = "mask";
+                $("mask").style.top = String( showIndex % pageCount * 61 + 235 ) + "px";
+
+                var scrollBarHeight = 365;
+                var h = 44;
+                $("scrollBar").style.top = Math.ceil( focus * 1.0 / (items.length - 1) * ( scrollBarHeight - h ) + 247) + "px";
+                //$("page").innerHTML = Math.ceil((focus  +  1.0) / pageCount);
+                //$("count").innerHTML = Math.ceil(items.length  * 1.0 / pageCount);
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <style>
+        .mask{width:1280px;height:720px;left:0px;top:0px; position:absolute;background: transparent url("images/TAQuestionMask.png") no-repeat left top;}
+        .QRCode{width:200px;height:200px;left:542px;top:230px;position: absolute;}
+        .QRCode img{width:100%;height:100%}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/TAQuestionBg.jpg') no-repeat;" onUnload="exit();">
+<div class="mask" id="mask" style="visibility: hidden;"><div class="QRCode" id="QRCode"></div></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function() {
+                cursor.showQRCodeMark = false;
+            },
+            move : function(index){
+                return;
+            },
+            show : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                $("bg").style.backgroundImage = 'url("images/bg_' + String( focus + 1) + '.jpg")';
+            },
+            showQRCode : function(){
+                cursor.showQRCodeMark = true;
+                $("mask").style.visibility = 'visible';
+                $("QRCode").innerHTML = '<img src="http://125.62.26.152/media/qrcode/generate?card=' + iPanel.serialNumber + '&mac=' + iPanel.MAC + '&mediaType=' + iPanel.mediaType + '&size=512&padding=0&type=stream&imgType=png&errorLevel=2" />';
+            },
+            hideQRCode : function(){
+                cursor.showQRCodeMark = false;
+                $("mask").style.visibility = 'hidden';
+                $("QRCode").innerHTML = '';
+            },
+            select : function(){
+                if( cursor.showQRCodeMark ) return cursor.call('hideQRCode');
+                return cursor.call('showQRCode');
+            },
+            goBack:function(){
+                if( cursor.showQRCodeMark ) return cursor.call('hideQRCode');
+                return cursor.call('goBackAct');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

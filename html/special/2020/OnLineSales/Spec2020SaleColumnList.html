@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>M
+    <meta name="page-view-s/. VCize" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .listBody {width:447px;height:600px;position:absolute;left:759px;top:60px;overflow: hidden;}
+        .item {width:447px;height:66px;color:#515151;line-height:63px;font-size: 22px;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+        .mask {width:482px;height:54px;left: 742px;background:transparent url("images/mask-2020-sales.png") no-repeat 0px -450px;position:absolute;}
+        .scrollBar {width:9px;height:55px;position:absolute;left:1235px;background-color:#9f6f43;}
+        .marqueeItem {line-height:70px;}
+
+        .title{width:151px;height:50px;left:407px;top:67px;position:absolute;background:transparent url("images/mask-2020-sales.png") no-repeat left top;background-position: 100px 100px;}
+        /*今日推荐*/
+        .title1{background-position: -188px -200px;}
+        .title2{background-position: -188px -250px;}
+        .title3{background-position: -188px -345px;}
+        .title4{background-position: -188px -295px;}
+        .title5{background-position: -188px -400px;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div class="container" id="container">
+    <div style="position:absolute;z-index:0;width:2500px;height:45px;top:0px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+        <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+    </div>
+    <div style="position: absolute;left:0px;top:0px;width:1280px;height:720px;background: transparent url('images/bg-2020-sales-column-list.png') no-repeat left top;"></div>
+    <div class="title" id="title"></div>
+    <div id="listBody" style="background:transparent none no-repeat 0px 0px;" class="listBody"></div>
+    <div id='mask'></div>
+    <div id="scrollBar" class="scrollBar" style="visibility: hidden"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                if( typeId.isEmpty() ) { tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') ); return; }
+                var that = this;
+
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                win.moviePos = {width:636,height:360,left:59,top:201};
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        var column = rst['column'];
+                        $("title").className = 'title title' + (column.name == decodeURIComponent('%E7%9B%B4%E6%92%AD%E9%97%B4%E5%9B%9E%E6%94%BE') ? "3" : "4");
+                        var list = rst['list'];
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: typeId };
+                        cursor.call('enterSmallMode');
+                        cursor.call('lazyShow');
+                        if( isComputer ) cursor.call('show');
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+            },
+            move : function(index){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if( index == 1 || index == -1 || index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length ) return;
+                focus += index > 0 ? -1: 1;
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                $("container").style.visibility = 'hidden';
+                $("mask").style.visibility = 'hidden';
+                player.fullScreen();
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $("container").style.visibility = 'visible';
+                $("mask").style.visibility = 'visible';
+            },
+            lazyShow : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String(blocked + 1) + String( focus + 1 );
+                if( cursor.played != id ) {
+                    cursor.playIndex = focus;
+                    cursor.call('prepareVideo');
+                    cursor.played = id;
+                }
+            },
+            prepareVideo : function(){
+                var playIndex = cursor.playIndex;
+                if( cursor.focusable[0].length <= 0 ) return;
+                var item = cursor.focusable[0].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id, callback : function(){
+                        if( cursor.fullmode ) return;
+                        cursor.call('show');
+                        var name = item.name;
+                        cursor.calcStringPixels(name, 22, function(width){
+                            if( width < 447 ) return;
+                            var focus = cursor.focusable[cursor.blocked].focus;
+                            $("item" + String( focus + 1 )).innerHTML = '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                        });
+                    }} );
+                } catch (e){ }
+            },
+            goBack : function(){
+                if( cursor.fullmode ) return cursor.call('enterSmallMode');
+                cursor.call("goBackAct");
+            },
+            select: function() {
+                if( !cursor.fullmode ) return cursor.call('enterFullMode');
+            },
+            nextVideo : function ( ){
+                if( !cursor.moveTimer ) {
+                    var playIndex = cursor.focusable[0].focus;
+                    playIndex = playIndex + 1 < cursor.focusable[0].items.length ? playIndex + 1 : 0;
+                    cursor.focusable[0].focus = cursor.playIndex = playIndex;
+                    if( !cursor.fullmode ) {
+                        cursor.call( 'lazyShow');
+                    } else {
+                        cursor.played = "1" + String( playIndex + 1);
+                        cursor.call("playMovie", cursor.focusable[0].items[playIndex]);
+                    }
+                }
+            },
+            show: function(){
+                var blocked = 0;
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[blocked].items;
+                var pageCount = 9;
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                if( flowCursorIndex + pageCount >= items.length ) flowCursorIndex = items.length - pageCount;
+                if( flowCursorIndex < 0 ) flowCursorIndex = 0;
+                var html = "";
+                var showIndex = 0;
+                for( var i = flowCursorIndex; i < flowCursorIndex + pageCount && i < items.length; i ++ ){
+                    var item = items[i];
+                    var style = '';
+                    if( i === focus ) {
+                        showIndex = i - flowCursorIndex;
+                        //style = 'style="color:white;"'
+                    };
+                    html += '<div class="item" id="item' + String( i + 1 ) + '" ' + style +  '>' + item.name + "</div>";
+                }
+                $("listBody").innerHTML = html;
+                $("mask").className = "mask";
+                $("mask").style.top = String( showIndex % pageCount * 66 + 63 ) + "px";
+
+                if( items.length > pageCount ) {
+                    var scrollBarHeight = 580;
+                    var h = 44;
+                    $("scrollBar").style.top = Math.ceil( focus * 1.0 / (items.length - 1) * ( scrollBarHeight - h ) + 66) + "px";
+                    $("scrollBar").style.visibility = 'visible';
+                } else {
+                    $("scrollBar").style.visibility = 'hidden';
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

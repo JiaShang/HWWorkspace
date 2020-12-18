@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;}
+        .mask{position:absolute;background: transparent url("images/historyMask.png") no-repeat 0px 0px;background-position: 0px 0px;}
+
+        .mask1{width:148px;height:96px;position:absolute;}
+
+        .mask11{left:74px;top:190px;background-position:0px 0px; }
+        .mask12{left:74px;top:331px;background-position:0px -100px;}
+        .hover11{background-position: 0px -530px;}
+        .hover12{background-position: -200px -530px;}
+
+        .mask2{top:198px;height:50px}
+        .mask21{width:168px;left:533px;background-position:-150px 0px;}
+        .mask22{width:193px;left:721px;background-position:-150px -50px;}
+        .mask23{width:284px;left:801px;background-position:-150px -100px;}
+
+        .mask3{width:455px;height:154px;background-position:0px -200px;}
+        .mask31{left:259px;top:264px;}
+        .mask32{left:746px;top:264px;}
+        .mask33{left:259px;top:453px;}
+        .mask34{left:746px;top:453px;}
+
+        .hover21{background-position:0px -650px;}
+        .hover22{background-position:0px -700px;}
+        .hover23{background-position:0px -750px;}
+
+        .flowed{width:1100px;height:420px;position: absolute;left:266px;top:271px;}
+        .itemContainer{width:487px;height: 190px;float: left;}
+        .item{width:440px;height:138px;background: transparent url("images/historyMask.png") no-repeat 0px -380px;position:absolute;color:white; font-size:28px;text-align:center;line-height: 138px;overflow: hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;}
+
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/historyBg.png') no-repeat;" onUnload="exit();">
+<div class="flowed" id="flowed"></div>
+<div id="major"></div>
+<div id="subject" style="visibility: hidden"></div>
+<div id="mask" style="visibility: hidden"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function() {
+                var typeId = '10000100000000090000000000118543,10000100000000090000000000118542';
+                cursor.rows = 2;
+                cursor.columns = 2;
+                cursor.pageSize = cursor.rows * cursor.columns;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url, function(rst){
+                    var list = rst['data'];
+                    var items = list[0];
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                    cursor.focusable[0] = { items: items, focus : focused.length > 1 ? Number(focused[1]) : 0};
+                    cursor.focusable[1] = { items: list[1]['data'][0]['data'], focus : focused.length > 2 ? Number(focused[2]) : 0};
+                    cursor.focusable[2] = { items: list[2]['data'][0]['data'], focus : focused.length > 3 ? Number(focused[3]) : 0};
+                    cursor.focusable[3] = { items: list[1]['data'][1]['data'], focus : focused.length > 4 ? Number(focused[4]) : 0,typeId:list[1]['data'][1]['id']};
+                    cursor.focusable[4] = { items: list[1]['data'][2]['data'], focus : focused.length > 5 ? Number(focused[5]) : 0,typeId:list[1]['data'][2]['id']};
+                    cursor.focusable[5] = { items: list[2]['data'][1]['data'], focus : focused.length > 6 ? Number(focused[6]) : 0,typeId:list[2]['data'][1]['id']};
+                    cursor.focusable[6] = { items: list[2]['data'][2]['data'], focus : focused.length > 7 ? Number(focused[7]) : 0,typeId:list[2]['data'][2]['id']};
+
+                    cursor.call('show');
+                    cursor.call('showList');
+                }, { fail:function(rst){
+                        tooltip(decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81'));
+                        return;
+                    }
+                });
+            },
+            select: function (){
+                var blocked = cursor.blocked;
+                if( blocked <= 2 ) return ;
+                cursor.call('selectAct');
+            },
+            move:function(index){
+                var blocked = cursor.blocked;
+                var lastBlocked = blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var page = Math.floor( focus * 1.0 / cursor.pageSize );
+                var items = cursor.focusable[blocked].items;
+                if( blocked == 0 ) {
+                    if( index == -1 ) return;
+                    if( index == 11 && focus <= 0|| index == -11 && focus + 1 >= items.length ) return;
+                    if( index == 11 || index == -11 ) {
+                        focus += index > 0 ? -1 : 1;
+                        cursor.focusable[blocked].focus = focus;
+                        cursor.call('showList');
+                    } else {
+                        var from = cursor.focusable[0].from;
+                        if( typeof from == "undefined" || from == 0 ) {
+                            blocked = focus + 1;
+                            focus = 0;
+                        } else {
+                            blocked = cursor.focusable[focus + 1].focus + (focus + 1) * 2 + 1;
+                            focus = cursor.focusable[blocked].focus;
+                        }
+                    }
+                } else if( blocked <= 2 ) {
+                    if( index == 11 || index == 1 && focus + 1 >= items.length ) return;
+                    if( index == 1 || index == -1 ){
+                        focus += index;
+                        if( focus < 0 ) {
+                            blocked = 0;
+                            focus = cursor.focusable[blocked].focus;
+                            cursor.focusable[blocked].from = 0;
+                        } else {
+                            cursor.focusable[blocked].focus = focus;
+                            cursor.call('showList');
+                        }
+                    } else {
+                        blocked = cursor.focusable[blocked].focus + blocked * 2 + 1;
+                        if(typeof cursor.focusable[blocked].items == 'undefined' || cursor.focusable[blocked].items.length == 0 ) return ;
+                        focus = cursor.focusable[blocked].focus;
+                    }
+                } else {
+                    var columns = cursor.columns;
+                    var pageSize = cursor.pageSize;
+                    var page = Math.floor( focus * 1.0 / pageSize );
+                    if( index == -1 ) {
+                        if( focus % columns == 0 ) {
+                            if( focus <= columns ) {
+                                blocked = 0;
+                                focus = cursor.focusable[blocked].focus;
+                                cursor.focusable[0].from = lastBlocked;
+                            } else {
+                                focus -= pageSize - columns + 1;
+                            }
+                        } else focus -= 1;
+                    } else if( index == 1 ) {
+                        if( focus % columns == columns - 1 ) {
+                            if( Math.ceil( (focus + 1.0) / pageSize) * pageSize >= items.length ) return;
+                            focus += pageSize - columns + 1;
+                            if( focus >= items.length ) focus = items.length - 1;
+                        } else if( focus + 1 >= items.length )
+                            return;
+                        else  focus += 1;
+                    } else if( index == 11 ) {
+                        if( focus < columns ) {
+                            blocked = cursor.focusable[0].focus + 1;
+                            focus = cursor.focusable[blocked].focus;
+                        } else {
+                            focus -= columns;
+                        }
+                    } else if( index == -11 ){
+                        if( focus + columns >= items.length && Math.ceil( (focus + 1.0) / columns) == Math.ceil( items.length * 1.0 / columns)  )
+                            return;
+                        focus += columns;
+                        if( focus >= items.length ) focus = items.length - 1;
+                    }
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                if( page != Math.floor( focus * 1.0 / cursor.pageSize ) ) cursor.call('showList');
+                cursor.call('show');
+            },
+            showList:function(){
+                var blocked = cursor.focusable[0].focus + 1;
+                blocked = cursor.focusable[blocked].focus + blocked * 2 + 1;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var html = '';
+                if( typeof items != 'undefined' ) {
+                    var flowCursorIndex = Math.floor(focus / cursor.pageSize) * cursor.pageSize;
+                    var length = items.length - flowCursorIndex >= cursor.pageSize ? cursor.pageSize : items.length - flowCursorIndex;
+                    for( var i = flowCursorIndex; i < flowCursorIndex + length; i ++ ){
+                        var item = items[i];
+                        html += '<div class="itemContainer">';
+                        html += '<div class="item">';
+                        html += item.name;
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                }
+                $("flowed").innerHTML = html;
+            },
+            show : function() {
+                var blocked = cursor.blocked;
+                var focus = undefined;
+                if( blocked == 0 ){
+                    focus = cursor.focusable[blocked].focus;
+                    $("major").className = 'mask mask1 mask1' + String(focus + 1);
+                    $("subject").style.visibility = 'hidden';
+                    $("mask").style.visibility = 'hidden';
+                } else if( blocked <= 2) {
+                    focus = cursor.focusable[0].focus;
+                    $("major").className = 'mask mask1 mask1' + String(focus + 1) + ' hover1' + String( focus + 1);
+                    focus = cursor.focusable[blocked].focus;
+                    $("subject").className = 'mask mask2 mask2' + String(focus + 1);
+                    $("subject").style.visibility = 'visible';
+                    $("mask").style.visibility = 'hidden';
+                } else {
+                    focus = cursor.focusable[0].focus;
+                    $("major").className = 'mask mask1 mask1' + String(focus + 1) + ' hover1' + String( focus + 1);
+                    focus = cursor.focusable[focus + 1].focus;
+                    $("subject").className = 'mask mask2 mask2' + String(focus + 1) + ' hover2' + String( focus + 1);
+                    $("subject").style.visibility = 'visible';
+                    focus = cursor.focusable[blocked].focus;
+                    $("mask").className = 'mask mask3 mask3' + String(focus % cursor.pageSize + 1);
+                    $("mask").style.visibility = 'visible';
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

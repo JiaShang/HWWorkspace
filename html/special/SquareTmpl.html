@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- 一页5个，或10个块的模板专题 -->
+<!--
+    typeId:栏目Id;华为CMS中，当前专题名称所应对的ID;
+    bg:背景图片，如果带bg参数时，图片路径需是从 /html/special/ [路径] 的相对路径，程序自动加上 /html/special/
+    lft:LEFT坐标;不填为默认坐标
+    tp:TOP坐标;不填为默认坐标
+    cl:文字颜色;不填为默认为 fee5f0
+    fc:焦点文字颜色;不填为默认为 fdfa00
+    bo:背景框颜色;不填为默认为 ffffff
+    bc:焦点框颜色;不填为默认为 fdfa00
+    ct:每行显示条目个数，默认为５个, 也可用col参数代替;
+    row:多少行，pageCount 显示结果为 row * ct
+    wh: 元素图片的宽度
+    ht: 元素图片的高度
+    ml: 两个元素左右之间的距离
+    mh: 上下两排元素之间的高度
+    mt: 元素和文字之间的距离
+    bd: 边框的宽度，默认为 6
+    st:样式，如果 st 为1时，焦点文字背景为黑色，盖住了图片;
+    fs:font-size， 字体大小
+    pic:图片类型，默认为海报.
+    txt:是否显示标题，当 txt 为空时，默认显示标题，否则不显显示标题。
+    th:文本块的高度
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .container{width:1280px;height:720px;position:absolute;left:0px;top:0px;overflow: hidden;}
+        /*样式定义重复的原因： 因为 iPanel 浏览器在处理样式时，如果不重复写，会导致样式无法生效*/
+        .bg{left:0px;top:0px;width:1280px;height:720px;background: transparent none no-repeat left top; background-image: none;}
+        /*名称列表的位置*/
+        .listBody,.chars,.bg{position:absolute;overflow: hidden;}
+        .item {float: left;position:relative;}
+        .chars{word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;}
+        .image, .text,.container {position:absolute; left:0px; top:0px; border: none;}
+        .focus {background:transparent none no-repeat 0px 0px;position:absolute; background-position: 0px 0px; background-image: none;}
+        .scrollBar {width:7px;position:absolute;}
+        .focus {-webkit-transition: all .3s cubic-bezier(0, 1, 0.5, 1);}
+        img {width: 100%;height:100%;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div class="container" id="container">
+    <!--下面的 DIV 作用是为了计算标题的长度 -->
+    <div style="position:absolute;z-index:0;width:2500px;height:45px;top:-45px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+        <span id='calcPixels' style='visibility: visible; overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+    </div>
+    <div id="bg" class="bg"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var get = function (name, defaultVal, isColor){
+            var tp = typeof defaultVal;
+            var val = win.link.query(name);
+            if( tp == "number" ) {
+                val = val.isEmpty() ? defaultVal : Number(val);
+                if( isNaN( val ) ) val = defaultVal;
+                return val;
+            }
+            if( val.isEmpty() ) val = defaultVal;
+            if( isColor && /^[0-9a-f]{6}$/gi.test(val) ) val = '#' + val;
+            return val;
+        }
+        var initialize = {
+            initArguments : function ( ){
+                var attribute = {}, width = '', height = '', left = '', top = '';
+                attribute['left'] = get('lft', 89); //列表 x 坐标
+                attribute['top'] = get('tp', 383);  //列表 y 坐标
+                attribute['columns'] = get('col', 0); //每行显示多少个元素
+                if ( attribute['columns'] == 0 ) attribute['columns'] = get('ct', 5)  //为了兼容性
+                attribute['rows'] = get('row', 1);    //每页显示多少行
+                attribute['pageSize'] = attribute['rows'] * attribute['columns'];    //每页显示多少行
+
+                attribute['color'] = get('cl', 'fee5f0', 1);      //普通元素的文字颜色
+                attribute['bgColor'] = get('bo', 'ffffff', 1);       //普通背景颜色
+                attribute['crevice'] = get('ml', 18);      //两个元素左右之间的间隙
+                attribute['spacing'] = get('mh', 35);      //两行上下之间的间隙
+                attribute['borderWidth'] = get('bd', '6', 1);  //边框的宽度
+                attribute['pictureWidth'] = get('wh', 178);  //显示图片尺寸的宽度
+                attribute['pictureHeight'] = get('ht', 232); //显示图片尺寸的高度
+                attribute['itemWidth'] = attribute['pictureWidth'] + attribute['borderWidth'] * 2;  //显示图片尺寸的宽度
+                attribute['itemHeight'] = attribute['pictureHeight'] + attribute['borderWidth'] * 2; //显示图片尺寸的高度
+                attribute['textHeight'] = get('th', 33); //文本显示区域的高度
+                attribute['textMargin'] = get('mt', 3);  //文本块和图片之间的间隔
+                attribute['containerWidth'] = attribute['itemWidth'] + attribute['crevice'];
+                attribute['showTitle'] = get('txt', '').isEmpty(); //默认显示文本
+                attribute['containerHeight'] = attribute['itemHeight'] + ( attribute['rows'] <= 1 ? 0 : attribute['spacing'] )  + ( !attribute['showTitle'] || attribute['textMargin'] < 0 ? 0 : (attribute['textMargin'] + attribute['textHeight'])) ;
+                attribute['width'] = (attribute['containerWidth'] + 1) * attribute['columns'];
+                attribute['height'] = (attribute['containerHeight'] + 1) * attribute['rows'] - ( attribute['rows'] <= 1 ? 0 : attribute['spacing'] );
+                attribute['fontSize'] = get('fs', 22); //显示图片尺寸的高度
+                attribute['pictureType'] = get('pic', 1); //默认使用海报图
+
+                attribute['focus'] = {};
+                attribute['focus']['color'] = get('cl', 'fdfa00', 1);      //获得焦点后的文字颜色
+                attribute['focus']['bgColor'] = get('bo', 'fdfa00', 1);    //获得焦点后的背景颜色
+
+                attribute['align'] = 'center';  //统一使用居中对齐
+
+
+                attribute['scroll'] = get('sc', '');//滚动条
+                if( !attribute['scroll'].isEmpty() ){
+                    var scroll = decodeURIComponent(attribute['scroll']).split(',');
+                    if( scroll.length >= 5 ) {
+                        left = Number(scroll[0]);
+                        top = Number(scroll[1]);
+                        height = Number(scroll[2]);
+                        var bgColor = scroll[3].isEmpty() ? 'transparent' : ('#' + scroll[3]);
+                        var fcColor = scroll[4].isEmpty() ? 'white' : ('#' + scroll[4]);
+                        if( isNaN(left) || isNaN(top) || isNaN(height) ) {
+                            attribute['scroll'] = undefined;
+                        } else {
+                            attribute['scroll'] = {}
+                            attribute['scroll']['left'] = left;
+                            attribute['scroll']['top'] = top;
+                            attribute['scroll']['height'] = height;
+                            attribute['scroll']['bgColor'] = bgColor;
+                            attribute['scroll']['fcColor'] = fcColor;
+                        }
+                    } else {
+                        attribute['scroll'] = undefined;
+                    }
+                } else {
+                    attribute['scroll'] = undefined;
+                }
+
+                cursor.attribute = attribute;
+            },
+            initHtml : function ( json ){
+                //生成界面 的 HTML代码
+                //首先处理背景图片
+                var column = json['column'];
+                var pageBgImg = cursor.pictureUrl(column.posters, '7', ''); //检查栏目是否带有背景图片
+                if( pageBgImg.isEmpty() ) { //如果没有背景图片， 从参数中获取页面背景参数
+                    pageBgImg = get('bg','');
+                    if( !pageBgImg.isEmpty() ) {
+                        pageBgImg = decodeURIComponent(pageBgImg);
+                        if( pageBgImg.startWith('http://') || pageBgImg.startWith('/')) { //如果是 http开头, 或者从 / 开头的绝对路径，的不进行处理，否则加上 /html/special
+                            pageBgImg = '/html/special/' + pageBgImg;
+                        }
+                    }
+                }
+                if( !pageBgImg.isEmpty() ) {
+                    $('bg').style.backgroundImage = 'url("' + pageBgImg + '")';
+                }
+                var html = '';
+                var attr = cursor.attribute;
+                //文本列表区域
+                html += '<div class="listBody" id="listBody" style="left:' + String(attr['left']) + 'px;top:' + String(attr['top']) + 'px;width:' + String(attr['width']) + 'px; height: ' + String(attr['height']) + 'px"></div>';
+                //滚动条
+                if(typeof attr['scroll'] != 'undefined' ) {
+                    html += '<div id="scrollBar" class="scrollBar"  style="left:' + String(attr['scroll']['left']) + 'px;top:' + String(attr['scroll']['top']) + 'px;height: ' + String(attr['scroll']['height']) + 'px;background-color: ' + attr['scroll']['bgColor'] + ';visibility: hidden">';
+                    html += '<div id="scroll" class="scrollBar" style="background-color: ' + attr['scroll']['fcColor'] + '"></div>';
+                    html += '</div>';
+                }
+                $('bg').innerHTML = html;
+            },
+            init : function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000118703'
+                var rmChs = query('rmChs');//是否删除标题名结尾的字符
+                if( !rmChs.isEmpty() ) rmChs = "&rmChs=" + rmChs;
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199' + rmChs;
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                cursor.call('initArguments');
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        var list = rst['list'];
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        for( var i = 0 ; i < list.length ; i ++ ) {
+                            list[i].name = list[i].name.replace(/（.*）$/gi, '');
+                        }
+                        cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: typeId };
+                        cursor.call('initHtml', rst);
+                        cursor.call('show');
+                        if( cursor.attribute['showTitle'] ) cursor.call('lazyShow');
+                    }, {
+                        fail:function( meg ) {
+                            tooltip( decodeURIComponent('%E8%8E%B7%E5%8F%96%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%E5%87%BA%E9%94%99%EF%BC%81') );
+                        }
+                    }
+                );
+            },
+            move : function(index){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var columns = cursor.attribute['columns'];
+                var pageSize = cursor.attribute['pageSize'];
+                var page = Math.floor( focus * 1.0 / pageSize );
+                if( index == -1 ) {
+                    if( focus % columns == 0 ) {
+                        if( focus <= columns ) return;
+                        focus -= pageSize - columns + 1;
+                    } else focus -= 1;
+                } else if( index == 1 ) {
+                    if( focus % columns == columns - 1 ) {
+                        if( Math.ceil( (focus + 1.0) / pageSize) * pageSize >= items.length ) return;
+                        focus += pageSize - columns + 1;
+                        if( focus >= items.length ) focus = items.length - 1;
+                    } else if( focus + 1 >= items.length )
+                        return;
+                    else  focus += 1;
+                } else if( index == 11 ) {
+                    if( focus < columns ) return;
+                    focus -= columns;
+                } else if( index == -11 ){
+                    if( focus + columns >= items.length && Math.ceil( (focus + 1.0) / columns) == Math.ceil( items.length * 1.0 / columns)  )
+                        return;
+                    focus += columns;
+                    if( focus >= items.length ) focus = items.length - 1;
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                if( cursor.attribute['showTitle'] ) {
+                    if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                    cursor.moveTimer = setTimeout(function(){ clearTimeout(cursor.moveTimer);cursor.moveTimer = undefined;cursor.call('lazyShow');}, 1300);
+                }
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            scrollText: function(item){
+                var name = item.name;
+                var attr = cursor.attribute;
+                cursor.calcStringPixels(name, attr['fontSize'], function(width){
+                    if( width < attr['pictureWidth'] ) return;
+                    var focus = cursor.focusable[cursor.blocked].focus;
+                    $("txt" + String( focus + 1 )).innerHTML = '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                });
+            },
+            lazyShow : function(){
+                var blocked = 0;
+                var focus = cursor.focusable[blocked].focus;
+                return cursor.call('scrollText', cursor.focusable[blocked].items[focus]);
+            },
+            show: function(){
+                var blocked = 0;
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[blocked].items;
+                var attr = cursor.attribute;
+                var pageSize = attr['pageSize'];
+                var flowCursorIndex = Math.floor(focus / pageSize) * pageSize;
+                var length = items.length - flowCursorIndex >= pageSize ? pageSize : (items.length - flowCursorIndex);
+
+                var html = "";
+                var showIndex = 0;
+                for( var i = flowCursorIndex; i < flowCursorIndex + length; i ++ ){
+                    var item = items[i];
+                    html += '<div class="item" style="width: ' + String(attr['containerWidth']) + 'px;height: ' + String(attr['containerHeight']) + 'px;">';
+                    html += '<div class="container" style="width: ' + String(attr['itemWidth']) + 'px;height: ' + String(attr['itemHeight']) + 'px;';
+                    //TODO：有背景图片的情况
+                    html +=  'background-color:' + ( i == focus ? attr['focus']['bgColor'] : attr['bgColor'] ) + ';">';
+                    html += '<div class="image" style="width: ' + String(attr['pictureWidth']) + 'px;height:' + String(attr['pictureHeight']) + 'px;left:' + String(attr['borderWidth']) + 'px;top:' + String(attr['borderWidth']) + 'px;">';
+                    html += '<img src="' + cursor.pictureUrl(item.posters, attr['pictureType'],'images/defaultImg.png') + '"/>';
+                    html += '</div></div>';
+                    if( attr['showTitle'] ) {
+                        html += '<div class="text" style="width: ' + String(attr['itemWidth']) + 'px;height: ' + String(attr['textHeight']) + 'px;left:0px;top:' + String(attr['itemHeight'] + attr['textMargin']) + 'px;">';
+                        html += '<div class="chars" id="txt' + (i + 1) + '" style="width: ' + String(attr['pictureWidth']) + 'px;color:' + ( i == focus ? attr['focus']['color'] : attr['color']) + ';height: ' + String(attr['textHeight']) + 'px;font-size: ' + String(attr['fontSize']) + 'px;line-height: ' + String(attr['textHeight']) + 'px;left:' + String(attr['borderWidth']) + 'px;top:0px;">' + item.name + '</div>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                }
+                $("listBody").innerHTML = html;
+
+                if( typeof attr['scroll'] != 'undefined' ) {
+                    if( items.length > pageSize ) {
+                        var scrollBarHeight = attr['scroll']['height'];
+                        var scrollHeight = Math.floor(scrollBarHeight / items.length) ;
+                        if( scrollHeight <= 60 ) scrollHeight = 60;
+                        $("scroll").style.height = String ( scrollHeight ) + "px";
+                        $("scroll").style.top = Math.ceil( focus * 1.0 / (items.length - 1) * ( scrollBarHeight - scrollHeight ) ) + "px";
+                        $("scrollBar").style.visibility = 'visible';
+                    } else {
+                        $("scrollBar").style.visibility = 'hidden';
+                    }
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

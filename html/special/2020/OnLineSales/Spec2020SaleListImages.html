@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;}
+
+        .flowed{width:1208px;height:480px;position:absolute;left:56px;top:151px;overflow: hidden;}
+        .item{width:300px;height:218px;float: left;}
+        .itemContainer{width:269px;height:203px;overflow: hidden;}
+        .img {width:269px;height:203px;}
+        .img img{width:100%;height:100%}
+
+        .mask{width:292px;height:169px;position:absolute;background:transparent url("images/mask-2020-sales.png") no-repeat left top;background-position: -350px 0px;}
+        .message{width:1100px;height:44px;left:126px;top:607px;position:absolute;overflow: hidden; color:white;font-size: 20px;}
+
+        .title{width:165px;height:52px;left:407px;top:67px;position:absolute;background:transparent url("images/mask-2020-sales.png") no-repeat left top;background-position: 100px 100px;}
+        /*今日推荐*/
+        .title1{background-position: -188px -190px;}
+        .title2{background-position: -188px -240px;}
+        .title3{background-position: -188px -300px;}
+        .title4{background-position: -188px -350px;}
+        .title5{background-position: -188px -400px;}
+
+        .page{width:120px;height:30px;position:absolute;left:586px;top:570px; text-align: center;font-size: 22px;line-height: 26px;color:black; text-align: center;}
+        .page .number{color:black;}
+
+        .popup{width:1280px;height:720px;left:0px;top:0px; position: absolute;}
+        .popup img{width:100%;height:100%;}
+
+        .previousBtn{width:13px;height:23px;left:540px;top:572px;position: absolute;background:transparent url("images/mask-2020-sales.png") no-repeat -30px -400px;}
+        .nextBtn{width:13px;height:23px;left:729px;top:572px;position: absolute;background:transparent url("images/mask-2020-sales.png") no-repeat -150px -400px;}
+    </style>
+    <script language="javascript" type="text/javascript" src="Spec2020Sales.js"></script>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/bg-2020-sales-list-image.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:0px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div class="title" id="title"></div>
+<div class="flowed" id="flowed"></div>
+<div class="page" id="page"></div>
+<div class="previousBtn" id="previousBtn" style="visibility: hidden"></div>
+<div class="nextBtn" id="nextBtn" style="visibility: hidden"></div>
+<div id="message" class="message"></div>
+<div id="mask"></div>
+<div id="popup" class="popup" style="visibility: hidden"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function() {
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000117382';
+                cursor.row = 2;
+                cursor.column = 4;
+                $("message").innerHTML = '<marquee scrollamount="8" style="line-height: 44px">' + messageText + '</marquee>';
+                cursor.pageCount = cursor.row * cursor.column;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=1';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url, function(rst){
+                    rst = rst['data'];
+                    var column = rst['column'];
+                    $("title").className = 'title title' + (column.name == decodeURIComponent('%E4%BB%8A%E6%97%A5%E6%8E%A8%E8%8D%90') ? "2" : ( column.name == decodeURIComponent('%E7%A7%92%E6%9D%80%E4%B8%93%E5%8C%BA') ? "1" : "5"));
+                    var list = rst['list'];
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                    cursor.focusable[0] = { items: list, focus : focused.length > 1 ? Number(focused[1]) : 0, typeId: typeId };
+                    cursor.call('showItems');
+                    cursor.call('show');
+                }, { fail:function(rst){
+                        tooltip(decodeURIComponent('%E8%AF%B7%E6%B1%82%E6%A0%8F%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%EF%BC%81'));
+                        return;
+                    }
+                });
+            },
+            move:function(index){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var column = cursor.column;
+                var pageCount = cursor.pageCount;
+                var page = Math.floor( focus * 1.0 / pageCount );
+                if( index == -1 ) {
+                    if( focus % column == 0 ) {
+                        if( focus <= column ) return;
+                        focus -= pageCount - column + 1;
+                    } else focus -= 1;
+                } else if( index == 1 ) {
+                    if( focus % column == column - 1 ) {
+                        if( Math.ceil( (focus + 1.0) / pageCount) * pageCount >= items.length ) return;
+                        focus += pageCount - column + 1;
+                        if( focus >= items.length ) focus = items.length - 1;
+                    } else if( focus + 1 >= items.length )
+                        return;
+                    else  focus += 1;
+                } else if( index == 11 ) {
+                    if( focus < column ) return;
+                    focus -= column;
+                } else if( index == -11 ){
+                    if( focus + column >= items.length && Math.ceil( (focus + 1.0) / column) == Math.ceil( items.length * 1.0 / column)  )
+                        return;
+                    focus += column;
+                    if( focus >= items.length ) focus = items.length - 1;
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                if( page != Math.floor( focus * 1.0 / pageCount ) ) cursor.call('showItems');
+                cursor.call('show');
+            },
+            showItems : function(isCallback){
+                var blocked =  0;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+
+                var pageCount = cursor.pageCount;
+                var defaultIndex = Math.floor(pageCount / 2.0);
+
+                var flowCursorIndex = Math.floor(focus / pageCount) * pageCount;
+                var html = '';
+                var length = items.length - flowCursorIndex >= pageCount ? pageCount : items.length - flowCursorIndex;
+
+                for(var i = flowCursorIndex; i < flowCursorIndex + length; i += 1) {
+                    var item = items[i];
+                    html += '<div class="item"><div class="itemContainer">';
+                    html += '<div class="img"><img src="' + cursor.pictureUrl(item.posters,3,'../../images/defaultImg.png') + '"/></div>';
+                    html += '</div></div>';
+                }
+                var cp = Math.ceil( ( focus + 1.0 ) / pageCount);
+                var tl =  Math.ceil( ( items.length * 1.0 ) / pageCount );
+                $("previousBtn").style.visibility = cp > 1 ? 'visible' : 'hidden';
+                $("nextBtn").style.visibility = cp < tl ? 'visible' : 'hidden';
+                $("flowed").innerHTML = html;
+                $("page").innerHTML = '<span class="number">'+ String( cp ) + '</span> / ' + String( tl );
+            },
+            showPopImg: function(item){
+                cursor.showPoped = true;
+                var picture = cursor.pictureUrl(item.posters, '1', '../../images/defaultImg.png');
+                $('popup').innerHTML = '<img src="' + picture + '" />';
+                $("popup").style.visibility = 'visible';
+            },
+            hiddenPopImg:function(){
+                cursor.showPoped = false;
+                $("popup").style.visibility = 'hidden';
+                $('popup').innerHTML = '';
+            },
+            select : function(){
+                if( cursor.showPoped ) return cursor.call('hiddenPopImg');
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var item = cursor.focusable[blocked].items[focus];
+                return cursor.call('showPopImg', item);
+            },
+            goBack : function(){
+                if( cursor.showPoped ) return cursor.call('hiddenPopImg');
+                return cursor.call('goBackAct');
+            },
+            show : function() {
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                $("mask").style.left = String( focus % cursor.column * 300 + 45 ) + "px";
+                $("mask").style.top = String( Math.floor( focus % cursor.pageCount / cursor.column ) * 218 + 140 ) + "px";
+                $("mask").className = "mask";
+                $("mask").style.visibility = 'visible';
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

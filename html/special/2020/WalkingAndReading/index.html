@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <style>
+        .mask{position:absolute;background: transparent url("images/focus.png") no-repeat 0px 0px;background-position:0px 0px;}
+        .context,.popup{width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow: hidden;}
+        .container,.bg{width:1280px;height: 1220px;position:absolute;left:0px;top:0px;}
+        .topBg{width:1280px;height:721px;left:0px;top:0px;position: absolute;background: transparent url("images/indexBg-1.jpg") no-repeat 0px 0px;}
+        .bottomBg{width:1280px;height:721px;left:0px;top:720px;position: absolute;background: transparent url("images/indexBg-2.jpg") no-repeat 0px 0px;}
+        .major,.flowed,.cover,.around,.parents,.stars{position:absolute;overflow: hidden; background-color: transparent}
+        .major{width: 166px;height:250px;left:61px;top:260px;background-color: transparent;}
+        .major .itemContainer{width:166px;height:65px;}
+        .major .itemContainer .item,.major .itemContainer .itemFocus {width:166px;height:51px;font-size:24px;line-height: 50px;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis; text-align: center;background: transparent url("images/focus.png") no-repeat 0px 0px;background-color: transparent;}
+        .major .itemContainer .item {color:black;background-position:0px 0px;}
+        .major .itemContainer .itemFocus{color:white;background-position:0px -100px;}
+
+        .flowed{width:570px;height:285px;left:290px;top:273px;}
+        .flowed .item,.flowed .itemFocus{width:570px;height:55px;font-size:22px;line-height: 46px;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis; text-align: left;}
+        .flowed .item {color:white}
+        .flowed .itemFocus {color:#ffaa74;}
+
+        .cover{width:280px;height:307px;left:937px;top:255px;}
+
+        .stars{width:1111px;height:168px;position:absolute;left:57px;top:631px;}
+        .stars .itemContainer {width:222px;height:168px;float: left;overflow: hidden;}
+
+        .around{width:1180px;height:222px;left:61px;top:870px;}
+        .around .itemContainer {width:219px;height:222px;float: left;overflow: hidden;}
+        .around .itemContainer .item {width:198px;height:222px;}
+
+        .parents{width:1190px;height:222px;left:61px;top:1164px;}
+        .parents .itemContainer {width:297px;height:222px;float: left;overflow: hidden; position:relative;}
+        .parents .itemContainer .item {width:272px;height:222px;position:absolute;left:0px; top:0px;}
+        .parents .itemContainer .text {width:272px;height:45px;position:absolute;left:0px; top:177px; line-height: 45px;font-size: 20px;color: black; overflow: hidden;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis; text-align: center;background: transparent url("images/focus.png") no-repeat 0px 0px;background-position:-300px -300px;}
+        .parents .itemContainer .focus {background-position: -300px -250px; color: white;}
+        img{width:100%;height:100%;}
+
+        .play{width:41px;height:41px;background-position:-450px -180px;}
+        .pause{width:41px;height:41px;background-position:-500px -180px;}
+        .mask1{width:135px;height:135px;background-position: -450px 0px;}
+        .mask2{width:204px;height:228px;background-position: -200px 0px;}
+        .status2{width:198px;height:222px;background-position: -203px -3px;}
+        .status2 .pause{left:78px;top:90px;}
+        .mask2 .play,.mask2 .pause{left:81px;top:93px;}
+        .mask3{width:278px;height:228px;background-position: 0px -250px;}
+        .status3{width:272px;height:222px; background-position: -3px -253px;}
+        .status3 .pause{left:115px;top:90px;}
+        .mask3 .play,.mask3 .pause{left:118px;top:93px;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../images/translateBg.png')" onUnload="exit();">
+<div id="context" class="context">
+    <div class="container" id="container">
+        <div class="bg">
+            <div class="topBg"></div>
+            <div class="bottomBg"></div>
+        </div>
+        <div class="major" id="major"></div>
+        <div class="flowed" id="flowed"></div>
+        <div class="cover" id="cover"></div>
+        <div class="around" id="around"></div>
+        <div class="parents" id="parents"></div>
+        <div id="status" style="visibility: hidden;"><div class="mask pause"></div></div>
+        <div class="mask" id="mask"></div>
+        <div class="stars" id="stars"></div>
+    </div>
+    <div class="popup" id="popup" style="visibility: hidden;"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var prefix = origin + 'WalkingAndReading';
+        var initialize = {
+            init : function() {
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                cursor.popuped = false;
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=10000100000000090000000000118921,10000100000000090000000000118922,10000100000000090000000000118926,10000100000000090000000000118927&act=2&cn=5&fn=5';
+                ajax(url, function(rst){
+                    try {
+                        rst = rst['data'];
+                        var list = rst[1]['data'][0]['data'];
+                        cursor.focusable[0] = {focus:0, items:list};
+                        var index = 0;
+                        for(var i = 0; i < list.length; i ++){
+                            cursor.focusable[index = index + 1] = {focus:0, items:rst[1]['data'][i + 1]['data'], typeId : list[i]['id']};
+                        }
+                        cursor.focusable[index + 1] = {focus:0, items:rst[rst.length - 3]['data'][0]['data']};
+                        cursor.focusable[index + 2] = {focus:0, items:rst[rst.length - 2]['data'], typeId : rst[rst.length - 2]['id']};
+                        cursor.focusable[index + 3] = {focus:0, items:rst[rst.length - 1]['data'], typeId : rst[rst.length - 1]['id']};
+                        cursor.completed = typeof cursor.focusable[cursor.focusable.length - 1].items != 'undefined';
+                        cursor.call('showMajor');
+                        cursor.call('showMajorList');
+                        cursor.call('showOthers');
+                        player.setPosition(1279,719,1,1);
+                        cursor.call('nextVideo', true);
+                    } catch (e){
+
+                    }
+                });
+            },
+            showMajor: function(){
+                var blocked = 0;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+                var html = '';
+                for( var i = 0; i < items.length; i ++){
+                    var item = items[i];
+                    html += '<div class="itemContainer"><div class="item' +  ( i == focus ? 'Focus': '' ) + '">' + item.name + '</div></div>';
+                }
+                $('major').innerHTML = html;
+            },
+            showMajorList: function(){
+                var blocked = cursor.focusable[0].focus + 1;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var html = '';
+                for( var i = 0; i < items.length; i ++){
+                    var item = items[i];
+                    var clazz = 'item';
+                    if(i == focus){
+                        if(cursor.blocked == blocked) {
+                            clazz = 'itemFocus';
+                        }
+                        $('cover').innerHTML = '<img src="' + cursor.pictureUrl(item.posters, 1, '../../images/defaultImg.png')  + '"/>';
+                    }
+                    html += '<div class="' + clazz + '">' + item.name + '</div>';
+                }
+                $('flowed').innerHTML = html;
+            },
+            showOthers: function(){
+                for(var i = cursor.focusable.length - 3; i < cursor.focusable.length ; i ++){
+                    var focus = cursor.focusable[i].focus;
+                    var items = cursor.focusable[i].items;
+                    if( typeof items == 'undefined' ) continue;
+                    var showName =  i == cursor.focusable.length - 1;
+                    var html = '';
+                    for( var j = 0; j < items.length; j ++){
+                        var item = items[j];
+                        if( i == cursor.focusable.length - 3 ){ //明星主播
+                            html += '<div class="itemContainer" style="background:transparent url(\'' + cursor.pictureUrl(item.posters, 1, '../../images/defaultImg.png') + '\') no-repeat 0px 0px;" />';
+                        } else {
+                            html += '<div class="itemContainer"><div class="item"><img src="' + cursor.pictureUrl(item.posters, 1, '../../images/defaultImg.png') + '"/></div>';
+                        }
+                        if( showName ) {
+                            html += '<div id="text' + String( i + 1) + String(j + 1) + '" class="text">' + item.name + '</div>';
+                        }
+                        html += '</div>';
+                    }
+                    $(i == cursor.focusable.length - 3 ? 'stars' : ( i == cursor.focusable.length - 2 ? 'around' : 'parents')).innerHTML = html;
+                }
+            },
+            showPopup:function(){
+                var blocked = cursor.focusable.length - 3;
+                var item = cursor.focusable[blocked].items[cursor.focusable[blocked].focus];
+                cursor.popuped = true;
+                $("popup").innerHTML = '<img src="' + cursor.pictureUrl(item.posters, 7, '../../images/defaultImg.png') + '" />';
+                $("popup").style.visibility = 'visible';
+            },
+            hidePopup:function(){
+                $("popup").style.visibility = 'hidden';
+                $("popup").innerHTML = '';
+                cursor.popuped = false;
+            },
+            select : function(){
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) return ;
+                if( cursor.popuped ) return cursor.call('hidePopup');
+                if( cursor.blocked == cursor.focusable.length - 3 ) return cursor.call('showPopup');
+                if( cursor.moveTimer ) cursor.call('clearMoveTimer');
+                return cursor.call('nextVideo', true);
+            },
+            move : function(index){
+                if( cursor.popuped ) return ;
+                var blocked = cursor.blocked;
+                var previous = blocked;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+                if( blocked == 0 && ( index == -1 || index == 11 && focus <= 0 ) || blocked > 0 && blocked < cursor.focusable.length - 3 && ( index == 1 || index == 11 && focus <= 0 ) || blocked >= cursor.focusable.length - 3 && ( index == -1 && focus <= 0 || index == 1 && focus + 1 >= items.length) || blocked == cursor.focusable.length - 1 && index == -11 || !cursor.completed && blocked == cursor.focusable.length -2 && index == -11 ) return;
+                if( blocked == cursor.focusable.length - 1 ) {
+                    $("text" + String(blocked + 1) + String(focus + 1)).className = 'text';
+                }
+                if( blocked < cursor.focusable.length - 3 ) {
+                    if( index == 11 || index == -11 ) {
+                        focus += index > 0 ? -1 :1;
+                        if( focus >= items.length ) {
+                            blocked = cursor.focusable.length - 3;
+                            focus = cursor.blocked == 0 ? 0 : cursor.focusable[blocked].focus;
+                        }
+                    } else {
+                        blocked = index == 1 ? focus + 1 : 0;
+                        focus = cursor.focusable[blocked].focus;
+                    }
+                } else {
+                    if( index == 1 || index == -1 ){
+                        focus += index;
+                    } else {
+                        if( index == 11 ) {
+                            if( blocked == cursor.focusable.length - 3 ) {
+                                blocked = focus == 0 ? 0 : cursor.focusable[0].focus + 1;
+                                focus = cursor.focusable[blocked].items.length - 1;
+                            } else {
+                                blocked = blocked - 1;
+                                focus = cursor.focusable[blocked].focus;
+                            }
+                        } else {
+                            blocked = blocked + 1;
+                            focus = cursor.focusable[blocked].focus;
+                        }
+                    }
+                }
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('nextVideo', true);}, 1500);
+                return cursor.call('show', previous < cursor.focusable.length - 3 && blocked >= cursor.focusable.length - 3);
+            },
+            nextVideo : function( next ) {
+                var item = undefined;
+                if( !next ) {
+                    cursor.playBlocked = cursor.playBlocked || 1;
+                    if( typeof cursor.playIndex == 'undefined' ) cursor.playIndex = 0;
+                    else cursor.playIndex ++;
+                    var items = cursor.focusable[cursor.playBlocked].items;
+                    if( cursor.playIndex >= items.length ) cursor.playIndex = 0;
+                    item = items[cursor.playIndex];
+                } else {
+                    if( cursor.blocked == 0 || cursor.blocked == cursor.focusable.length - 3 || cursor.playBlocked == cursor.blocked &&  cursor.playIndex == cursor.focusable[cursor.blocked].focus ) return ;
+                    cursor.playIndex = cursor.focusable[cursor.playBlocked = cursor.blocked].focus;
+                    item = cursor.focusable[cursor.blocked].items[cursor.playIndex];
+                }
+                if (typeof item == 'undefined' ) return ;
+                player.exit();
+                player.play({vodId: item.id, callback : function(){
+                    if(cursor.blocked >= cursor.focusable.length - 2 ){
+                        var blocked = cursor.blocked;
+                        var focus = cursor.focusable[cursor.blocked].focus;
+                        if( blocked == cursor.focusable.length - 2 ) {
+                            $("status").className = 'mask status2';
+                            $("status").style.top = '870px';
+                            $('status').style.left = String(focus * 219 + 61 ) + 'px';
+                        } else {
+                            $("status").className = 'mask status3';
+                            $("status").style.top = '1164px';
+                            $('status').style.left = String(focus * 297 + 61 ) + 'px';
+                        }
+
+                        if( blocked == cursor.playBlocked && focus == cursor.playIndex ){
+                            $("status").style.visibility = 'hidden';
+                            $("mask").innerHTML = '<div class="mask pause"></div>';
+                            return;
+                        }
+
+                        if(blocked == cursor.playBlocked && !next) {
+                            cursor.focusable[cursor.blocked].focus = cursor.playIndex;
+                            setTimeout(function(){cursor.call('show');}, 500);
+                        }
+
+                    } else {
+                        $("status").style.visibility = 'hidden';
+                        if( cursor.blocked != 0 && !next ) {
+                            cursor.focusable[cursor.blocked].focus = cursor.playIndex;
+                            setTimeout(function(){cursor.call('show');}, 500);
+                        }
+                    }
+                }});
+            },
+            clearMoveTimer:function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            show : function(showAll){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                if( blocked < cursor.focusable.length - 3 || showAll) {
+                    $("container").style.top = '0px';
+                    $("mask").style.visibility = 'hidden';
+                    cursor.call('showMajor');
+                    cursor.call('showMajorList');
+                    if( !showAll ) return ;
+                }
+                if( cursor.completed ) {
+                    $("container").style.top = blocked == cursor.focusable.length - 1 ? '-720px' : '-500px';
+                } else {
+                    $("container").style.top = '-400px';
+                }
+
+                $("status").style.visibility = (blocked >= cursor.focusable.length - 2 && ( cursor.playBlocked != blocked || focus != cursor.playIndex )) ? 'visible' : 'hidden';
+
+                $("mask").style.visibility = 'visible';
+                if( cursor.blocked == cursor.focusable.length - 3 ) {
+                    $("mask").innerHTML = '';
+                    $("mask").className = 'mask mask1';
+                    $('mask').style.top = '655px';
+                    $('mask').style.left = String(focus * 222 + 59 ) + 'px';
+                } else if( cursor.blocked == cursor.focusable.length - 2 ) {
+                    $("mask").innerHTML = '<div class="mask ' + (cursor.playBlocked == blocked && focus == cursor.playIndex ? 'pause' : 'play') + '"></div>';
+                    $("mask").className = 'mask mask2';
+                    $('mask').style.top = '867px';
+                    $('mask').style.left = String(focus * 219 + 58 ) + 'px';
+                } else {
+                    $("mask").innerHTML = '<div class="mask ' + (cursor.playBlocked == blocked && focus == cursor.playIndex ? 'pause' : 'play') + '"></div>';
+                    $("mask").className = 'mask mask3';
+                    $('mask').style.top = '1161px';
+                    $('mask').style.left = String(focus * 297 + 58 ) + 'px';
+                    $("text" + String(blocked + 1) + String(focus + 1)).className = 'text focus';
+                }
+            },
+            goBack:function(){
+                if( cursor.popuped ) return cursor.call('hidePopup');
+                return cursor.call('goBackAct');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

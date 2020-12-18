@@ -1,0 +1,69 @@
+#/usr/bin/sh
+
+expect -c "
+set timeout 3;
+set flag 0;
+spawn scp /workspace/sources/Java/HWWorkspace/web/EPG/jsp/neirong/images/bg-2014-09-01-2.jpg root@192.168.13.27:/home/cqcnt/.onekey/;
+expect {
+  \"*assword*\" { send \"huawei\r\"; };
+  \"yes\/no\" { set flag 1;send \"yes\r\";};
+  \"welcome\" { };
+};
+if { \$flag == 1 } {
+  expect {
+    \"*assword*\" { send \"huawei\r\"; };
+  };
+};
+expect {
+  \"*assword*\" { puts \"INVALID PASSWD, host= , user= , passwd= \";exit 1;};
+  \"#\ \" {} \"$\ \" {} \">\ \" {};
+};"
+
+
+#ssh_put $host $port $user $passwd $script $rscp
+#直接执行命令
+expect -c "
+set timeout 1;
+set flag 0;
+spawn ssh root@192.168.13.27 rm -f /home/cqcnt/.onekey/exec.sh;
+expect {
+  -nocase -re \"*assword*\" { send \"huawei\r\"; };
+  -nocase -re \"yes\/no\" { set flag 1;send \"yes\r\";};
+  -nocase -re \"welcome\" { };
+};
+if { \$flag == 1 } {
+  expect {
+    -nocase -re \"*assword*\" { send \"huawei\r\"; };
+  };
+};
+expect {
+  -nocase -re \"*assword*\" { puts \"INVALID PASSWD, host= , user= , passwd= \";exit 1;};
+  -nocase -re \"#\ \" {} \"$\ \" {} \">\ \" {};
+};"
+
+
+#这里可以执行多个命令
+expect -c "
+set timeout 1;
+set flag 0;
+spawn ssh cqcnt@192.168.13.27;
+expect {
+  -nocase -re \"*assword*\" { send \"cqcnt\r\"; };
+  -nocase -re \"yes\/no\" { set flag 1;send \"yes\r\";};
+  -nocase -re \"welcome\" { };
+};
+if { \$flag == 1 } {
+  expect {
+    -nocase -re \"*assword*\" { send \"cqcnt\r\"; };
+  };
+};
+expect {
+  -nocase -re \"*assword*\" { puts \"INVALID PASSWD, host= , user= , passwd= \";exit 1;};
+  -nocase -re \"#\ \" {} \"$\ \" {} \">\ \" {}
+};
+send \" cd /home/cqcnt/.onekey/ && pwd && ls -larsh && history && who /var/log/wtmp && date\r\";
+expect {
+  -nocase -re \"#\ \" {} \"$\ \" {} \">\ \" {}
+};
+send \" exit\r\";
+expect eof {exit 0 ;};"

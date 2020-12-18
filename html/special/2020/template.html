@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <style>
+        .mask{width:1280px;height:720px;left:0px;top:0px; position:absolute;background: transparent url("images/focus.png") no-repeat 0px 0px;}
+        .mask1 {}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('images/indexBg.png') no-repeat;" onUnload="exit();">
+<div class="mask" id="mask"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var prefix = origin + '/html/special/2020/TwoAct/';
+        var initialize = {
+            init : function() {
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                var that = this;
+                var enc = '&enc=1';
+                if( iPanel.HD30Adv ) enc = '';
+
+                var typeId = query("typeId");
+                if( typeId.isEmpty() ) typeId = ''
+
+                //当写投票页面时，页面编码必须使用GBK，但是 IPTV和新版3.0在请页JSON数据时，必须使用UTF-8的编码
+                //var enc = '&enc=1';
+                //if( iPanel.HD30Adv || IPTV ) enc = ''/
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2&cn=9&fn=1' + enc;
+                ajax(url, function(rst){
+                    try {
+                        var html = '';
+                        rst = rst['data']['list']
+                        cursor.call('show');
+                    } catch (e) {
+                    }
+                });
+            },
+            move : function(index){
+                return;
+            },
+            select: function(){
+
+            },
+            show : function(){
+            },
+            goBack:function(){
+                return cursor.call('goBackAct');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( isComputer ) EPGUrl = EPGUrl.replace('192.168.14.102:8082','117.59.202.67:8080');
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

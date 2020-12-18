@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/html/js/common.gbk.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/2020/1127/J20201127_1.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/2020/1127/J20201127_2.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/2020/J20201109.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/2020/J20201112.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/2020/J20201113.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/html/special/shang/不同类型专题/J20201112(5个异形按钮).html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/web/EPG/jsp/defaultHD/en/hddb/hddb_topic.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/web/EPG/jsp/defaultHD/en/hddb/hddb_topic_ztandr.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/EPG/jsp/neirong/player/common.js" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .listBody{width:1280px;height:720px;position:absolute;left:0px;top:0px; overflow: hidden;}
+        .container,.bg{width:1280px;height:1440px;position:absolute;left:0px;}
+        .bg{top:0px; overflow: hidden;}
+        .notice{width:1280px;height:144px;left:0px;top:512px;position:absolute;overflow: hidden;}
+        .anchor{width:1280px;height:268px;left:0px;top:750px;position:absolute;overflow: hidden;}
+        .flowed{width:1200px;height:193px;left:60px;top:1130px;position:absolute;overflow: hidden;}
+        .flowed .item{width:398px;height:193px;overflow: hidden;float: left;}
+        .flowed .image{width:365px;height:193px;overflow: hidden;}
+        .mask{position:absolute;background: transparent url("images/mask-2020-sales.png") no-repeat 0px 0px; background-position:0px 0px;}
+
+        .mask1{}
+        .mask11 {width:641px;height:373px;left:49px;top:133px; background-position: -639px 0px;}
+        .mask2{width:176px;height:373px;top:133px;background-position:0px 0px;}
+        .mask21 {left:688px;}
+        .mask22 {left:868px;}
+        .mask23 {left:1050px;}
+
+        .mask3{width:160px;height: 60px;top:63px;}
+        .mask31 {left:724px;background-position:-188px 0px }
+        .mask32 {left:892px;background-position:-188px -130px}
+        .mask33 {left:1057px;background-position:-188px -65px}
+
+        .mask4{width:385px;height:213px;top:1120px;background-position:-642px -400px;}
+        .mask41 {left:51px;}
+        .mask42 {left:446px;}
+        .mask43 {left:845px;}
+
+        img{width:100%;height:100%;border:none;}
+
+        .split{width:54px;height:506px;left:1228px;position:absolute;overflow: hidden;}
+        .splitBar{width:7px;left:0px;top:0px;height:506px;background-color:#c1c1c1;position:absolute;}
+        .scrollBar{width:7px;left:0px;top:0px;height:253px;position:absolute;background-color:#e38e23; }
+        .number,.splitPage,.page{width:26px;height:22px;left:12px; text-align: center;position:absolute;font-size: 20px;}
+        .number{top:200px;color:#e38e23;}
+        .splitPage{top:215px}
+        .page{top:230px}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-45px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div id="listBody" class="listBody">
+    <div id="container" class="container">
+        <div class="bg" id="bg">
+            <div style="position:absolute;width: 1280px;height: 721px; left:0px; top:0px; background: transparent url('images/bg-2020-sales-index1.png') no-repeat left top;"></div>
+            <div style="position:absolute;width: 1280px;height: 721px; left:0px; top:719px; background: transparent url('images/bg-2020-sales-index2.png') no-repeat left top;"></div>
+        </div>
+        <div class="notice" id="notice"></div>
+        <div class="anchor" id="anchor"></div>
+        <div class='flowed' id='flowed'></div>
+        <div id='mask'></div>
+        <div class="split" id="split" style="top:149px;">
+            <div class="splitBar"></div>
+            <div class="scrollBar" id="scrollBar"></div>
+            <div class="number" id="number">1</div>
+            <div class="splitPage">--</div>
+            <div class="page">2</div>
+        </div>
+    </div>
+</div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:617,height:352,left:62,top:145};
+        var initialize = {
+            init : function(){
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                var that = this;
+                var typeId = '10000100000000090000000000117380';
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2&fn=3&spec=1';
+                cursor.loadTime = new Date();
+                cursor.today = cursor.loadTime.getDay(); //星期天 为 0
+                cursor.playIndexVideo = false;
+                var loadDay = cursor.loadTime.Format("yyyy-MM-dd");
+                cursor.freshTimes = [
+                    //loadDay + ' 21:30:00',
+                    //loadDay + ' 19:30:00',
+                    loadDay + ' 13:30:00',
+                    loadDay + ' 11:30:00'
+                ]
+                //不考虑很久不进入页面的情况，否则会有BUG
+                cursor.freshFunc = function(){
+                    var loaded = cursor.loadTime.Format("yyyy-MM-dd hh:mm:ss");
+                    var now = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
+                    debug('CURRENT TIME: ', now);
+                    var fresh = false;
+                    var isEnd = false;
+                    //检测直播栏目有几条数据
+                    var items = cursor.focusable[0].items
+                    if( items.length <= 1 && (cursor.today == 0  || cursor.today == 6)) { //如果只有一条数据且是星期天，则停播.
+                        return; //如果
+                    } else {
+                        for( var i = 0; i < items.length; i++ ){
+                            var item = items[i];
+                            if( item.name.indexOf(decodeURIComponent('%E5%81%9C%E6%92%AD')) >= 0 ) { //如果包括停播，不管星期几，而什么也不处理
+                                return;
+                            }
+                        }
+                    }
+                    //检测当半时间点，是否为每天几个特殊时间之一，如果是，则可能要刷新
+                    for( var i = 0; i < cursor.freshTimes.length; i ++){
+                        if( loaded < cursor.freshTimes[i] && now >= cursor.freshTimes[i] ) {
+                            fresh = true; isEnd = i % 2 == 0;
+                            break;
+                        }
+                    }
+                    //如果是开始时间，则直接刷新当前播放, 如果是结束时间，且没有特殊控制也直接刷
+                    if( fresh && !isEnd || isEnd && items.length <= 1 ){
+                        cursor.call('prepareVideo');
+                    } else if( isEnd ){
+                        //检测是否有特殊控制.
+                        var detectUrl =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=10000100000000090000000000117381&act=0&fn=4';
+                        ajax(detectUrl, function(rst){
+                            var list = rst['data']['list'];
+                            for( var i = 0; i < list.length; i ++ ) {
+                                var item = list[i];
+                                if( item.name.indexOf(decodeURIComponent('%E5%BB%B6%E6%97%B6')) >= 0 ) { //视频有名字叫延时，则不管什么时候都不进行刷新
+                                    fresh = false; break;
+                                }
+                            }
+                            cursor.focusable[0].items = list;
+                            if(fresh) cursor.call('prepareVideo');
+                        });
+                    }
+                    setTimeout(function(){ cursor.freshFunc(); }, 1000 * 15);
+                };
+                ajax(url, function(rst){
+                    var list = rst['data']['list'];
+                    var interrupt = function( condition ){
+                        if( !condition ) return false;
+                        tooltip( decodeURIComponent('%E5%BD%93%E5%89%8D%E4%B8%93%E9%A2%98%E5%B7%B2%E4%B8%8B%E7%BA%BF%E6%88%96%E6%A0%8F%E7%9B%AE%E5%B0%9A%E6%9C%AA%E6%BF%80%E6%B4%BB%EF%BC%8C%E8%AF%B7%E4%B8%8E%E7%BC%96%E8%BE%91%E4%BA%BA%E5%91%98%E8%81%94%E7%B3%BB%EF%BC%8C%E6%8C%89OK%E9%94%AE%E5%90%8E%E9%A1%B5%E9%9D%A2%E9%80%80%E5%87%BA%EF%BC%81') );
+                        setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                        return true;
+                    };
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    cursor.fullmode = false;
+                    try{
+                        var html = '';
+                        var prefix = origin + '/html/special/2020/OnLineSales/';
+                        //全屏视频框
+                        cursor.focusable[0] = { items: list[1].data, focus : 0, name:decodeURIComponent('%E5%85%A8%E5%B1%8F'), typeId:list[0].data[0].id };
+                        cursor.focusable[1] = { items: [
+                                {'name':decodeURIComponent('%E4%BB%8A%E6%97%A5%E6%8E%A8%E8%8D%90'),'linkto':prefix + 'Spec2020SaleListImages.html?typeId=10000100000000090000000000117382'},
+                                {'name':decodeURIComponent('%E7%A7%92%E6%9D%80%E4%B8%93%E5%8C%BA'),'linkto':prefix + 'Spec2020SaleListImages.html?typeId=10000100000000090000000000117383'},
+                                {'name':decodeURIComponent('%E5%A4%9A%E5%AE%9E%E6%83%A0%E8%B6%85%E5%B8%82'),'linkto':prefix + 'Spec2020SaleListImages.html?typeId=10000100000000090000000000119041'}
+                            ], focus : focused.length > 2 ? Number(focused[2]) : 0, name:decodeURIComponent('%E5%8F%B3%E4%BE%A7%E4%BE%8B%E8%A1%A8') };
+                        cursor.focusable[2] = { items: [
+                                {'name':decodeURIComponent('%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90'),'linkto':''},
+                                {'name':decodeURIComponent('%E5%B0%8F%E5%A6%AE%E8%AF%BE%E5%A0%82'),'linkto':prefix + 'Spec2020SaleColumnList.html?typeId=10000100000000090000000000117384'},
+                                {'name':decodeURIComponent('%E7%9B%B4%E6%92%AD%E9%97%B4%E5%9B%9E%E6%94%BE'),'linkto':prefix + 'Spec2020SaleColumnList.html?typeId=10000100000000090000000000117388'}
+                            ], focus : focused.length > 3 ? Number(focused[3]) : 0, name:decodeURIComponent('%E9%A1%B6%E9%83%A8%E5%88%97%E8%A1%A8') };
+                        for(var i = 1 ; i < list[0].data.length; i ++ ){
+                            var item = list[0].data[i] ;
+                            var id = item.id;
+                            if( id == '10000100000000090000000000117388' ){
+                                var items = list[i + 1].data;
+                                cursor.focusable[3] = { items: items, focus : focused.length > 4 ? Number(focused[4]) : 0, typeId:id };
+                                for( var j = 0; j < items.length ; j ++){
+                                    html += '<div class="item">';
+                                    html += '<div class="image">';
+                                    html += '<img src="' + cursor.pictureUrl(items[j].posters,'3','../images/defaultImg.png') + '" />';
+                                    html += '</div>';
+                                    html += '</div>';
+                                }
+                                $("flowed").innerHTML = html;
+                                continue;
+                            }
+                            if( id == '10000100000000090000000000117385' || id == '10000100000000090000000000117387'){
+                                $(id == '10000100000000090000000000117385' ? "notice" : 'anchor').innerHTML = '<img src="' + cursor.pictureUrl(item.posters, '3', '../images/defaultImg.png') + '" />';
+                                continue;
+                            }
+                        }
+                    } catch (e) {
+                        return interrupt( true )
+                    }
+                    try {
+                        cursor.call('enterSmallMode');
+                        cursor.call('prepareVideo');
+                        cursor.call('show');
+                        setTimeout(function(){ cursor.freshFunc(); }, 1000 * 15);
+                    } catch( e ) {}
+                },{fail:function(rst){
+                    tooltip( rst['msg'] || decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                    setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                } });
+            },
+            prepareVideo : function(){
+                cursor.playIndexVideo = true;
+                if( cursor.blocked > 2 ) return; //如果焦点在最下面，则什么也不需要播
+                var items = cursor.focusable[0].items;
+                var item = undefined;
+                var isStop = false;    //是否直播, 默认是直播，如果检测到停播 则为false,
+                var playType = 'http'; //直播方式
+                var isAdded = false;
+                if( items.length >= 1 ) { //如果只有一条数据且是星期天，则停播.
+                    item = items[0];
+                    if( items.length > 1 ){
+                        for( var i = 0; i < items.length; i++ ){
+                            var o = items[i];
+                            if( o.name.indexOf(decodeURIComponent('%E5%BB%B6%E6%97%B6')) >= 0 ) { //包含延时
+                                isAdded = true; continue;
+                            }
+                            if( o.name.indexOf(decodeURIComponent('%E5%81%9C%E6%92%AD')) >= 0 ) { //包含停播
+                                isStop = true; break;
+                            }
+                            if( o.name.indexOf(decodeURIComponent('%E9%9D%9E%E4%BA%92%E8%81%94%E7%BD%91%E7%9B%B4%E6%92%AD')) >= 0 ) { //包含非互联网直播
+                                playType = 'vod'; continue;
+                            }
+                        }
+                    }
+                }
+                //如果停播，则播出宣传片
+                if( isStop ) return cursor.call("playMovie", item);
+                var now = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
+                var times = cursor.freshTimes;
+                //如果有延时，或者在直播时间段里面，需要进行直播
+                if( isAdded || cursor.today != 0 && cursor.today != 6 && (times[1] < now && now <= times[0]) ){  //times[3] < now && now <= times[2] ||
+                    return cursor.call("playMovie", playType);
+                }
+                return cursor.call("playMovie", item);
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    var p = {
+                        callback:function(rst){
+                            debug('RUNNING CALLBACK');
+                        }
+                    }
+                    if( item === 'http'){
+                        p['channelId'] = 3792
+                    } else if( item == 'vod' ) {
+                        p['serviceId'] = 2603;
+                        p['frequency'] = 2750000;
+                    } else {
+                        p['vodId'] = item.id;
+                        p['typeId'] = item.typeId;
+                    }
+                    player.play( p );
+                } catch (e){ }
+            },
+            goBack : function(){
+                if( cursor.fullmode ) return cursor.call("enterSmallMode");
+                cursor.call('goBackAct');
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                $("listBody").style.visibility = 'hidden';
+                $("mask").style.visibility = 'hidden';
+                player.fullScreen();
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $("listBody").style.visibility = 'visible';
+                $("mask").style.visibility = 'visible';
+            },
+            stop : function(){
+                player.setPosition(1279,719,1,1);
+                player.exit();
+                cursor.fullmode = false;
+            },
+            pausePlay : function(){
+                player.setPosition(1279,719,1,1);
+                player.pause();
+            },
+            continuePlay : function(){
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                player.resume();
+            },
+            select: function() {
+                if( cursor.focusable.length <= 0 || cursor.fullmode ) return;
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) { return cursor.call("enterFullMode"); }
+                var focus = cursor.focusable[blocked].focus;
+                if( blocked == 2 && focus == 0) return ;
+                return cursor.call('selectAct');
+            },
+            nextVideo : function ( ){
+                cursor.call('prepareVideo');
+            },
+            move : function(index){
+                if( cursor.fullmode ) return;
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if( blocked == 0 && index == -1 || blocked == 1 && index == 1 && focus + 1 >= items.length || blocked == 2 && index == 11 || blocked == 3 && index == -11 || blocked >= 2 && (index == -1 && focus <= 0 || index == 1 && focus + 1 >= items.length ) ) return ;
+                if( index == 1 || index == -1 ) {
+                    if( blocked == 0 ) {
+                        blocked = 1; focus = 0;
+                    } else {
+                        focus += index;
+                        if( blocked == 1 && focus < 0 ) {
+                            blocked = 0; focus = 0;
+                        }
+                    }
+                } else if( index == 11 ) {
+                    if( blocked == 0 || blocked == 1) {
+                        blocked = 2;
+                    } else {
+                        blocked = focus == 0 ? 0 : 1;
+                    }
+                    focus = cursor.focusable[blocked].focus;
+                } else {
+                    if( blocked == 0 ){
+                        blocked = 3; focus = 0;
+                    } else if(blocked == 1){
+                        blocked = 3; focus = cursor.focusable[blocked].focus >= 1 ? cursor.focusable[blocked].focus : 1;
+                    } else {
+                        blocked = 1; focus = cursor.focusable[blocked].focus;
+                    }
+                }
+
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('show');
+            },
+            show: function(){
+                var blocked = cursor.blocked ;
+                if( blocked <= 2 ) {
+                    $("container").style.top = '0px';
+                    $("scrollBar").style.top = '0px';
+                    $("split").style.top = '149px';
+                    $("number").innerHTML = '1';
+                    if( player.status != decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call( !cursor.playIndexVideo ? 'prepareVideo' : 'continuePlay' , true);
+                } else {
+                    $("container").style.top = '-680px';
+                    $("split").style.top = '829px';
+                    $("scrollBar").style.top = '253px';
+                    $("number").innerHTML = '2';
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                }
+                $('mask').className = 'mask mask' + String( blocked + 1) + ' mask' + String( blocked + 1) + String(cursor.focusable[blocked].focus + 1);
+                $("mask").style.visibility = 'visible';
+            }
+        };
+        var lazied = function(t){
+            if( typeof win.cursor == 'undefined') {
+                if( t < 7000 ) {
+                    setTimeout( function () { lazied( t + 200 ); }, 200 );
+                    return;
+                }
+                tooltip( decodeURIComponent('%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%EF%BC%8C%E8%AF%B7%E6%A3%80%E6%9F%A5%E6%9C%BA%E9%A1%B6%E7%9B%92%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E7%95%85%E9%80%9A%EF%BC%81') );
+                return setTimeout(function(){ cursor.call('goBackAct'); },5000);
+            }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            cursor.initialize(initialize);
+        };
+        lazied(0);
+    })(window);
+</script>
+</body>
+</html>

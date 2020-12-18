@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <style>
+        .mask{position:absolute;background: transparent none no-repeat 0px 0px;background-position:0px 0px;background-image: none;}
+        .context{width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow: hidden;}/**/
+        .container,.bg{width:1280px;height: 1394px;position:absolute;left:0px;top:0px;}
+        .topBg{width:1280px;height:720px;left:0px;top:0px;position: absolute;background: transparent url("images/indexBg-1.png") no-repeat 0px 0px;}
+        .bottomBg{width:1280px;height:694px;left:0px;top:700px;position: absolute;background: transparent url("images/indexBg-2.png") no-repeat 0px 0px;}
+
+        .image1{width:275px;height:339px;left:655px;top:149px;position: absolute;}
+        .image2{width:275px;height:339px;left:965px;top:149px;position: absolute;}
+
+        .review,.notes{width:1280px;position:absolute;left:40px;overflow: hidden;}
+        .notes{height:320px;top:679px;}
+        .review{height:254px;top:1082px;}
+
+        .notes .itemBody{width:205px;height:320px;position:relative; float: left;overflow: hidden;}
+        .review .itemBody{width:307px;height:250px;position:relative; float: left;overflow: hidden;}
+        .notes .itemBody .item{width:175px;height:235px;position:absolute;left:0px;top:0px;}
+        .notes .itemBody .text{width:175px;height:65px;overflow:hidden;word-break:break-all;color:#313131;font-size:18px;line-height: 24px; text-align: center;left:0px;top:245px;position: absolute;}
+        .review .itemBody .item{width:277px;height:184px;position:absolute;left:0px;top:0px;}
+        .review .itemBody .text{width:277px;height:65px;overflow:hidden;word-break:break-all;color:#313131;font-size:18px;line-height: 24px; text-align: center;left:0px;top:194px;position: absolute;}
+
+        .mask1{width:607px;height:363px;left:27px;top:138px;background: transparent none no-repeat 0px 0px;background-image: url("images/mask1.png"); background-position: 0px 0px;}
+        .mask2{width:298px;height:363px;top:138px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask2.png"); background-position: 0px 0px;}
+        .mask21 {left:643px;}
+        .mask22 {left:954px;}
+
+        .mask31{width:186px;height:76px;left:39px;top:505px;background: transparent none no-repeat 0px 0px;background-image: url("images/mask21.png"); background-position: 0px 0px;}
+        .mask32{width:179px;height:78px;left:251px;top:504px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask22.png"); background-position: 0px 0px;}
+        .mask33{width:200px;height:73px;left:437px;top:509px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask23.png"); background-position: 0px 0px;}
+        .mask34{width:192px;height:76px;left:643px;top:506px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask24.png"); background-position: 0px 0px;}
+        .mask35{width:193px;height:81px;left:847px;top:501px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask25.png"); background-position: 0px 0px;}
+        .mask36{width:189px;height:76px;left:1054px;top:506px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask26.png"); background-position: 0px 0px;}
+
+        .mask4{width:193px;height:254px;top:669px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask4.png"); background-position: 0px 0px;}
+        .mask41{left:30px}
+        .mask42{left:235px}
+        .mask43{left:441px}
+        .mask44{left:646px}
+        .mask45{left:851px}
+        .mask46{left:1056px}
+
+        .mask5{width:300px;height:208px;top:1070px; background: transparent none no-repeat 0px 0px;background-image: url("images/mask5.png"); background-position: 0px 0px;}
+        .mask51{left:29px}
+        .mask52{left:336px}
+        .mask53{left:643px}
+        .mask54{left:951px}
+
+        img{width:100%;height:100%;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../images/translateBg.png')" onUnload="exit();">
+<div id="context" class="context">
+    <div class="container" id="container">
+        <div class="bg">
+            <div class="topBg"></div>
+            <div class="bottomBg"></div>
+            <div id="image1" class="image1"></div>
+            <div id="image2" class="image2"></div>
+        </div>
+        <div class="notes" id="notes"></div>
+        <div class="review" id="review"></div>
+        <div id="mask"></div>
+    </div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var prefix = origin + '/html/special/2020/FamousFor/';
+        var moviePos = {width:582,height:339,left:40,top:149};
+        var initialize = {
+            init : function() {
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                cursor.played = false;
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=10000100000000090000000000120525,10000100000000090000000000120500,10000100000000090000000000120526,10000100000000090000000000120520&act=1&cn=6&fn=6';
+                ajax(url, function(rst){
+                    try {
+                        var list = rst['data'];
+                        var items = list[1]['data'];
+                        cursor.focusable[0] = {focus: 0, items:[], playIndex : 0, typeId:list[0]['id']};
+                        for( var i = 0; i < items.length - 2; i ++) cursor.focusable[0].items.push(items[i]);
+                        cursor.focusable[1] = {focus: focused.length > 2 ? Number(focused[2]) : 0, items:[], typeId:list[0]['id']};
+                        for( var i = items.length - 2; i < items.length; i ++) cursor.focusable[1].items.push(items[i]);
+                        for(var i = 2; i < list.length; i ++){
+                            cursor.focusable[i] = {focus:focused.length > i + 1 ? Number(focused[i + 1]) : 0, items:list[i]['data'], typeId : list[i]['id']};
+                        }
+                        for( var i = 0; i < cursor.focusable[2].items.length; i ++){
+                            cursor.focusable[2].items[i].linkto =  prefix + (i == 0 ? 'notes.html' : 'list.html' ) + '?typeId=' + cursor.focusable[2].items[i].id;
+                        }
+                        cursor.focusable[3].items.length = 6;
+                        cursor.focusable[3].items[5] = {'name':'',linkto : prefix + 'notes.html', posters:{'5':['images/more-1.png']}};
+                        cursor.focusable[4].items.length = 4;
+                        cursor.focusable[4].items[3] = {'name':'',linkto : prefix + 'list.html?typeId=' + list[4]['id'], posters:{'4':['images/more-2.png']}};
+                        cursor.call('enterSmallMode');
+
+                        $('image1').innerHTML = '<img src="' + cursor.pictureUrl(cursor.focusable[1].items[0].posters, '5', '../../images/defaultImg.png') + '" />';
+                        $('image2').innerHTML = '<img src="' + cursor.pictureUrl(cursor.focusable[1].items[1].posters, '5', '../../images/defaultImg.png') + '" />';
+
+                        var html = '';
+                        var items = cursor.focusable[3].items;
+                        for( var i = 0; i < items.length; i ++ ){
+                            html += '<div class="itemBody"><div class="item"><img src="' +  cursor.pictureUrl(items[i].posters, '5', '../../images/defaultImg.png') + '" /></div><div class="text">' + items[i].name + '</div></div>';
+                        }
+                        $('notes').innerHTML = html;html = '';
+                        var items = cursor.focusable[4].items;
+                        for( var i = 0; i < items.length; i ++ ){
+                            html += '<div class="itemBody"><div class="item"><img src="' +  cursor.pictureUrl(items[i].posters, '4', '../../images/defaultImg.png') + '" /></div><div class="text">' + items[i].name + '</div></div>';
+                        }
+                        $('review').innerHTML = html;
+                        cursor.call('show');
+                    } catch (e){
+
+                    }
+                });
+            },
+            enterSmallMode : function () {
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $('container').style.visibility = 'visible';
+                cursor.fullmode = false;
+            },
+            enterFullMode : function () {
+                player.setPosition(0,0,1280,720);
+                $('container').style.visibility = 'hidden';
+                cursor.fullmode = true;
+            },
+            select : function(){
+                if( cursor.fullmode ) return cursor.call("enterSmallMode");
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) return cursor.call('enterFullMode');
+                return cursor.call('selectAct');
+            },
+            move : function(index){
+                var blocked = cursor.blocked;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+                if( blocked > 1 && ( index == -1 && focus <= 0 || index == 1 && focus + 1 >= items.length ) || ( blocked <= 1 && index == 11) || blocked == 0 && index == -1 || blocked == 1 && ( index == 1 && focus + 1 >= items.length )) return;
+                if( blocked > 1 ) {
+                    if( index == 1 || index == -1 ) {
+                        focus += index;
+                    } else if( index == 11 ) {
+                        if( blocked == 2 ) {
+                            blocked = focus <= 2 ? 0 : 1;
+                        } else {
+                            blocked -= 1;
+                        }
+                        focus = cursor.focusable[blocked].focus;
+                    } else if( index == -11 ) {
+                        blocked += 1;
+                        if( blocked >= cursor.focusable.length ) return;
+                        focus = cursor.focusable[blocked].focus;
+                    }
+                } else {
+                    if( blocked == 0 ) {
+                        if( index == 1 ) {
+                            blocked = 1; focus = 0;
+                        } else {
+                            blocked = 2;
+                            focus = cursor.focusable[blocked].focus;
+                            if( focus > 2 ) focus = 0 ;
+                        }
+                    } else {
+                        if( index == 1 || index == -1 ) {
+                            focus += index;
+                            if( focus < 0 ) { blocked = 0 ;focus = 0;}
+                        } else {
+                            blocked = 2;
+                            focus = cursor.focusable[blocked].focus;
+                            if( focus <= 2 ) focus = 3;
+                        }
+                    }
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('show');
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id});
+                } catch (e){ }
+            },
+            nextVideo : function ( ){
+                var blocked = 0;
+                var playIndex = cursor.focusable[blocked].playIndex;
+                var items = cursor.focusable[blocked].items;
+                if( items.length  > 1 ) {
+                    playIndex += 1;
+                    if( playIndex >= items.length ) playIndex = 0;
+                }
+                cursor.focusable[blocked].playIndex = playIndex;
+                var item = items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            prepareVideo : function(){
+                var blocked = 0;
+                var playIndex = cursor.focusable[0].playIndex;
+                cursor.played = true;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            resumePlay : function(resume){
+                cursor.starter = new Date().getTime();
+                if( resume ) { cursor.speed = 1; player.resume(); }
+            },
+            stop : function(){
+                player.setPosition(1279,719,1,1);
+                player.exit();
+                cursor.fullmode = false;
+            },
+            pausePlay : function(){
+                player.setPosition(1279,719,1,1);
+                player.pause();
+            },
+            continuePlay : function(){
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                player.resume();
+            },
+            show : function(showAll){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                $('mask').className = 'mask mask' + String(blocked + 1) + ' mask' + String(blocked + 1) + String(focus + 1);
+                if( blocked <= 2 ) {
+                    $("container").style.top = '0px';
+                    if( player.status != decodeURIComponent('%E6%92%AD%E6%94%BE') ) {
+                        cursor.call('enterSmallMode');
+                        cursor.call( !cursor.played ? 'prepareVideo' : 'continuePlay' , true);
+                    }
+                } else if( blocked == 3 ) {
+                    $("container").style.top = '-500px';
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                } else {
+                    $("container").style.top = '-674px';
+                    cursor.call('showList');
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                }
+            },
+            goBack:function(){
+                if( cursor.fullmode ){
+                    cursor.call("enterSmallMode");
+                    $("container").style.visibility = 'visible';
+                    cursor.call("show");
+                    return;
+                }
+                return cursor.call('goBackAct');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

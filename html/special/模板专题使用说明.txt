@@ -1,0 +1,111 @@
+为了减少服务器传输数据量，模板页面没有详细说明，具体说明参考本文件：
+
+1. PicturesTmpl.html    【模板专题】
+页面说明： 多个或单个图片的专题模板页面
+详细说明： 根据参数images或typeId显示多张图片，如果是视频可以播放; 根据 direction 指定光标移动方向
+参数说明：
+    1. direct: 光标移动方向，当不传 direct 或 direct 为空则上下移动，否则左右移动；
+    2. images 和 typeId 只能同时出现一个，当两个都传时，使用 images 参数的值;
+       images 显示指定目录下的图片文件，可以显示多个， 用 | 分格，图片路径为 从 /html/special 开始的相对路径, 并通过 encodeURIComponent 编码。
+       例：(2020%2FGoldMarry%2Fimages%2FVoteRoleBg.png|2020%2FGoldMarry%2Fimages%2FVoteRoleBg.png);
+           注意：图片路径需通过 encodeURIComponent() 编码，多个图片用 | 分隔；
+    3. typeId:栏目ID，当 typeId 不为空时， 可以传 type 参数， 根据 type对栏目进行调用；
+    4. type:参数说明如下：
+        1). 当 type 参数为 空 或不为 1，2 时，取栏目上绑定的背景图片;
+        2). 当 type 参数为 1 时，取栏目下绑定的内容的背景图片， 此时按遥控器的确认键可以对视频进行播放；
+        2). 当 type 参数为 2 时，取栏目下子栏目所绑定的背景图片，内容不可播放；
+
+
+
+
+2. ScreenPlayTmpl.html    【模板专题】
+页面说明： 全屏播放视频模板
+详细说明：
+    可通过 id 传递视频id 进行视频播放（可以是内部ID，也可以是外部ID），可带视频窗口坐标，按OK键可全屏播放
+    可通过 typeId 传递栏目ID进行视频播放，可循环播放，如果栏目下有多条视频时，依次循环播放
+    可通过 channelId 参数调用回看模式的参数进行直播视频播放，典型案例：小妮严选， channelId=3792
+    可通过 url 传递 基于 hls 的直播地址进行视频直播
+    可通过 frequency：频点，serviceId 传递频点和serviceId进行传统的直播方式进频道调用
+参数说明：
+    1. id: 视频ID，可以是华为内部ID，也可以是外部ID，为保证 IPTV的正常播出，最好传递外部ID；
+        注意：当参数为视频ID时，可以传递 视频坐标，用小窗口进行播放，按OK键可全屏播放，当带有坐标时，视频必须绑定背景图片，否则背景为黑色
+        参数格式为： video=encodeURIComponent(width,height,left,top);
+    2. typeId: 华为栏目ID，未来可使用 AO的栏目ID， 当使用 typeId时，可对栏目下的所有内容进行循环播放；
+        注意：如果同时传有 id 和 typeId时， 会直接播放视频ID为 id 的视频，但使用 typeId 鉴权；
+    3. channelId: 华为接收的基于互联网方式推流的 RTSP 直播， 此种方式实际使用时移技术；
+    4. url: 基于 hls 的流地址，请注意：此地址一定是: http://...../*.m3u8；
+    5. frequency: 频点, 此参数可以是 275, 也可以是 2750000, 都是275频点；
+       serviceId: ServiceId；
+
+
+
+
+3. TextColumnTmpl.html    【模板专题】
+页面说明： 纯文本列表的专题模板，竖行显示，可以自带页面背景图，焦点也可以传背景图片，可以带视频窗口进行视频窗播放
+详细说明： 根据参数images或typeId显示多张图片，如果是视频可以播放; 根据 direction 指定光标移动方向
+参数说明：
+    typeId: 栏目ID,
+    pb: 页面背景图片，路径从 /html/special 后开始的相对目录，或者http开始的URL路径，如果此参数和栏目背景同时存在，取栏目背景图片
+    w: 整个文本列表的宽度
+    h: 整个文本列表的高度
+    lft: 整个文本列表的 x 坐标
+    tp: 整个文本列表的 top 坐标
+    pg: 页面显示内容条数
+    ih: 条目元素的高度
+    mr: 两个条目之间的空隙
+    fs: 字体大小
+    cl: 文字颜色
+    al: 文字对齐方式，0:左对齐，１:居中对齐, 2:右对齐
+    bg: 普通条目背景颜色
+    fc: 焦点文字颜色
+    bc: 焦点背景，当焦点背景为6个字符时背景用纯色显示，如果超过6个字符时，焦点背景使用当前栏目下 images/[文件名]作为背景图片
+        bc的参数形式：
+           1. bc=ffffcc; //颜色
+           2. bc=encodeURIComponent('2020/QquareDance/images/moreBg.png'); //图片
+           3. bc=width,height,left,top,color;  宽度，高度，x坐标，y坐标， 背景颜色；
+           4. bc=width,height,left,top,image;  宽度，高度，x坐标，y坐标， 背景图片；
+           5. bc=width,height,left,top,image;  宽度，高度，x坐标，y坐标， 背景图片，背景图片x坐标，背景图片y坐标；
+    sc: 滚动条样式 left,top,height,bgColor,fcColor
+    video: 视频窗位置，width,height,left,top (如果没有表示无小窗口播放)
+    mode: 为空时，当选中视频时，跳转播放页进行播放，mode不为空时，选中之后直接在当前页全屏播放
+    rmChs: 如果有此参数时，会移除视频名称结尾的小括号
+
+    //示例1： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/QquareDance/images/moreBg.png&pg=9&fs=22&w=429&ih=66&lft=790&tp=40&cl=a9a4a4&mr=0&fc=ff0000&bc=ffffff
+    //示例2： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/QquareDance/images/moreBg.png&video=609,398,67,225&pg=9&fs=22&w=429&ih=66&lft=790&tp=40&cl=a9a4a4&mr=0&fc=ff0000&bc=ffffff
+    //示例3： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/QquareDance/images/moreBg.png&video=609,398,67,225&pg=9&fs=22&w=429&ih=66&lft=790&tp=40&cl=a9a4a4&mr=0&sc=1240,60,572,374a81,a9a4a4&fc=ff0000&bc=ffffff
+    //示例4： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/QquareDance/images/moreBg.png&video=609,398,67,225&pg=9&fs=22&w=429&ih=66&lft=790&tp=40&cl=a9a4a4&mr=0&sc=1240,60,572,374a81,a9a4a4&fc=ff0000&bc=459,54,772,50,ffffff
+    //广场舞文本列表专题示意： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/QquareDance/images/moreBg.png&video=609,398,67,225&pg=9&fs=22&w=429&ih=66&lft=790&tp=40&cl=a9a4a4&mr=0&sc=1240,60,572,374a81,a9a4a4&fc=ff0000&bc=459,54,772,46,2020/QquareDance/images/moreMask.png
+    //云上文旅馆列表专题示意： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/Acrobatics/images/textListBg.png&w=229&h=600&ih=71&lft=956&tp=155&cl=a9a4a4&mr=0&video=874,491,58,158&pg=7&fs=22&sc=1202,158,492,572c2d,ffba56&fc=ff0000&bc=248,52,947,163,2020/Acrobatics/images/textListMask.png,0,-550
+    //双晒纯文本列表专题示意： http://125.62.26.99/html/special/TextColumnTmpl.html?typeId=10000100000000090000000000119440&pb=2020/TwoAct/images/TwoAct2020ListColumnBg.png&w=900&h=360&ih=61&lft=183&tp=254&cl=ffffff&mr=0&pg=6&fs=22&fc=ff0000&bc=983,89,147,235,2020/TwoAct/images/TwoAct2020ListColumnFocus.png&sc=1136,247,365,572c2d,ffba56
+
+
+
+
+4. SquareTmpl.html    【模板专题】
+页面说明： 一页5个，或10个块的模板专题
+详细说明： 一页显示 x 个块的图片列表的专题模板，可以自带页面背景图，焦点也可以传背景图片，可以带视频窗口进行视频窗播放
+参数说明：
+    typeId:栏目Id;华为CMS中，当前专题名称所应对的ID;
+    bg:背景图片，如果带bg参数时，图片路径需是从 /html/special/ [路径] 的相对路径，程序自动加上 /html/special/
+    lft:LEFT坐标;不填为默认坐标
+    tp:TOP坐标;不填为默认坐标
+    cl:文字颜色;不填为默认为 fee5f0
+    fc:焦点文字颜色;不填为默认为 fdfa00
+    bo:背景框颜色;不填为默认为 ffffff
+    bc:焦点框颜色;不填为默认为 fdfa00
+    ct:每行显示条目个数，默认为５个, 也可用col参数代替;
+    row:多少行，pageCount 显示结果为 row * ct
+    wh: 元素图片的宽度
+    ht: 元素图片的高度
+    ml: 两个元素左右之间的距离
+    mh: 上下两排元素之间的高度
+    mt: 元素和文字之间的距离
+    bd: 边框的宽度，默认为 6
+    st:样式，如果 st 为1时，焦点文字背景为黑色，盖住了图片;
+    fs:font-size， 字体大小
+    pic:图片类型，默认为海报.
+    txt:是否显示标题，当 txt 为空时，默认显示标题，否则不显显示标题。
+    th:文本块的高度
+
+    //双晒图片列表专题示意： http://125.62.26.99/html/special/SquareTmpl.html?typeId=10000100000000090000000000115528&bg=2020/TwoAct/images/TwoAct2020List10Bg.png&ml=36&pic=3
+    //双晒图片列表专题示意： http://125.62.26.99/html/special/SquareTmpl.html?typeId=10000100000000090000000000115528&bg=2020/TwoAct/images/TwoAct2020List10Bg.png&ml=36&pic=3&row=2&tp=250&mh=20&txt=0&ht=180

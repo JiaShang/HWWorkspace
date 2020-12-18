@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;background: transparent none no-repeat 0px 0px; background-image: none;}
+        .videoBg{width:757px;height:424px;left:75px;top:252px;position:absolute;background: transparent url("images/CCTVVideoBg.png") no-repeat 0px 0px;}
+        .flowed{width:319px;height:464px;left:886px;top:256px;position:absolute;overflow: hidden;}
+        .itemBody{width:319px;height:61px;position:relative;}
+        .item{width:319px;height:51px;position:absolute;left:0px;top:0px; color:white;font-size:24px;line-height: 50px; text-align: center;}
+        .mask{position:absolute; background: transparent url("images/focusBg.png") no-repeat 0px 0px; background-position: 0px 0px;}
+        .blocked1{width:333px;height:65px;background-position: 0px -450px;}
+        .blocked2{width:775px;height:442px;background-position: 0px 0px;}
+        .mask {-webkit-transition: width,height,left,top .3s cubic-bezier(0, 0.5, 0.5, 0.6);}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div id="bg" class="bg" style="background: transparent url('images/CCTVNewsBg.png') no-repeat 0px 0px">
+    <div id="videoBg" class="videoBg"></div>
+    <div id="flowed" class="flowed"></div>
+    <div id="mask"></div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:760,height:426,left:74,top:252};
+        var initialize = {
+            init : function() {
+                var id = '50';
+                var url = EPGUrl + '/neirong/player/rec.jsp?ids=' + id;
+                ajax(url, function(rst){
+                    var list = rst[0][id];
+                    var html = '';
+                    for( var i = 0; i < list.length; i ++){
+                        var time = list[i].date;
+                        time = time.substr(time.indexOf('-') + 1).replace('-','月') + '日';
+                        list[i].name = list[i].name + '&nbsp;(' + time +  ')';
+                        html += '<div class="itemBody"><div class="item">' + list[i].name + '</div></div>';
+                    }
+                    $('flowed').innerHTML = html;
+                    cursor.focusable[0] = {focus:0, items: list};
+                    cursor.focusable[1] = {focus:0, items: [{name:'全屏'}]};
+                    cursor.call('enterSmallMode');
+                    cursor.call('prepare');
+                    cursor.call('show');
+                });
+            },
+            enterSmallMode : function () {
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $('bg').style.visibility = 'visible';
+                cursor.fullmode = false;
+            },
+            move:function(index){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if( blocked == 1 && index != 1 || blocked == 0 && ( index == 11 && focus <= 0 || index == -11 && focus + 1 >= items.length || index == 1 )) return;
+                if( index == 11 || index == -11 ) {
+                    focus += index > 0 ? -1 : 1;
+                } else if( index == -1 ){
+                    blocked = 1; focus = 0;
+                } else {
+                    blocked = 0; focus = cursor.focusable[blocked].focus;
+                }
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = setTimeout(function(){ clearTimeout(cursor.moveTimer);cursor.moveTimer = undefined; if(cursor.blocked == 1) return; cursor.call('prepare');}, 1300);
+                cursor.call('show');
+            },
+            enterFullMode : function () {
+                player.setPosition(0,0,1280,720);
+                $('bg').style.visibility = 'hidden';
+                cursor.fullmode = true;
+            },
+            select : function(){
+                if( !cursor.fullmode ) return cursor.call('enterFullMode');
+                cursor.call('enterSmallMode');
+                cursor.call('show');
+            },
+            goBack : function (){
+                if( cursor.fullmode ) {
+                    return cursor.call('enterSmallMode');
+                    cursor.call('show');
+                }
+                return cursor.call('goBackAct');
+            },
+            prepare: function () {
+                var items = cursor.focusable[0].items;
+                var focus = cursor.focusable[0].focus;
+                var item = items[focus];
+                player.exit();
+                player.play({ 'url': item['playUrl'] , callback: function(){
+                    $('videoBg').style.visibility = 'hidden';
+                }});
+            },
+            nextVideo : function (){
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[0].items;
+                focus += 1;
+                if( focus >= items.length ) focus = 0;
+                cursor.focusable[0].focus = focus;
+                cursor.call('prepare');
+                if( !cursor.fullmode ) cursor.call('show');
+            },
+            show : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                if( blocked == 0 ) {
+                    $("mask").className = 'mask blocked1';
+                    $("mask").style.left = '879px';
+                    $("mask").style.top = String(focus * 61 + 249) + 'px';
+                } else {
+                    $("mask").className = 'mask blocked2';
+                    $("mask").style.left = '66px';
+                    $("mask").style.top = '243px';
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            if( isComputer ) EPGUrl = EPGUrl.replace('192.168.14.102:8082','117.59.202.67:8080');
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

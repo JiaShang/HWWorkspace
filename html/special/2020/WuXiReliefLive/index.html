@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;background: transparent none no-repeat 0px 0px; background-image: none;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div id="bg" class="bg" style="background: transparent url('images/indexBg.png') no-repeat 0px 0px"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:691,height:387,left:61,top:184};
+        var initialize = {
+            init : function() {
+                var id = link.query('id');
+                var typeId = '10000100000000090000000000120441';
+                var url = EPGUrl + '/neirong/player/detail.jsp?id=' + typeId + '&act=0';
+                ajax(url, function(rst){
+                    var list = rst['data']['list'];
+                    cursor.focusable[0] = {focus:0, items: list, typeId : typeId};
+                    cursor.call('enterSmallMode');
+                    cursor.call('prepare');
+                });
+            },
+            enterSmallMode : function () {
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $('bg').style.visibility = 'visible';
+                cursor.fullmode = false;
+            },
+            enterFullMode : function () {
+                player.setPosition(0,0,1280,720);
+                $('bg').style.visibility = 'hidden';
+                cursor.fullmode = true;
+            },
+            select : function(){
+                if( !cursor.fullmode ) return cursor.call('enterFullMode');
+                return cursor.call('enterSmallMode');
+            },
+            goBack : function (){
+                if( cursor.fullmode ) return cursor.call('enterSmallMode');
+                return cursor.call('goBackAct');
+            },
+            prepare: function () {
+                var items = cursor.focusable[0].items;
+                var typeId = cursor.focusable[0].typeId;
+                if( items.length > 1 ) {
+                    player.play({ 'vodId': items[0]['id'], 'typeId': typeId});
+                } else if( items.length > 0 ){
+                    player.play({'frequency':2750000, 'serviceId' : 2603});
+                }
+            },
+            nextVideo : function (){
+                cursor.call('prepare');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            if( isComputer ) EPGUrl = EPGUrl.replace('192.168.14.102:8082','117.59.202.67:8080');
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

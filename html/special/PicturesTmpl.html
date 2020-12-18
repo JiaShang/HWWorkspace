@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script language="javascript" type="text/javascript" src="../js/common.js"></script>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;overflow: hidden;}
+        .bg img{width:100%;height:100%;}
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div class="bg" id="bg"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var initialize = {
+            init : function() {
+                var images = link.query('images');
+                var typeId = link.query('typeId');
+                if(images.isEmpty() && typeId.isEmpty()) return tooltip(decodeURIComponent('%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF%EF%BC%81'));
+                var items = [];
+
+                var ready = function(){
+                    cursor.focusable[0] = { focus : 0, items: items};
+                    cursor.direction = !link.query('direct').isEmpty();
+                    cursor.call('show');
+                }
+
+                if( ! images.isEmpty() ){
+                    images = decodeURIComponent(images).split('|');
+                    for( var i = 0, empty = 0; i < images.length; i ++){
+                        if( images[i].isEmpty()){
+                            empty  ++;
+                            continue;
+                        }
+                        items[i - empty] = { src : images[i]};
+                    }
+                    ready();
+                } else {
+                    var action = link.query('type');
+                    var act = '';
+                    if( !action.isEmpty() ){
+                        //如果 action == 1 时，取的是视频中的背景图，需要播放视频，或跳转到视频的详情页
+                        cursor.canPlayItem = action == '1';
+                        if( action != '1' && action != '2' ) {
+                            act = ''; action = '';
+                        } else {
+                            action = '&act=' + (  act = ( action == '1' ?  '0' : '1' ) );
+                        }
+                    }
+                    var url = ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + action;
+                    ajax(url, function(rst){
+                        if( act.isEmpty() ) {
+                            var posters = rst.posters;
+                            if( typeof posters != 'undefined' && typeof posters[7] != 'undefined') {
+                                //背景图 是一个 Array 数组
+                                posters = posters[7];
+                                for( var i = 0; i < posters.length; i ++ ) {
+                                    items[i] = { src : posters[i] };
+                                }
+                            } else {
+                                items[0] = { src : 'images/defaultImg.png' };
+                            }
+                        } else {
+                            var list = rst['data']['list'];
+                            if( typeof list != 'undefined' ) {
+                                for( var i = 0; i < list.length; i ++){
+                                    //如果 act == 0 || act == 1 时，不管是子栏目还是视频内容，取第一张图背景图片，如果是视频，则可以播放视频
+                                    items[i] = { src : cursor.pictureUrl(list[i].posters, 7, 'images/defaultImg.png') };
+                                    if( act != '0' ) continue;
+                                    //如果 act == 0 时，需要取视频的ID：item.Id，视频的类型（是否连续剧）：item.isSitcom，视频的栏目ID：typeId;
+                                    items[i].id = list[i].id;
+                                    items[i].isSitcom = list[i].isSitcom;
+                                    items[i].typeId = typeId;
+                                }
+                            } else {
+                                items[0] = { src : 'images/defaultImg.png' };
+                            }
+                        }
+                        ready();
+                    });
+                }
+            },
+            move:function(index){
+                var items = cursor.focusable[0].items;
+                if(typeof items =='undefined' || items.length <= 1 || cursor.direction && (index == 11 || index == -11) || !cursor.direction && (index == 1 || index == -1 )) return ;
+                var focus = cursor.focusable[0].focus;
+                if( index == 1 || index == -11 ){
+                    focus += 1;
+                    if( focus >= items.length) focus = 0;
+                } else {
+                    focus -= 1;
+                    if( focus < 0 ) focus = items.length - 1;
+                }
+                cursor.focusable[0].focus = focus;
+                cursor.call('show');
+            },
+            show: function(){
+                var focus = cursor.focusable[0].focus;
+                var items = cursor.focusable[0].items;
+                $('bg').innerHTML = '<img src="' + items[focus].src + '" />';
+            },
+            select: function(){
+                //如果不是取绑定内容的情况，直接返回。
+                if( !cursor.canPlayItem ) return;
+                try {
+                    var blocked = cursor.blocked;
+                    var items = cursor.focusable[blocked].items;
+                    var focus = cursor.focusable[blocked].focus;
+                    var item = cursor.focusable[focus];
+                    //考虑到极端情况， item 不存在，或者 item.id 不存在，直接返回，不进行播放
+                    if( !item || !item.id ) return ;
+                    return cursor.call('selectItem', item);
+                } catch (e) {
+                    return;
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

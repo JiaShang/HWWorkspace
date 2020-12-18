@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #list,#title{
+            position: absolute;
+            background:transparent;
+        }
+        .listName,.titleName{
+            position: absolute;
+            background:transparent;
+            text-align: center;
+            visibility: hidden;
+            z-index: 2;
+        }
+        .listImg,.titleImg {
+            position: absolute;
+            overflow:hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/showList.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/variable.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 720px;background: transparent no-repeat;overflow: hidden;"></div>
+<img id="focus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="titleFocus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="focus0" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="focus1" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="focus2" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="focus3" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="tipFocus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="tipFocus0" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="tipFocus1" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<img id="tipFocus2" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+
+<div id="scrollLower" style="position:absolute; z-index: 1;visibility: hidden;">
+    <div id="scrollUpper" style="position: absolute; height: 70px;z-index: 2;"></div>
+</div>
+<div id="page" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"></div>
+<div id="tip" style="position: absolute;width: 1280px;height: 720px;left: 0px;top: 0px; background: transparent no-repeat; visibility: hidden;">
+    <div id="tipBg" style="position: absolute;width: 1280px;height: 720px;left: 0px;top: 0px; background: transparent no-repeat; visibility: hidden;">
+        <img id="tipBGImg"/>
+        <div id="tipBGName"></div>
+    </div>
+    <div id="tipTitle" style="left: 10px; top: 5px;">
+        <img id="tipTitleImg"/>
+        <div id="tipTitleName"></div>
+    </div>
+    <div id="tipContext1"style="left: 390px; top: 5px;">
+        <img id="tipContextImg1"/>
+        <div id="tipContextName1"></div>
+    </div>
+    <div id="tipContext2" class="title" style="left: 770px; top: 5px;">
+        <img id="tipContextImg2" class="titleImg"/>
+        <div id="tipContextName2" class="titleName"></div>
+    </div>
+</div>
+
+</div><div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;"></div>
+<div id="title" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="title0" class="title" style="left: 10px; top: 5px;">
+        <img id="titleImg0" class="titletImg"/>
+        <div id="titleName0" class="titleName"></div>
+    </div>
+    <div id="title1" class="title" style="left: 390px; top: 5px;">
+        <img id="titleImg1" class="titleImg"/>
+        <div id="titleName1" class="titleName"></div>
+    </div>
+    <div id="title2" class="title" style="left: 770px; top: 5px;">
+        <img id="titleImg2" class="titleImg"/>
+        <div id="titleName2" class="titleName"></div>
+    </div>
+    <div id="title3" class="title" style="left: 10px; top: 280px;">
+        <img id="titleImg3" class="titleImg"/>
+        <div id="titleName3" class="titleName"></div>
+    </div>
+    <div id="title4" class="title" style="left: 390px; top: 280px;">
+        <img id="titleImg4" class="titleImg"/>
+        <div id="titleName4" class="titleName"></div>
+    </div>
+    <div id="title5" class="title" style="left: 770px; top: 280px;">
+        <img id="titleImg5" class="titleImg"/>
+        <div id="titleName5" class="titleName"></div>
+    </div>
+
+    <div id="title6" class="title" style="left: 770px; top: 5px;">
+        <img id="titleImg6" class="titleImg"/>
+        <div id="titleName6" class="titleName"></div>
+    </div>
+    <div id="title7" class="title" style="left: 10px; top: 280px;">
+        <img id="titleImg7" class="titleImg"/>
+        <div id="titleName7" class="titleName"></div>
+    </div>
+    <div id="title8" class="title" style="left: 390px; top: 280px;">
+        <img id="titleImg8" class="titleImg"/>
+        <div id="titleName8" class="titleName"></div>
+    </div>
+    <div id="title9" class="title" style="left: 770px; top: 280px;">
+        <img id="titleImg9" class="titleImg"/>
+        <div id="titleName9" class="titleName"></div>
+    </div>
+</div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+    <div id="list6" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg6" class="listImg"/>
+        <div id="listName6" class="listName"></div>
+    </div>
+    <div id="list7" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg7" class="listImg"/>
+        <div id="listName7" class="listName"></div>
+    </div>
+    <div id="list8" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg8" class="listImg"/>
+        <div id="listName8" class="listName"></div>
+    </div>
+
+    <div id="list9" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg9" class="listImg"/>
+        <div id="listName9" class="listName"></div>
+    </div>
+    <div id="list10" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg10" class="listImg"/>
+        <div id="listName10" class="listName"></div>
+    </div>
+    <div id="list11" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg11" class="listImg"/>
+        <div id="listName11" class="listName"></div>
+    </div>
+    <div id="list12" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg12" class="listImg"/>
+        <div id="listName12" class="listName"></div>
+    </div>
+    <div id="list13" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg13" class="listImg"/>
+        <div id="listName13" class="listName"></div>
+    </div>
+    <div id="list14" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg14" class="listImg"/>
+        <div id="listName14" class="listName"></div>
+    </div>
+
+    <div id="list15" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg15" class="listImg"/>
+        <div id="listName15" class="listName"></div>
+    </div>
+    <div id="list16" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg16" class="listImg"/>
+        <div id="listName16" class="listName"></div>
+    </div>
+    <div id="list17" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg17" class="listImg"/>
+        <div id="listName17" class="listName"></div>
+    </div>
+    <div id="list18" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg18" class="listImg"/>
+        <div id="listName18" class="listName"></div>
+    </div>
+    <div id="list19" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg19" class="listImg"/>
+        <div id="listName19" class="listName"></div>
+    </div>
+</div>
+</body>
+<script language="javascript" type="text/javascript">
+    act = 0;
+    addTagFlag = 0;
+    cutName = [1," ","（"];
+    // picFlag = []; //类型 1:绑在一级栏目下 2:绑在子栏目的一条视频下 3：绑在子栏目的多条视频下  字段："3"
+    picPrefix = ['20201125_8',0];
+    list = [0,0,1280,720,1,6,150,150,24,17,,'ffffff','ffffff',1,1]; //方向 ；0不显示  1显示
+    listImg = [80,570,204,43,225,225,0,"3",'7'];  //0不显示  1显示  2替换焦点图（0/1）  3异形焦点  4自定义listPosters;异形listImg时的字段；放大list时的字段
+    listName = [105,300,425,43,50,56,1,'left']; //0不显示  1显示   4自定义listData  ;style="text-align: center" left right
+    focusPic = [88,287,463,63,712,56,'edad4b',0,1,3];  //方向 ；0不显示  1显示焦点框  2替换焦点图（blocked）  3异形焦点  4自定义;异形焦点时的字段
+    title = ["10","50","500","500","3","2","50","50","24","15","","ffffff","ffffff",1,0]; //方向 ；0不显示  1显示
+    titleImg = [65,37,360,215,380,275,0,"4"]; //0不显示  1显示  2替换焦点图（0/1）  3异形焦点  4自定义listPosters
+    titleName = [85,37,346,115,345,127,0,'left'];
+    titlePic = [48,138,388,243,380,276,"20191120ListFocus",1,0,"4"];//方向 ；0不显示  1显示
+    sc = [560,290,3,335,-3,8,'c3bcbc','edad4b',1,1,0];
+    video = [594,375,608,272,99,1];  //是否轮播:99轮播  其他数字播指定位置视频 ；是否播放：0不播 1播影片 2网络直播 3频道直播 ;栏目长度为几时播直播
+
+    listData = ["爱在重庆有线","因为有爱","因为有家","因为有你","因为有心"];
+    listPosters = ["images/J20201125_6Focus0.png","images/J20201125_6Focus0.png","images/J20201125_6Focus0.png","images/J20201125_6Focus0.png","images/J20201125_6Focus0.png"];
+
+    (function(win){
+        getParams();
+        enterRecord(record[0],record[1]);
+        showScroll(sc);
+        showLists();
+        showFocusPic();
+        showTitle();
+        showTitlePic();
+        showPage();
+        // win.moviePos = {width:Number(video[0]),height:Number(video[1]),left:Number(video[2]),top:Number(video[3])};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000120625';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act='+act+'&fn=199';
+                var focused = win.link.query('currFoucs');
+                var i = focused.indexOf('&');
+                i++;
+                focused = focused.substring(i);
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined' ) {
+                            rst['column']['posters'] = delPostersIP(rst['column']['posters']);
+                            ColumnImg = rst['column']['posters'];
+                        }
+                        if (typeof ColumnImg['7'] != 'undefined'){
+                            bgImg = ColumnImg['7'][0];
+                        }else {
+                            bgImg = "images/J"+picPrefix[0]+"Bg.png";
+                        }
+                        if (picPrefix[1] == 1){
+                            bgImg = "images/J"+picPrefix[0]+"Bg.png";
+                        }
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+                        /////////////////////////////////////
+                        var data = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            data = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : defFocus[0];
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.enlarged = 0;
+                        cursor.playIndex = 0;
+
+                        cursor.serviceId = 2603;
+                        cursor.frequency = 2750000;
+                        cursor.channelId = '3792';
+                        cursor.program = '3';
+
+                        if (act == 0 || act == '0') {    //无子栏目时：list[i]
+                            cursor.focusable[0] = {};
+                            cursor.focusable[0].typeId = rst['column'].id;
+                            cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : defFocus[1];
+                            cursor.focusable[0].items = data;
+                            addTag(cursor.focusable[0].items,addTagFlag);
+                            cut(cursor.focusable[0].items,cutName[1],cutName[2],cutName[0]);
+                        }else if (act == 2 || act == '2') {  //有子栏目时：list[i].data
+                            for (var i = 0 ;i < data.length ; i++){
+                                if (Number(titleName[6]) == 1) {
+                                    if (typeof data[0].data != 'undefined') {
+                                        titleData = data[0].data;
+                                    }else {
+                                        titleData = [];
+                                    }
+                                }
+
+                                if (i>0){
+                                    cursor.focusable[i-1] = {};
+                                    cursor.focusable[i-1].typeId = data[i].id;
+                                    cursor.focusable[i-1].focus = focused.length > 1 ? Number(focused[i]) : 0;
+                                    if (typeof data[i].data != 'undefined'){
+                                        cursor.focusable[i-1].items = data[i].data;
+                                    }else {
+                                        cursor.focusable[i-1].items = [];
+                                    }
+                                    addTag(cursor.focusable[i-1].items,addTagFlag);
+                                    cut(cursor.focusable[i-1].items,cutName[1],cutName[2],cutName[0]);
+                                }
+
+                            }
+                        }
+                        ///////////////////////////
+                        // cursor.focusable[0].items[0] = {
+                        //     'name':'查看图片',
+                        //     'linkto':'http://125.62.26.99/html/special/shang/common/JPic.html?typeId=10000100000000090000000000116521&act=0&direct=0&picFlag=1,7'
+                        // }
+                        // cursor.focusable[0].items[1] = {
+                        //     'name':'查看图片',
+                        //     'linkto':'http://125.62.26.99/html/special/shang/common/JPic.html?typeId=10000100000000090000000000116522&act=0&direct=0&picFlag=1,7'
+                        // }
+
+                        ////////////////////////////////
+                        if (Number(list[14])==1) {
+                            cursor.call('initList');
+                        }
+                        if (Number(title[14])==1) {
+                            cursor.call('initTitle');
+                        }
+                        setTimeout(function(){
+                            cursor.call('show');
+                            if (Number(video[5])!=0){
+                                cursor.call('prepareVideo');
+                            }
+                        },200);
+                    },
+                    {
+                        fail: function (meg) {
+                            tooltip(decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA'));
+                            return;
+                        }
+                    }
+                );
+            },
+            move: function (index) {
+                //上 11，下 -11，左 -1，右 1
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if (Number(listImg[6]) != 0 && Number(listName[6]) == 0){
+                    listData = posters;
+                }
+                cursor.call('loseFocus');
+
+                if (Number(list[4]) == 1 && Number(list[4]) == Number(list[5])){
+                    if (index === -1 || index === 11) {  //左，上
+                        focus-- ;
+                        if (listBox !=null){
+                            listBox.changeList(-1);
+                        }
+                    }else if (index === 1 || index === -11) {
+                        focus++ ;
+                        if (listBox !=null){
+                            listBox.changeList(1);
+                        }
+                    }
+                } else{
+                    if (focus%Number(list[4]) !=0 && index === -1){  //左
+                        focus-- ;
+                        if (listBox !=null){
+                            listBox.changeList(-1);
+                        }
+                    }else if (focus%Number(list[4]) != Number(list[4])-1 && index === 1) {  //右
+                        focus++ ;
+                        if (listBox !=null){
+                            listBox.changeList(1);
+                        }
+                    }else if (focus >= Number(list[4]) && index === 11){   //上
+                        focus = focus - Number(list[4]) ;
+                        if (listBox !=null){
+                            listBox.changeList(-1*Number(list[4]));
+                        }
+                    }else if (index === -11){  //下
+                        if (focus + Number(list[4]) < listData.length-1) {
+                            focus = focus + Number(list[4]) ;
+                            if (listBox !=null){
+                                listBox.changeList(Number(list[4]));
+                            }
+                        }else {
+                            if ( Math.floor(focus/Number(list[4]))!=Math.floor((listData.length-1)/Number(list[4]))){
+                                var i = listData.length-1-focus;
+                                focus = focus + i ;
+                                if (listBox !=null){
+                                    listBox.changeList(i);
+                                }
+                            }
+
+                        }
+                    }
+                }
+                // cursor.focusable[blocked].focus = focus;
+                cursor.focusable[blocked].focus = focus;
+                cursor.blocked = blocked;
+                cursor.call('show');
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = setTimeout(function(){
+                    clearTimeout(cursor.moveTimer);
+                if( Number(video[5])==1 && Number(video[4])==99){
+                        var focus = cursor.focusable[blocked].focus;
+                        if( cursor.palyBlocked != blocked || cursor.playIndex != focus ) {
+                            cursor.playIndex = focus;
+                            cursor.palyBlocked = blocked;
+                            var item = cursor.focusable[blocked].items[focus];
+                            cursor.call('playMovie', item);
+                        }
+                }},1000);
+            },
+            show: function () {
+                var blocked = cursor.blocked;
+                var items = cursor.focusable[blocked].items;
+                if (items.length <= 0) return;
+                var focus = cursor.focusable[blocked].focus;
+                //////////////放大图片/////////////////
+                if(cursor.enlarged ==1){
+                    $("enlargedPic").style.backgroundImage = "url("+bgImgs[listBox.position]+")";
+                    $("enlargedPic").style.visibility = "visible";
+                }else {
+                    $("enlargedPic").style.visibility = "hidden";
+                }
+                ////////////////焦点样式
+                if (focusPic[8]==1 || focusPic[8]=="1"){   //焦点框
+                    $("focus").style.left = String(Number(focusPic[0])+(listBox.focusPos%Number(list[4]))*Number(focusPic[4])+Math.floor(listBox.focusPos/Number(list[4]))*Number(listGap[0]))+"px";
+                    $("focus").style.top = String(Number(focusPic[1])+Math.floor(listBox.focusPos/Number(list[4]))*Number(focusPic[5])+(listBox.focusPos%Number(list[4]))*Number(listGap[1]))+"px";
+                }else if (focusPic[8]==2 || focusPic[8]=="2"){   //替换焦点图
+                    $("focus").style.backgroundImage = "url(images/J"+focusPic[6]+String(focus)+".png)";
+                    $("focus").src = "images/J"+focusPic[6]+String(focus)+".png";
+                }else if (focusPic[8]==3 || focusPic[8]=="3"){   //异形焦点图
+                    // $("focus").style.backgroundImage = "url("+items[listBox.position].posters[focusPic[9]][1]+")";
+                    $("focus").src = items[listBox.position].posters[focusPic[9]][1]
+                    $("focus").style.left = String(Number(focusPic[0])+(listBox.focusPos%Number(list[4]))*Number(focusPic[4])+Math.floor(listBox.focusPos/Number(list[4]))*Number(listGap[0]))+"px";
+                    $("focus").style.top = String(Number(focusPic[1])+Math.floor(listBox.focusPos/Number(list[4]))*Number(focusPic[5])+(listBox.focusPos%Number(list[4]))*Number(listGap[1]))+"px";
+                    $("listImg"+listBox.focusPos).style.visibility = 'hidden';
+                }else if (focusPic[8]==4 || focusPic[8]=="4"){   //自定义焦点图
+                    // $("focus").style.backgroundImage = "url("+focusPicData[listBox.position][1]+")";
+                    $("focus").src = focusPicData[listBox.position][1];
+                    $("focus").style.left = String(Number(focusPic[0])+(listBox.focusPos%Number(list[4]))*Number(focusPic[4])+Math.floor(listBox.focusPos/Number(list[4]))*Number(listGap[0]))+"px";
+                    $("focus").style.top = String(Number(focusPic[1])+Math.floor(listBox.focusPos/Number(list[4]))*Number(focusPic[5])+(listBox.focusPos%Number(list[4]))*Number(listGap[1]))+"px";
+                    $("listImg"+listBox.focusPos).style.visibility = 'hidden';
+                }
+                ///title焦点样式
+                if (titlePic[8]==1 || titlePic[8]=="1"){
+                    //
+                    $("titleFocus").style.left = String(Number(titlePic[0])+(titleBox.focusPos%Number(title[4]))*Number(titlePic[4])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titleGap[0]))+"px";
+                    $("titleFocus").style.top = String(Number(titlePic[1])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titlePic[5])+(titleBox.focusPos%Number(title[4]))*Number(titleGap[1]))+"px";
+                }else if (titlePic[8]==2 || titlePic[8]=="2"){
+                    // $("titleFocus").style.backgroundImage = "url(images/J"+titlePic[6]+String(blocked)+".png)";
+                    $("titleFocus").src = "images/J"+titlePic[6]+String(blocked)+".png";
+                }else if (titlePic[8]==3 || titlePic[8]=="3"){
+                    // $("titleFocus").style.backgroundImage =  "url("+items[titleBox.position].posters[titlePic[9]][1]+")";
+                    $("titleFocus").src = items[titleBox.position].posters[titlePic[9]][1];
+                    $("titleFocus").style.left = String(Number(titlePic[0])+(titleBox.focusPos%Number(title[4]))*Number(titlePic[4])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titleGap[0]))+"px";
+                    $("titleFocus").style.top = String(Number(titlePic[1])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titlePic[5])+(titleBox.focusPos%Number(title[4]))*Number(titleGap[1]))+"px";
+                    $("titleImg"+titleBox.focusPos).style.visibility = 'hidden';
+                }else if (titlePic[8]==4 || titlePic[8]=="4"){
+                    // $("titleFocus").style.backgroundImage =  "url("+titlePicData[listBox.position][1]+")";
+                    $("titleFocus").src = titlePicData[listBox.position][1];
+                    $("titleFocus").style.left = String(Number(titlePic[0])+(titleBox.focusPos%Number(title[4]))*Number(titlePic[4])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titleGap[0]))+"px";
+                    $("titleFocus").style.top = String(Number(titlePic[1])+Math.floor(titleBox.focusPos/Number(title[4]))*Number(titlePic[5])+(titleBox.focusPos%Number(title[4]))*Number(titleGap[1]))+"px";
+                    $("titleImg"+titleBox.focusPos).style.visibility = 'hidden';
+                }
+                ////////////////////listName//////////////////
+                if (Number(list[14])==1) {
+                    if (Number(listName[6]!=0)) {
+                        if (list[10] == "") {
+                            $("listName" + listBox.focusPos).style.backgroundColor = "transparent";
+                        } else {
+                            $("listName" + listBox.focusPos).style.backgroundColor = "#" + list[10];
+                        }
+                        $("listName" + listBox.focusPos).style.color = "#" + list[12];
+
+                        // if (Number(listName[6]) == 1) {
+                        //     $("listName" + listBox.focusPos).innerText = getStrChineseLength(listData[listBox.position].name) > Number(list[9]) ? subStr(listData[listBox.position].name, Number(list[9]), "...") : listData[listBox.position].name;
+                        // } else if (Number(listName[6]) == 4) {
+                        //     $("listName" + listBox.focusPos).innerText = getStrChineseLength(listData[listBox.position]) > Number(list[9]) ? subStr(listData[listBox.position], Number(list[9]), "...") : listData[listBox.position];
+                        // }
+                        cursor.call('lazyShow');
+                    }
+                }
+                ////////////////////titleName//////////////////
+                if (Number(title[14])==1) {
+                    if (Number(titleName[6]!=0)){
+                        if (title[10] == ""){
+                            $("titleName"+titleBox.focusPos).style.backgroundColor = "transparent";
+                        }else {
+                            $("titleName"+titleBox.focusPos).style.backgroundColor = "#"+title[10];
+                        }
+                        $("titleName"+titleBox.focusPos).style.color = "#"+title[12];
+                        // if (Number(titleName[6]) == 1){
+                        //     $("titleName"+titleBox.focusPos).innerText = getStrChineseLength(titleData[titleBox.position].name) > Number(title[9])?subStr(titleData[titleBox.position].name,Number(title[9]),"..."):titleData[titleBox.position].name;
+                        // }else if (Number(titleName[6]) == 4){
+                        //     $("titleName"+titleBox.focusPos).innerText = getStrChineseLength(titleData[titleBox.position]) > Number(title[9])?subStr(titleData[titleBox.position],Number(title[9]),"..."):titleData[titleBox.position];
+                        // }
+                        cursor.call('titleLazyShow');
+                    }
+                }
+                if (Number(page[8]) == 1){
+                    $("page").innerText = listBox.position+1+"/"+listBox.dataSize;
+                }
+                if (Number(sc[8]) == 1){
+                    scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
+                }
+            },
+            loseFocus: function () {
+                var blocked = cursor.blocked;
+                var items = cursor.focusable[blocked].items;
+                if (items.length <= 0) return;
+                var focus = cursor.focusable[blocked].focus;
+                ////////////////////listName//////////////////
+                if (Number(list[14])==1) {
+                    if (Number(listName[6]!=0)) {
+                        $("listName" + listBox.focusPos).style.backgroundColor = "transparent";
+                        $("listName" + listBox.focusPos).style.color = "#" + list[11];
+                    }
+                    if (Number(listName[6]) == 1) {
+                        $("listName" + listBox.focusPos).innerText = getStrChineseLength(listData[listBox.position].name) > Number(list[9]) ? subStr(listData[listBox.position].name, Number(list[9]), "...") : listData[listBox.position].name;
+                    } else if (Number(listName[6]) == 4) {
+                        $("listName" + listBox.focusPos).innerText = getStrChineseLength(listData[listBox.position]) > Number(list[9]) ? subStr(listData[listBox.position], Number(list[9]), "...") : listData[listBox.position];
+                    }
+                }
+                ////////////////////titleName//////////////////
+                if (Number(title[14])==1) {
+                    if (Number(titleName[6]!=0)) {
+                        $("titleName" + titleBox.focusPos).style.backgroundColor = "transparent";
+                        $("titleName" + titleBox.focusPos).style.color = "#" + title[11];
+                    }
+                    if (Number(titleName[6]) == 1){
+                        $("titleName"+titleBox.focusPos).innerText = getStrChineseLength(titleData[titleBox.position].name) > Number(title[9])?subStr(titleData[titleBox.position].name,Number(title[9]),"..."):titleData[titleBox.position].name;
+                    }else if (Number(titleName[6]) == 4){
+                        $("titleName"+titleBox.focusPos).innerText = getStrChineseLength(titleData[titleBox.position]) > Number(title[9])?subStr(titleData[titleBox.position],Number(title[9]),"..."):titleData[titleBox.position];
+                    }
+                }
+
+                ///////////////////焦点样式//////////
+                if (focusPic[8]==3 || focusPic[8]=="3"){   //异形焦点图
+                    // $("focus").style.backgroundImage = "url("+items[listBox.position].posters[focusPic[9]][0]+")";
+                    $("focus").src = items[listBox.position].posters[focusPic[9]][0];
+                    $("listImg"+listBox.focusPos).style.visibility = 'visible';
+                }else if (focusPic[8]==4 || focusPic[8]=="4"){   //自定义焦点图
+                    // $("focus").style.backgroundImage = "url("+focusPicData[listBox.position][0]+")";
+                    $("focus").src = focusPicData[listBox.position][0];
+                    $("listImg"+listBox.focusPos).style.visibility = 'visible';
+                }
+                ///////////////////title焦点样式//////////
+                if (titlePic[8]==3 || titlePic[8]=="3"){   //异形焦点图
+                    // $("titleFocus").style.backgroundImage = "url("+items[titleBox.position].posters[titlePic[9]][0]+")";
+                    $("titleFocus").src = items[titleBox.position].posters[titlePic[9]][0];
+                    $("titleImg"+titleBox.focusPos).style.visibility = 'visible';
+                }else if (titlePic[8]==4 || titlePic[8]=="4"){
+                    // $("titleFocus").style.backgroundImage =  "url("+titlePicData[listBox.position][0]+")";
+                    $("titleFocus").src = titlePicData[listBox.position][0];
+                    $("titleImg"+titleBox.focusPos).style.visibility = 'visible';
+                }
+            },
+            lazyShow : function(){
+                //var focus = listBox.position;
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String( listBox.focusPos );
+                var text = $('listName' + id).innerText;
+                if ( text.indexOf("...") != -1 ) {
+                    $('listName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + cursor.focusable[blocked].items[focus].name + '</marquee>';
+                }
+            },
+            titleLazyShow : function(){
+                //var focus = listBox.position;
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String( listBox.focusPos );
+                var text = $('listName' + id).innerText;
+                if ( text.indexOf("...") != -1 ) {
+                    $('titleName' + id).innerHTML = '<marquee class="marquee" scrollamount="8">' + cursor.focusable[blocked].items[focus].name + '</marquee>';
+                }
+            },
+            initTitle : function () {
+                var blocked = 0;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+                var data = [];
+                if (Number(titleImg[6]) == 1) {
+                    posters = ColumnImg[titleImg[7]];  //绑在一级栏目的标题图  “4”
+                }
+                // else if (Number(titleImg[6]) == 2){ } //焦点框
+                else if (Number(titleImg[6]) == 3) {  //绑子栏目的标题图  “4”
+                    for (var i = 0; i < cursor.focusable.length; i++) {
+                        cursor.focusable[i].items.posters = delPostersIP(cursor.focusable[i].items.posters);
+                        posters = cursor.focusable[i].items.posters[titleImg[7]];
+                        // bgImgs = cursor.focusable[blocked].items[i].posters['7'];
+                    }
+                }else if (Number(titleImg[6]) == 4) {  //自定义
+                    posters = titlePosters;
+                }
+
+                titleBox = new showList(Number(title[4])*Number(title[5]),titleData.length,focus,127,window);
+                titleBox.showType =0 ;
+                titleBox.haveData = function(List){
+                    if (Number(titleName[6]) == 1) {
+                        $("titleName"+String(List.idPos)).innerText = getStrChineseLength(titleData[List.dataPos].name) > Number(title[9])?subStr(titleData[List.dataPos].name,Number(title[9]),"..."):titleData[List.dataPos].name;
+                    }else if (Number(titleName[6]) == 4) {
+                        $("titleName"+String(List.idPos)).innerText = getStrChineseLength(titleData[List.dataPos]) > Number(title[9])?subStr(titleData[List.dataPos],Number(title[9]),"..."):titleData[List.dataPos];
+                    }
+                    if (Number(titleImg[6]) == 4) {
+                        $("titleImg"+String(List.idPos)).src = posters[List.dataPos];
+                    }else{
+                        $("titleImg"+String(List.idPos)).src = posters[List.dataPos][0];
+                    }
+                }
+                titleBox.notData = function(List){
+                    $("titleName"+String(List.idPos)).innerText = "";
+                    $("titleImg"+List.idPos).src = "../../images/defalutImg/global_tm.gif";
+                };
+                titleBox.startShow();
+            },
+            initList : function () {
+                var blocked = cursor.blocked;
+                var items = cursor.focusable[blocked].items;
+                var focus = cursor.focusable[blocked].focus;
+                var data = [];
+                if (Number(listImg[6]) == 1) {
+                    posters = ColumnImg[listImg[7]];  //绑在一级栏目下
+                }else if (Number(listImg[6]) == 2) {    //绑在子栏目的一条视频下
+                    for (var i = 0; i < items.length; i++) {
+                        items[i].posters = delPostersIP(items[i].posters);
+                        posters = items[i].posters[listImg[7]];
+                        if (Number(addTagFlag) == -1){
+                            bgImgs = items[i].posters[listImg[8]];
+                        }
+                    }
+                }else if (Number(listImg[6]) == 3) {   //3：绑在子栏目的多条视频下
+                    for (var i = 0; i < items.length; i++) {
+                        items[i].posters = delPostersIP(items[i].posters);
+                        posters[i] = items[i].posters[listImg[7]];
+                        if (Number(addTagFlag) == -1){
+                            bgImgs[i] = items[i].posters[listImg[8]];
+                        }
+                    }
+                }else if (Number(listImg[6]) == 4) {   //自定义
+                        posters = listPosters;
+                }
+
+
+                if (Number(listName[6]) == 1){
+                    // for (var i = 0; i < items.length; i++) {
+                    //     data[i] = items[i].name;
+                    //     // bgImgs = cursor.focusable[blocked].items[i].posters['7'];
+                    // }
+                    listData = items;
+                }
+
+                if (typeof posters == 'undefined') {
+                    posters = [];
+                }if (typeof listData == 'undefined') {
+                    listData = [];
+                }
+                var length = posters.length > listData.length ? posters.length:listData.length;
+                listBox = new showList(Number(list[4])*Number(list[5]),length,focus,127,window);
+                listBox.showType =0 ;
+                if (Number(list[4]) == 1 && Number(list[4]) == Number(list[5])){
+                    listBox.showLoop = true;
+                }
+                listBox.haveData = function(List){
+                    ////listName
+                    if (Number(listName[6]) == 1){
+                        $("listName"+String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos].name) > Number(list[9])?subStr(listData[List.dataPos].name,Number(list[9]),"..."):listData[List.dataPos].name;
+                    }else if(Number(listName[6]) == 4){
+                        $("listName"+String(List.idPos)).innerText = getStrChineseLength(listData[List.dataPos]) > Number(list[9])?subStr(listData[List.dataPos],Number(list[9]),"..."):listData[List.dataPos];
+                    }
+                    ////listImg
+                    if (Number(listImg[6]) != 0){
+                        if (Number(listImg[6]) ==1 || Number(listImg[6]) == 4) {
+                            $("listImg"+List.idPos).src = posters[List.dataPos];
+                        }else {
+                            $("listImg"+List.idPos).src = posters[List.dataPos][0];
+                        }
+                    }
+                }
+                listBox.notData = function(List){
+                    $("listName"+String(List.idPos)).innerText = "";
+                    $("listImg"+List.idPos).src = "../../images/defalutImg/global_tm.gif";
+                };
+                listBox.startShow();
+                if (Number(sc[8]) == 1){
+                    initScroll(listBox.dataSize,Number(list[4])*Number(list[5]),listBox.listPage);
+                }
+            },
+            select : function(){
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if (Number(addTagFlag) == 1){
+                    if (items[focus].tag == "ads"){
+                        var str = "?typeId="+items.typeId+"&picFlag=2,1,"+focus;
+                        items.linkto = items.linkto + str;
+                    }else if (items[focus].tag != "url"){
+                        if (blocked == 0) {
+                            if (typeof video[6] != 'undefined' && items.length == Number(video[6])) {
+                                if (Number(VODflag) == 1) { //网络播放
+                                    var item = cursor.focusable[blocked].items[0];
+                                    item.linkto = "http://125.62.26.152/html/special/shang/common/fullScreenVOD.html?VODflag=1";
+                                }else {         //频道直播
+                                    var item = cursor.focusable[blocked].items[0];
+                                    item.linkto = "http://125.62.26.152/html/special/shang/common/fullScreenVOD.html?VODflag=2";
+                                }
+                            }
+                        }
+                    }
+                    cursor.call('selectAct');
+                } else if (Number(addTagFlag) == 0){
+                    cursor.call('selectAct');
+                } else if (Number(addTagFlag) == -1){
+                    if( cursor.enlarged ==1 ) {
+                        cursor.enlarged = 0;
+                    }else{
+                        cursor.enlarged = 1;
+                    }
+                    cursor.call('show');
+                }else if (Number(addTagFlag) == -2) {
+                    return;
+                }
+            },
+            goBack : function(){
+                cursor.call('goBackAct');
+            },
+            nextVideo: function () {
+                var playIndex = cursor.playIndex || 0;
+                if (Number(video[4])==99){  //轮播
+                    cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[cursor.playBlocked].items.length ? playIndex + 1 : 0;
+                }else {  //固定播某条视频
+                    cursor.playIndex = Number(video[4]);
+                }
+                var item = cursor.focusable[cursor.playBlocked].items[playIndex];
+                cursor.call("playMovie", item);
+            },
+            prepareVideo: function () {
+                var playIndex = cursor.playIndex || 0;
+                if (Number(video[4])!=99){
+                    playIndex = Number(video[4]);
+                }
+                if (cursor.focusable[cursor.playBlocked].items.length <= 0) return;
+                var item = cursor.focusable[cursor.playBlocked].items[playIndex];
+                cursor.call("playMovie", item);
+            },
+            playMovie: function (item) {
+                var parentId = undefined, vodId = undefined;
+                if( typeof item.childrenList == "undefined" ){
+                    vodId = item.id;
+                    parentId = "undefined";
+                } else {
+                    vodId = item.childrenList[0];
+                    parentId = item.id;
+                }
+                player.exit();
+                if (Number(video[5])==1) {         //播影片
+                    var items = cursor.focusable[0].items;
+                    if (typeof video[6] != 'undefined' && items.length == Number(video[6])){
+                        VODflag = getStrParams("VODflag",items[0].name);
+                        if (Number(VODflag) == 1){   //播网络直播
+                            player.play({
+                                position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                                channelId: cursor.channelId,
+                                program: cursor.program,
+                                callback: function(){
+                                }
+                            });
+                        }else if (Number(VODflag) == 2){   //播频道直播
+                            player.play({
+                                position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                                serviceId: cursor.serviceId,
+                                frequency: cursor.frequency,
+                                callback: function(){
+                                }
+                            });
+
+                        } else {           //播影片
+                            player.play({
+                                vodId: vodId,
+                                parentId: parentId,
+                                position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                                callback: function () {
+                                }
+                            });
+                        }
+                    }else {           //播影片
+                        player.play({
+                            vodId: vodId,
+                            parentId: parentId,
+                            position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                            callback: function () {
+                            }
+                        });
+                    }
+                } else if (Number(video[5])==2) {         //播网络直播
+                    player.play({
+                        position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                        channelId: cursor.channelId,
+                        program: cursor.program,
+                        callback: function(){
+                        }
+                    });
+                }else if (Number(video[5])==3) {         //播频道直播
+                    player.play({
+                        position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                        serviceId: cursor.serviceId,
+                        frequency: cursor.frequency,
+                        callback: function(){
+                        }
+                    });
+                }
+            },
+            input : function(ch){
+            if (tipFlag == 4 && tipFlagFocus == 0) {
+                getInputNum(ch, "phone");
+            }
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

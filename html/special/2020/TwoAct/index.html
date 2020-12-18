@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .listBody{width:1280px;height:720px;position:relative; left:0px;top:0px; overflow: hidden;}
+        .container,.bg{width:1280px;height:1574px;position:absolute;left:0px;}
+        .bg{top:0px; overflow: hidden;}
+        .flowed{width:262px;height:260px;left:937px;top:240px;position:absolute;overflow: hidden;}
+        .flowed .item{width:260px;height:44px;font-size:20px;color:#b3c8dc;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;line-height:40px;}
+        .marqueeItem{line-height:40px;height:44px;width:330px;}
+        .mask{position:absolute;background: transparent url("images/TwoAct2020IndexFocus.png") no-repeat 0px 0px; background-position:0px 0px;}
+
+        .image{position:absolute;overflow: hidden;}
+        .image1{left: 66px; top: 181px; width: 243px; height: 426px;}
+        .image2{left:326px;top:532px;width:210px;height:75px;}
+        .image3{left:553px;top:532px;width:210px;height:75px;}
+        .image4{left:780px;top:532px;width:210px;height:75px;}
+        .image5{left:1008px;top:532px;width:210px;height:75px;}
+        .image6{width:566px;height:165px;left:65px;top:1204px;}
+        .image7{width:566px;height:165px;left:652px;top:1204px;}
+
+        .list{width:1154px;height:379px;left:65px;top:719px;position:absolute;overflow: hidden;}
+        .list .item1{width:506px;height:379px;left:0px;top:0px;position:absolute;}
+        .list .item2{width:295px;height:170px;left:535px;top:0px;position:absolute;}
+        .list .item3{width:295px;height:170px;left:859px;top:0px;position:absolute;}
+        .list .item4{width:295px;height:170px;left:535px;top:208px;position:absolute;}
+        .list .item5{width:295px;height:170px;left:859px;top:208px;position:absolute;}
+        .list .image{width:100%;height:100%;left:0px;top:0px;}
+        .list .item1 .textBg{width:506px;height:60px;left:0px;top:319px;background-position: 0px -1020px;}
+        .list .item2 .textBg,.list .item3 .textBg,.list .item4 .textBg,.list .item5 .textBg{width:295px;height:40px;position:absolute;left:0px;top:130px;background-position: -600px -1020px;}
+        .text{left:10px;top:0px;position:absolute;color:white;text-align: center;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+        .list .item1 .text{width:486px;height:60px;line-height:60px;font-size: 24px;}
+        .list .item2 .text,.list .item3 .text,.list .item4 .text,.list .item5 .text{width:275px;height:40px;font-size: 20px;line-height:40px;}
+
+        .mask1{left: 306px;top: 161px;width: 614px;height: 374px;background-position: -300px 0px;}
+        .mask2{width:304px;height:65px;left:915px;background-position: -950px 0px;}
+        .mask21{top:229px;}
+        .mask22{top:274px;}
+        .mask23{top:318px;}
+        .mask24{top:363px;}
+        .mask25{top:406px;}
+        .mask26{top:449px;}
+
+        .mask3{left:47px; top: 161px; width: 281px; height: 466px;background-position:0px 0px;}
+        .mask31 {}
+
+        .mask4{top: 512px; width: 248px; height: 115px;background-position:-950px -200px;}
+        .mask41 {left:307px;}
+        .mask42 {left:534px;}
+        .mask43 {left:761px;}
+        .mask44 {left:989px;}
+
+        .mask5 {top: 634px; width: 223px; height: 92px;background-position:-950px -400px;}
+        .mask51{left:294px;}
+        .mask52{left:517px;}
+        .mask53{left:741px;}
+        .mask54{left:965px;}
+
+        .mask6{}
+        .mask61{left:44px;top:700px;width:546px;height:419px;background-position:0px -500px;}
+        .mask62{width:333px;height:208px;left:581px;top:700px;background-position:-580px -400px;}
+        .mask63{width:333px;height:208px;left:904px;top:700px;background-position:-580px -400px;}
+        .mask64{width:333px;height:208px;left:581px;top:908px;background-position:-580px -400px;}
+        .mask65{width:333px;height:208px;left:904px;top:908px;background-position:-580px -400px;}
+
+        .mask7{top: 1183px; width: 607px; height: 208px;background-position:-580px -650px;}
+        .mask71{left:44px;}
+        .mask72{left:631px;}
+
+        .mask8{width:100px;height:65px;left:1131px;background-position: -950px -100px;;}
+        .mask81{top:181px;}
+
+        img{width:100%;height:100%;border:none;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-45px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div id="listBody" class="listBody">
+    <div id="container" class="container">
+        <div class="bg" id="bg"></div>
+        <div class='flowed' id='flowed'></div>
+        <div id='mask'></div>
+    </div>
+    <div id="popup" style="visibility: hidden;" class="popup"></div>
+</div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:573,height:337,left:327,top:177};
+        var initialize = {
+            init : function(){
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                var that = this;
+                var typeId = '10000100000000090000000000115521';
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2&fn=6&spec=1';
+                ajax(url, function(rst){
+                    var list = rst['data']['list'];
+                    var interrupt = function( condition ){
+                        if( !condition ) return false;
+                        tooltip( decodeURIComponent('%E5%BD%93%E5%89%8D%E4%B8%93%E9%A2%98%E5%B7%B2%E4%B8%8B%E7%BA%BF%E6%88%96%E6%A0%8F%E7%9B%AE%E5%B0%9A%E6%9C%AA%E6%BF%80%E6%B4%BB%EF%BC%8C%E8%AF%B7%E4%B8%8E%E7%BC%96%E8%BE%91%E4%BA%BA%E5%91%98%E8%81%94%E7%B3%BB%EF%BC%8C%E6%8C%89OK%E9%94%AE%E5%90%8E%E9%A1%B5%E9%9D%A2%E9%80%80%E5%87%BA%EF%BC%81') );
+                        setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                        return true;
+                    };
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    cursor.popup = false;
+                    try{
+                        var html = '';
+                        //全屏视频框
+                        cursor.focusable[0] = { items: [], focus : 0, name:'全屏' };
+                        //双晒热点
+                        var items = list[1].data, item = undefined, children = null;
+                        var focus = focused.length > 2 ? Number(focused[2]) : 0;
+                        while( items.length > 6 ) items.removeAt(6);
+                        cursor.focusable[1] = { items: items, focus : focus, typeId: list[1].id };
+                        cursor.call('showFlowedList');
+
+                        //左侧两个稍大点的图片
+                        var url = origin + '/html/special/2020/TwoAct/';
+                        html = '<div style="width:1280px;height:620px;position:absolute;left:0px;top:0px;"><img src="images/TwoAct2020IndexBg-1.png"/> </div>' +
+                            '<div style="width:1280px;height:622px;position:absolute;left:0px;top:619px;"><img src="images/TwoAct2020IndexBg-2.png"/> </div>' +
+                            '<div style="width:1280px;height:200px;position:absolute;left:0px;top:1240px; background: transparent url(\'images/TwoAct2020IndexBg-3.png\') no-repeat 0px -134px"></div>';
+
+                        //左上角专题链接
+                        items = [];
+                        children = list[2]['data'];
+                        item = children[0];
+                        items.push(item);
+                        html += '<div class="image image1"><img src="' + cursor.pictureUrl(item.posters, 3, 'images/defaultImg.png') + '" /></div>';
+                        focus = focused.length > 3 ? Number(focused[3]) : 0;
+                        cursor.focusable[2] = { items: items, focus : focus };
+
+                        //第一屏，下面4个图片位
+                        children = list[3]['data'];
+                        items = [];
+                        for( var i = 0; i < children.length ; i ++){
+                            item = children[i];
+                            item.linkto = url + ( i == 0 ? 'TwoAct2020DistDetail.html' : 'TwoAct2020List10.html?typeId='  + item.id);
+                            items.push(item);
+                            html += '<div class="image image' + String( i + 2 ) + '"><img src="' + cursor.pictureUrl(item.posters, 3, 'images/defaultImg.png') + '" /></div>';
+                        }
+                        focus = focused.length > 4 ? Number(focused[4]) : 0;
+                        cursor.focusable[3] = { items: items, focus : focus };
+
+                        //第二屏，栏目名称
+                        items = [];
+                        for( var i = 0 ; i < 4; i ++ ){
+                            var item = {'name' : '链接'};
+                            switch (i) {
+                                case 0: item.linkto = 'http://125.62.26.147:82/list/tour/route.html?classId=59&rank=2&urlType=TOPIC';break;
+                                case 1: item.linkto = 'http://125.62.26.147:82//list/tour/special.html?classId=57&rank=2&urlType=TOPIC';break;
+                                case 2: item.linkto = 'http://125.62.26.147:82/list/impart.html?classId=21&rank=2&urlType=TOPIC';break;
+                                case 3: item.linkto = 'http://125.62.26.147:82/list/information/yq.html?classId=118&rank=2&urlType=TOPIC';break;
+                            }
+                            items.push(item);
+                        }
+                        focus = focused.length > 5 ? Number(focused[5]) : 0;
+                        cursor.focusable[4] = { items: items, focus : focus };
+
+                        //重庆范
+                        html += '<div id="list" class="list"></div>';
+                        children = list[4]['data'],items = [];
+                        for( var i = 0; i < 5; i ++ ){
+                            if( i < children.length ) {
+                                item = children[i] ;
+                            } else {
+                                item = {name :'尚未激活', id : undefined};
+                            }
+                            items.push(item);
+                        }
+                        focus = focused.length > 6 ? Number(focused[6]) : 0;
+                        cursor.focusable[5] = { items: items, focus : focus };
+
+                        //最后两个专题图位
+                        items = list[5]['data'];
+                        focus = focused.length > 7 ? Number(focused[7]) : 0;
+                        html += '<div class="image image' + String(6) + '"><img src="' + cursor.pictureUrl(items[0].posters, 4, 'images/defaultImg.png') + '" /></div>';
+                        html += '<div class="image image' + String(7) + '"><img src="' + cursor.pictureUrl(items[1].posters, 4, 'images/defaultImg.png') + '" /></div>';
+                        cursor.focusable[6] = { items: items, focus : focused.length > 7 ? Number(focused[7]) : 0 };
+
+                        cursor.focusable[7] = { items : [{'name':'更多','linkto': url + 'TwoAct2020ListColumn.html?typeId=' + list[1]['id']}], focus : 0}
+                        $('bg').innerHTML = html;
+                        setTimeout(function(){cursor.call('showList');},50);
+                    } catch (e) {
+                        return interrupt( true )
+                    }
+                    try {
+                        cursor.call('enterSmallMode');
+                        if( cursor.blocked <= 3 || cursor.blocked == cursor.focusable.length - 1 )  cursor.call('lazyShow', true );
+                        cursor.call('show');
+                    } catch( e ) {}
+                },{fail:function(rst){
+                    tooltip( rst['msg'] || decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                    setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                } });
+            },
+            showFlowedList:function(){
+                var items = cursor.focusable[1].items;
+                var html = '';
+                for( var i = 0; i < items.length; i ++ ) {
+                    var item = items[i];
+                    html += '<div class="item" id="item2' + String( i + 1) + '">' + item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24")),"") + '</div>';
+                }
+                $('flowed').innerHTML = html;
+            },
+            showList:function(){
+                var blocked = 5;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var html = '';
+                for( var i = 0; i < items.length; i++){
+                    var item = items[i];
+                    html += '<div class="item' + String( i + 1) + '"><div class="image"><img src="' + cursor.pictureUrl(item.posters, i == 0 ? 0 : 3, 'images/defaultImg.png') + '"/></div>';
+                    //if( i < 4 ) html += '<div class="mask textBg"><div id="item' + String( blocked + 1 ) +   + String( i + 1) + '" class="text">' + item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24")),"") +  '</div></div>';
+                    html += '</div>';
+                }
+                $('list').innerHTML = html;
+
+            },
+            scrollText:function(o){
+                var blocked = o.blocked || cursor.blocked;
+                if( cursor.blocked == 0 ) return;
+                var focus = cursor.focusable[blocked].focus;
+                var name = o.name;
+                cursor.calcStringPixels(name, 20, function(width){
+                    if( blocked != cursor.blocked && focus != cursor.focusable[blocked].focus ) return;
+                    if( cursor.blocked >= 4 && cursor.blocked <= cursor.focusable.length - 1 && width < ( focus == 0 ? 486 : 260 ) || blocked <= 3 && width < 334 ) return;
+                    $("item" + String( cursor.blocked <= 3 ? 2 : cursor.blocked + 1 ) + String( o.focus + 1 )).innerHTML = '<marquee class="marqueeItem" scrollamount="8">' + name + '</marquee>';
+                });
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id, callback : function(){
+                        if( cursor.fullmode ) return;
+                        cursor.call('scrollText', {name: item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24"), "gi"), ""), focus : cursor.focusable[cursor.focusable[0].focus + 1].focus});
+                    }} );
+                } catch (e){ }
+            },
+            goBack : function(){
+                if( cursor.popup ) { return cursor.call('hiddenPop');}
+                if( cursor.fullmode ){
+                    cursor.call("enterSmallMode");
+                    $("listBody").style.visibility = 'visible';
+                    cursor.call("show");
+                    var blocked = 1;
+                    var focus = cursor.focusable[blocked].focus;
+                    var item = cursor.focusable[blocked].items[focus];
+                    cursor.call('scrollText', {name: item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24"), "gi"), ""), focus : focus});
+                    return;
+                }
+                cursor.call('goBackAct');
+            },
+            interval : function(){
+                if( cursor.fullmode && cursor.speed === 1 ) {
+                    var elapsed = 6 - cursor.elapsedSeconds();
+                    if( elapsed <= 0 ) {
+                        $("speed").style.visibility = 'hidden';
+                        return;
+                    }
+                }
+                $("speed").innerHTML = cursor.speed == 1 ? "播放" : "x" + ( Math.abs(cursor.speed) + " "  + ( cursor.speed > 0 ? "快进 " : "快退 " )) ;
+                $("speed").style.visibility = cursor.fullmode ? 'visible' : 'hidden';
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                cursor.call('resumePlay');
+                $("listBody").style.visibility = 'hidden';
+                $("mask").style.visibility = 'hidden';
+                player.fullScreen();
+                cursor.timer = setInterval(function(){cursor.call('interval');},1000);
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $("listBody").style.visibility = 'visible';
+                $("mask").style.visibility = 'visible';
+                cursor.call('resumePlay',true);
+                if( cursor.timer ) {
+                    clearInterval(cursor.timer);
+                    cursor.timer = undefined;
+                    $("speed").style.visibility = 'hidden';
+                }
+            },
+            resumePlay : function(resume){
+                cursor.starter = new Date().getTime();
+                if( resume ) { cursor.speed = 1; player.resume(); }
+            },
+            stop : function(){
+                player.setPosition(1279,719,1,1);
+                player.exit();
+                cursor.fullmode = false;
+            },
+            pausePlay : function(){
+                player.setPosition(1279,719,1,1);
+                player.pause();
+            },
+            continuePlay : function(){
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                player.resume();
+            },
+            showPop:function() {
+                cursor.popup = true;
+                if( cursor.blocked <= 3 ) cursor.call('pausePlay');
+                $("popup").style.visibility = 'visible';
+            },
+            hiddenPop:function(){
+                cursor.popup = false;
+                if( cursor.blocked <= 3 ) cursor.call('continuePlay');
+                $("popup").style.visibility = 'hidden';
+            },
+            select: function() {
+                if( cursor.focusable.length <= 0 ) return;
+                if( cursor.fullmode ) { if(cursor.speed != 1 ) cursor.call('resumePlay',true);return;}
+                if( cursor.popup ) { return cursor.call('hiddenPop');}
+                if( cursor.blocked == 0 ) { return cursor.call("enterFullMode"); }
+                var blocked = cursor.blocked;
+                if( blocked == 2 ) return ;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                var item = items[focus];
+                var id = String(blocked + 1) + String( focus + 1 );
+
+                if( typeof item.linkto == 'string' ){
+                    if (item.linkto != '') return cursor.call('selectAct') ;
+                    return cursor.call('showPop');
+                }
+
+                if( cursor.moveTimer ) cursor.call('clearMoveTimer');
+                cursor.call("enterFullMode");
+                if( cursor.played != id && cursor.blocked >= 1 ) {
+                    cursor.played = id;
+                    return cursor.call("playMovie", item);
+                }
+            },
+            nextVideo : function ( ){
+                if( cursor.fullmode && cursor.blocked != 1 && corsor.blocked != 2 ) {
+                    player.exit();
+                    $('listBody').style.visibility = 'visible';
+                    return;
+                }
+                if( !cursor.moveTimer ) {
+                    var blocked = 1;
+                    var playIndex = cursor.focusable[blocked].focus;
+                    playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+                    cursor.focusable[blocked].focus = cursor.playIndex = playIndex;
+                    if( !cursor.fullmode ) {
+                        cursor.call( 'lazyShow', true);
+                    } else {
+                        cursor.played = "1" + String( playIndex + 1);
+                        cursor.call("playMovie", cursor.focusable[blocked].items[playIndex]);
+                    }
+                }
+            },
+            prepareVideo : function(){
+                var blocked = 1;
+                var playIndex = cursor.playIndex;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            move : function(index){
+                //上 11，下 -11，左 -1，右 1
+                if( cursor.popup ) return;
+                if( cursor.fullmode ) {
+                    if( index === 11 || index == -11 ) return;
+                    if( index == -1 && cursor.speed > -32) {
+                        cursor.speed = cursor.speed >= 1 ? -2 : Math.abs(cursor.speed) * -2;
+                        player.backward(cursor.speed);
+                    } else if( index == 1 && cursor.speed < 32 ){
+                        cursor.speed = cursor.speed <= 1 ? 2 : Math.abs(cursor.speed) * 2;
+                        player.forward(cursor.speed);
+                    }
+                    cursor.call('resumePlay');
+                    return;
+                }
+
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+
+                if(
+                    blocked == 0 && index == 11 || blocked == 1 && ( index == 1 ) ||
+                    blocked == 2 && ( index == -1 || index == 11 && focus <= 0 ) ||
+                    blocked == 3 && index == 1 && focus + 1 >= items.length ||
+                    blocked == 4 && ( index == -1 && focus <=0 || index == 1 && focus + 1 >= items.length ) ||
+                    blocked == cursor.focusable.length - 2 && ( index == -1 && focus <= 0 || index == 1 && focus + 1 >= items.length || index == -11 ) ||
+                    blocked == cursor.focusable.length - 1 && index != -11
+                ) return;
+                if( blocked == 0 ) {
+                    if( index == 1 ) blocked = 1;
+                    else blocked = index == -1 ? 2 : 3;
+                    focus = cursor.focusable[blocked].focus;
+                } else if( blocked === 1 || blocked === 2 ) {
+                    if( index == 11 || index == -11 ) {
+                        focus += index > 0 ? -1 : 1;
+                        if( focus >= items.length ) {
+                            blocked = blocked == 1 ? 3 : 5;
+                            focus = blocked == 5 ? 0 : cursor.focusable[blocked].focus;
+                        } else if( focus < 0 ) {
+                            blocked = cursor.focusable.length - 1; focus = 0;
+                        }
+                    } else {
+                        blocked = blocked == 2 && focus == 1 ? 3 : 0; focus = 0;
+                    }
+                } else if( blocked === 3 || blocked == 4 || blocked === cursor.focusable.length - 2){
+                    if( index == -1 || index == 1) {
+                        focus += index;
+                        if( focus < 0 && blocked == 3 ) {
+                            blocked = 2; focus = 1;
+                        }
+                    } else {
+                        if( blocked == 3 ) {
+                            blocked = index == 11 ? ( focus <= 1 ? 0 : 1  ) : 4;
+                            focus = cursor.focusable[blocked].focus;
+                        } else if( blocked == 4 ) {
+                            blocked = index == 11 ? 3 : 5;
+                            focus = cursor.focusable[blocked].focus;
+                        } else {
+                            blocked = 5;
+                            focus = focus == 0 ? 0 : cursor.focusable[blocked].focus;
+                        }
+                    }
+                } else if( blocked == cursor.focusable.length - 1 ){
+                    blocked = 1; focus = 0;
+                } else {
+                    if( index == 11 ) {
+                        if(  focus >= 3 ) focus -= 2;
+                        else {
+                            if( focus == 0 ) {
+                                blocked = 2; focus = 1;
+                            } else {
+                                blocked = 4;
+                                focus = cursor.focusable[blocked].focus;
+                            }
+                        }
+                    } else if( index == -11 ) {
+                        if( focus == 1 || focus == 2 ) focus += 2;
+                        else {
+                            blocked = cursor.focusable.length - 2;
+                            focus = focus == 0 ? 0 : 1;
+                        }
+                    } else if( index == 1 ) {
+                        if( focus == 0 || focus == 1 || focus == 3 ){
+                            focus += 1;
+                        } else {
+                            blocked += 1;
+                            if( !cursor.focusable[blocked].available ) return;
+                            cursor.blocked = blocked;
+                            focus = 0;
+                        }
+                    } else {
+                        if( focus == 3 ) {
+                            focus = 0;
+                        } else if( focus == 0 ) {
+                            if( blocked == 5 ) return;
+                            cursor.blocked = blocked -= 1;
+                            focus = 2;
+                        } else focus -= 1;
+                    }
+                }
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            lazyShow : function( isLoad ){
+                var blocked = 1;
+                var focus = cursor.focusable[blocked].focus;
+                var id = String(blocked + 1) + String( focus + 1 );
+                debug(" =============================>>>>>>>>>>>>  cursor.blocked: ", cursor.blocked);
+                if(( cursor.blocked == 1 || ( isLoad || typeof cursor.played == 'undefined' ) && ( cursor.blocked <= 3 || cursor.blocked == cursor.focusable.length - 1) ) && cursor.played != id ) {
+                    cursor.playIndex = focus;
+                    cursor.call('prepareVideo');
+                    cursor.call('show');
+                    cursor.played = id;
+                } else if(cursor.blocked == 1 ||  cursor.blocked >= 4 && cursor.blocked < cursor.focusable.length - 2 ){
+                    blocked = cursor.blocked;
+                    focus = cursor.focusable[blocked].focus;
+                    var text = cursor.focusable[blocked].items[focus].name;
+                    cursor.call('scrollText',{name: text.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24"), "gi"), ""), focus : focus, blocked: blocked})
+                }
+            },
+            show: function(){
+                var blocked = cursor.blocked ;
+                if( blocked <= 3 || blocked == cursor.focusable.length - 1) {
+                    $("container").style.top = '0px';
+                    cursor.call('showFlowedList');
+                    if( player.status != decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call( player.status == decodeURIComponent('%E5%81%9C%E6%AD%A2') ? 'lazyShow' : 'continuePlay' , true);
+                } else if( blocked < cursor.focusable.length - 2 ) {
+                    $("container").style.top = '-530px';
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                } else {
+                    $("container").style.top = '-720px';
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                }
+                var mask = '';
+                mask = 'mask' + String( blocked + 1);
+                if(blocked != 0) mask += ' ' + mask + String(cursor.focusable[blocked].focus + 1);
+                $('mask').className = 'mask ' + mask;
+                $("mask").style.visibility = 'visible';
+            }
+        };
+        var lazied = function(t){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied(0);
+    })(window);
+</script>
+</body>
+</html>

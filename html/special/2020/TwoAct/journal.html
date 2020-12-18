@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style type="text/css">
+        .container{width:1280px;height:720px;position:absolute;}
+        .content{width:1280px;height: auto;}
+        .content img{width:1280px;height:auto;border:none; margin:0px 0px -120px 0px}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent none no-repeat;" onUnload="exit();">
+<div class="container">
+    <div class="content" id="content">
+        <img src="images/0.jpg">
+        <img src="images/1.jpg">
+        <img src="images/2.jpg">
+    </div>
+</div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        var contentHeight = 680;
+        var initialize = {
+            init : function(){
+                debug('COMMONJS Loaded......');
+            },
+            select : function(){
+                return;
+            },
+            move: function(index){
+                if( index == 11 || index == -11 ){
+                    if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                    cursor.moveTimer = setTimeout(function(){ clearTimeout(cursor.moveTimer);cursor.moveTimer = undefined;cursor.call('show', index > 0 ? 0 : 1 );}, 500);
+                }
+            },
+            show : function( action ){
+                if( typeof action == 'undefined' ) return;
+                var container = $("content");
+                var offsetTop = container.style.marginTop;
+                var offsetHeight = 0;
+                if(typeof offsetTop != 'number') { offsetTop = container.offsetTop; offsetHeight =  container.offsetHeight;} else { offsetHeight = Math.abs ( offsetTop ) +  container.offsetHeight; }
+                offsetTop = Math.ceil( Math.abs( offsetTop ) * 1.0 / contentHeight );
+                if( action == 0 && offsetTop == 0 || action == 1 && offsetTop * contentHeight >= offsetHeight ) return;
+                if( action == 0 ) {
+                    container.style.marginTop = String(- (offsetTop - 1) * contentHeight) + "px";
+                } else if( action == 1 ){
+                    offsetTop = (offsetTop + 1) * contentHeight;
+                    if( offsetTop > offsetHeight ) offsetTop = offsetHeight - offsetTop;
+                    container.style.marginTop = offsetTop + "px";
+                }
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>
+

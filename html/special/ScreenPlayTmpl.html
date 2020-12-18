@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .bg{width:1280px;height:720px;left:0px;top:0px;position:absolute;background: transparent none no-repeat 0px 0px; background-image: none;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div id="bg" class="bg" style="visibility: hidden"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {};
+        var interrupt = function( message ){
+            tooltip( decodeURIComponent( message ) );
+            try {
+                player.exit();
+            } catch (e) { }
+            setTimeout(function(){  cursor.call('goBackAct'); },5000);
+        };
+        var callback = function(rst){
+            if( !cursor.isSmallMode || cursor.backgroundIsLoaded ) return ;
+            var id = link.query('id');
+            var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + id;
+            return ajax(url, function(rst){
+                try {
+                    var column = rst;
+                    var picture = cursor.pictureUrl(column.posters, '7', '');
+                    if( picture.isEmpty() ) return ;
+                    $('bg').style.backgroundImage = 'url("' + picture + '")';
+                    $('bg').style.visibility = 'visible';
+                    cursor.backgroundIsLoaded = true;
+                } catch (e){}
+            });
+        };
+        var initialize = {
+            init : function() {
+                var id = link.query('id');
+                //全屏播放
+                var video = link.query("video");
+                if( !video.isEmpty() ) {
+                    video = decodeURIComponent(video).split(',');
+                    if( video.length >= 4 ) {
+                        try {
+                            var width = Number(video[0]);
+                            var height = Number(video[1]);
+                            var left = Number(video[2]);
+                            var top = Number(video[3]);
+                            if( !isNaN(width) && !isNaN(height) && !isNaN(left) && !isNaN(top) && width != 1280 && height != 720 ) {
+                                win.moviePos['width'] = width;
+                                win.moviePos['height'] = height;
+                                win.moviePos['left'] = left;
+                                win.moviePos['top'] = top;
+                                cursor.isSmallMode = true;
+                                cursor.fullmode = false;
+                                cursor.backgroundIsLoaded = false;
+                            }
+                        } catch ( e ) {
+                            tooltip('视频坐标参数格式错误！');
+                        }
+                    }
+                }
+                cursor.call(cursor.isSmallMode ? 'enterSmallMode' : 'enterFullMode');
+                var typeId = link.query('typeId');
+                if( id != '' ) {
+                    if( typeId == '' ) typeId = undefined;
+                    return player.play({ 'vodId': id, 'typeId': typeId, 'callback': callback});
+                }
+                if( typeId != '' ) {
+                    var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0';
+                    return ajax(url, function(rst){
+                        try {
+                            var list = rst['data']['list'];
+                            cursor.focusable[0] = {focus: 0, items : list, typeId: typeId };
+                            cursor.call('prepare');
+                        } catch (e){}
+                    });
+                }
+                id = link.query('channelId');
+                if( id != '' ) {
+                    return player.play({ 'channelId': id, 'callback': callback });
+                }
+
+                id = link.query('url');
+                if( id != '' ) {
+                    id = decodeURIComponent(id);
+                    return  player.play({ 'url' : id, 'callback': callback })
+                }
+
+                id =  link.query('frequency');
+                if( id != '') {
+                    var serviceId = link.query('serviceId');
+                    id = Number( id );
+                    if( serviceId == '' || isNaN( id )) {
+                        return interrupt('%E8%B0%83%E7%94%A8%E7%9B%B4%E6%92%AD%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF%EF%BC%8C5%E7%A7%92%E5%90%8E%E9%80%80%E5%87%BA%E9%A1%B5%E9%9D%A2%EF%BC%81');
+                    }
+                    if( id < 1000 ) id *= 10000;
+                    return player.play({'frequency':id, 'serviceId' : serviceId, 'callback': callback });
+                }
+
+                interrupt('%E6%92%AD%E6%94%BE%E9%A1%B5%E9%9D%A2%E6%9C%AA%E4%BC%A0%E9%80%92%E4%BB%BB%E4%BD%95%E5%8F%82%E6%95%B0%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E6%92%AD%E6%94%BE%EF%BC%8C5%E7%A7%92%E5%90%8E%E9%80%80%E5%87%BA%E9%A1%B5%E9%9D%A2%EF%BC%81');
+            },
+            enterSmallMode : function () {
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $('bg').style.visibility = 'visible';
+                cursor.fullmode = false;
+            },
+            enterFullMode : function () {
+                player.setPosition(0,0,1280,720);
+                if( cursor.isSmallMode ) {
+                    $('bg').style.visibility = 'hidden';
+                    cursor.fullmode = true;
+                }
+            },
+            select : function(){
+                if( !cursor.isSmallMode ) return;
+                if( !cursor.fullmode ) return cursor.call('enterFullMode');
+                return cursor.call('enterSmallMode');
+            },
+            goBack : function (){
+                if( cursor.fullmode ) return cursor.call('enterSmallMode');
+                return cursor.call('goBackAct');
+            },
+            prepare: function () {
+                if( ! cursor.isSmallMode ) {
+                    var items = cursor.focusable[0].items ;
+                    if( !items ) return ;
+                    var item = items[cursor.focusable[0].focus];
+                    var typeId = cursor.focusable[0].typeId;
+                    if( ! item ) return ;
+                    return player.play({ 'vodId': item.id, 'typeId': typeId, 'callback': callback});
+                }
+                var id = link.query('id');
+                var typeId = link.query('typeId');
+                return player.play({ 'vodId': id, 'typeId': typeId, 'callback': callback});
+            },
+            nextVideo : function (){
+                //当前一条视频播放完之后执行本函数
+                if( ! cursor.isSmallMode ) {
+                    var items = cursor.focusable[0].items;
+                    if( !items ) return ;
+                    if( items.length > 1 ){
+                        var focus = cursor.focusable[0].focus;
+                        focus += 1;
+                        if( focus >= items.length ) focus = 0;
+                        cursor.focusable[0].focus = focus;
+                    }
+                }
+                cursor.call('prepare');
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            if( iPanel.mediaType == 'P60' ) document.cookie = 'JSESSIONID=' + sysmisc.getEnv('sessionid','') + '; expire=86400000';
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>

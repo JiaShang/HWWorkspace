@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="page-view-size" content="1280*720"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <style>
+        .listBody{width:1280px;height:720px;position:relative; left:0px;top:0px;overflow: hidden;}
+        .container,.bg{width:1280px;height:1659px;position:absolute;left:0px;}
+        .bg{top:0px; overflow: hidden;}
+        .flowed{width:265px;height:260px;left:940px;top:210px;position:absolute;overflow: hidden;}
+        .flowed .item{width:265px;height:52px;font-size:18px;color:black;text-align: left;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;line-height:50px;}
+        .marqueeItem{line-height:50px;height:50px;width:265px;}
+
+        .image{position:absolute;overflow: hidden;}
+        .image1{width:227px;height:337px;left:64px;top:151px;position:absolute;}
+
+        .image4{width:570px;height:170px;position:absolute;}
+        .image41{left:65px;top:684px;}
+        .image42{left:654px;top:684px;}
+        .image43{left:65px;top:868px;}
+        .image44{left:654px;top:868px;}
+        .list{width:1154px;height:379px;left:65px;top:1228px;position:absolute;overflow: hidden;}
+        .blocked7,.blocked8,.blocked9,.blocked10{width:1154px;height: 379px;left:0px; top:0px;position:absolute; overflow: hidden;}
+        .blocked7 .item1{width:506px;height:379px;left:0px;top:0px;position:absolute;}
+        .blocked7 .item2{width:295px;height:170px;left:535px;top:0px;position:absolute;}
+        .blocked7 .item3{width:295px;height:170px;left:859px;top:0px;position:absolute;}
+        .blocked7 .item4{width:295px;height:170px;left:535px;top:208px;position:absolute;}
+        .blocked7 .item5{width:295px;height:170px;left:859px;top:208px;position:absolute;}
+        .blocked7 .image{width:100%;height:100%;left:0px;top:0px;}
+        .blocked7 .item1 .textBg{width:506px;height:60px;left:0px;top:319px;background-position: 0px -830px;}
+        .blocked7 .item2 .textBg,.blocked7 .item3 .textBg,.blocked7 .item4 .textBg,.blocked7 .item5 .textBg{width:295px;height:40px;position:absolute;left:0px;top:130px;background-position: -550px -840px;}
+        .text{left:10px;top:0px;position:absolute;color:white;text-align: center;word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;overflow: hidden;}
+        .blocked7 .item1 .text{width:486px;height:60px;line-height:60px;font-size: 24px;}
+        .blocked7 .item2 .text,.blocked7 .item3 .text,.blocked7 .item4 .text,.list .item5 .text{width:275px;height:40px;font-size: 20px;line-height:40px;}
+        .mask{position:absolute;background: transparent url("images/indexMask.png") no-repeat 0px 0px; background-position:0px 0px;}
+        img{width:100%;height:100%;border:none;}
+
+        .maskList {width:371px;height:72px;top:1137px;}
+        .maskList1{left:67px;background-position:0px -660px;}
+        .maskList2{left:439px;background-position:0px -750px;}
+        .maskList3{left:827px;background-position:-450px -760px;}
+        /* ----- 页面布局 END ----- */
+
+        /* ----- 焦点开始 ----- */
+        /*视频框*/
+        .mask1{width:614px;height:350px;left:300px;top:144px;background-position: -250px 0px;}
+
+        .mask2{width:284px;height:46px;left:932px;background-position: -400px -360px;}
+        .mask21{top:211px;}
+        .mask22{top:263px;}
+        .mask23{top:315px;}
+        .mask24{top:367px;}
+        .mask25{top:419px;}
+
+        .mask3{width:241px;height:350px;left:57px;background-position:0px 0px;}
+        .mask31 {top:144px;}
+
+        .mask4{width:390px;height:88px;top:494px;background-position:0px -360px;}
+        .mask41 {left:56px;}
+        .mask42 {left:450px;}
+        .mask43 {left:841px;}
+
+        .mask5{width:586px;height:185px;background-position:0px -460px;}
+        .mask51 {left:57px;top:677px;}
+        .mask52 {left:646px;top:677px;}
+        .mask53 {left:57px;top:861px;}
+        .mask54 {left:646px;top:861px;}
+
+        .mask7{}
+        .mask71{width:524px;height:398px;left:58px;top:1221px;background-position:-700px -360px;}
+        .mask72{width:313px;height:189px;left:591px;top:1221px;background-position:-900px 0px;}
+        .mask73{width:313px;height:189px;left:915px;top:1221px;background-position:-900px 0px;}
+        .mask74{width:313px;height:189px;left:591px;top:1428px;background-position:-900px 0px;}
+        .mask75{width:313px;height:189px;left:915px;top:1428px;background-position:-900px 0px;}
+
+        .blocked8 .item1{width:560px;height:384px;left:0px;top:0px;position:absolute;}
+        .blocked8 .item2{width:560px;height:384px;left:595px;top:0px;position:absolute;}
+        .blocked8 .image{width:100%;height:100%;left:0px;top:0px;}
+        .blocked8 .textBg {width:560px;height:60px;position:absolute;left:0px;top:324px;background: transparent url("images/indexMask-1.png") no-repeat 0px 0px;background-position: 0px -1020px;}
+        .blocked8 .text{width:540px;height:60px;font-size: 24px;line-height:54px;}
+        .mask8{width:572px;height:394px;top:1220px;background: transparent url("images/indexMask-1.png") no-repeat 0px 0px;background-position:0px -1140px;}
+        .mask81{left:59px;}
+        .mask82{left:653px;}
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" style="overflow:hidden; background:transparent url('../../../images/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="position:absolute;z-index:0;width:2500px;height:45px;top:-45px;left:0px;background-color: transparent;color:transparent;visibility: hidden;">
+    <span id='calcPixels' style='visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size:20px'></span><span id='calcOffsetLeft'>&nbsp;</span>
+</div>
+<div id="listBody" class="listBody">
+    <div id="container" class="container">
+        <div class="bg" id="bg"></div>
+        <div class='flowed' id='flowed'></div>
+        <div id='maskList'></div>
+        <div id='list' class="list"></div>
+        <div id='mask'></div>
+    </div>
+    <div id="popup" style="visibility: hidden;" class="popup"></div>
+</div>
+<div class="speed" id="speed"></div>
+<script typeof="javascript" type="text/javascript">
+    (function(win){
+        win.moviePos = {width:600,height:337,left:307,top:151};
+        var initialize = {
+            init : function(){
+                var focused = query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=10000100000000090000000000118420,10000100000000090000000000118489&act=2&fn=5&cn=4&spec=1';
+                ajax(url, function(rst){
+                    var interrupt = function( condition ){
+                        if( !condition ) return false;
+                        tooltip( decodeURIComponent('%E6%9C%AA%E8%8E%B7%E5%8F%96%E5%88%B0%E6%A0%8F%E7%9B%AE%E4%B8%8B%E7%9A%84%E5%86%85%E5%AE%B9') );
+                        return true;
+                    };
+                    cursor.blocked = focused.length > 0 ? Number(focused[0]) : 1;
+                    try{
+                        var html = '';
+                        var list = rst['data'];
+                        //精彩视频列表
+                        var items = list[1]['data'][1]['data'], item = undefined, children = null;
+                        //全屏视频框
+                        cursor.focusable[0] = { items: items, focus : 0, name:'首页宣传片' };
+                        cursor.focusable[1] = { items: list[1]['data'][2]['data'], focus : focused.length > 2 ? Number(focused[2]) : 0, typeId: list[1]['data'][2]['id'] };
+                        cursor.focusable[2] = { items: list[1]['data'][3]['data'], focus : focused.length > 3 ? Number(focused[3]) : 0, typeId: list[1]['data'][3]['id'] };
+                        cursor.focusable[3] = { items: [
+                            {'name':'教学视频','linkto':'/html/special/2020/QquareDance/teach.html'},
+                            {'name':'往届赛事','linkto':'/html/special/2020/QquareDance/history.html'},
+                            {'name':'展演规则','linkto':'/html/special/PicturesTmpl.html?images=2020%2FQquareDance%2Fimages%2FvoteRole.jpg'}
+                        ], focus : focused.length > 4 ? Number(focused[4]) : 0};
+                        cursor.focusable[4] = { items: list[1]['data'][4]['data'], focus : focused.length > 5 ? Number(focused[5]) : 0, typeId: list[1]['data'][4]['id'] };
+                        for(var i = 0; i < list[2]['data'].length; i ++){
+                            cursor.focusable[5 + i] = { items: list[2]['data'][i]['data'], focus : focused.length > ( 6 + i ) ? Number(focused[( 6 + i )]) : 0, typeId: list[2]['data'][i]['id'] || 0 };
+                            if( i == 0 && cursor.focusable[5].items.length > 0 && cursor.focusable[5].focus == 0 && focused.length == 0){
+                                cursor.focusable[5].focus = cursor.focusable[5].items.length - 1;
+                            }
+                        }
+                        cursor.call('showFlowedList');
+                        var url = origin + '/active/';
+                        html = '<div style="width:1280px;height:721px;position:absolute;left:0px;top:0px;"><img src="images/indexBg-1.png"/> </div>' +
+                            '<div style="width:1280px;height:609px;position:absolute;left:0px;top:720px;"><img src="images/indexBg-2.png"/> </div>' +
+                            '<div style="width:1280px;height:331px;position:absolute;left:0px;top:1328px;"><img src="images/indexBg-3.png"/> </div>';
+
+                        items = cursor.focusable[2].items;
+                        var item = typeof items == 'undefined' ? list[1]['data'][0]['data'][2] : items[0];
+                        html += '<div class="image1"><img src="' + cursor.pictureUrl(item.posters, "1", "images/defaultVoteImg.png") +  '" /></div>';
+                        items = cursor.focusable[4].items;
+                        for( var i = 0; i < items.length; i ++){
+                            var item = items[i];
+                            html += '<div class="image4 image4' + String(i + 1) + '">';
+                            html += '<img src="' + cursor.pictureUrl(item.posters, "1", "../../images/defaultImg.png") +  '" />';
+                            html += '</div>';
+                        }
+                        $('bg').innerHTML = html;
+                        cursor.call('showList');
+                    } catch (e) {
+                        return interrupt( true )
+                    }
+                    try {
+                        cursor.call('enterSmallMode');
+                        cursor.playIndexVideo = false;
+                        if( cursor.blocked <= 3 ) {
+                            cursor.call('prepareVideo', true );
+                        }
+                        cursor.call('show');
+                    } catch( e ) {}
+                },{fail:function(rst){
+                        tooltip( rst['msg'] || decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                        setTimeout(function(){ cursor.call('goBackAct'); },5000);
+                    }});
+            },
+            showFlowedList:function(){
+                var items = cursor.focusable[1].items;
+                var html = '';
+                for( var i = 0; i < items.length; i ++ ) {
+                    var item = items[i];
+                    html += '<div class="item" id="item2' + String( i + 1) + '">' + item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24")),"") + '</div>';
+                }
+                $('flowed').innerHTML = html;
+            },
+            showList:function(){
+                var blocked = 5;
+                var focus = cursor.focusable[blocked].focus;
+                $("maskList").className = "mask maskList maskList" + String( focus + 1 );
+                blocked = focus + 6;
+                var items = cursor.focusable[blocked].items;
+                var html = '<div class="blocked' + String( blocked == cursor.focusable.length - 1 ? 8 : 7 ) +'">';
+                for( var i = 0; i < items.length; i++){
+                    var item = items[i];
+                    html += '<div class="item' + String( i + 1) + '"><div class="image"><img src="' + cursor.pictureUrl(item.posters, i == 0 ? 1 : 3, '../../images/defaultImg.png') + '"/></div>';
+                    if( blocked !=7 || blocked == 7 && i != 4 ) html += '<div class="mask textBg"><div id="item' + String( blocked + 1 ) +   + String( i + 1) + '" class="text">' + item.name.replace(new RegExp(decodeURIComponent("(%5C(%7C%EF%BC%88).*%3F(%5C)%7C%EF%BC%89)%24")),"") +  '</div></div>';
+                    html += '</div>';
+                }
+                html += '</div>';
+                $('list').innerHTML = html;
+            },
+            enterFullMode : function(){
+                cursor.fullmode = true;
+                cursor.call('resumePlay');
+                $("listBody").style.visibility = 'hidden';
+                $("mask").style.visibility = 'hidden';
+                player.fullScreen();
+            },
+            enterSmallMode : function(){
+                cursor.fullmode = false;
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                $("listBody").style.visibility = 'visible';
+                $("mask").style.visibility = 'visible';
+                cursor.call('resumePlay',true);
+            },
+            resumePlay : function(resume){
+                cursor.starter = new Date().getTime();
+                if( resume ) { cursor.speed = 1; player.resume(); }
+            },
+            stop : function(){
+                player.setPosition(1279,719,1,1);
+                player.exit();
+                cursor.fullmode = false;
+            },
+            pausePlay : function(){
+                player.setPosition(1279,719,1,1);
+                player.pause();
+            },
+            continuePlay : function(){
+                player.setPosition(moviePos.left,moviePos.top,moviePos.width,moviePos.height);
+                player.resume();
+            },
+            goBack : function(){
+                if( cursor.fullmode ){
+                    cursor.call("enterSmallMode");
+                    $("listBody").style.visibility = 'visible';
+                    cursor.call("show");
+                    return;
+                }
+                cursor.call('goBackAct');
+            },
+            select: function() {
+                if( cursor.fullmode ) return cursor.call("enterSmallMode");
+                var blocked = cursor.blocked;
+                if( blocked == 0 ) return cursor.call('enterFullMode')
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if( blocked == 2 ) { location.href = cursor.linkto( origin + '/html/special/2020/QquareDance/voteIndex.html' ); return;}
+                if( blocked == 7 && focus == 4 ) { location.href = cursor.linkto( origin + '/html/special/2020/QquareDance/more.html' );return ;}
+                if( typeof items == 'undefined' ) return ;
+                var item = items[focus];
+                if( item.linkto == '' ) return ;
+                return cursor.call('selectAct');
+            },
+            playMovie : function(item){
+                if( typeof item === 'undefined' )return;
+                try{
+                    player.exit();
+                    player.play( {vodId: item.id});
+                } catch (e){ }
+            },
+            nextVideo : function ( ){
+                var blocked = 0;
+                var playIndex = cursor.focusable[blocked].focus;
+                playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+                cursor.focusable[blocked].focus = cursor.playIndex = playIndex;
+                cursor.played = "1" + String( playIndex + 1);
+                cursor.call("playMovie", cursor.focusable[blocked].items[playIndex]);
+            },
+            prepareVideo : function(){
+                var blocked = 0;
+                var playIndex = cursor.playIndex;
+                cursor.playIndexVideo = true;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            move : function(index){
+                //上 11，下 -11，左 -1，右 1
+                var blocked = cursor.blocked;
+                var focus = cursor.focusable[blocked].focus;
+                var items = cursor.focusable[blocked].items;
+                if(
+                    blocked == 0 && index == 11 || blocked == 1 && ( index == 1 || index == 11 && focus <= 0 ) ||
+                    blocked == 2 && ( index == -1 || index == 11 && focus <= 0 ) || blocked == 3 && ( index == -1 && focus <= 0 || index == 1 && focus + 1 >= items.length ) ||
+                    blocked == 4 && ( index == -1 && focus % 2 == 0 || index == 1 && focus % 2 == 1)
+                ) return;
+                if( blocked == 0 ) {
+                    if( index == 1 ) blocked = 1;
+                    else blocked = index == -1 ? 2 : 3;
+                    focus = index == -11 ? 1 : cursor.focusable[blocked].focus;
+                } else if( blocked === 1 || blocked === 2 ) {
+                    if( index == 11 || index == -11 ) {
+                        focus += index > 0 ? -1 : 1;
+                        if( blocked == 2 || focus >= items.length ) {
+                            focus = blocked == 1 ? 2 : 0;
+                            blocked = 3;
+                        }
+                    } else {
+                        blocked = 0; focus = 0;
+                    }
+                } else if( blocked === 3 ){
+                    if( index == -1 || index == 1) {
+                        focus += index;
+                    } else {
+                        if( index == 11 ) {
+                            blocked = focus == 1 ? 0 : ( focus == 0 ? 2 : 1);
+                            focus = focus == 1 ? 0 : cursor.focusable[blocked].focus;
+                        } else {
+                            blocked = 4;
+                            focus = focus == 0 ? 0 : (focus == 1 ? cursor.focusable[blocked].focus : 1);
+                        }
+                    }
+                } else if( blocked == 4 ){
+                    if( index == 11 || index == -11 ){
+                        focus += index > 0 ? -2 : 2;
+                        if( focus < 0) {
+                            blocked = 3;
+                            focus = focus + 2 == 0 ? 0 : 2;
+                        } else if( focus >= items.length ){
+                            blocked = cursor.focusable[5].focus + 6;
+                            focus = cursor.focusable[blocked].focus;
+                        }
+                    } else {
+                        focus += index;
+                    }
+                } else {
+                    if( index == 11 ) {
+                        if(  focus >= 3 ) focus -= 2;
+                        else {
+                            blocked = 4;
+                            focus = focus == 0 ? 2 : 3;
+                        }
+                    } else if( index == -11 ) {
+                        if( focus == 1 || focus == 2 ) {
+                            focus += 2;
+                        } else {
+                            return;
+                        }
+                        if( focus >= items.length ) return;
+                    } else if( index == 1 ) {
+                        if( focus == 0 || focus == 1 || focus == 3 ){
+                            focus += 1;
+                            if( focus >= items.length ) return;
+                        } else {
+                            blocked += 1;
+                            if( blocked >= (cursor.focusable[5].items.length + 6) ) return;
+                            cursor.blocked = blocked; cursor.focusable[5].focus += 1;
+                            focus = 0;
+                            setTimeout(function () { cursor.call('showList') },30);
+                        }
+                    } else {
+                        if( focus == 3 ) {
+                            focus = 0;
+                        } else if( focus == 0 ) {
+                            if( blocked == 6 ) return;
+                            cursor.blocked = blocked -= 1;
+                            cursor.focusable[5].focus -= 1;
+                            focus = 2;
+                            setTimeout(function () { cursor.call('showList') },30);
+                        } else focus -= 1;
+                    }
+                }
+                cursor.blocked = blocked;
+                cursor.focusable[blocked].focus = focus;
+                cursor.call('clearMoveTimer');
+                cursor.moveTimer = setTimeout(function(){ cursor.call('clearMoveTimer');cursor.call('lazyShow');}, 1500);
+                cursor.call('show');
+            },
+            clearMoveTimer : function(){
+                if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+                cursor.moveTimer = undefined;
+            },
+            lazyShow : function( isLoad ){
+            },
+            show: function(){
+                var blocked = cursor.blocked ;
+                if( blocked <= 3 ) {
+                    $("container").style.top = '0px';
+                    cursor.call('showFlowedList');
+                    if( player.status != decodeURIComponent('%E6%92%AD%E6%94%BE') ) {
+                        cursor.call('enterSmallMode');
+                        cursor.call( !cursor.playIndexVideo ? 'prepareVideo' : 'continuePlay' , true);
+                    }
+                } else if( blocked == 4 ) {
+                    $("container").style.top = '-540px';
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                } else {
+                    $("container").style.top = '-939px';
+                    cursor.call('showList');
+                    if( player.status == decodeURIComponent('%E6%92%AD%E6%94%BE') ) cursor.call('pausePlay');
+                }
+
+                var mask = '';
+                mask = 'mask' +  String( blocked >= 6 ? ( blocked == cursor.focusable.length - 1 ? 8 : 7) : (blocked + 1));
+                if(blocked != 0) mask += ' ' + mask + String(cursor.focusable[blocked].focus + 1);
+                $('mask').className = 'mask ' + mask;
+                $("mask").style.visibility = 'visible';
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</body>
+</html>
