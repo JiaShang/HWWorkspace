@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #bg {
+            position:absolute;
+            width: 1280px;
+            height:720px;
+            left:0px;
+            top:0px;
+            background: transparent no-repeat;
+        }
+        .listName{
+            width: 300px;
+            height: 60px;
+            top: 210px;
+            color: #ffffff;
+            font-size:24px;
+            background-color: transparent;
+            overflow: hidden;
+            text-align: center;
+            line-height: 60px;
+        }
+        img{
+            width: 360px;
+            height: 215px;
+
+         }
+        .list{
+            position: absolute;
+            width: 360px;
+            height: 215px;
+        }
+        #scrollLower{
+            left: 1220px;
+            top: 150px;
+            height: 490px;
+            width: 2px;
+            background-color:#584d42;
+            visibility: hidden;
+        }
+        #scrollUpper {
+            background-color:#d0a96f;
+        }
+        #focus{
+            position:absolute;
+            overflow:hidden;
+            left: 188px;
+            top: 325px;
+            width: 380px;
+            height: 235px;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/showList.js"></script>
+    <script language="javascript" type="text/javascript">
+    var listBox = null;
+    var listData = [];
+    var posters = [];
+    var bgImgs = [];
+
+
+    var focusPic = [188,325,380,235,"20201105List"];//left top wdith height 移动距离 pic 移动方向 是否显示
+    var sc = [1220,150,490,"584d42","d0a96f",1,2,0];//left top wdith height 背景色 焦点色 是否显示 显示类型 是否显示具体数据
+
+    var scrollFlag = sc[5];
+    var scrollWay = sc[6];
+    var scrollData = sc[7];
+    (function(win){
+        getParams();
+        // win.moviePos = {width:Number(video[0]),height:Number(video[1]),left:Number(video[2]),top:Number(video[3])};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000119482';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined' ) {
+                            imgData = rst['column']['posters'];
+                        }
+                        var list = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            list = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        //无子栏目时：list[i]
+                        cursor.focusable[0] = {};
+                        cursor.focusable[0].typeId = rst['column'].id;
+                        cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        cursor.focusable[0].items = list;
+                        //有子栏目时：list[i].data
+                        // for (var i = 0 ;i < list.length ; i++){
+                        //     cursor.focusable[i] = {};
+                        //     cursor.focusable[i].typeId = list[i].id;
+                        //     cursor.focusable[i].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        //     if (typeof list[i].data != 'undefined'){
+                        //         list = rst['list'];
+                        //     }else {
+                        //         cursor.focusable[i].items = [];
+                        //     }
+                        //
+                        //     cut(cursor.focusable[i].items,startStr,endStr,cutFlag);
+                        // }
+                        if (typeof imgData['99'] != 'undefined'){
+                            bgImg = imgData['99'][0];
+                        }
+                        // bgImg = "../images/J"+picPrefix+"Bg.png";
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+                posters = imgData['1'];
+                bgImgs = imgData['7'];
+            if (scrollData == 1) {
+                $("scrollUpper").style.width = "5px";
+            }
+
+            setTimeout(function(){ cursor.call('initList');cursor.call('show');},150);
+                    },
+                    {
+                        fail: function (meg) {
+                            tooltip(decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA'));
+                            return;
+                        }
+                    }
+                );
+            },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        switch (index) {
+            case 11:    //上
+                if( listBox.position > 2){
+                    listBox.changeList(-3);
+                }
+                break;
+            case -11:   //下
+                if( listBox.position < listBox.dataSize-3){
+                    listBox.changeList(3);
+                }
+                break;
+            case -1:    //左
+                if( listBox.position > 0){
+                    listBox.changeList(-1);
+                }
+                break;
+            case 1:     //右
+                if( listBox.position < listBox.dataSize-1){
+                    listBox.changeList(1);
+                }
+                break;
+        }
+        cursor.focusable[0].focus = listBox.position;
+        cursor.call('show');
+        },
+        show : function(){
+            if(cursor.enlarged ==1){
+                $("enlargedPic").style.backgroundImage = "url("+bgImgs[listBox.position]+")";
+                $("enlargedPic").style.visibility = "visible";
+            }else {
+                $("enlargedPic").style.visibility = "hidden";
+            }
+            //alert("listBox.currPage=="+listBox.currPage+",,,,listBox.listPage==="+listBox.listPage)
+            $("focus").style.backgroundImage = "url(images/J"+focusPic[4]+"Focus.png)";
+            $("focus").style.left = String(50+(listBox.focusPos%3)*380)+"px";
+            $("focus").style.top = String(140+Math.floor(listBox.focusPos/3)*275)+"px";
+            // $("scroll").style.top = String(150+(listBox.currPage-1)*200)+"px";
+            scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
+
+        },
+        select : function(){
+            if( cursor.enlarged ==1 ) {
+                cursor.enlarged = 0;
+            }else{
+                cursor.enlarged = 1;
+            }
+            cursor.call('show');
+        },
+        goBack : function(){
+            if( cursor.enlarged ==1 ) {
+                cursor.enlarged = 0;
+                cursor.call('show');
+            }else{
+                cursor.call('goBackAct');
+            }
+        },
+        initList : function () {
+            listBox = new showList(6,bgImgs.length,cursor.focusable[0].focus,127,window);
+            listBox.showType =0 ;
+            listBox.haveData = function(List){
+                $("listImg"+String(List.idPos)).src = bgImgs[List.dataPos];
+            }
+            listBox.notData = function(List){
+                $("listImg"+List.idPos).src = "../../images/defalutImg/global_tm.gif";
+            };
+            listBox.startShow();
+            initScroll(listBox.dataSize,6,listBox.listPage)
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+    </script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container"></div>
+<div id="focus" style="position: absolute;width: 388px;height: 243px;left: 50px;top: 140px; overflow:hidden; background: no-repeat; visibility: visible; z-index: 1;" ></div>
+<div id="scrollLower" style="position: absolute;z-index: 1 ">
+    <div id="scrollUpper" style="position: absolute;left: -2px; top: 0px; height: 70px;  width: 6px;z-index: 2;"></div>
+</div><div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;"></div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+</div>
+</body>
+</html>

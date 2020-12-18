@@ -1,5 +1,19 @@
 <%@ page import="java.net.URLDecoder" %>
 <%@ include file="include.jsp" %>
+<%!
+    //--------------------  如果党教改版完成，删除此处代码
+    private HashMap<String, Result> withSubs = new HashMap<String, Result>();
+    private void querySubscribe(String withId, List<Vod> list ){
+    	if( list == null || list.size() <= 0) return ;
+        inner.setWithId( withId );
+        for( Vod vod : list ) {
+            if( isEmpty(vod.getRedirect()) || withSubs.containsKey(vod.getRedirect()) ) continue;
+            List<Vod> directs = inner.getList( vod.getRedirect(), 299, 0, new Vod() );
+            withSubs.put( vod.getRedirect(), new Result(vod.getRedirect(), directs ));
+        }
+    }
+    //--------------------  如果党教改版完成，删除止面的代码
+%>
 <%
     /**
      * 本页面参数说明:
@@ -25,12 +39,60 @@
      * detail: 当 act 为 3时，detail 不为空时，且返回长度不超过200时，把影片转换成详情
      */
     inner.turnPage.removeLast();
-
-    if( !isEmpty( inner.get("enc") ) ) { inner.setEncoding("GB18030");}
+    int cn = inner.getInteger("cn",199);
+    int fn = inner.getInteger("fn",199);
+    int start = inner.getInteger( "start", 0 );
     String id = inner.get("id");
     String action = inner.get("act");
-    boolean isScript = !isEmpty(inner.get("script"));
+    if( !isEmpty( inner.get("enc") ) ) { inner.setEncoding("GB18030");}
+
     inner.setJsonHeader(inner.encoding);
+
+    //--------------------  如果党教改版完成，删除下面的
+    //CommunistParty 如果是党教，会传递一个名为cp的参数;
+    String withId = !isEmpty(inner.get("with")) ? inner.get("with") : "10000100000000090000000000108885"; //党教的系列剧，绑定在此栏目中
+    String typeId = inner.get("typeId");
+    if( isEmpty( typeId ) ) typeId = id;
+    if( !isEmpty(inner.get("cp")) ) {
+        List<Column> columnList = null;
+        List<Vod> vodList = null;
+        //列表有几种情况，第一种，直接绑定内容
+        List results = new ArrayList();
+        inner.setSpecial(!isEmpty(inner.get("spec")));
+        //在player播放器中，会有三个参数,typeId, id , parentId;
+        //当typeId和id同时存在时，取typeId进行取值，否则用id进行取值;
+        //时政精读，需要从子栏目中的栏目中获取数据, act = 2
+        columnList = inner.getList(typeId, cn, start, new Column());
+        if( columnList != null ) {
+            results.add( new Result(typeId, columnList) );
+            for (Column column : columnList ) {
+            	if( action.equalsIgnoreCase("2") ) {
+                    List<Column> cols = inner.getList(column.id, 1, 0, new Column());
+                    if( cols == null ) {
+                        results.add(new Result(column.id, null));
+                    } else {
+                    	String subId = cols.get(0).id;
+                        vodList = inner.getList(subId, fn, start, new Vod());
+                        querySubscribe( withId, vodList );
+                        results.add(new Result(subId, vodList));
+                    }
+                } else {
+                    vodList = inner.getList(column.id, fn, start, new Vod());
+                    querySubscribe( withId, vodList );
+                    results.add(new Result(column.getId(), vodList));
+                }
+            }
+        } else {
+            vodList = inner.getList(typeId, fn, start, new Vod());
+            querySubscribe( withId, vodList );
+            results.add(new Result(id, vodList));
+        }
+        if( ! withSubs.isEmpty() ) results.addAll(Arrays.asList(withSubs.values().toArray()));
+        inner.write(inner.writeObject( new Result( typeId, results ) ));
+        return;
+    }
+    //--------------------  如果党教改版完成，删除止面的代码
+
 
     Result result = new Result();
     if( isEmpty(id) || id.indexOf(',') >= 0 && isEmpty( action )) {
@@ -51,41 +113,40 @@
         result.setSuccess(result.getData() != null);
         inner.write(inner.writeObject( result.success ? result.getData() : result, rmChars));
     } else {
+    	//获取党教数据时，获取栏目下的栏目、栏目下的VOD内容、栏目下的栏目下的数据时，都有可能出现根据影片名称跳转的情况
         List list = new ArrayList();
         HashMap<String,Object> map = new HashMap<String, Object>();
         if( ! ( action.equalsIgnoreCase("3") || action.equalsIgnoreCase("4") ) ){
             Column column = null;
-            int cn = inner.getInteger("cn",199);
-            int fn = inner.getInteger("fn",199);
             inner.setSpecial(!isEmpty(inner.get("spec")));
             if( id.indexOf(',') < 0 ) {
                 column = inner.getDetail(id, new Column());
                 map.put("column", column);
                 result.setSuccess(true);
                 if( action.equalsIgnoreCase("0") ) { /*如果 act == 0 取绑定的VOD内容*/
-                    List<Vod> vods = inner.getList(id, fn, 0, new Vod());
-                    if( vods != null ){
-                        for (Vod vod : vods)  list.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
-                    }
+                    list = inner.getList(id, fn, 0, new Vod());
                 } else if(action.equalsIgnoreCase("1")) { /*如果act=1,仅取子栏目内容*/
                     list = inner.getList(id, cn ,0, new Column());
                 } else if( action.equalsIgnoreCase("2")){ /*如果act=2,仅取子栏目内容*/
-                    List<Column> columns = inner.getList(id, cn ,0, new Column());
-                    list.add(new Result(id, columns));
-                    for( Column col : columns ) {
-                        try {
-                            List<Vod> vods = inner.getList(col.getId(), fn, 0, new Vod());
-                            List<Film> films = new ArrayList<Film>();
-                            if( vods != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                            	for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
+                    List<Column> columns = inner.getList(id, cn ,start, new Column());
+                    if( columns != null ) {
+                        list.add(new Result(id, columns));
+                        for( Column col : columns ) {
+                            List<Vod> films = inner.getList(col.getId(), fn, start, new Vod());
+                            if( films != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
                                 list.add(new Result(col.getId(), films));
-                                vods = null;
                             } else {
-                                List<Column> children = inner.getList(col.getId(), fn, 0, new Column());
+                                List<Column> children = inner.getList(col.getId(), fn, start, new Column());
                                 list.add(new Result( col.getId(), children ));
                             }
-                        } catch (Throwable e){
-                            list.add( new Result(col.getId(), e.getMessage()));
+                        }
+                    } else { //如果取不到栏目下的子栏目数据，就取栏目下绑定的VOD内容
+                        columns = new ArrayList<Column>();
+                        columns.add(column);
+                        list.add(new Result(id, columns));
+                        List<Vod> films = inner.getList(id, fn, start, new Vod());
+                        if( films != null ) {
+                            list.add(new Result(id, films));
                         }
                     }
                 } else {
@@ -103,19 +164,13 @@
                         if( isEmpty( str ) ) continue;
                         column = inner.getDetail( str , new Column());
                         columns.add( column );
-                        try {
-                            List<Vod> vods = inner.getList( str, fn, 0, new Vod() );
-                            List<Film> films = new ArrayList<Film>();
-                            if( vods != null ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                                for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
-                                list.add( new Result(str, films) );
-                                vods = null;
-                            } else {
-                                List<Column> children = inner.getList(str, fn, 0, new Column());
-                                list.add(new Result( str, children ));
-                            }
-                        } catch (Throwable e){
-                            list.add(new Result( str, e.getMessage() ));
+                        List<Vod> films = inner.getList( str, fn, start, new Vod() );
+                        //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                        if( films != null ) {
+                            list.add( new Result(str, films) );
+                        } else {
+                            List<Column> children = inner.getList(str, fn, start, new Column());
+                            list.add(new Result( str, children ));
                         }
                     }
                     list.set(0, columns);
@@ -127,43 +182,25 @@
                         columns.add( column );
 
                         List lst = new ArrayList();
-                        try {
-                            List<Column> cols = inner.getList(str, cn ,0, new Column());
+                        List<Column> cols = inner.getList(str, cn ,start, new Column());
+                        if( cols != null ) {
                             lst.add(new Result(str, cols));
                             for( Column col : cols ) {
-                                List children = null;
-                                try {
-                                    children = inner.getList(col.getId(), fn , 0, new Vod());
-                                    if( children != null && children.size() > 0 ){
-                                        {
-                                            List<Film> films = new ArrayList<Film>();
-                                            for (Vod vod : (List<Vod>)children )  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film()));
-                                            lst.add(new Result( col.getId(), films ));
-                                        }
-                                        continue;
-                                    }
-                                } catch (Throwable t){}
-
-                                try {
-                                    lst.add(new Result(col.getId(), children = inner.getList(col.getId(), fn , 0, new Column())));
-                                } catch (Throwable e){
-                                    lst.add(new Result( col.getId(), e.getMessage()));
+                                List children = inner.getList(col.getId(), fn , start, new Vod());
+                                if( children != null ) {
+                                    lst.add(new Result( col.getId(), children ));
+                                } else {
+                                    lst.add(new Result(col.getId(), inner.getList(col.getId(), fn , start, new Column())));
                                 }
                             }
                             list.add(new Result( str, lst));
-                        } catch (Throwable t){
-                            try{
-                                List<Vod> vods = inner.getList(str, cn, 0, new Vod());
-                                List<Film> films = new ArrayList<Film>();
-                                if( vods != null && vods.size() > 0 ) {  //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
-                                    for (Vod vod : vods)  films.add( inner.getDetail( String.valueOf( vod.getId() ), new Film() ) );
-                                    list.add(new Result(str, films));
-                                    vods = null;
-                                } else {
-                                    list.add( new Result( str, null ) );
-                                }
-                            } catch (Throwable e){
-                                list.add(new Result( str, t.getMessage() + ":::" + e.getMessage()));
+                        } else {
+                            //如果取不到栏目中绑定的影片数据，就取栏目下创建的子栏目数据
+                            List<Vod> films = inner.getList(str, fn, start, new Vod());
+                            if( films != null && films.size() > 0 ) {
+                                list.add(new Result(str, films));
+                            } else {
+                                list.add( new Result( str, null ) );
                             }
                         }
                     }
@@ -174,24 +211,11 @@
         } else if( action.equalsIgnoreCase("3") ) {
             int sub = isEmpty( inner.get("sub") ) ? 0 : 1;
             int stp = inner.getInteger( "stp", 2 );
-            int start = inner.getInteger( "start", 0 );
             int length = inner.getInteger( "length", 999 );
-            int detail = isEmpty( inner.get("detail") ) ? 0 : 1;
             list = inner.search(id, start, length, sub, stp );
             result.setTotal( inner.total );
             result.setId(id);
-            if( detail == 1 && inner.total <= 200) {
-                List<Film> films = new ArrayList<Film>();
-                for( Object o: list) {
-                    Vod v = (Vod)o;
-                    int vid = v.getId();
-                    Film film = inner.getDetail(String.valueOf(vid), new Film());
-                    films.add(film);
-                }
-                result.setData(films);
-            } else {
-                result.setData(list);
-            }
+            result.setData(list);
         } else if( action.equalsIgnoreCase("4") ) {
             Film film = id.length() <= 10 ? inner.getDetail(id, new Film()) : inner.getFSNDetail(id, new Film());
             List lst = inner.getSitcomList(String.valueOf(film.getId()));
@@ -201,7 +225,7 @@
                     for ( int i = 0; i< lst.size(); i++ )
                     {
                         Vod v = ReflectUtil.parse( lst.get(i) , new Vod());
-                        list.add( inner.getDetail( String.valueOf( v.getId() ), new Film() ) );
+                        list.add( inner.getDetail( String.valueOf( v.getId() ), new Vod() ) );
                     }
                 }
             }
@@ -209,8 +233,6 @@
             map.put("list", list);
             result.setData( map );
         }
-        if( isScript ) inner.write("window.lazyLoadData = ");
         inner.write(inner.writeObject( result, rmChars ));
-        if( isScript ) inner.write(";");
     }
 %>

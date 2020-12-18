@@ -136,12 +136,12 @@
         playMovie : function(item){
             var pos = cursor.moviePos;
             var parentId = undefined, vodId = undefined;
-            if( typeof item.childrenList == "undefined" ){
+            if( typeof item.parentVodId == "undefined" ){
                 vodId = item.id;
                 parentId = "undefined";
             } else {
-                vodId = item.childrenList[0];
-                parentId = item.id;
+                vodId = item.id;
+                parentId = item.parentVodId;
             }
             player.exit();
             player.play({

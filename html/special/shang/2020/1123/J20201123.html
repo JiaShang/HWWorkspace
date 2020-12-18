@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #bg {
+            position:absolute;
+            width: 1280px;
+            height:720px;
+            left:0px;
+            top:0px;
+            background: transparent no-repeat;
+        }
+        #focus{
+            position:absolute;
+            overflow:hidden;
+            left: 298px;
+            top: 450px;
+            width: 347px;
+            height: 112px;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/showList.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container"></div>
+
+<div id="focus" style="background:transparent no-repeat;" ></div>
+</body>
+<script language="javascript" type="text/javascript">
+    var act = 2;
+    var picPrefix = "20201105";
+    var bgImg = "../images/J"+picPrefix+"Bg.png";
+    var imgData = [];
+
+    var direct = 0;  //  1代表上下移动
+    var focusPic = [298,450,347,112,395,20201105,2];
+    var cutName = ["0",":","("];// 是否截取 startStr endStr list
+    var cutFlag = Number(cutName[0]) ; //等于1时，截取
+    var startStr = cutName[1];
+    var endStr = cutName[2];
+    var focusFlag = focusPic[6];
+    (function(win){
+        getParams();
+        // win.moviePos = {width:Number(video[0]),height:Number(video[1]),left:Number(video[2]),top:Number(video[3])};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000119480';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act='+act+'&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined' ) {
+                            imgData = rst['column']['posters'];
+                        }
+                        var list = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            list = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        /////////////////////////////////////
+                        var data = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            data = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        if (act == 0 || act == '0') {    //无子栏目时：list[i]
+                            cursor.focusable[0] = {};
+                            cursor.focusable[0].typeId = rst['column'].id;
+                            cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                            cursor.focusable[0].items = data;
+                        }else if (act == 2 || act == '2') {  //有子栏目时：list[i].data
+                            for (var i = 1 ;i < data.length ; i++){
+                                    cursor.focusable[i-1] = {};
+                                    cursor.focusable[i-1].typeId = data[i].id;
+                                    cursor.focusable[i-1].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                                    if (typeof data[i].data != 'undefined'){
+                                        cursor.focusable[i-1].items = data[i].data;
+                                    }else {
+                                        cursor.focusable[i-1].items = [];
+                                    }
+                            }
+                        }
+                        if (typeof imgData['7'] != 'undefined'){
+                            bgImg = imgData['7'][0];
+                        }
+                        // bgImg = "images/J"+picPrefix+"Bg.png";
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+
+                        cursor.focusable[1].items[0] = {
+                            'name':'图集',
+                            'linkto':'http://125.62.26.152/html/special/shang/2020/1123/J20201123List.html'
+                        }
+                        cursor.call('show');
+                        },
+                        {
+                            fail: function (meg) {
+                                tooltip(decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA'));
+                                return;
+                            }
+                        }
+                    );
+                },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        var blocked = cursor.blocked;
+        if (direct == 0){
+            if( blocked == 1 && index === -1 ){
+                blocked = 0;
+            }else if ( blocked == 0 && index === 1 ) {
+                blocked = 1;
+            }
+        }else if (direct == 1) {
+            if( blocked == 1 && index === 11 ){
+                blocked = 0;
+            }else if ( blocked == 0 && index === -11 ) {
+                blocked = 1;
+            }
+        }
+        cursor.blocked = blocked;
+        cursor.call('show');
+        },
+        show : function(){
+            var blocked = cursor.blocked;
+            if (focusFlag == 1) {  //上下移动焦点框
+                $("focus").style.backgroundImage = "url(images/J"+focusPic[5]+"Focus.png)";
+                $("focus").style.top =String((blocked*focusPic[4])+focusPic[1])+"px";
+            }else if (focusFlag == 2) {  //左右移动焦点框
+                $("focus").style.backgroundImage = "url(images/J"+focusPic[5]+"Focus.png)";
+                $("focus").style.left =String((blocked*focusPic[4])+focusPic[0])+"px";
+            }else if (focusFlag == 0) {  //切换焦点图
+                $("focus").style.backgroundImage = "url(images/J"+focusPic[5]+"Focus"+blocked+".png)";
+            }
+        }
+            };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

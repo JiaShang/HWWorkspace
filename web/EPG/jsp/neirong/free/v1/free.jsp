@@ -58,14 +58,14 @@
     } catch (Exception e) {
     }
 
-    List result = meta.getVodListByTypeId(typeId, 13, 0);//接口2.11
+    List result = meta.getVodListByTypeId(typeId, 13, 0);//接口2.11    vod栏目下列表数据接口
 
     List vodList = (result != null && result.size() > 1) ? (List) result.get(1) : Collections.emptyList();
 
     //以下代码没有任何作用，所以注释
     //获取子栏目图标海报
     Map<String, String> subTypesPosters = new HashMap<String, String>();
-    List subTypesResult = meta.getTypeListByTypeId(typeId, 99, 0);//接口2.14
+    List subTypesResult = meta.getTypeListByTypeId(typeId, 99, 0);//接口2.14     vod栏目下栏目
     if (subTypesResult != null && subTypesResult.size() > 1) {
         for (int i = 0; i < ((List) subTypesResult.get(1)).size(); i++) {
             Map temp = (Map) ((List) subTypesResult.get(1)).get(i);
@@ -130,10 +130,6 @@
     <img src="images/free/top-bg.png" style="position: absolute;top: 0;left: 0;"/>
     <img src="images/free/logo.png" style="position:absolute;top: 30px;left: 86px;"/>
     <div id="titleName" style="position: absolute;width:780px;top: 32px;left: 216px;font-size: 18px;color: #BCCDF9;"></div>
-    <div id="sign-btn" class="focus" style="position: absolute;width:190px;height:46px;line-height:46px;top: 22px;left: 1044px;background:url(images/free/sign-bg-1.jpg)">
-        <!--<span id="sign-text"></span><img src="images/free/hb.png" style="position:absolute;top:5px;left:150px;" />-->
-    </div>
-    <div id="sign-btn_1" style="position:absolute;width:209px;height:62px;top:13px;left:1035px;border: 3px solid white;border-radius: 5px;visibility: hidden;"></div>
     <div style="position: absolute;height: 580px;width: 1145px;overflow: hidden;top: 90px;left: 79px;">
         <div id="moveMain" style="width:100%;position: absolute;top: 0;left: 0;">
             <div id="vod_2" class="focus" style="position: absolute;top: 403px;left: 9px;width: 365px;height: 208px;">
@@ -220,6 +216,10 @@
         </div>
     </div>
 </div>
+<div id="tgo_tan" style="position: absolute;width: 1280px;height: 720px;background: url(images/background.png) no-repeat;visibility: hidden;">
+    <div id="tgo_tan_1" style="width: 200px;height: 82px;background: url(images/free/go_focus.png) no-repeat;position: absolute;top: 504px;left: 560px;"></div>
+    <div id="tgo_tan_2" style="width: 200px;height: 82px;background: url(images/free/no.png) no-repeat;position: absolute;top: 504px;left: 780px;"></div>
+</div>
 
 <script type="application/javascript" src="js/global.js"></script>
 <script>
@@ -227,8 +227,8 @@
     var titleName = '<%=titleName%>';
     var linkStr = '/EPG/jsp/neirong/free/v1/free2.jsp';
     var vodArray = [];
-    var animationIndex = 1;
-    var animation;
+    var isBooks = true;
+    var fousIndex = 0;
     <% for(int i = 0; i < vodList.size(); i++){
         Map vodMap = (Map)vodList.get(i);
     %>
@@ -252,7 +252,7 @@
 
     function current() {
         return "/EPG/jsp/defaultHD/en/SaveCurrFocus.jsp?url=";
-    };
+    }
 
     String.prototype.startWith = function (str) {
         if (str == null || str == "" || this.length == 0 || str.length > this.length)
@@ -266,23 +266,20 @@
                 getRTSP(item.name, String(item.id), '-1', 1);
             } catch( e ) { };
         } else if(iPanel.eventFrame.systemId == undefined ) { // 3.0 和来点的播放调用
-            //贴片广告正式部署时，需要重新部署文件： defaultHD/en/geninfo_ad.jsp，此文件修改了思华接口地址
-            //注释为贴片广告处理，暂未使用
-            top.window.location.href = current() + "/EPG/jsp/defaultHD/en/Authorization_ad.jsp?typeId=" + typeId + "&playType=1" + "&progId=" + item.id + "&baseFlag=0&contentType=0&business=1";
             //top.window.location.href = current() + "/EPG/jsp/defaultHD/en/Authorization.jsp?typeId=" + typeId + "&playType=1&progId=" + item.id + "&contentType=0&startTime=0&business=1";
         } else if(iPanel.eventFrame.systemId == 1 ) {
-            top.window.location.href = current() + "/EPG/jsp/defaultHD/en/Authorization.jsp?typeId=" + typeId + "&playType=1&progId=" + item.id + "&contentType=0&startTime=0&business=1";
+            top.window.location.href = current() + "/EPG/jsp/defaultHD/en/Authorization.jsp?typeId=" + typeId + "&playType=1&progId=" + item.id + "&contentType=0&startTime=0&business=1";   电影播放
         } else { //网关，播放的调用方式不同
             iPanelGatewayHelper.play(String(item.id));
         }*/
         if ( isP60 ) { //P60的播放方式
             try {
                 getRTSP(item.name, String(item.id), '-1', 1);
-            } catch( e ) { };
+            } catch( e ) { }
         } else { // 3.0 和来点的播放调用
             //贴片广告正式部署时，需要重新部署文件： defaultHD/en/geninfo_ad.jsp，此文件修改了思华接口地址
             //注释为贴片广告处理，暂未使用
-            top.window.location.href = current() + "/EPG/jsp/neirong/player/playerAd.jsp?typeId=" + typeId + "&playType=1" + "&progId=" + item.id + "";
+            top.window.location.href = current() + "/EPG/jsp/neirong/player/playerAd.jsp?typeId=" + typeId + "&playType=1" + "&progId=" + item.id + "&baseFlag=0&contentType=0&business=1";
         }
     }
     window.onload = function () {
@@ -291,6 +288,9 @@
         tgo.init({});
 
         tgo.$keyEvent.up = function () {
+            <%--if(!isBooks){--%>
+                <%--return--%>
+            <%--}--%>
             var nextFocus = tgo.focusMove({
                 axis: 'y', direction: 'reduce'
             });
@@ -299,6 +299,9 @@
             }
         };
         tgo.$keyEvent.down = function () {
+            <%--if(!isBooks){--%>
+                <%--return--%>
+            <%--}--%>
             var nextFocus = tgo.focusMove({
                 axis: 'y', direction: 'add'
             });
@@ -307,22 +310,44 @@
             }
         };
         tgo.$keyEvent.left = function () {
-            var nextFocus = tgo.focusMove({
-                axis: 'x', direction: 'reduce'
-            });
-            if (nextFocus) {
-                focus(nextFocus)
-            }
+            <%--if(isBooks){--%>
+                var nextFocus = tgo.focusMove({
+                    axis: 'x', direction: 'reduce'
+                });
+                if (nextFocus) {
+                    focus(nextFocus)
+                }
+            <%--}else{--%>
+                <%--$("tgo_tan_1").style.background = "url(images/free/go_focus.png) no-repeat";--%>
+                <%--$("tgo_tan_2").style.background = "url(images/free/no.png) no-repeat";--%>
+                <%--fousIndex = 0;--%>
+            <%--}--%>
         };
         tgo.$keyEvent.right = function () {
-            var nextFocus = tgo.focusMove({
-                axis: 'x', direction: 'add'
-            });
-            if (nextFocus) {
-                focus(nextFocus)
-            }
+            <%--if(isBooks){--%>
+                var nextFocus = tgo.focusMove({
+                    axis: 'x', direction: 'add'
+                });
+                if (nextFocus) {
+                    focus(nextFocus)
+                }
+            <%--}else{--%>
+                <%--$("tgo_tan_2").style.background = "url(images/free/no_focus.png) no-repeat";--%>
+                <%--$("tgo_tan_1").style.background = "url(images/free/go.png) no-repeat";--%>
+                <%--fousIndex = 1;--%>
+            <%--}--%>
         };
         tgo.$keyEvent.back = function () {
+            <%--if(isBooks){--%>
+                <%--isBooks = false;--%>
+                <%--$("tgo_tan").style.visibility = "visible";--%>
+            <%--}else{--%>
+                <%--isBooks = true;--%>
+                <%--$("tgo_tan").style.visibility = "hidden";--%>
+            <%--}--%>
+            back();
+        };
+        function back(){
             if( isP60 ) { // P60终端
                 sysmisc.finish();
             } else if (typeof iPanel != 'undefined') {
@@ -333,22 +358,25 @@
                     top.window.location.href = iPanel.eventFrame.portalUrl;
                 }
             }
-        };
+            return false;
+        }
         tgo.$keyEvent.ok = function () {
-            $("sign-btn").style.backgroundImage = "url(images/free/sign-bg-1.jpg)";
-            clearInterval(animation);
-            if (tgo.currentFocus.id == 'sign-btn') {
-                //返回的地址
-                location.href = 'http://192.168.17.235/newTGO/activety/luckydraw/answerIndex.html?backURL=' + encodeURIComponent(window.top.location.href) + '&event=mfTopBtn';
-                return;
-            }
+            <%--if(!isBooks){--%>
+                <%--if(fousIndex == 0){//去答题--%>
+    <%--alert("http://192.168.17.235:82/answer-index");--%>
+                    <%--window.location.href = "http://192.168.17.235:82/answer-index?homeUrl=" + encodeURIComponent(window.location.href);--%>
+                <%--}else if(fousIndex == 1){--%>
+                    <%--back();--%>
+                <%--}--%>
+                <%--return;--%>
+            <%--}--%>
             var focusedIndex = Number(tgo.currentFocus.title.replace(/[^0-9]/ig, ""));
             if (tgo.currentFocus.title.indexOf("vodArray") >= 0) {
                 if (vodArray[focusedIndex].isSitcom == 0) {
                     playMovie(vodArray[focusedIndex]);
                 } else if (vodArray[focusedIndex].isSitcom == 1) {
                     var url = '';
-                    var detail = function(){
+                    var detail = function(){//跳转电视剧详情页
                         if( !isP60 ) {
                             //注释为贴片广告
                             //top.window.location.href = current() + "/EPG/jsp/defaultHD/en/hddb/vod/tv_detail" + ( iPanel.eventFrame.systemId == undefined ? '_ad' : '')  + ".jsp?vodId=" + vodArray[focusedIndex].id + "&typeId=" + typeId;
@@ -369,7 +397,7 @@
                                     top.window.location.href = current() + link;
                                 } else if (link.indexOf("wasu.cn/") > 0) {
                                     top.window.location.href = iPanel.eventFrame.pre_epg_url + "/defaultHD/en/Category.jsp?url=" + link;
-                                } else {
+                                } else {//跳转链接
                                     url = '';
                                     url = link;
                                     url += url.indexOf("?") > 0 ? '&' : '?';
@@ -420,10 +448,10 @@
             }
             if (tgo.currentFocus.title.indexOf("typeArray") >= 0) {
                 var data = eval("(" + tgo.currentFocus.title + ")");
-                //小胡添加， 综艺跳转到最强综艺全收录
+                //胡总添加， 综艺跳转到最强综艺全收录
                 if( typeof data.p60Url == 'string' && isP60 ) {
                     location.href = data.p60Url;
-                    //小胡添加， 综艺跳转到最强综艺全收录
+                    //胡总添加， 综艺跳转到最强综艺全收录
                 } else if (data.typeId === '10000100000000090000000000108725') {
                     window.location.href = "/EPG/jsp/neirong/S20180813.jsp";
                 } else if (!!data.url && data.url != undefined && data.url != "undefined") {
@@ -466,20 +494,7 @@
             );
         }
         $("titleName").innerHTML = '<marquee>' + titleName + "</marquee>";
-        animation = setInterval(function () {
-            if (animationIndex > 0) {
-                $("sign-btn").style.backgroundImage = "url(images/free/sign-bg-2.jpg)";
-                animationIndex = -1;
-            } else {
-                $("sign-btn").style.backgroundImage = "url(images/free/sign-bg-1.jpg)";
-                animationIndex = 1;
-            }
-        }, 500);
     };
-
-    function signHandler(str) {
-        $("sign-text").innerHTML = str;
-    }
 
     function loadType(num, url, typeId, icon, str) {
         var strData = {};

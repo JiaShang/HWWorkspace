@@ -134,15 +134,16 @@ public final class InnerUtils {
     private boolean special = false;
     private boolean withSubscribe = false;
     private boolean isDebug = false;
+    private boolean isDetail = false;
     private int total = 0;
 
     private boolean initWithSubscribe = false;
     private boolean initWithSpecials = false;
     private HashMap<String, String> specials = new HashMap<String, String>();
     private HashMap<String, String> withs = new HashMap<String, String>();
-
-    MetaData metaData;
-    TurnPage turnPage;
+    private HashMap<String, String> sitcoms = new HashMap<String, String>();
+    protected MetaData metaData;
+    protected TurnPage turnPage;
 
     public InnerUtils(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
@@ -150,17 +151,17 @@ public final class InnerUtils {
 
         metaData = new MetaData(request);
         turnPage = new TurnPage(request);
+        isDebug = !isEmpty(get("debug"));
+        isDetail = request.getRequestURI().endsWith("detail.jsp");
 
         JSConfig.setJsonPropertyFilter(new PropertyFilter() {
             public boolean apply(Object source, String name, Object value) {
-                if (value == null || value instanceof String && ((String) value).equals("") || value instanceof List && ((List) value).size() == 0 || value instanceof Map && ((Map) value).size() == 0 ) {
-                    return true;
-                }
-                return false;
+            if (value == null || value instanceof String && ((String) value).equals("") || value instanceof List && ((List) value).size() == 0 || value instanceof Map && ((Map) value).size() == 0 ) {
+                return true;
+            }
+            return false;
             }
         });
-
-        isDebug = !isEmpty(get("debug"));
     }
 
     /**
@@ -306,6 +307,45 @@ public final class InnerUtils {
         return tempUri;
     }
 
+    /**
+     * 根据电视剧的子集，获取子集的外部ID
+     * @param list
+     * @return
+     */
+    public List getChildList( List list){
+        List childList = null;
+        if( list != null && list.size() > 0 ) {
+        	childList = new ArrayList();
+            debug("VOD.PARENTID.SIZE : ", list.size());
+            for( int child = 0 ; child < list.size() && child < 100; child ++ ) {
+                Vod v = getDetail(String.valueOf(list.get(child)), new Vod());
+                childList.add(v.getCode());
+            }
+        }
+        return childList;
+    }
+
+    public void getParentId(Object item){
+        String parentId = String.valueOf( ReflectUtil.getValue( item, "parentVodId") );
+        if( ! ( isEmpty( parentId ) || parentId.equalsIgnoreCase("-1") ) ) {
+            if( sitcoms.containsKey( parentId ) ) {
+            	ReflectUtil.setField( item,"parentVodId", sitcoms.get( parentId ) );
+            } else {
+                Vod p = getDetail( parentId , new Vod());
+                sitcoms.put( parentId, p.getCode() );
+                ReflectUtil.setField( item,"parentVodId", p.getCode() );
+            }
+        }
+    }
+
+    public List getAllChildList(List<Vod> list){
+    	for( int i = 0 ; list != null && i < list.size(); i ++ ){
+            if( !isDetail || list.get(i).isSitcom != 1) continue;
+            list.get(i).setChildrenList( getChildList( list.get(i).getChildrenList() ) );
+        }
+    	return list;
+    }
+
     public Result getTypeDetail(String id) {
         return new Result(id, getDetail(id, new Column()));
     }
@@ -367,103 +407,118 @@ public final class InnerUtils {
      * @param length  单次查询记录的最大数量
      * @param station 从 station 参数指定位置开始获取影片列表
      * @return List 如果查询的结果是有效的结果,返回 有效结果的 List, 否则抛出异常
-     * @throws IllegalResultException 如果查询的结果是无效抛出异常
      */
-    public <T> List<T> getList(String id, int length, int station, T t) throws IllegalResultException {
-        String[] clazzs = t.getClass().getName().split("\\$");
-        String clazzName = clazzs[clazzs.length - 1];
+    public <T> List<T> getList(String id, int length, int station, T t) {
+        try {
+            String[] clazzs = t.getClass().getName().split("\\$");
+            String clazzName = clazzs[clazzs.length - 1];
 
-        List<?> list = null;
-        if (clazzName.equalsIgnoreCase("Vod")) {
-            list = metaData.getVodListByTypeId(id, length, station);
-        } else if (clazzName.equalsIgnoreCase("Column")) {
-            list = metaData.getTypeListByTypeId(id, length, station);
-        }
-
-        if (list == null || list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
-
-        HashMap map = (HashMap) list.get(0);
-        total = ((Integer) map.get("COUNTTOTAL")).intValue();
-        if ( total < 0 ) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
-
-        list = (List<?>) list.get(1);
-        if (list.size() == 0) return null;
-
-        List<T> results = new ArrayList<T>();
-
-        /*****  初始化专题,系列剧  ********/
-        if( this.special && ! this.initWithSpecials){
-            try {
-                this.initWithSpecials = true;
-                String realPath = request.getRealPath("/jsp/defaultHD/en/hddb/hddb_topic_andr.txt");
-                File f = new File(realPath);
-                FileInputStream stream = new FileInputStream(f);
-                byte[] buffer = new byte[(int) f.length()];
-                stream.read(buffer, 0, buffer.length);
-                stream.close();
-                String fileContent = new String(buffer, "UTF-8");
-                JSONObject json = JSONObject.fromObject(fileContent);
-                JSONArray array = (JSONArray) json.get("data");
-                for (int i = 0; i < array.size(); i++) {
-                    JSONObject element = (JSONObject) array.get(i);
-                    String name = element.get("name").toString();
-                    String link = element.get("url").toString();
-                    this.specials.put(name, link);
-                }
-            } catch (Throwable e) {
-                write(e.getMessage());
-            }
-        }
-
-        if( this.withSubscribe && !this.initWithSubscribe){
-            this.initWithSubscribe = true;
-            List<Column> columns = getList(this.withId, 200, 0, new Column());
-            for (Column column : columns) {
-                this.withs.put(column.getName(), column.getId());
-                this.debug("Subscribe:" ,column.getName() ,":", column.getId());
-            }
-        }
-        /********* 结束初始化专题,系列剧 *************/
-
-
-        for (int i = 0; i < list.size(); i++) {
-            T x = (T) ((Bean) t).reset();
-            x = ReflectUtil.parse(list.get(i), x);
+            List<?> list = null;
             if (clazzName.equalsIgnoreCase("Vod")) {
-                Vod vod = (Vod) x;
-                this.debug("withSubscribe:" ,withSubscribe ,":", vod.getName());
-                if (special && specials.containsKey(vod.getName())) {
-                    vod.setLinkto(String.valueOf(specials.get(vod.getName())));
-                } else if (withSubscribe && withs.containsKey(vod.getName())) {
-                    vod.setRedirect(String.valueOf(withs.get(vod.getName())));
-                }
-                results.add((T) vod);
-            } else if (special && clazzName.equalsIgnoreCase("Column")) {
-                Column column = (Column) x;
-                if (specials.containsKey(column.getName())) {
-                    column.setLinkto(String.valueOf(specials.get(column.getName())));
-                }
-                results.add((T) column);
-            } else {
-                results.add(x);
+                list = metaData.getVodListByTypeId(id, length, station);
+            } else if (clazzName.equalsIgnoreCase("Column")) {
+                list = metaData.getTypeListByTypeId(id, length, station);
             }
+
+            if (list == null || list.size() != 2) {
+                debug("①无法获得数据列表, 栏目ID：", id);
+                return null;
+            }
+
+            HashMap map = (HashMap) list.get(0);
+            total = ((Integer) map.get("COUNTTOTAL")).intValue();
+            if ( total < 0 ) {
+                debug("①当前调用方式返回错误的结果, 总集数小于0!");
+                return null;
+            }
+
+            list = (List<?>) list.get(1);
+            if (list.size() == 0) return null;
+
+            List<T> results = new ArrayList<T>();
+
+            /*****  初始化专题,系列剧  ********/
+            if( this.special && ! this.initWithSpecials){
+                try {
+                    this.initWithSpecials = true;
+                    String realPath = request.getRealPath("/jsp/defaultHD/en/hddb/hddb_topic_andr.txt");
+                    File f = new File(realPath);
+                    FileInputStream stream = new FileInputStream(f);
+                    byte[] buffer = new byte[(int) f.length()];
+                    stream.read(buffer, 0, buffer.length);
+                    stream.close();
+                    String fileContent = new String(buffer, "UTF-8");
+                    JSONObject json = JSONObject.fromObject(fileContent);
+                    JSONArray array = (JSONArray) json.get("data");
+                    for (int i = 0; i < array.size(); i++) {
+                        JSONObject element = (JSONObject) array.get(i);
+                        String name = element.get("name").toString();
+                        String link = element.get("url").toString();
+                        this.specials.put(name, link);
+                    }
+                } catch (Throwable e) {
+                    write(e.getMessage());
+                }
+            }
+
+            if( this.withSubscribe && !this.initWithSubscribe){
+                this.initWithSubscribe = true;
+                List<Column> columns = getList(this.withId, 200, 0, new Column());
+                for (Column column : columns) {
+                    this.withs.put(column.getName(), column.getId());
+                    this.debug("Subscribe:" ,column.getName() ,":", column.getId());
+                }
+            }
+
+            /********* 结束初始化专题,系列剧 *************/
+            for (int i = 0; i < list.size(); i++) {
+                T x = (T) ((Bean) t).instance();
+                x = ReflectUtil.parse(list.get(i), x);
+                if (clazzName.equalsIgnoreCase("Vod")) {
+                    Vod vod = (Vod) x;//sitcoms
+                    if( isDetail ) {
+                    	if( vod.isSitcom == 1 ){
+                            //如果是电视剧，保存短ID， 和长ID
+                            sitcoms.put( String.valueOf( vod.getId() ), vod.getCode() );
+                            vod.setChildrenList( getChildList( vod.getChildrenList() ) );
+                        } else {
+                            getParentId(vod);
+                        }
+                    }
+                    debug("withSubscribe:" ,withSubscribe ,":", vod.getName());
+                    if (special && specials.containsKey(vod.getName())) {
+                        vod.setLinkto(String.valueOf(specials.get(vod.getName())));
+                    } else if (withSubscribe && withs.containsKey(vod.getName())) {
+                        vod.setRedirect(String.valueOf(withs.get(vod.getName())));
+                    }
+                    results.add((T) vod);
+                } else if (special && clazzName.equalsIgnoreCase("Column")) {
+                    Column column = (Column) x;
+                    if (specials.containsKey(column.getName())) {
+                        column.setLinkto(String.valueOf(specials.get(column.getName())));
+                    }
+                    results.add((T) column);
+                } else {
+                    results.add(x);
+                }
+            }
+            return results;
+        } catch (Throwable e){
+        	/*
+        	try {
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                e.printStackTrace(new PrintStream(output));
+                output.flush();
+                debug("程序出现错误, 详细信息：", output.toString("UTF-8"));
+                output = null;
+            } catch (Throwable x){}
+            */
         }
-        return results;
+        return null;
     }
 
     private List<?> getList(String id, int length, int station, boolean isVod) throws IllegalResultException {
-
-        List<?> list = isVod ? metaData.getVodListByTypeId(id, length, station) : metaData.getTypeListByTypeId(id, length, station);
-
-        if (list == null || list.size() == 0) return null;
-
-        if (list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
-
-        HashMap map = (HashMap) list.get(0);
-        total = ((Integer) map.get("COUNTTOTAL")).intValue();
-        if ( total < 0 ) throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
-
-        return (List<?>) list.get(1);
+        return getList(id, length, station , isVod ? new Vod() : new Column());
     }
 
     /**
@@ -504,16 +559,21 @@ public final class InnerUtils {
             list = helper.searchCastByCastCode(name, start, length);
 
         if (list == null || list.size() == 0) return null;
-        if (list.size() != 2) throw new IllegalResultException("无法获得数据列表!");
+        if (list.size() != 2) {
+            debug("②无法获得数据列表!");
+            return null;
+        }
         HashMap map = (HashMap) list.get(0);
         total = ((Integer) map.get("COUNTTOTAL")).intValue();
-        if ( total < 0 )  throw new IllegalResultException("当前调用方式返回错误的结果, 总集数小于0!");
+        if ( total <= 0 ) {
+        	debug("②当前调用方式返回错误的结果, 总集数小于0!");
+        	return null;
+        }
 
         list = (List<?>) list.get(1);
         List results = new ArrayList();
         for (int i = 0; i < list.size(); i++) {
-            Bean bean = ReflectUtil.parse(list.get(i), new Vod());
-            if (!results.contains(bean))  results.add(bean);
+            results.add(ReflectUtil.parse(list.get(i), new Vod()));
         }
         return results;
     }
@@ -523,18 +583,30 @@ public final class InnerUtils {
      *
      * @param id
      * @param t
-     * @param <T>
      * @return
      */
     public <T> T getDetail(String id, T t) {
         try {
             Map map = null;
             String className = t.getClass().getSimpleName();
-            if (className.equalsIgnoreCase("Vod") || className.equalsIgnoreCase("Film")) {
+            //如果是影片，需要查询子集的ID
+            if ( className.equalsIgnoreCase("Vod") || className.equalsIgnoreCase("Film") ) {
                 map = metaData.getVodDetailInfo(Integer.parseInt(id));
-            } else if (className.equalsIgnoreCase("Column")) {
-                map = metaData.getTypeInfoByTypeId(id);
+                if( map == null || map.size() == 0) return  null;
+                t = ReflectUtil.parse(map, t);
+                if( isDetail ) {
+                	if( String.valueOf(ReflectUtil.getValue( t, "isSitcom")).equalsIgnoreCase("1") ){
+                        sitcoms.put(String.valueOf(ReflectUtil.getValue( t, "id")), String.valueOf(ReflectUtil.getValue( t, "code")));
+                        List children = getChildList( (List) ReflectUtil.getValue( t, "childrenList") );
+                        ReflectUtil.setField(t, "childrenList", children );
+                    } else {
+                        getParentId( t );
+                    }
+                }
+                return t;
             }
+            //如果是栏目，直接返回
+            map = metaData.getTypeInfoByTypeId(id);
             return map == null || map.size() == 0 ? null : ReflectUtil.parse(map, t);
         } catch (Throwable e) { }
         return null;
@@ -545,13 +617,19 @@ public final class InnerUtils {
      *
      * @param id
      * @param t
-     * @param <T>
      * @return
      */
     public <T> T getFSNDetail(String id, T t) {
         try {
             Map map = metaData.getContentDetailInfoByForeignSN(id, 0);
-            return map == null || map.size() == 0 ? null : ReflectUtil.parse(map, t);
+            if( map == null || map.size() == 0) return  null;
+            t = ReflectUtil.parse(map, t);
+            String className = t.getClass().getSimpleName();
+            if( isDetail && ( className.equalsIgnoreCase("Vod") || className.equalsIgnoreCase("Film") ) ) {
+                List children = getChildList( (List) ReflectUtil.getValue( t, "childrenList") );
+                if( children != null ) ReflectUtil.setField(t, "childrenList", children );
+            }
+            return t;
         } catch (Throwable e) { }
         return null;
     }
@@ -658,9 +736,9 @@ public final class InnerUtils {
     public void debug(Object... message) {
         if (!isDebug || message == null) return;
         StringBuilder builder = new StringBuilder();
-        builder.append("<!--");
+        builder.append( isDetail ? "/**" : "<!--");
         for (int i = 0; i < message.length; i++) builder.append(message[i]);
-        builder.append("-->\n");
+        builder.append(isDetail ? "**/" : "-->\n");
         write(builder.toString());
     }
 }
@@ -681,6 +759,10 @@ public final static class ReflectUtil {
                 }
             }
         }
+        Class superClass = clazz.getSuperclass();
+        if( !superClass.getSimpleName().equalsIgnoreCase("object") ){
+        	map.putAll( getDeclaredAnnotations( superClass ));
+        }
         return map;
     }
 
@@ -690,7 +772,7 @@ public final static class ReflectUtil {
 
         //以下为一种实例化方式,不过由于是内部的内部类,所以不适宜使用此方法
         //Class<T> clazz
-        //T t = (T)clazz.newInstance();
+        //T t = (T)clazz.instance();
         Class<?> clazz = t.getClass();
 
         HashMap<String, String> defines = getDeclaredAnnotations(clazz);
@@ -698,7 +780,7 @@ public final static class ReflectUtil {
             for (Map.Entry<String, String> entry : defines.entrySet()) {
                 try {
                     //if(! map.containsKey(entry.getKey())) continue;
-                    Field field = clazz.getDeclaredField(entry.getValue());
+                    Field field = getField(clazz, entry.getValue());
                     Object value = hash.get(entry.getKey());
 
                     if (value == null) continue;
@@ -709,8 +791,7 @@ public final static class ReflectUtil {
                     field.set(t, value);
 
                     field.setAccessible(accessible);
-                } catch (Throwable e) {
-                }
+                } catch (Throwable e) {}
             }
         }
         return t;
@@ -732,9 +813,22 @@ public final static class ReflectUtil {
         } catch (NoSuchFieldException e) {
             Class superClass = clazz.getSuperclass();
             if (superClass != null) return getField(superClass, fieldName);
-
             return null;
         }
+    }
+
+    public final static Object getValue( Object o , String fieldName) {
+        return getValue(o, fieldName, null);
+    }
+    public final static Object getValue( Object o , String fieldName, InnerUtils inner) {
+        try {
+            Field field = getField( o.getClass(), fieldName );
+            if( field == null ) return null;
+            boolean accessible = field.isAccessible();
+            if (!accessible) field.setAccessible(true);
+            return field.get( o );
+        } catch (Throwable e) { }
+        return null;
     }
 
     public final static <T> boolean setField(T t, String fieldName, Object value) {
@@ -751,8 +845,7 @@ public final static class ReflectUtil {
             field.setAccessible(accessible);
 
             return true;
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
         return false;
     }
 
@@ -844,7 +937,7 @@ public final class IllegalResultException extends Exception {
 }
 
 public interface Bean {
-    Bean reset();
+    Bean instance();
 
     String getName();
 
@@ -879,7 +972,7 @@ public final class Column implements Bean {
 
     private String linkto = null;
 
-    public Column reset() {
+    public Column instance () {
         return new Column();
     }
 
@@ -980,35 +1073,46 @@ public final class Column implements Bean {
     }
 }
 
-public final class Vod implements Bean {
+public class Vod implements Bean {
     @Define(name = "VODID", alias = "vodId")
     private int id = 0;
     @Define(name = "VODNAME", alias = "vodName")
     private String name;
-    @Define(name = "INTRODUCE")
-    private String introduce;
-    //@Define(name = "PICPATH")
-    //private String picture;
-    @Define(name = "RELFLAG")
-    private int flag = 0;
+    @Define(name = "CODE")
+    private String code;
     @Define(name = "ISSITCOM")
     private int isSitcom;
+    @Define(name = "RELFLAG")
+    private int flag = 0;
     @Define(name = "POSTERPATHS")
     private Map<String, String[]> posters = null;
     @Define(name = "DEFINITION")
     private int definition;
+    @Define(name = "FATHERVODID")
+    private Object parentVodId;
+    @Define(name = "CONTENTTYPE")
+    private int contentType;
+    @Define(name = "SUPVODIDSET")
+    private HashSet parentVodList;
     @Define(name = "SUBVODIDLIST")
     private List childrenList;
     @Define(name = "SUBVODNUMLIST")
     private List childrenIdList;
-
+    @Define(name = "STARTTIME")
+    private String startTime;
+    @Define(name = "ENDTIME")
+    private String endTime;
+    @Define(name = "VODPRICE")
+    private String price;
     @Define(name = "TAGS")
     private String tags;
+    @Define(name = "INTRODUCE")
+    private String introduce;
 
     private String redirect = null;
     private String linkto = null;
 
-    public Vod reset() {
+    public Vod instance() {
         return new Vod();
     }
 
@@ -1100,6 +1204,30 @@ public final class Vod implements Bean {
         this.linkto = linkto;
     }
 
+    public Object getParentVodId() {
+        return parentVodId;
+    }
+
+    public void setParentVodId(Object parentVodId) {
+        this.parentVodId = parentVodId;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getTags() {
         return tags;
     }
@@ -1107,49 +1235,57 @@ public final class Vod implements Bean {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public HashSet getParentVodList() {
+        return parentVodList;
+    }
+
+    public void setParentVodList(HashSet parentVodList) {
+        this.parentVodList = parentVodList;
+    }
+
+    public int getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(int contentType) {
+        this.contentType = contentType;
+    }
 }
 
-public final class Film implements Bean {
-    @Define(name = "VODID")
-    private int id;
-    @Define(name = "VODNAME")
-    private String name;
+public final class Film extends Vod implements Bean {
     @Define(name = "DIRECTOR")
     private String director;
     @Define(name = "ACTOR")
     private String actor;
-    @Define(name = "INTRODUCE")
-    private String introduce;
-    //@Define(name = "PICPATH")
-    //private String picture;
     @Define(name = "ISASSESS")
     private int isAssess;
     @Define(name = "ASSESSID")
     private int assessId;
-    @Define(name = "FATHERVODID")
-    private int parentVodId;
-    @Define(name = "ISSITCOM")
-    private int isSitcom;
     @Define(name = "SERVICEID")
     private String[] serviceId;
     @Define(name = "AREAIDS")
     private int[] areas;
     @Define(name = "ELAPSETIME")
     private int elapseTime;
-    @Define(name = "VODPRICE")
-    private String price;
     @Define(name = "SEARCHCODE")
     private String searchCode;
-    @Define(name = "STARTTIME")
-    private String startTime;
-    @Define(name = "ENDTIME")
-    private String endTime;
-    @Define(name = "RELFLAG")
-    private int flag;
-    @Define(name = "CONTENTTYPE")
-    private int contentType;
-    @Define(name = "POSTERPATHS")
-    private Map<String, String[]> posters;
     @Define(name = "CASTMAP")
     private Map<Integer, String[]> cast;
     @Define(name = "THEMENAMES")
@@ -1158,43 +1294,15 @@ public final class Film implements Bean {
     private String type;
     @Define(name = "KEYWORDS")
     private String keywords;
-    @Define(name = "TAGS")
-    private String tags;
     @Define(name = "SITCOMNUM")
     private int sitcomTotal;
-    @Define(name = "SUBVODIDLIST")
-    private List childrenList;
-    @Define(name = "SUBVODNUMLIST")
-    private List childrenIdList;
-    @Define(name = "SUPVODIDSET")
-    private HashSet parentVodList;
-    @Define(name = "CODE")
-    private String code;
     @Define(name = "allTypeId")
     private String[] allTypeId;
     @Define(name = "SPNAME")
     private String spName;
-    @Define(name = "DEFINITION")
-    private int definition;
 
-    public Film reset() {
+    public Film instance() {
         return new Film();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDirector() {
@@ -1213,14 +1321,6 @@ public final class Film implements Bean {
         this.actor = actor;
     }
 
-    public String getIntroduce() {
-        return introduce;
-    }
-
-    public void setIntroduce(String introduce) {
-        this.introduce = introduce;
-    }
-
     public int getIsAssess() {
         return isAssess;
     }
@@ -1235,22 +1335,6 @@ public final class Film implements Bean {
 
     public void setAssessId(int assessId) {
         this.assessId = assessId;
-    }
-
-    public int getParentVodId() {
-        return parentVodId;
-    }
-
-    public void setParentVodId(int parentVodId) {
-        this.parentVodId = parentVodId;
-    }
-
-    public int getIsSitcom() {
-        return isSitcom;
-    }
-
-    public void setIsSitcom(int isSitcom) {
-        this.isSitcom = isSitcom;
     }
 
     public String[] getServiceId() {
@@ -1277,60 +1361,12 @@ public final class Film implements Bean {
         this.elapseTime = elapseTime;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public String getSearchCode() {
         return searchCode;
     }
 
     public void setSearchCode(String searchCode) {
         this.searchCode = searchCode;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public int getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
-    }
-
-    public Map<String, String[]> getPosters() {
-        return posters;
-    }
-
-    public void setPosters(Map<String, String[]> posters) {
-        this.posters = posters;
     }
 
     public Map<Integer, String[]> getCast() {
@@ -1365,52 +1401,12 @@ public final class Film implements Bean {
         this.keywords = keywords;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public int getSitcomTotal() {
         return sitcomTotal;
     }
 
     public void setSitcomTotal(int sitcomTotal) {
         this.sitcomTotal = sitcomTotal;
-    }
-
-    public List getChildrenList() {
-        return childrenList;
-    }
-
-    public void setChildrenList(List childrenList) {
-        this.childrenList = childrenList;
-    }
-
-    public List getChildrenIdList() {
-        return childrenIdList;
-    }
-
-    public void setChildrenIdList(List childrenIdList) {
-        this.childrenIdList = childrenIdList;
-    }
-
-    public HashSet getParentVodList() {
-        return parentVodList;
-    }
-
-    public void setParentVodList(HashSet parentVodList) {
-        this.parentVodList = parentVodList;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String[] getAllTypeId() {
@@ -1428,28 +1424,20 @@ public final class Film implements Bean {
     public void setSpName(String spName) {
         this.spName = spName;
     }
-
-    public int getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(int definition) {
-        this.definition = definition;
-    }
 }
 
 public final static class SearchType {
-        //影片名称（代码）
-        public final static int FILMCODE = 1;
-        //影片名称（汉字或字母）
-        public final static int FILMNAME = 2;
-        //按演员名称
-        public final static int ACTOR = 3;
-        //按演员搜索代码
-        public final static int CASTCODE = 6;
-        //导演
-        public final static int DIRECTOR = 4;
-        //外部ID
-        public final static int FOREIGNSN = 5;
-    }
+    //影片名称（代码）
+    public final static int FILMCODE = 1;
+    //影片名称（汉字或字母）
+    public final static int FILMNAME = 2;
+    //按演员名称
+    public final static int ACTOR = 3;
+    //按演员搜索代码
+    public final static int CASTCODE = 6;
+    //导演
+    public final static int DIRECTOR = 4;
+    //外部ID
+    public final static int FOREIGNSN = 5;
+}
 %>

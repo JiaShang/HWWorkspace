@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #list,#title{
+            position: absolute;
+            background:transparent;
+        }
+        .listName,.titleName{
+            position: absolute;
+            background:transparent;
+            text-align: center;
+            visibility: hidden;
+        }
+        .listImg,.titleImg.list,.title {
+            position: absolute;
+            overflow:hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/showList.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/variable.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div id="bg" class="container" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 720px;background: transparent no-repeat;overflow: hidden;"></div>
+<div id="focus" style="position: absolute; overflow: hidden;background-repeat: no-repeat; z-index: 1;"></div>
+<div id="titleFocus" style="position: absolute; overflow: hidden;background-repeat: no-repeat; z-index: 1;"></div>
+<div id="focus0" style="position: absolute; overflow: hidden;background-repeat: no-repeat; z-index: 1;"></div>
+<div id="focus1" style="position: absolute; overflow: hidden;background-repeat: no-repeat; z-index: 1;"></div>
+<div id="focus2" style="position: absolute; overflow: hidden;background-repeat: no-repeat; z-index: 1;"></div>
+<div id="scrollLower" style="position:absolute; z-index: 1;">
+    <div id="scrollUpper" style="position: absolute; height: 70px;z-index: 2;"></div>
+</div>
+
+</div><div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;"></div>
+<div id="title" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="title0" class="title" style="left: 10px; top: 5px;">
+        <img id="titleImg0" class="titletImg"/>
+        <div id="titleName0" class="titleName"></div>
+    </div>
+    <div id="title1" class="title" style="left: 390px; top: 5px;">
+        <img id="titleImg1" class="titleImg"/>
+        <div id="titleName1" class="titleName"></div>
+    </div>
+    <div id="title2" class="title" style="left: 770px; top: 5px;">
+        <img id="titleImg2" class="titleImg"/>
+        <div id="titleName2" class="titleName"></div>
+    </div>
+    <div id="title3" class="title" style="left: 10px; top: 280px;">
+        <img id="titleImg3" class="titleImg"/>
+        <div id="titleName3" class="titleName"></div>
+    </div>
+    <div id="title4" class="title" style="left: 390px; top: 280px;">
+        <img id="titleImg4" class="titleImg"/>
+        <div id="titleName4" class="titleName"></div>
+    </div>
+    <div id="title5" class="title" style="left: 770px; top: 280px;">
+        <img id="titleImg5" class="titleImg"/>
+        <div id="titleName5" class="titleName"></div>
+    </div>
+</div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+    <div id="list6" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg6" class="listImg"/>
+        <div id="listName6" class="listName"></div>
+    </div>
+    <div id="list7" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg7" class="listImg"/>
+        <div id="listName7" class="listName"></div>
+    </div>
+    <div id="list8" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg8" class="listImg"/>
+        <div id="listName8" class="listName"></div>
+    </div>
+</div>
+</body>
+<script language="javascript" type="text/javascript">
+    act = 1;
+    direct = 1;
+    picFlag = [1,'7',0];  // 1:绑在一级栏目下 2:绑在子栏目的一条视频下（指定某条视频） 3：绑在子栏目的多条视频下;
+    picPrefix = ['20201125_1List',0];
+    list = [0,0,1280,720,1,1,150,150,50,15,"","ff9800","ff9800",1,1];
+    listImg = [0,0,1280,720,378,275,1];
+    listName = [640,630,60,60,345,127,1];
+    focusPic = [64,133,388,243,377,276,"20201125_1ListFocus",1,0];
+    title = ["10","50","500","500","3","2","50","50","24","15","","ffffff","ffffff",1,0];
+    titleImg = [65,37,360,215,380,275,0];
+    titleName = [85,37,346,115,345,127,0];
+    titlePic = [48,138,388,243,380,276,"20191120ListFocus",1,0];
+    sc = [1220,150,3,490,-4,12,"a8a2a2","ffc107",0,2,0];
+    video = [1280,720,0,0,0];
+    (function(win){
+        getParams();
+        showScroll(sc);
+        showLists();
+        showFocusPic();
+        showTitle();
+        showTitlePic();
+        // win.moviePos = {width:Number(video[0]),height:Number(video[1]),left:Number(video[2]),top:Number(video[3])};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000117322';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act='+act+'&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined' ) {
+                            rst['column']['posters'] = delPostersIP(rst['column']['posters']);
+                            ColumnImg = rst['column']['posters'];
+                        }
+                        if (typeof ColumnImg['7'] != 'undefined'){
+                            bgImg = ColumnImg['7'][0];
+                        }else {
+                            bgImg = "images/J"+picPrefix[0]+"Bg.png";
+                        }
+                        if (picPrefix[1] == 1){
+                            bgImg = "images/J"+picPrefix[0]+"Bg.png";
+                        }
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+                        /////////////////////////////////////
+                        var data = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            data = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        if (act == 0 || act == '0') {    //无子栏目时：list[i]
+                            cursor.focusable[0] = {};
+                            cursor.focusable[0].typeId = rst['column'].id;
+                            cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                            cursor.focusable[0].items = data;
+                            addTag(cursor.focusable[0].items,addTagFlag);
+                            cut(cursor.focusable[0].items,startStr,endStr,cutFlag);
+                        }else if (act == 2 || act == '2') {  //有子栏目时：list[i].data
+                            for (var i = 0 ;i < data.length ; i++){
+                                if (typeof data[0].data != 'undefined') {
+                                    titleData = data[0].data;
+                                }else {
+                                    titleData = [];
+                                }
+                                if (i>0){
+                                    cursor.focusable[i-1] = {};
+                                    cursor.focusable[i-1].typeId = data[i].id;
+                                    cursor.focusable[i-1].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                                    if (typeof data[i].data != 'undefined'){
+                                        cursor.focusable[i-1].items = data[i].data;
+                                    }else {
+                                        cursor.focusable[i-1].items = [];
+                                    }
+                                    addTag(cursor.focusable[i-1].items,addTagFlag);
+                                    cut(cursor.focusable[i-1].items,startStr,endStr,cutFlag);
+                                }
+
+                            }
+                        }
+                        ///////////////////////////
+                        setTimeout(function(){ cursor.call('initList');cursor.call('show');},150);
+                    },
+                    {
+                        fail: function (meg) {
+                            tooltip(decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA'));
+                            return;
+                        }
+                    }
+                );
+            },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        switch (index) {
+            case 11:    //上
+                if( direct == 1){
+                    listBox.changeList(-1);
+                }
+                break;
+            case -11:   //下
+                if( direct == 1){
+                    listBox.changeList(1);
+                }
+                break;
+            case -1:    //左
+                if( direct == 0){
+                    listBox.changeList(-1);
+                }
+                break;
+            case 1:     //右
+                if( direct == 0){
+                    listBox.changeList(1);
+                }
+                break;
+        }
+        cursor.focusable[0].focus = listBox.position;
+        cursor.call('show');
+        },
+        show : function(){
+            $("listImg0").src = posters[listBox.position];
+            scrollChange(listBox.dataSize,listBox.position,listBox.currPage,listBox.listPage);
+            $("listName0").innerText = (listBox.position+1)+"/"+listBox.dataSize;
+        },
+        select : function(){
+            return;
+        },
+        goBack : function(){
+            cursor.call('goBackAct');
+        },
+        initList : function () {
+            var blocked = cursor.blocked;
+            //绑在一级栏目下
+            if (Number(picFlag[0]) == 1){
+                posters = ColumnImg[picFlag[1]];
+            }
+            //
+            // bgImgs = ColumnImg['7'];
+            //绑在一条视频下
+            if (Number(picFlag[0]) == 2) {
+                posters = cursor.focusable[blocked].items[picFlag[2]].posters[picFlag[1]];
+            }
+            //绑在多条视频下
+            if (Number(picFlag[0]) == 3) {
+                for (var i = 0; i < cursor.focusable[blocked].items.length; i++) {
+                    posters[i] = cursor.focusable[blocked].items[i].posters[picFlag[1]][0];
+                //     bgImgs[i] = cursor.focusable[blocked].items[i].posters['7'][0];
+                }
+            }
+            if (typeof posters == 'undefined'){
+                posters = [];
+            }
+            listBox = new showList(Number(list[4])*Number(list[5]),posters.length,cursor.focusable[0].focus,127,window);
+            listBox.showType =0 ;
+            listBox.showLoop =1;
+            listBox.haveData = function(List){
+                $("listImg"+String(List.idPos)).src = posters[List.dataPos];
+            }
+            listBox.notData = function(List){
+                $("listImg"+List.idPos).src = "../images/defalutImg/global_tm.gif";
+            };
+            listBox.startShow();
+            initScroll(listBox.dataSize,Number(list[4])*Number(list[5]),listBox.listPage);
+        },
+        nextVideo: function () {
+            var playIndex = cursor.playIndex || 0;
+            cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[cursor.blocked].items.length ? playIndex + 1 : 0;
+            var item = cursor.focusable[cursor.blocked].items[playIndex];
+            cursor.call("playMovie", item);
+        },
+        prepareVideo: function () {
+            var playIndex = cursor.playIndex || 0;
+            // var playIndex = 0;
+            if (cursor.focusable[cursor.blocked].items.length <= 0) return;
+            var item = cursor.focusable[cursor.blocked].items[playIndex];
+            cursor.call("playMovie", item);
+        },
+        playMovie: function (item) {
+            player.exit();
+            player.play({
+                vodId: item.id,
+                position: {width: Number(video[0]), height: Number(video[1]), left: Number(video[2]), top: Number(video[3])},
+                callback: function () {
+                    ///cursor.focusable[0].focus = cursor.playIndex;
+                    // cursor.call('show');
+                    //setTimeout(function(){cursor.call('lazyShow');},50);
+                }
+            });
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+    </script>
+</html>

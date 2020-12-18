@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script language="javascript" type="text/javascript" src="../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/showList.js"></script>
+    <script language="javascript" type="application/javascript" src="../js/variable.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 720px;background: transparent no-repeat;overflow: hidden;"></div>
+</body>
+<script language="javascript" type="text/javascript">
+  video = [546,361,83,162,99,0,0];  //是否轮播:99轮播  其他数字播指定位置视频 ；是否播放：0不播 1播影片 2网络直播 3频道直播 ;栏目长度为几时播直播
+    (function(win){
+        getParams();
+        var initialize = {
+            init : function(){
+                cursor.serviceId = 2603;
+                cursor.frequency = 2750000;
+                cursor.channelId = '3792';
+                cursor.program = '3';
+                cursor.call('playMovie');
+            },
+            goBack : function(){
+                player.exit();
+                cursor.call('goBackAct');
+            },
+            nextVideo   :   function () {
+                var playIndex = 0;
+                var blocked = 0;
+                // cursor.playIndex = playIndex = playIndex + 1 < cursor.focusable[blocked].items.length ? playIndex + 1 : 0;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            prepareVideo : function(){
+                var playIndex = 0;
+                var blocked = 0;
+                if( cursor.focusable[blocked].items.length <= 0 )return;
+                var item = cursor.focusable[blocked].items[playIndex];
+                cursor.call("playMovie",item);
+            },
+            playMovie : function(){
+                player.exit();
+                if (Number(VODflag) == 1){   //播网络直播
+                    player.play({
+                        position: {width: 1280, height: 720, left: 0, top: 0},
+                        channelId: cursor.channelId,
+                        program: cursor.program,
+                        callback: function(){
+                        }
+                    });
+                }else if (Number(VODflag) == 2){   //播频道直播
+                    player.play({
+                        position: {width: 1280, height: 720, left: 0, top: 0},
+                        serviceId: cursor.serviceId,
+                        frequency: cursor.frequency,
+                        callback: function(){
+                        }
+                    });
+
+                }
+
+            }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

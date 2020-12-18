@@ -4996,7 +4996,7 @@
     {
        "id": 705,
        "name": "音乐节回顾专题",
-       "url": "/EPG/jsp/neirong/shang/J20201105.jsp?typeId=10000100000000090000000000119480&focusPic=298,450,347,112,395,20201105,2&direct=0",
+       "url": "http://125.62.26.152/html/special/shang/2020/1123/J20201123.html",
        "uptime": "2020-11-05"
     },
     {
@@ -5052,6 +5052,198 @@
        "name": "冬季暖胃汤锅暖暖的很贴心",
        "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=207&lcn=tg",
        "uptime": "2020-11-13"
+    },
+    {
+       "id": 715,
+       "name": "习近平总书记指挥谋划“十四五”",
+       "url": "http://125.62.26.152/html/special/shang/2020/J20201116.html",
+       "uptime": "2020-11-16"
+    },
+    {
+       "id": 716,
+       "name": "武侠世界 刀光剑影的快意江湖",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/pageImg10.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119860",
+       "uptime": "2020-11-19"
+    },
+    {
+       "id": 717,
+       "name": "成龙 搏命走天涯",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/pageImg10.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119861",
+       "uptime": "2020-11-19"
+    },
+    {
+       "id": 718,
+       "name": "冬日兴趣班专题",
+       "url": "http://192.168.89.21:8086/special/index?id=1467&fromTitle=ztdl_ld",
+       "uptime": "2020-11-19"
+    },
+    {
+       "id": 719,
+       "name": "5分钟每日瑜伽拉伸 告别圆肩富贵包",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=208&lcn=f",
+       "uptime": "2020-11-19"
+    },
+    {
+       "id": 720,
+       "name": "小雪养生有讲究",
+       "url": "http://192.168.34.73/special/xiaoxue/z.php",
+       "uptime": "2020-11-19"
+    },
+    {
+       "id": 721,
+       "name": "味道新疆",
+       "url": "http://125.62.26.152/html/special/shang/2020/1123/J20201123.html",
+       "uptime": "2020-11-24"
+    },
+    {
+       "id": 722,
+       "name": "那些年你磕过的港剧CP",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/pageImg10.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119963",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 723,
+       "name": "影视头条热门速报",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/variety.html?centerTypeId=10000100000000090000000000119961",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 724,
+       "name": "紧张刺激的警匪片合辑",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/pageImg10.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119960",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 725,
+       "name": "盘点综艺里的绝美雪景",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/heng_5.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119962",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 726,
+       "name": "精彩展播 陪伴孩子快乐成长",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/heng_5.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000119964",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 727,
+       "name": "感恩节给父母的养生建议",
+       "url": "http://192.168.34.73/special/ganen/z.php",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 728,
+       "name": "帕梅拉同款燃脂操 10分钟高强度有氧训练",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=209&lcn=pml",
+       "uptime": "2020-11-26"
+    },
+    {
+       "id": 729,
+       "name": "2020全国交通安全日",
+       "url": "http://125.62.26.152/html/special/shang/2020/1127/J20201127_2.html",
+       "uptime": "2020-11-27"
+    },
+    {
+       "id": 730,
+       "name": "赏巫山红叶正当时",
+       "url": "http://125.62.26.152/html/special/shang/2020/1127/J20201127_1.html",
+       "uptime": "2020-11-27"
+    },
+    {
+       "id": 731,
+       "name": "2020梁平柚子节",
+       "url": "http://125.62.26.152/html/special/shang/2020/1201/J20201201.html?typeId=10000100000000090000000000120260&picPrefix=20201201,0&list=0,0,1280,720,1,6,150,150,24,17,,ffffff,ffffff,1,1&listName=100,300,435,55,225,56,1,left&focusPic=85,290,1280,720,225,56,20201201Focus,1,1&sc=568,300,3,320,-4,12,427170,edad4b,1,1,0&video=593,372,610,275,99,1",
+       "uptime": "2020-12-01"
+    },
+    {
+       "id": 732,
+       "name": "品鉴（重庆中国三峡博物馆精品文化系列记录片）",
+       "url": "http://125.62.26.152/html/special/shang/2020/1201/J20201201.html?typeId=10000100000000090000000000120102&picPrefix=20201201_2,0&list=0,0,1280,720,1,6,150,150,24,18,,ffffff,ffffff,1,1&listName=100,300,430,55,225,56,1,left&focusPic=85,290,1280,720,225,56,20201201_2Focus,1,1&sc=568,300,3,320,-4,12,386587,edad4b,1,1,0&video=593,372,610,275,99,1",
+       "uptime": "2020-12-01"
+    },
+    {
+       "id": 733,
+       "name": "2020年度感动重庆十大人物评选",
+       "url": "http://125.62.26.152/html/special/2020/TenInspiring/index.html",
+       "uptime": "2020-12-02"
+    },
+    {
+       "id": 734,
+       "name": "自重训练专题",
+       "url": "http://192.168.18.56:8082/sdytv/entryTV.jsp?pid=2049",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 735,
+       "name": "年度大赏 万人在看TOP10",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=210&lcn=das",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 736,
+       "name": "寒从脚下起",
+       "url": "http://192.168.34.73/special/han/z.php",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 737,
+       "name": "装台男女子图鉴",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/heng_5.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000120242",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 738,
+       "name": "这些片子 看不懂结局就多刷几次",
+       "url": "http://aoh5.cqccn.com/epgTest/2020zhuanTi/pageImg10.html?borderColor=FFCC00&centerTypeId=10000100000000090000000000120240",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 739,
+       "name": "牢记嘱托 脱贫攻坚",
+       "url": "http://125.62.26.152/html/special/shang/2020/1203/J20201203.html",
+       "uptime": "2020-12-03"
+    },
+    {
+       "id": 740,
+       "name": "原味记忆",
+       "url": "http://125.62.26.152/html/special/shang/common/model1.html?typeId=10000100000000090000000000120247&list=0,0,1280,720,2,3,150,150,24,15,,8b0000,8b0000,1,1&listImg=57,317,496,85,712,63,3,3,1&focusPic=57,317,496,85,712,63,,0,3,3&gap=171,0,171,0",
+       "uptime": "2020-12-04"
+    },
+    {
+       "id": 741,
+       "name": "萌宠总动员",
+       "url": "http://125.62.26.152/html/special/shang/common/model1.html?typeId=10000100000000090000000000120466&addTagFlag=-2",
+       "uptime": "2020-12-09"
+    },
+    {
+       "id": 742,
+       "name": "超帅气的年会舞蹈 零基础也OK",
+       "url": "http://192.168.35.153:8080/common/program_theme_9.jsp?id=211&lcn=nh",
+       "uptime": "2020-12-10"
+    },
+    {
+       "id": 743,
+       "name": "高血压饮食误区知多少",
+       "url": "http://192.168.34.73/special/gaoxueya/z.php",
+       "uptime": "2020-12-10"
+    },
+    {
+       "id": 744,
+       "name": "家的味道就是馋",
+       "url": "http://125.62.26.152/html/special/shang/common/model1.html?typeId=10000100000000090000000000120540&list=0,0,1280,720,2,5,150,150,24,15,,8b0000,8b0000,1,1&listImg=80,100,299,76,312,63,3,3,1&focusPic=80,100,496,85,312,63,,0,3,3&listGap=0,0",
+       "uptime": "2020-12-11"
+    },
+    {
+       "id": 745,
+       "name": "金佛山红色冰雪季",
+       "url": "http://125.62.26.152/html/special/shang/common/model1.html?typeId=10000100000000090000000000120440&list=0,0,1280,720,1,7,150,150,24,15,,8b0000,8b0000,1,1&listName=100,245,360,43,50,51,1,left&focusPic=88,245,496,85,712,50,20201211Focus,0,1,3&sc=490,240,3,365,-3,8,c3bcbc,ce321b,1,1,0",
+       "uptime": "2020-12-11"
+    },
+    {
+       "id": 746,
+       "name": "名家文苑",
+       "url": "http://125.62.26.152/html/special/2020/FamousFor/index.html",
+       "uptime": "2020-12-11"
     }
   ]
 }

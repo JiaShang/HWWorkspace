@@ -560,6 +560,9 @@
                 if (status == 401) {
                     win.debug("AJAX AUTHENTICATION FAILED, NEED CORRECT USERNAME AND PASSWORD !"); return;
                 }
+                if (status == 404 && typeof option.fail === 'function') {
+                    option.fail( { error: 'HTTP Status 404 – Not Found', stack: 'FAIL: ON ERROR' } );
+                }
                 win.debug("AJAX STATE CHANGED : " + state + ", STATUS :" + status + "!");
             } else if (state === 4) {
                 if( timerAjax ) { clearTimeout(timerAjax); timerAjax = undefined; }
@@ -590,7 +593,7 @@
             debug("AJAX REQUEST TIMEOUT !");
         };
         request.onload = function(e){ debug("AJAX ONLOAD EVENT ===>", e); };
-        request.onerror = function(e){ if( timerAjax ) { clearTimeout(timerAjax); timerAjax = undefined; } if (typeof option.fail === 'function') option.fail(  { error: e, stack: 'FAIL: ON ERROR' }  ); debug("AJAX ERROR EVENT ===>", e); };
+        request.onerror = function(e){ if( timerAjax ) { clearTimeout(timerAjax); timerAjax = undefined; } if (typeof option.fail === 'function') option.fail( { error: e, stack: 'FAIL: ON ERROR' } ); debug("AJAX ERROR EVENT ===>", e); };
         for (var i = 0; i < headers.length; i++) {
             var header = headers[i];
             request.setRequestHeader(header.key, header.value);
@@ -1459,7 +1462,7 @@
                 return result;
             };
             var getList = function (element, from, fromId) { //from 保存的是名称, 如果为系列剧时, 还需要保存 当前剧集的ID, 把剧集的ID保存在 parentId中
-                that.sitcoms = [];
+                that.sitcoms = that.sitcoms || [];
                 var typeId = element.id || element.typeId;
                 var items = element.data || element.items;
                 var result = [];

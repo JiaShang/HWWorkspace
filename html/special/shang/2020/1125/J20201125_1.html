@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #list,#title{
+            position: absolute;
+            background:transparent;
+        }
+        .listName,.titleName{
+            position: absolute;
+            background:transparent;
+            text-align: center;
+            visibility: hidden;
+        }
+        .listImg,.titleImg {
+            position: absolute;
+            overflow:hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/showList.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/variable.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 720px;background: transparent no-repeat;overflow: hidden;"></div>
+<img id="focus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;z-index: 1;"/>
+<div id="titleFocus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus0" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus1" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus2" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="scrollLower" style="position:absolute; z-index: 1;">
+    <div id="scrollUpper" style="position: absolute; height: 70px;z-index: 2;"></div>
+</div>
+
+</div><div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;"></div>
+<div id="title" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="title0" class="title" style="left: 10px; top: 5px;">
+        <img id="titleImg0" class="titletImg"/>
+        <div id="titleName0" class="titleName"></div>
+    </div>
+    <div id="title1" class="title" style="left: 390px; top: 5px;">
+        <img id="titleImg1" class="titleImg"/>
+        <div id="titleName1" class="titleName"></div>
+    </div>
+    <div id="title2" class="title" style="left: 770px; top: 5px;">
+        <img id="titleImg2" class="titleImg"/>
+        <div id="titleName2" class="titleName"></div>
+    </div>
+    <div id="title3" class="title" style="left: 10px; top: 280px;">
+        <img id="titleImg3" class="titleImg"/>
+        <div id="titleName3" class="titleName"></div>
+    </div>
+    <div id="title4" class="title" style="left: 390px; top: 280px;">
+        <img id="titleImg4" class="titleImg"/>
+        <div id="titleName4" class="titleName"></div>
+    </div>
+    <div id="title5" class="title" style="left: 770px; top: 280px;">
+        <img id="titleImg5" class="titleImg"/>
+        <div id="titleName5" class="titleName"></div>
+    </div>
+</div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+    <div id="list6" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg6" class="listImg"/>
+        <div id="listName6" class="listName"></div>
+    </div>
+    <div id="list7" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg7" class="listImg"/>
+        <div id="listName7" class="listName"></div>
+    </div>
+    <div id="list8" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg8" class="listImg"/>
+        <div id="listName8" class="listName"></div>
+    </div>
+</div>
+</body>
+<script language="javascript" type="text/javascript">
+    picPrefix = ["20201125_1",0];
+    focusPic = [430,515,747,106,57,72,"20200826Focus0",1,1];
+    (function(win){
+        getParams();
+        // win.moviePos = {width:Number(video[0]),height:Number(video[1]),left:Number(video[2]),top:Number(video[3])};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000117320';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=2&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst){
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined' ) {
+                            imgData = rst['column']['posters'];
+                        }
+                        var list = [];
+                        if (typeof rst['list'] != 'undefined'){
+                            list = rst['list'];
+                        }
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        //无子栏目时：list[i]
+                        // cursor.focusable[0] = {};
+                        // cursor.focusable[0].typeId = rst['column'].id;
+                        // cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        // cursor.focusable[0].items = list;
+                        //有子栏目时：list[i].data
+                        for (var i = 1 ;i < list.length ; i++){
+                            cursor.focusable[i-1] = {};
+                            cursor.focusable[i-1].typeId = list[i].id;
+                            cursor.focusable[i-1].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                            if (typeof list[i].data != 'undefined'){
+                                cursor.focusable[i-1].items = list[i].data;
+                            }else {
+                                cursor.focusable[i-1].items = [];
+                            }
+
+                            cut(cursor.focusable[i-1].items,cutName[1],cutName[2],cutName[0]);
+                        }
+                        if (typeof imgData['7'] != 'undefined'){
+                            bgImg = imgData['7'][0];
+                        }
+                        if (picPrefix[1] == 1){
+                            bgImg = "images/J"+picPrefix[0]+"Bg.png";
+                        }
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+
+                        cursor.focusable[0].items[0] = {
+                            'name':'图集',
+                            'linkto':'http://125.62.26.152/html/special/shang/2020/1125/J20201125_1List.html?typeId='+cursor.focusable[0].typeId
+                        }
+                        showFocusPic();
+                        cursor.call('show');
+                    },
+                    {
+                        fail: function (meg) {
+                            tooltip(decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA'));
+                            return;
+                        }
+                    }
+                );
+            },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+        var blocked = cursor.blocked;
+        if( blocked == 1 && index === -1 ){
+            blocked = 0;
+        }else if ( blocked == 0 && index === 1 ) {
+            blocked = 1;
+        }
+        cursor.blocked = blocked;
+        cursor.call('show');
+        },
+        show : function(){
+            var blocked = cursor.blocked;
+            $("focus").style.backgroundImage = "url(images/J20200826Focus"+String(blocked)+".png)";
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

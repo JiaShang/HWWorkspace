@@ -412,6 +412,7 @@ function scrollChange(dataSize,position,currPage,listPage){  //总数据长度�
         }
     }
 }
+
 function compare(key,desc) {
     return function (value1, value2) {
         var val1 = value1.key;
@@ -527,44 +528,105 @@ function getParams() {
 	if (str != ""){
 		list = str.split(",");
 	}
-
-
 	str = getUrlParams("title", "");
 	if (str != ""){
 		title = str.split(",");
 	}
-
-
 	str = getUrlParams("titlePic", "");
 	if (str != ""){
 		titlePic = str.split(",");
 	}
-
-
 	str = getUrlParams("focusPic", "");
 	if (str != ""){
 		focusPic = str.split(",");
 	}
-
-
 	str = getUrlParams("sc", "");
 	if (str != ""){
 		sc = str.split(",");
 	}
-
-
 	str = getUrlParams("video", "");
 	if (str != ""){
 		video = str.split(",");
 	}
-
-
 	str = getUrlParams("direct", "");
 	if (str != ""){
 		direct = str;
 	}
+	str = getUrlParams("act", "");
+	if (str != ""){
+		act = str;
+	}
+	str = getUrlParams("picFlag", "");
+	if (str != ""){
+		picFlag = str.split(",");
+	}
+	str = getUrlParams("palyFlag", "");
+	if (str != ""){
+		palyFlag = str;
+	}
+	str = getUrlParams("testFlag", "");
+	if (str != ""){
+		testFlag = str;
+	}
+	str = getUrlParams("addTagFlag", "");
+	if (str != ""){
+		addTagFlag = str;
+	}
+	str = getUrlParams("VODflag", "");
+	if (str != ""){
+		VODflag = str;
+	}
+	str = getUrlParams("listGap", "");
+	if (str != ""){
+		listGap = str.split(",");
+	}
+	str = getUrlParams("titleGap", "");
+	if (str != ""){
+		titleGap = str.split(",");
+	}
+	str = getUrlParams("defFocus", "");
+	if (str != ""){
+		defFocus = str.split(",");
+	}
+	str = getUrlParams("picPrefix", "");
+	if (str != ""){
+		picPrefix = str.split(",");
+	}
+
+	str = getUrlParams("record", "");
+	if (str != ""){
+		record = str.split(",");
+	}
+	str = getUrlParams("voteFlag", "");
+	if (str != ""){
+		voteFlag = str.split(",");
+	}
+	str = getUrlParams("cut", "");
+	if (str != ""){
+		cutName = str.split(",");
+	}
+	str = getUrlParams("listImg", "");
+	if (str != ""){
+		listImg = str.split(",");
+	}
+	str = getUrlParams("listName", "");
+	if (str != ""){
+		listName = str.split(",");
+	}
+	str = getUrlParams("titleImg", "");
+	if (str != ""){
+		titleImg = str.split(",");
+	}
+	str = getUrlParams("titleName", "");
+	if (str != ""){
+		titleName = str.split(",");
+	}
+	str = getUrlParams("page", "");
+	if (str != ""){
+		page = str.split(",");
+	}
 }
-function paramToArray(str,flag,array) {
+function paramToArray(str,flag,array) {  //字符串  分隔符  数组
 	array = str.split(flag);
 	return array;
 }
@@ -643,13 +705,466 @@ function initPosters(listData,flag,num,defalutImg){
 	}
 }
 //截取name
-function cut(listData,param,startStr,endStr,flag) {
-	if (flag != 1 ) {return;}
-	for (var i = 0 ; i < liatData.length ; i++){
-		var name = liatData[i].name;
+function cut(array,startStr,endStr,flag) {
+	if (flag == 0 ||  flag == "0" ) {return;}
+	for (var i = 0 ; i < array.length ; i++){
+		var name = array[i].name;
 		var star = name.indexOf(startStr);  //不存在返回-1
 		star++;
 		var end = name.indexOf(endStr) <=0 ? name.length : name.indexOf(endStr);
-		liatData[i].name = name.substring(star,end);  //substring取前不取后
+		array[i].name = name.substring(star,end);  //substring取前不取后
 	}
+	return array;
+}
+// ################show#######################
+//var sc = [1220,150,3,490,-2,6,"584d42","d0a96f",1,2,0];
+//left top wdith height 上层left 上层top 背景色 焦点色 是否显示 显示类型 是否显示具体数据
+//  0    1    2     3      4       5      6    7      8       9        10
+function showScroll(sc) {
+	if (getUrlParams('sc') != "") {
+		paramToArray(getUrlParams('sc'),',',sc);
+	}
+	$("scrollLower").style.left = sc[0]+"px";
+	$("scrollLower").style.top = sc[1]+"px";
+	$("scrollLower").style.width = sc[2]+"px";
+	$("scrollLower").style.height = sc[3]+"px";
+	$("scrollLower").style.backgroundColor = "#"+sc[6];
+	$("scrollUpper").style.height = "70px";
+	$("scrollUpper").style.left = sc[4]+"px";
+	$("scrollUpper").style.width = sc[5]+"px";
+	$("scrollUpper").style.backgroundColor = "#"+sc[7];
+	scrollFlag = sc[8]; //0：不显示滚动条，显示滚动条
+	scrollWay = sc[9];  //1：按数据个数滑动，按数据页数滑动
+	scrollData = sc[10];
+}
+
+//var focusPic = [298,450,347,112,395,50,20201105,2];
+// left top wdith height left间距 top间距  pic   移动方向  是否显示
+//  0    1    2     3       4     5       6       7       8
+function showFocusPic() {
+	if (focusPic[8] != 0  &&  focusPic[8] != "0"){
+		$("focus").style.visibility = 'visible';
+		$("focus").style.left = focusPic[0]+"px";
+		$("focus").style.top = focusPic[1]+"px";
+		$("focus").style.width = focusPic[2]+"px";
+		$("focus").style.height = focusPic[3]+"px";
+		if (focusPic[8] == 1  ||  focusPic[8] == "1"){
+			// $("focus").style.backgroundImage = "url(images/J"+focusPic[6]+".png)";
+			$("focus").src = "images/J"+focusPic[6]+".png";
+		}
+		// else if (focusPic[8] == 2  ||  focusPic[8] == "2"){
+		// 	$("focus").style.backgroundImage = "url(images/J"+focusPic[6]+"0.png)";
+		// }
+
+	} else {
+		$("focus").style.visibility = 'hidden';
+	}
+
+}
+//var titlePic = [298,450,347,112,395,50,20201105,2];
+// left top wdith height left间距 top间距  pic   移动方向  是否显示
+//  0    1    2     3       4     5       6       7       8
+function showTitlePic() {
+	if (titlePic[8] != 0  &&  titlePic[8] != "0"){
+		$("titleFocus").style.visibility = 'visible';
+		$("titleFocus").style.left = titlePic[0]+"px";
+		$("titleFocus").style.top = titlePic[1]+"px";
+		$("titleFocus").style.width = titlePic[2]+"px";
+		$("titleFocus").style.height = titlePic[3]+"px";
+		if (titlePic[8] == 1  ||  titlePic[8] == "1") {
+			// $("titleFocus").style.backgroundImage = "url(images/J"+titlePic[6]+".png)";
+			$("titleFocus").src = "images/J"+titlePic[6]+".png";
+		}
+		// else if (titlePic[8] == 2  ||   titlePic[8] == "2") {
+		// 	// $("titleFocus").style.backgroundImage = "url(images/J"+titlePic[6]+"0.png)";
+		// 	$("titleFocus").src = "images/J"+titlePic[6]+"0.png";
+		// }
+
+	} else {
+		$("titleFocus").style.visibility = 'hidden';
+	}
+}
+
+////left top wdith height 行数 列数 left间距 top间距 字体大小 一行显示多少个字 背景色 非焦点色 焦点色 方向 是否显示
+//   0    1    2     3      4   5   6      7     8         9          10     11    12    13   14
+//var list = ["110","280","500","500","6","2","50","50","24","15","","ffffff","ffffff","1","1"];
+function showLists() {
+	var sum = Number(list[4])*Number(list[5]);
+	//显示list
+	if (list[14] != "0" &&  list[14] != 0){
+		$("list").style.visibility = 'visible';
+		$("list").style.left = list[0]+"px";
+		$("list").style.top = list[1]+"px";
+		$("list").style.width = list[2]+"px";
+		$("list").style.height = list[3]+"px";
+		if (list[10] != ""){
+			$("list").style.backgroundColor = "#"+list[10];
+		} else {
+			$("list").style.backgroundColor = "transparent";
+		}
+		$("list").style.fontSize = list[8]+"px";
+		$("list").style.color = "#"+list[11];
+		for (var i = 0 ; i < sum; i++){
+			$("list"+i).style.left = Number(list[0])+i%Number(list[4])*Number(list[6])+Math.floor(i/Number(list[4]))*Number(listGap[0])+"px";
+			$("list"+i).style.top = Number(list[1])+Math.floor(i/Number(list[4]))*Number(list[7])+i%Number(list[4])*Number(listGap[1])+"px";
+		}
+	} else {
+		$("list").style.visibility = 'hidden';
+	}
+	//显示listImg
+	if (listImg[6] != "0" &&  listImg[6] != 0){
+		for (var i = 0 ; i < sum; i++){
+			$("listImg"+i).style.visibility = 'visible';
+			$("listImg"+i).style.width = listImg[2]+"px";
+			$("listImg"+i).style.height = listImg[3]+"px";
+			$("listImg"+i).style.left = Number(listImg[0])+i%Number(list[4])*Number(listImg[4])+Math.floor(i/Number(list[4]))*Number(listGap[0])+"px";
+			$("listImg"+i).style.top = Number(listImg[1])+Math.floor(i/Number(list[4]))*Number(listImg[5])+i%Number(list[4])*Number(listGap[1])+"px";
+		}
+	}else {
+		for (var i = 0 ; i < sum; i++) {
+			$("listImg" + i).style.visibility = 'hidden';
+		}
+	}
+	//显示listName
+	if (listName[6] != "0" &&  listName[6] != 0){
+		for (var i = 0 ; i < sum; i++){
+			$("listName"+i).style.visibility = 'visible';
+			$("listName"+i).style.textAlign = listName[7];
+			$("listName"+i).style.width = listName[2]+"px";
+			$("listName"+i).style.height = listName[3]+"px";
+			$("listName"+i).style.lineHeight = listName[3]+"px";
+			$("listName"+i).style.left = Number(listName[0])+i%Number(list[4])*Number(listName[4])+Math.floor(i/Number(list[4]))*Number(listGap[0])+"px";
+			$("listName"+i).style.top = Number(listName[1])+Math.floor(i/Number(list[4]))*Number(listName[5])+i%Number(list[4])*Number(listGap[1])+"px";
+		}
+	}else {
+		for (var i = 0 ; i < sum; i++) {
+			$("listName" + i).style.visibility = 'hidden';
+		}
+	}
+}
+
+////left top wdith height 字体大小 文字行高    字体颜色   居中显示
+//   0    1    2     3      4      5           6       7
+//var title = ["110","280","500","500","6","2","50","50","24","15","","ffffff","ffffff","1","1","0","0"];
+function showPage() {
+	if (page[8] != "0" &&  page[8] != 0){
+			$("page").style.visibility = 'visible';
+			$("page").style.left = page[0]+"px";
+			$("page").style.top = page[1]+"px";
+			$("page").style.width = page[2]+"px";
+			$("page").style.height = page[3]+"px";
+			$("page").style.fontSize = page[4]+"px";
+			$("page").style.lineHeight = page[5]+"px";
+			$("page").style.color = "#"+page[6];
+			$("page").style.textAlign = page[7];
+
+	}
+}
+////left top wdith height 行数 列数 left间距 top间距 字体大小 一行显示多少个字 背景色 非焦点色 焦点色 方向 是否显示
+//   0    1    2     3      4   5   6      7     8         9          10     11    12    13   14
+//var title = ["110","280","500","500","6","2","50","50","24","15","","ffffff","ffffff","1","1","0","0"];
+function showTitle() {
+	var sum = Number(title[4])*Number(title[5]);
+	//显示title
+	if (title[14] != "0" &&  title[14] != 0){
+		$("title").style.visibility = 'visible';
+		$("title").style.left = list[0]+"px";
+		$("title").style.top = list[1]+"px";
+		$("title").style.width = list[2]+"px";
+		$("title").style.height = list[3]+"px";
+		if (title[10] != ""){
+			$("title").style.backgroundColor = "#"+list[10];
+		} else {
+			$("title").style.backgroundColor = "transparent";
+		}
+		$("title").style.fontSize = list[8]+"px";
+		$("title").style.color = "#"+list[11];
+		for (var i = 0 ; i < sum; i++){
+			$("title"+i).style.left = Number(title[0])+i%Number(title[4])*Number(title[6])+Math.floor(i/Number(title[4]))*Number(titleGap[0])+"px";
+			$("title"+i).style.top = Number(title[1])+Math.floor(i/Number(title[4]))*Number(title[7])+i%Number(title[4])*Number(titleGap[1])+"px";
+		}
+	} else {
+		$("title").style.visibility = 'hidden';
+	}
+	//显示titleImg
+	if (titleImg[6] != "0" &&  titleImg[6] != 0){
+		for (var i = 0 ; i < sum; i++){
+			$("titleImg"+i).style.visibility = 'visible';
+			$("titleImg"+i).style.width = titleImg[2]+"px";
+			$("titleImg"+i).style.height = titleImg[3]+"px";
+			$("titleImg"+i).style.left = Number(titleImg[0])+i%Number(list[4])*Number(titleImg[4])+Math.floor(i/Number(title[4]))*Number(titleGap[0])+"px";
+			$("titleImg"+i).style.top = Number(titleImg[1])+Math.floor(i/Number(list[4]))*Number(titleImg[5])+i%Number(title[4])*Number(titleGap[1])+"px";
+		}
+	}else {
+		for (var i = 0 ; i < sum; i++) {
+			$("titleImg" + i).style.visibility = 'hidden';
+		}
+	}
+	//显示titleName
+	if (titleName[6] != "0" && titleName[6] != 0){
+		$("title").style.textAlign = titleName[7];
+		for (var i = 0 ; i < sum; i++) {
+			$("titleName" + i).style.visibility = 'visible';
+			$("titleName"+i).style.textAlign = listName[7];
+			$("titleName" + i).style.width = titleName[2] + "px";
+			$("titleName" + i).style.height = titleName[3] + "px";
+			$("titleName" + i).style.lineHeight = titleName[3] + "px";
+			$("titleName" + i).style.left = Number(titleName[0]) + i % Number(list[4]) * Number(titleName[4])+Math.floor(i/Number(title[4]))*Number(titleGap[0]) + "px";
+			$("titleName" + i).style.top = Number(titleName[1]) + Math.floor(i / Number(list[4])) * Number(titleName[5])+i%Number(title[4])*Number(titleGap[1]) + "px";
+		}
+	}else {
+		for (var i = 0 ; i < sum; i++) {
+			$("titleName" + i).style.visibility = 'hidden';
+		}
+	}
+}
+
+function addTag(array,addTagFlag) {
+	if (Number(addTagFlag) == 0){return;}
+	localIp = getLocalIp(url);
+	for (var i = 0; i<array.length; i++){
+		array[i].tag = "";
+		if (typeof array[i].posters["5"] != 'undefined'){   //广告
+			array[i].tag = "ads";
+			array[i].linkto = localIp+'/html/special/shang/2020/1125/JVaryPicList.html';
+		}else if (typeof array[i].posters["99"] != 'undefined'){   //url
+			array[i].tag = "url";
+			var namePos = array[i].name.indexOf("&url=");
+			array[i].name = array[i].name.substring(0, namePos);
+			array[i].linkto = array[i].name.substring(namePos + 5);
+		}else{   //海报
+			array[i].tag = "video";
+		}
+	}
+}
+
+//////去掉图片的重复ip/////
+function delPostersIP(arry) {
+	if (url.indexOf(":",10) == -1) {return arry;}
+	localIp = getLocalIp(url);
+	for (var i = 0 ;i<11;i++){
+		var k = String(i);
+		if (typeof arry[k] != "undefined"){
+			for (var j = 0 ;j<arry[k].length;j++){
+				if (arry[k][j][23] === ":"){
+					arry[k][j] = arry[k][j].replace(localIp,"");
+				}
+			}
+		}
+	}
+	if (typeof arry['99'] != "undefined"){
+		for (var j = 0 ;j<arry['99'].length;j++){
+			if (arry['99'][j][23] === ":"){
+				arry['99'][j] = arry['99'][j].replace(localIp = getLocalIp(url),"");
+			}
+		}
+	}
+	return arry;
+}
+
+function getLocalIp(url) {
+	localIp = url.substring(0,url.indexOf('http',10));
+	return localIp;
+}
+
+
+function cyclicPic(array,picPos,time) {
+	setInterval(function(){
+		var length = array.length;
+		if (picPos < length-1){
+			picPos ++ ;
+		} else {
+			picPos = 0 ;
+		}
+		$("cyclicPic").src = array[picPos];
+	},time);
+}
+
+//////////////记录点击率///////////////////
+function enterRecord(id,flag){
+	if (Number(flag) == 0){return;}
+	var currentTime = new Date().getTime();
+	currentTime = new Date(currentTime+45000).Format("yyyy-MM-dd hh:mm:ss");
+	var content = encodeURIComponent(currentTime);
+	var url="http://192.168.18.249:8080/voteNew/external/clickCount.ipanel?icid="+iPanel.cardId+"&classifyID="+id+"&content="+content;
+	ajax(url, function(rst){
+			if( rst != "" && rst != 'undefined'&& rst.result ) {
+				//tooltip( decodeURIComponent('统计成功') );  //统计成功
+				return;
+			}else if( rst != "" && rst != 'undefined'&& rst.result ){
+				tooltip( decodeURIComponent('统计失败') );  //统计失败
+			}
+		},
+		{
+			fail:function( meg )
+			{
+				tooltip( decodeURIComponent("fail") );
+				return;
+			}
+		}
+	);
+}
+//////////////////投票//////////////////////
+function vote(isVote,voteId,allCount,singleCount,content,phoneNum){
+	if (Number(isVote) == 0){return;}
+	var blocked = cursor.blocked;
+	var focus = cursor.focusable[blocked].focus;
+	var items = cursor.focusable[blocked].items;
+	var currentTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
+	content = "内容："+content+"提交时间："+currentTime;
+	voteMsg = {
+		// icid:iPanel.cardId,
+		icid:iPanel.serialNumber,
+		phone: phoneNum,
+		total:"false",  //是否返回最新票数总数（可选）
+		classifyID:cursor.voteId,  //投票id
+		content:encodeURIComponent(content),     //投票内容，中文请通过encodeURIComponent编码（可选）
+		voteCount:allCount,     //总投票数
+		compare:"ture",   //比较值（可选，用于实现如指定用户可投票功能）
+		contentNum:singleCount,      //对同一内容投票数
+		msgContent:""    //(可选，当存在这个值则向当前phone推送一条短信，中文请通过encodeURIComponent编码)
+	};
+	var url="http://192.168.18.249:8080/voteNew/external/addVote6.ipanel?icid="+voteMsg.icid+"&phone="+voteMsg.phone+"&classifyID="+voteMsg.classifyID+"&content="+voteMsg.content+"&voteCount="+voteMsg.voteCount+"&contentNum="+voteMsg.contentNum;
+	ajax(url, function(result){
+			if( result.recode != "002" || result.result == false ) {
+				//tooltip( decodeURIComponent('投票失败') );  //统计失败
+				// cursor.call('showTip', 2);
+				var currentTime2 = new Date().getTime();
+				if (currentTime2 > endTime){
+					cursor.call('showTip', 22);  //投票失败
+				} else {
+					cursor.call('showTip', 2);  //投票失败,明日再投
+				}
+				return;
+			}else{
+				// tooltip( decodeURIComponent('投票成功') );  //统计成功{"result":true,"recode":"002"}
+				var currentTime2 = new Date().getTime();
+				if (currentTime2 > endTime){
+					cursor.call('showTip', 11);  //投票成功
+				} else {
+					cursor.call('showTip', 1);  //投票成功,明日再投
+				}
+			}
+		},
+		{
+			fail:function( meg )
+			{
+				tooltip( decodeURIComponent("fail") );
+				return;
+			}
+		}
+	);
+}
+function getVoteResult(voteId,array){
+	var url="http://192.168.18.249:8989/VoteStatistics/getVoteInfo?classifyID="+voteId;
+	ajax(url, function(rst){
+			if( rst != "" && rst != 'undefined') {
+				//tooltip( decodeURIComponent('获取投票结果成功') );  //成功
+				for (var i = 0;i < array.length ;i++) {
+					for (var j = 0;j < rst.length ;j++){
+						// rst[j].name = decodeURIComponent(rst[j].name);
+						if(array[i].name == rst[j].name){
+							array[i].voteResult = rst[j].num;
+							break;
+						}
+					}
+				}
+				// cursor.focusable[0].items.sort(compare("voteResult",1));
+				sortByKey(array,"voteResult",1);  //1:S由大到小  降序返回
+				return true;
+			}else{
+				// tooltip( decodeURIComponent('获取投票结果失败') );  //失败
+				return false;
+			}
+		},
+		{
+			fail:function( meg )
+			{
+				// tooltip( decodeURIComponent("fail") );
+				return false;
+			}
+		}
+	);
+}
+function isFirstVote(voteId){
+	var url="http://192.168.18.249:8989/VoteStatistics/getVoteInfo?classifyID="+voteId;
+	ajax(url, function(rst){
+			if( rst != "" && rst != 'undefined') {
+				//tooltip( decodeURIComponent('获取投票结果成功') );  //成功
+				for (var j = 0;j < rst.length ;j++){
+					// rst[j].name = decodeURIComponent(rst[j].name);
+					if(iPanel.serialNumber == rst[j].name){
+						isFirstVote = false;
+						break;
+					}
+				}
+				return true;
+			}else{
+				// tooltip( decodeURIComponent('获取投票结果失败') );  //失败或者
+				return false;
+			}
+		},
+		{
+			fail:function( meg )
+			{
+				// tooltip( decodeURIComponent("fail") );
+				return false;
+			}
+		}
+	);
+}
+//tipId  0: 投票未开始  1：投票成功  2：投票失败（超过次数）  3：投票结束  4:请输入电话号
+function showTip(tipId,picName){
+	tipFlag = tipId;
+	$("tipBg").src = 'images/'+ picName + String(tipId) + '.png")';
+	$("tipBg").style.visibility = 'visible';
+	if ( tipFlag == 4 ){      //输入电话号时，按钮的样式
+		var tmp = $("phone").innerText;
+		$("tipFocus").style.visibility = 'visible';
+		$("tipBg").style.visibility = 'visible';
+		$("tipTitle").innerText = "请输入您的电话号码!";
+		$("phone").style.visibility = 'visible';
+		if (tmp.indexOf("|") < 0) {
+			if(tipFlagFocus == 0){
+				// if (tmp == " "){
+				tmp = "";
+				// }
+				tmp = tmp+"|";
+				$("phone").innerText = tmp;
+			}
+		}else {
+			if(tipFlagFocus != 0){
+				tmp = tmp.substring(0,tmp.length-1);
+				$("phone").innerText = tmp;
+			}
+		}
+		if (tipFocus == 1){
+			isPhoneError = checkInput("phone","tip");
+			if(!isPhoneError){
+				showTipText("请点击按钮提交!","tip");
+			}
+		}
+		$("tipFlagFocus").style.backgroundImage = 'url("images/tipFocus' + String(tipFlagFocus) + '.png")';
+	}
+	// if( cursor.moveTimer ) clearTimeout(cursor.moveTimer);
+	// cursor.moveTimer = setTimeout(function(){
+	//     clearTimeout(cursor.moveTimer);
+	//     cursor.moveTimer = undefined;
+	//     if(tipFlag >= 0 && tipFlag < 4){
+	//         cursor.call('loseTip');
+	//     }
+	// }, 5000);
+	if (tipFlag == 2 || tipFlag == 22 || tipFlag == 1 || tipFlag == 11){
+		setTimeout(function(){cursor.call('goBackAct');},4000);
+	}
+}
+function loseTip(){
+	tipFlag = -1;
+	tipFocus = 0;
+	$("tip").style.visibility = 'hidden';
+	$("tipTitle").style.visibility = 'hidden';
+
+	$("phone").style.visibility = 'hidden';
+	$("phone").innerText = "";
+	$("tipFocus").style.visibility = 'hidden';
 }

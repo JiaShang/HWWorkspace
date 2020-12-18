@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #list,#title{
+            position: absolute;
+            background:transparent;
+        }
+        .listName,.titleName{
+            position: absolute;
+            background:transparent;
+            text-align: center;
+            visibility: hidden;
+            overflow:hidden;
+        }
+        .listImg,.titleImg {
+            position: absolute;
+            overflow:hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script language="javascript" type="text/javascript" src="../../../../js/common.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/showList.js"></script>
+    <script language="javascript" type="application/javascript" src="../../js/variable.js"></script>
+</head>
+<body leftmargin="0" topmargin="0" style="overflow:hidden; background:transparent url('../../images/defalutImg/translateBg.png') no-repeat;" onUnload="exit();">
+<div style="width: 2500px; height: 45px; left: 0px; top: -50px; position: absolute; z-index: 0; overflow: hidden; visibility: hidden; background-color: transparent; color: transparent;"><span id="calcPixels" style="visibility: visible;overflow: visible;word-break: keep-all;white-space: nowrap;color:transparent;background-color:transparent;font-size: 22px"></span><span id="calcOffsetLeft">&nbsp;</span></div>
+<div id="bg" class="container" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 720px;background: transparent no-repeat;overflow: hidden;"></div>
+<div id="focus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="titleFocus" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus0" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus1" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="focus2" style="position: absolute; overflow: hidden;background-repeat: no-repeat;"></div>
+<div id="scrollLower" style="position:absolute; z-index: 1;">
+    <div id="scrollUpper" style="position: absolute; height: 70px;z-index: 2;"></div>
+</div>
+
+</div><div id="enlargedPic" style="position: absolute;left: 0px; top: 0px;width: 1280px;height: 720px;visibility: hidden;overflow: hidden; background: transparent no-repeat; z-index: 2;"></div>
+<div id="title" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="title0" class="title" style="left: 10px; top: 5px;">
+        <img id="titleImg0" class="titletImg"/>
+        <div id="titleName0" class="titleName"></div>
+    </div>
+    <div id="title1" class="title" style="left: 390px; top: 5px;">
+        <img id="titleImg1" class="titleImg"/>
+        <div id="titleName1" class="titleName"></div>
+    </div>
+    <div id="title2" class="title" style="left: 770px; top: 5px;">
+        <img id="titleImg2" class="titleImg"/>
+        <div id="titleName2" class="titleName"></div>
+    </div>
+    <div id="title3" class="title" style="left: 10px; top: 280px;">
+        <img id="titleImg3" class="titleImg"/>
+        <div id="titleName3" class="titleName"></div>
+    </div>
+    <div id="title4" class="title" style="left: 390px; top: 280px;">
+        <img id="titleImg4" class="titleImg"/>
+        <div id="titleName4" class="titleName"></div>
+    </div>
+    <div id="title5" class="title" style="left: 770px; top: 280px;">
+        <img id="titleImg5" class="titleImg"/>
+        <div id="titleName5" class="titleName"></div>
+    </div>
+</div>
+<div id="list" style="position: absolute;width: 1100px;height: 600px;left: 50px;top: 145px;">
+    <div id="list0" class="list" style="left: 10px; top: 5px;">
+        <img id="listImg0" class="listImg"/>
+        <div id="listName0" class="listName"></div>
+    </div>
+    <div id="list1" class="list" style="left: 390px; top: 5px;">
+        <img id="listImg1" class="listImg"/>
+        <div id="listName1" class="listName"></div>
+    </div>
+    <div id="list2" class="list" style="left: 770px; top: 5px;">
+        <img id="listImg2" class="listImg"/>
+        <div id="listName2" class="listName"></div>
+    </div>
+    <div id="list3" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg3" class="listImg"/>
+        <div id="listName3" class="listName"></div>
+    </div>
+    <div id="list4" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg4" class="listImg"/>
+        <div id="listName4" class="listName"></div>
+    </div>
+    <div id="list5" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg5" class="listImg"/>
+        <div id="listName5" class="listName"></div>
+    </div>
+    <div id="list6" class="list" style="left: 10px; top: 280px;">
+        <img id="listImg6" class="listImg"/>
+        <div id="listName6" class="listName"></div>
+    </div>
+    <div id="list7" class="list" style="left: 390px; top: 280px;">
+        <img id="listImg7" class="listImg"/>
+        <div id="listName7" class="listName"></div>
+    </div>
+    <div id="list8" class="list" style="left: 770px; top: 280px;">
+        <img id="listImg8" class="listImg"/>
+        <div id="listName8" class="listName"></div>
+    </div>
+</div>
+</body>
+
+<script language="javascript" type="text/javascript">
+
+
+    picPrefix = ["20201124",0];
+    var focusPics = [["images/0.png","images/1.png"],["images/0.png","images/1.png"],
+        ["images/0.png","images/1.png"],["images/0.png","images/1.png"],
+        ["images/0.png","images/1.png"],["images/0.png","images/1.png"]];
+    list = ["10","50","500","500",2,3,0,225,"24","15","","ffffff","ffffff","1","1"];
+    var ListCount = Number(list[4])*Number(list[5]);
+    listImg = [85,37,346,115,345,127,1];
+    listName = ["110","280","500","500",100,100,"0"];
+    titleImg = ["110","280","500","500",100,100,"0"];
+    titleName = ["110","280","500","500",100,100,"0"];
+
+    (function(win){
+        win.moviePos = {width:640,height:360,left:567,top:218};
+        var initialize = {
+            init        :   function(){
+                //取参数 typeId
+                var typeId = query("typeId");
+                //提示：当前typeId参数为空
+                // var typeId = "";
+                if( typeId.isEmpty() ) typeId = '10000100000000090000000000119965';
+                var that = this;
+                var url =  ( isComputer ? 'http://125.62.26.99' : origin ) + '/media/detail?id=' + typeId + '&act=0&fn=199';
+                var focused = win.link.query('currFoucs');
+                focused = focused != '' ? focused.split(',') : [];
+                ajax(url,
+                    function(rst) {
+                        rst = rst['data'];
+                        if (typeof rst['column']['posters'] != 'undefined') {
+                            imgData = rst['column']['posters'];
+                        }
+                        var list = rst['list'];
+                        cursor.blocked = focused.length > 0 ? Number(focused[0]) : 0;
+                        cursor.lastBlocked = cursor.blocked;
+                        cursor.playBlocked = cursor.blocked;
+                        cursor.playIndex = 0;
+                        cursor.focusable[0] = {};
+                        cursor.focusable[0].typeId = rst['column'].id;
+                        cursor.focusable[0].focus = focused.length > 1 ? Number(focused[1]) : 0;
+                        cursor.focusable[0].items = list;  //无子栏目时：list[i]  有子栏目时：list[i].data
+                        for (var i = 0; i < cursor.focusable[0].items.length; i++) {
+                            if (typeof cursor.focusable[0].items[i].posters == 'undefined') {
+                                cursor.focusable[0].items[i].posters = [];
+                            }
+                            // initPosters(cursor.focusable[0].items[i].posters, "3", 2, defaultImg);
+                        }
+                        cut(cursor.focusable[0].items, startStr, endStr, cutFlag);
+                        if (typeof imgData['7'] != 'undefined'){
+                            bgImg = imgData['7'][0];
+                        }
+                        if (picPrefix[1] == 1){
+                            bgImg = "images/J"+picPrefix+"Bg.png";
+                        }
+                        $("bg").style.backgroundImage = "url("+bgImg+")";
+                        for (var i = 0; i < cursor.focusable[0].items.length; i++) {
+                            var items = cursor.focusable[0].items;
+                            $("listImg" + String(i)).src = items[i].posters['3'][0];
+                            //$("listImg" + String(i)).src = focusPics[i][0];   //测试
+
+                        }
+                        $("listImg" + String(cursor.focusable[0].focus)).src = cursor.focusable[0].items[cursor.focusable[0].focus].posters['3'][1];
+                        // $("listImg" + String(cursor.focusable[0].focus)).src = focusPics[i][1];  //测试
+                        // getParams();
+                        showLists();
+                        setTimeout(function(){ cursor.call('initList');cursor.call('show');},150);
+                    },
+                    {
+                        fail:function( meg )
+                        {
+                            tooltip( decodeURIComponent('%E5%BD%93%E5%89%8DtypeId%E5%8F%82%E6%95%B0%E4%B8%BA%E7%A9%BA') );
+                            return;
+                        }
+                    }
+                );
+
+            },
+        move : function(index){
+        //上 11，下 -11，左 -1，右 1
+                cursor.call('loseFocus');
+            if( listBox.focusPos%2 == 0 && index === 1 && listBox.position < listBox.dataSize-1) {
+                listBox.changeList(1);
+            } else if( listBox.focusPos%2 == 1 && index == -1) {
+                listBox.changeList(-1);
+            }else if(listBox.focusPos < 4 && index == -11 && listBox.position < listBox.dataSize-1){
+                listBox.changeList(2);
+            }else if(listBox.position > 1 && index == 11){
+                listBox.changeList(-2);
+            }
+            cursor.focusable[0].focus = listBox.position;
+            cursor.call('show');
+        },
+        show : function(){
+            var focus = cursor.focusable[0].focus;
+            var items = cursor.focusable[0].items;
+            $("listImg"+String(listBox.focusPos)).src = items[focus].posters['3'][1];
+            // $("listImg"+String(listBox.focusPos)).src = focusPics[listBox.focusPos][1];  //测试
+        },
+        loseFocus : function(){
+            var focus = cursor.focusable[0].focus;
+            var items = cursor.focusable[0].items;
+            $("listImg"+String(listBox.focusPos)).src = items[focus].posters['3'][0];
+            // $("listImg"+String(listBox.focusPos)).src = focusPics[listBox.focusPos][0]; //测试
+        },
+        initList : function () {
+            var items = cursor.focusable[0].items;
+            listBox = new showList(ListCount,items.length,0,127,window);
+            // listBox = new showList(ListCount,focusPics.length,0,127,window);
+            listBox.showType =0 ;
+            listBox.haveData = function(List){
+                // $("listImg"+String(List.idPos)).src = focusPics[List.dataPos][0];
+                $("listImg"+String(List.idPos)).src = items[List.dataPos].posters['3'][0];
+            }
+            listBox.notData = function(List){
+                $("listImg"+List.idPos).src = "../../images/defalutImg/global_tm.gif";
+            };
+            listBox.startShow();
+            // initScroll(listBox.dataSize,6,listBox.listPage)
+
+        }
+        };
+        var lazied = function(){
+            if( typeof win.cursor == 'undefined') { setTimeout(function () { lazied(); }, 100 ); return; }
+            cursor.initialize(initialize);
+        };
+        lazied();
+    })(window);
+</script>
+</html>

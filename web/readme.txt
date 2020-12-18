@@ -2,7 +2,13 @@ sudo lsof -nP -iTCP:5037 -sTCP:LISTEN
 爱看策划 10000100000000090000000000103261
 
 
-"(/EPG/jsp|http://125.62.26.152|http://192.168.89.23)[\s\S]*?2020-10-.*?"
+使用以下命令打开共享：
+sudo  /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -clientopts -setvnclegacy -vnclegacy yes -clientopts -setvncpw -vncpw "Have Something." -restart -agent -privs -all
+
+使用以下命令关闭共享：
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -configure -access -off
+
+"(/EPG/jsp|http://125.62.26.152|http://192.168.89.23)[\s\S]*?2020-11-.*?"
 
 
 //这条命令相当于按了设备的Backkey键
@@ -159,7 +165,7 @@ iPanelGatewayHelper.launchApk("要启动应用的包名","要启动应用的类�
 
 ./adb logcat -s webapp | grep --color=auto -i "COMMONJS"
 
-//设置
+//设置P60调试服务器IP
 setprop persist.sys.epg.address "http://192.168.14.102:8082"
 
 
